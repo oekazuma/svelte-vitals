@@ -1,0 +1,1007 @@
+[
+  {
+    "key": "Ibenhoe/quickmail2::a11y/disallowed-aria-props::src/lib/components/MailboxView.svelte:764::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/MailboxView.svelte:764 (<div class=filter-chips aria-label={t(…)}>): literal <div> with aria-label and no role, spread or use: action (not a dnd-zone child); a div is generic, which prohibits a name"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::a11y/disallowed-aria-props::src/lib/components/PartnerLink.svelte:19::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/PartnerLink.svelte:19 (<div class=partner aria-label={caption}>): literal <div> with aria-label and no role, spread or use: action (not a dnd-zone child); a div is generic, which prohibits a name"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::a11y/id-duplication::src/themes/zero/icons/Icon.svelte:1484::Duplicate id \"Union\"",
+    "verdict": "tp",
+    "basis": "read themes/zero/icons/Icon.svelte: path#Union is hardcoded in the ChevronDown arm (:1098) and the Check arm (:1485); Mailbox.svelte:246 renders <Icon name=ChevronDown> unconditionally in the views button and :252-260 a <Icon name=Check> in the user-opened views menu, so with the menu open two #Union elements are in the DOM on the 7 mailbox routes (21 = 3 Check copies x 7 routes in the local run; the three Check copies are exclusive on chip but each co-renders with the ChevronDown)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::a11y/interactive-nesting::src/themes/zero/mail/Mailbox.svelte:353::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read themes/zero/mail/Mailbox.svelte:339-353 (star button): native <button> inside the <div role=button tabindex=0> row (children-presentational role); it sits in a <Tooltip> whose Tooltip.svelte renders children inline in a <span class=tip-wrap> (only the bubble is portaled), so it is a real descendant, as reported"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::a11y/interactive-nesting::src/themes/zero/mail/Mailbox.svelte:365::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read themes/zero/mail/Mailbox.svelte:339-365 (archive button): native <button> inside the <div role=button tabindex=0> row (children-presentational role); it sits in a <Tooltip> whose Tooltip.svelte renders children inline in a <span class=tip-wrap> (only the bubble is portaled), so it is a real descendant, as reported"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::a11y/interactive-nesting::src/themes/zero/mail/Mailbox.svelte:380::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read themes/zero/mail/Mailbox.svelte:339-380 (delete/restore button): native <button> inside the <div role=button tabindex=0> row (children-presentational role); it sits in a <Tooltip> whose Tooltip.svelte renders children inline in a <span class=tip-wrap> (only the bubble is portaled), so it is a real descendant, as reported"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::a11y/interactive-nesting::src/themes/zero/mail/ThreadPane.svelte:660::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read themes/zero/mail/ThreadPane.svelte:643-660: the details <button class=z-details> is a literal descendant of the message header <div role=button tabindex=0>; nested interactive as reported"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::a11y/interactive-nesting::src/themes/zero/mail/ThreadPane.svelte:688::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read themes/zero/mail/ThreadPane.svelte:643-688 (message-actions button): native <button> inside the <div role=button tabindex=0> row (children-presentational role); it sits in a <Tooltip> whose Tooltip.svelte renders children inline in a <span class=tip-wrap> (only the bubble is portaled), so it is a real descendant, as reported"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::a11y/interactive-nesting::src/themes/zero/mail/ThreadPane.svelte:703::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read themes/zero/mail/ThreadPane.svelte:643-703: the Reply <button> in the {#if menuFor === message.id} role=menu popover is a literal descendant of the header <div role=button> (no portal); nested interactive as reported"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::a11y/interactive-nesting::src/themes/zero/mail/ThreadPane.svelte:707::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read themes/zero/mail/ThreadPane.svelte:643-707: the Forward <button> in the {#if menuFor === message.id} role=menu popover is a literal descendant of the header <div role=button> (no portal); nested interactive as reported"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::a11y/no-autofocus::src/lib/components/SettingsPage.svelte:1076::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; SettingsPage.svelte:1076 API-key name <input autofocus> sits in {#if creating} (:1037), creating = $state(false) (:194) set by the create-key action (:252), inside a <div role=dialog aria-modal> overlay (not a native <dialog>); focus moves on a user action, not page load (docs carve out only <dialog>/popover)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/AiProviderSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AiProviderSettings.svelte has 481 physical lines (split on \\n, trailing newline not counted; 436 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/AttachmentList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AttachmentList.svelte has 227 physical lines (split on \\n, trailing newline not counted; 206 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/DesktopNotifications.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DesktopNotifications.svelte has 272 physical lines (split on \\n, trailing newline not counted; 250 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/DomainSwitcher.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DomainSwitcher.svelte has 227 physical lines (split on \\n, trailing newline not counted; 203 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/EmailBody.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EmailBody.svelte has 333 physical lines (split on \\n, trailing newline not counted; 293 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/LabelsSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/LabelsSettings.svelte has 462 physical lines (split on \\n, trailing newline not counted; 408 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/LocaleSwitcher.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/LocaleSwitcher.svelte has 202 physical lines (split on \\n, trailing newline not counted; 182 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/MailboxView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MailboxView.svelte has 1691 physical lines (split on \\n, trailing newline not counted; 1524 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/MobileChrome.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MobileChrome.svelte has 545 physical lines (split on \\n, trailing newline not counted; 495 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/PullToRefresh.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PullToRefresh.svelte has 208 physical lines (split on \\n, trailing newline not counted; 187 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/RichTextEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RichTextEditor.svelte has 236 physical lines (split on \\n, trailing newline not counted; 205 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/SettingsPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SettingsPage.svelte has 1879 physical lines (split on \\n, trailing newline not counted; 1664 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Sidebar.svelte has 365 physical lines (split on \\n, trailing newline not counted; 325 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/SwipeRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SwipeRow.svelte has 208 physical lines (split on \\n, trailing newline not counted; 182 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/ThreadMessage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ThreadMessage.svelte has 417 physical lines (split on \\n, trailing newline not counted; 367 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/Tooltip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Tooltip.svelte has 270 physical lines (split on \\n, trailing newline not counted; 245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/lib/components/Topbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Topbar.svelte has 534 physical lines (split on \\n, trailing newline not counted; 468 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 811 physical lines (split on \\n, trailing newline not counted; 716 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/routes/compose/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/compose/+page.svelte has 475 physical lines (split on \\n, trailing newline not counted; 423 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/routes/mail/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/mail/[id]/+page.svelte has 978 physical lines (split on \\n, trailing newline not counted; 876 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/routes/oauth/authorize/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/oauth/authorize/+page.svelte has 519 physical lines (split on \\n, trailing newline not counted; 457 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/routes/onboarding/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding/+page.svelte has 256 physical lines (split on \\n, trailing newline not counted; 227 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/routes/setup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/setup/+page.svelte has 296 physical lines (split on \\n, trailing newline not counted; 264 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/themes/zero/AccountHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/themes/zero/AccountHeader.svelte has 322 physical lines (split on \\n, trailing newline not counted; 305 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/themes/zero/Shell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/themes/zero/Shell.svelte has 406 physical lines (split on \\n, trailing newline not counted; 369 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/themes/zero/icons/Icon.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/themes/zero/icons/Icon.svelte has 1671 physical lines (split on \\n, trailing newline not counted; 1666 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/themes/zero/mail/Mailbox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/themes/zero/mail/Mailbox.svelte has 442 physical lines (split on \\n, trailing newline not counted; 415 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/themes/zero/mail/ThreadPane.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/themes/zero/mail/ThreadPane.svelte has 849 physical lines (split on \\n, trailing newline not counted; 812 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/component-size::src/themes/zero/overlays/ComposeDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/themes/zero/overlays/ComposeDialog.svelte has 247 physical lines (split on \\n, trailing newline not counted; 233 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/prop-count::src/lib/components/MobileChrome.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MobileChrome.svelte has a single destructured $props() with 8 named props (> 6): counts, labels, domains, activeDomainId, isAdmin, accounts, onLogout, onLogoutAll"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/prop-count::src/lib/components/Tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Tooltip.svelte has a single destructured $props() with 7 named props (> 6): text, shortcut, side, enabled, stretch, grow, children"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/prop-count::src/lib/components/WizardShell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/WizardShell.svelte has a single destructured $props() with 8 named props (> 6): title, subtitle, steps, current, partner, partnerCaption, partnerKind, children"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::architecture/prop-count::src/themes/zero/overlays/ComposerActions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/themes/zero/overlays/ComposerActions.svelte has a single destructured $props() with 8 named props (> 6): sending, disabled, attachments, includeOriginalAttachments, error, allowNewAttachments, originalAttachmentCount, extra"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-derived::src/lib/components/EmailBody.svelte:71::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/lib/components/EmailBody.svelte:71 $effect(() => { mounted = true; }) gates the iframe ({#if mounted && srcdoc}, :253); the mount-flag idiom the docs list as a known limitation"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-derived::src/lib/components/SettingsPage.svelte:128::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/lib/components/SettingsPage.svelte:128 the effect only does theme = readThemePreference(), which reads localStorage (src/lib/theme.ts:16-18); a $derived would evaluate it during SSR, the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-derived::src/lib/components/Topbar.svelte:66::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Topbar.svelte:66 the effect only does query = $page.url.searchParams.get('q') ?? ''; later writes are bind:value={query} (:95) and query = '' (:85), the writable-$derived override pattern (svelte ^5.55.2)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-derived::src/themes/zero/AccountHeader.svelte:48::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/themes/zero/AccountHeader.svelte:48 the effect only does darkMode = document.documentElement.dataset.theme === 'dark'; a $derived would evaluate it during SSR, the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-derived::src/themes/zero/Shell.svelte:31::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/themes/zero/Shell.svelte:31 the effect only does collapsed = localStorage.getItem('quickinbox:zero-sidebar') === '1'; a $derived would evaluate it during SSR, the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-derived::src/themes/zero/mail/Mailbox.svelte:45::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/themes/zero/mail/Mailbox.svelte:45 the effect only does isMac = /Mac|iPhone|iPad/.test(navigator.platform); a $derived would evaluate it during SSR, the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-derived::src/themes/zero/mail/Mailbox.svelte:57::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/themes/zero/mail/Mailbox.svelte:57 the effect only does dark = document.documentElement.dataset.theme === 'dark'; a $derived would evaluate it during SSR, the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-derived::src/themes/zero/mail/ThreadPane.svelte:78::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/themes/zero/mail/ThreadPane.svelte:78 the effect only does dark = document.documentElement.dataset.theme === 'dark'; a $derived would evaluate it during SSR, the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-derived::src/themes/zero/overlays/ComposeDialog.svelte:42::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/themes/zero/overlays/ComposeDialog.svelte:42 the effect only does activeDraft = draftId (prop); later writes are whole reassignments (activeDraft = draft.id :66, = body.id ?? activeDraft :107), the writable-$derived override pattern (svelte ^5.55.2)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-derived::src/themes/zero/overlays/ComposerActions.svelte:33::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/themes/zero/overlays/ComposerActions.svelte:33 the effect only does isMac = /Mac|iPhone|iPad/.test(navigator.platform); a $derived would evaluate it during SSR, the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::correctness/effect-as-onmount::src/themes/zero/Shell.svelte:166::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/themes/zero/Shell.svelte:166 the effect only adds/removes window listeners for the local functions onToggleSidebar/onComposeEvent (passed, not called); nothing reactive is read, so it runs once like onMount, as claimed"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::performance/iframe-loading::src/lib/components/EmailBody.svelte:254::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; sandboxed srcdoc email body built only in the browser ({#if mounted && srcdoc}, :28-30, :253-264) and measured on load to size itself; it renders only inside an expanded/opened message (ThreadMessage {#if expanded} :91, ThreadPane {#if isOpen} :719) - no network document, the visible content when rendered"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::performance/image-loading-hint::src/routes/oauth/authorize/+page.svelte:63::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; the OAuth client's logo in the consent card's top tile pair, above the <h1> (oauth/authorize/+page.svelte:58-75) - above the fold"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::performance/preconnect::src/routes/+layout.svelte::Third-party origin fonts.googleapis.com used without a preconnect",
+    "verdict": "tp",
+    "basis": "read src/routes/+layout.svelte:85-94: the root <svelte:head> loads a fonts.googleapis.com stylesheet when data.uiTheme === 'classic' (a user-selectable theme), on every route under the root layout; no preconnect/dns-prefetch for fonts.googleapis.com or fonts.gstatic.com anywhere (src/app.html has none; grep of src) — claim holds"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::performance/responsive-image::src/routes/oauth/authorize/+page.svelte:63::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; request.client.logo_uri, the client's registered remote logo shown at 56px (:63) - remote raster, one fixed-size asset (ledger remote avatar/logo convention)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::performance/sequential-awaits::src/routes/+layout.server.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read +layout.server.ts:14-17: listLabels(db, user.id) uses nothing from the getMailboxCounts await (all three awaits sit on the same `ready ?` arm and run together, so the exclusive-ternary fp shape does not apply) — independent Cloudflare D1 queries (lib/server/labels.ts, mail-store.ts) serialized on every page load; Promise.all would work"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::performance/sequential-awaits::src/routes/+layout.server.ts:19::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read +layout.server.ts:14-19: hasAiProvider(db, user.id) uses nothing from the counts/labels awaits (same `ready ?` arm as both, so they co-run) — independent Cloudflare D1 queries (lib/server/draft-reply.ts:131) serialized on every page load; Promise.all would work"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::performance/sequential-awaits::src/routes/admin/+page.server.ts:39::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/+page.server.ts:31-42: listAvailableDomains(platform, locals.domains ids) calls the email provider's listDomains API (lib/server/context.ts:84-91) using nothing from the preceding D1 Promise.all — independent remote round trip serialized; could join it"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/account/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account/setup (src/routes/account/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/archive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /archive (src/routes/archive/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/compose/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /compose (src/routes/compose/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/drafts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /drafts (src/routes/drafts/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/inbox/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /inbox (src/routes/inbox/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (src/routes/login/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); publicly reachable (hooks.server.ts renders /login for guests), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/mail/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /mail/[id] (src/routes/mail/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/oauth/authorize/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /oauth/authorize (src/routes/oauth/authorize/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login and a literal noindex robots meta at oauth/authorize/+page.svelte:54), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/onboarding/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/sent/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /sent (src/routes/sent/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/settings/[section]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/[section] (src/routes/settings/[section]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup (src/routes/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (first-install only: hooks.server.ts:320-326 redirects /setup to /login once any user exists), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/spam/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /spam (src/routes/spam/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/starred/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /starred (src/routes/starred/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/canonical-url::src/routes/trash/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /trash (src/routes/trash/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); but not a search target (auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/account/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /account/setup (page src/routes/account/setup/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /admin (page src/routes/admin/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/archive/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /archive (page src/routes/archive/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/compose/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /compose (page src/routes/compose/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/drafts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /drafts (page src/routes/drafts/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/inbox/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /inbox (page src/routes/inbox/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /login (page src/routes/login/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/mail/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /mail/[id] (page src/routes/mail/[id]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/oauth/authorize/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /oauth/authorize (page src/routes/oauth/authorize/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/onboarding/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /onboarding (page src/routes/onboarding/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/sent/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /sent (page src/routes/sent/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /settings (page src/routes/settings/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/settings/[section]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /settings/[section] (page src/routes/settings/[section]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /setup (page src/routes/setup/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/spam/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /spam (page src/routes/spam/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/starred/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /starred (page src/routes/starred/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/description-presence::src/routes/trash/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /trash (page src/routes/trash/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/indexability::src/routes/oauth/authorize/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/oauth/authorize/+page.svelte:52-55 top-level svelte:head has literal unconditional <meta name=\"robots\" content=\"noindex\">; the OAuth consent page is noindex as claimed (intentional)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/account/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /account/setup renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /admin renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/archive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /archive renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/compose/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /compose renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/drafts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /drafts renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/inbox/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /inbox renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /login renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/mail/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /mail/[id] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/oauth/authorize/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /oauth/authorize renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/onboarding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /onboarding renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/sent/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /sent renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /settings renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/settings/[section]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /settings/[section] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /setup renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/spam/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /spam renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/starred/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /starred renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/json-ld::src/routes/trash/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /trash renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/account/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account/setup (src/routes/account/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/archive/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /archive (src/routes/archive/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/compose/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /compose (src/routes/compose/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/drafts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /drafts (src/routes/drafts/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/inbox/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inbox (src/routes/inbox/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (src/routes/login/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/mail/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /mail/[id] (src/routes/mail/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/oauth/authorize/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /oauth/authorize (src/routes/oauth/authorize/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login and a literal noindex robots meta at oauth/authorize/+page.svelte:54 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/sent/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sent (src/routes/sent/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/settings/[section]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/[section] (src/routes/settings/[section]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup (src/routes/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: first-install only: hooks.server.ts:320-326 redirects /setup to /login once any user exists (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/spam/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /spam (src/routes/spam/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/starred/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /starred (src/routes/starred/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-description::src/routes/trash/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /trash (src/routes/trash/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/account/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account/setup (src/routes/account/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/archive/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /archive (src/routes/archive/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/compose/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /compose (src/routes/compose/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/drafts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /drafts (src/routes/drafts/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/inbox/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /inbox (src/routes/inbox/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (src/routes/login/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/mail/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /mail/[id] (src/routes/mail/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/oauth/authorize/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /oauth/authorize (src/routes/oauth/authorize/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login and a literal noindex robots meta at oauth/authorize/+page.svelte:54 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/sent/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sent (src/routes/sent/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/settings/[section]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/[section] (src/routes/settings/[section]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup (src/routes/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: first-install only: hooks.server.ts:320-326 redirects /setup to /login once any user exists (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/spam/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /spam (src/routes/spam/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/starred/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /starred (src/routes/starred/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-image::src/routes/trash/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /trash (src/routes/trash/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/account/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account/setup (src/routes/account/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/archive/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /archive (src/routes/archive/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/compose/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /compose (src/routes/compose/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/drafts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /drafts (src/routes/drafts/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/inbox/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /inbox (src/routes/inbox/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (src/routes/login/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/mail/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /mail/[id] (src/routes/mail/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/oauth/authorize/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /oauth/authorize (src/routes/oauth/authorize/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login and a literal noindex robots meta at oauth/authorize/+page.svelte:54 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/sent/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sent (src/routes/sent/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/settings/[section]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/[section] (src/routes/settings/[section]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup (src/routes/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: first-install only: hooks.server.ts:320-326 redirects /setup to /login once any user exists (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/spam/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /spam (src/routes/spam/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/starred/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /starred (src/routes/starred/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-title::src/routes/trash/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /trash (src/routes/trash/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/account/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account/setup (src/routes/account/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/archive/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /archive (src/routes/archive/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/compose/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /compose (src/routes/compose/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/drafts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /drafts (src/routes/drafts/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/inbox/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /inbox (src/routes/inbox/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (src/routes/login/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/mail/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /mail/[id] (src/routes/mail/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/oauth/authorize/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /oauth/authorize (src/routes/oauth/authorize/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login and a literal noindex robots meta at oauth/authorize/+page.svelte:54 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/sent/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sent (src/routes/sent/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/settings/[section]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/[section] (src/routes/settings/[section]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup (src/routes/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: first-install only: hooks.server.ts:320-326 redirects /setup to /login once any user exists (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/spam/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /spam (src/routes/spam/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/starred/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /starred (src/routes/starred/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/og-url::src/routes/trash/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /trash (src/routes/trash/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/single-h1::src/routes/compose/+page.svelte:166::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: /compose (rendered for the 'classic' UI theme, compose/+page.server.ts:6) has two unconditional <h1 class=page-title>: the mobile bar (:156) and the desktop header (:166), both always in the DOM with CSS hiding one per breakpoint (responsive duplicate, ledger convention tp)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep (repo-wide search for sitemap outside node_modules/lockfiles): no sitemap.xml in static/, no sitemap.xml route endpoint, hook or generator anywhere in the repo (literal claim holds); but not a search target: Quickinbox is self-hosted email for your own domain on Cloudflare Workers (README); hooks.server.ts sends every session-less non-public request to /login"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/account/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account/setup (src/routes/account/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/archive/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /archive (src/routes/archive/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/compose/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /compose (src/routes/compose/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/drafts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /drafts (src/routes/drafts/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/inbox/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /inbox (src/routes/inbox/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (src/routes/login/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/mail/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /mail/[id] (src/routes/mail/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/oauth/authorize/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /oauth/authorize (src/routes/oauth/authorize/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login and a literal noindex robots meta at oauth/authorize/+page.svelte:54 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/onboarding/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /onboarding (src/routes/onboarding/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/sent/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sent (src/routes/sent/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/settings/[section]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/[section] (src/routes/settings/[section]/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup (src/routes/setup/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: first-install only: hooks.server.ts:320-326 redirects /setup to /login once any user exists (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/spam/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /spam (src/routes/spam/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/starred/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /starred (src/routes/starred/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "Ibenhoe/quickmail2::seo/twitter-card::src/routes/trash/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /trash (src/routes/trash/+page.svelte): script-verified (grep of src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:85 head holds PWA/theme metas only; hooks transformPageChunk only rewrites <html lang>; lib/theme.ts injects theme-color only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (hooks.server.ts redirects are conditional on session/setup state); route context: auth-gated: hooks.server.ts:355-359 redirects every guest request outside /login and /setup to /login (the og/twitter rules have no search-target exemption)"
+  }
+]

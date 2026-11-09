@@ -1,0 +1,1142 @@
+[
+  {
+    "key": "derrickshema/recipe-manager:frontend::a11y/duplicate-landmark::src/lib/components/layout/Layout.svelte:108::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:27 wraps every page in lib/components/layout/Layout.svelte, whose <main class=flex-1> (:108) is unconditional, and (restaurant)/+layout.svelte:65 renders its own <main> around the page, so /dashboard, /dashboard/orders, /recipes, /settings and /staff each carry two main landmarks; the routes render for a signed-in restaurant owner ((restaurant)/+layout.server.ts redirects only when !user or wrong role; hooks.server.ts redirects only without a token)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::a11y/id-duplication::src/lib/components/modals/Modal.svelte:56::Duplicate id \"modal-title\"",
+    "verdict": "design",
+    "basis": "read (restaurant)/recipes/+page.svelte:195/:311: the two <Modal open={true}> copies (Modal.svelte:56 h2#modal-title) sit in separate blocks {#if showCreateModal} and {#if showEditModal && editingRecipe}, opened one at a time by openCreateModal/openEditModal behind a fixed full-screen backdrop and closed together by closeModals; documented separate-{#if} co-render model, never both open"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::a11y/permitted-contents::src/routes/(auth)/register/+page.svelte:21::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (auth)/register/+page.svelte:17-21 (customer-option <button>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::a11y/permitted-contents::src/routes/(auth)/register/+page.svelte:54::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (auth)/register/+page.svelte:50-54 (restaurant-option <button>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::a11y/permitted-contents::src/routes/(customer)/orders/+page.svelte:185::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (customer)/orders/+page.svelte:181-185 (order-header <button>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::a11y/permitted-contents::src/routes/(customer)/orders/+page.svelte:192::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read (customer)/orders/+page.svelte:181-192 (order-header <button>, second <div>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(auth)/verify-email/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/verify-email/+page.svelte has 244 physical lines (split on \\n, trailing newline not counted; 226 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(customer)/cart/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(customer)/cart/+page.svelte has 277 physical lines (split on \\n, trailing newline not counted; 248 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(customer)/home/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(customer)/home/+page.svelte has 210 physical lines (split on \\n, trailing newline not counted; 192 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(customer)/orders/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(customer)/orders/+page.svelte has 275 physical lines (split on \\n, trailing newline not counted; 242 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(customer)/restaurant/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(customer)/restaurant/[id]/+page.svelte has 231 physical lines (split on \\n, trailing newline not counted; 208 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(restaurant)/dashboard/orders/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(restaurant)/dashboard/orders/+page.svelte has 308 physical lines (split on \\n, trailing newline not counted; 271 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(restaurant)/recipes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(restaurant)/recipes/+page.svelte has 423 physical lines (split on \\n, trailing newline not counted; 393 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(restaurant)/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(restaurant)/settings/+page.svelte has 301 physical lines (split on \\n, trailing newline not counted; 280 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(restaurant)/staff/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(restaurant)/staff/+page.svelte has 254 physical lines (split on \\n, trailing newline not counted; 237 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(system)/restaurants/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(system)/restaurants/+page.svelte has 349 physical lines (split on \\n, trailing newline not counted; 336 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/component-size::src/routes/(system)/users/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(system)/users/+page.svelte has 366 physical lines (split on \\n, trailing newline not counted; 342 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::architecture/prop-count::src/lib/components/buttons/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/buttons/Button.svelte has a single destructured $props() with 9 named props (> 6) beside a ...rest element: type, variant, size, disabled, loading, fullWidth, children, onclick, class"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::correctness/each-key::src/routes/(customer)/orders/+page.svelte:220::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (customer)/orders/+page.svelte:220 '{#each order.items as item}' has no key; line items of one fetched order record (the order is replaced whole on a websocket update, :32), display-only rows; read-only parts of one record"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::correctness/each-key::src/routes/(restaurant)/dashboard/orders/+page.svelte:254::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: (restaurant)/dashboard/orders/+page.svelte:254 '{#each order.items as item}' has no key; line items of one fetched order record, display-only rows; read-only parts of one record"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-dimensions::src/routes/(customer)/cart/+page.svelte:147::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; class w-full h-full object-cover inside the w-24 h-24 thumbnail box (cart/+page.svelte:144-151) - box reserved by CSS"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-dimensions::src/routes/(customer)/home/+page.svelte:182::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full object-cover in the h-40 card image box (home/+page.svelte:179-186) - box reserved by CSS"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-dimensions::src/routes/(customer)/restaurant/[id]/+page.svelte:149::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full object-cover in the h-48 recipe image box (:146-153) - box reserved by CSS"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-dimensions::src/routes/(customer)/restaurant/[id]/+page.svelte:82::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full object-cover in the w-full md:w-48 h-48 logo box (:79-86) - box reserved by CSS"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-dimensions::src/routes/(restaurant)/+layout.svelte:19::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; header logo with class h-10 w-10 object-cover ((restaurant)/+layout.svelte:19-22) - box reserved by CSS (key covers the 5 restaurant routes)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-dimensions::src/routes/(restaurant)/recipes/+page.svelte:122::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; class w-full h-48 object-cover (recipes/+page.svelte:122-126) - height reserved, width set by the grid cell"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-dimensions::src/routes/(restaurant)/settings/+page.svelte:116::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; logo preview with class w-32 h-32 object-cover (settings/+page.svelte:116-120) - box reserved by CSS"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-dimensions::src/routes/(restaurant)/settings/+page.svelte:122::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; current logo with class w-32 h-32 object-cover (:122-126) - box reserved by CSS"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-loading-hint::src/routes/(customer)/cart/+page.svelte:147::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; recipe thumbnail per item in {#each $cart.items} (:142-151) - later items can sit offscreen"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-loading-hint::src/routes/(customer)/home/+page.svelte:182::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; restaurant logo per card in the restaurants grid {#each} (:176-186) - later cards sit offscreen"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-loading-hint::src/routes/(customer)/restaurant/[id]/+page.svelte:149::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; recipe image per card in the {#each recipes} grid below the restaurant header (:143-153) - offscreen"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-loading-hint::src/routes/(customer)/restaurant/[id]/+page.svelte:82::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; restaurant logo in the page header (:77-86), the first content - above the fold"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-loading-hint::src/routes/(restaurant)/+layout.svelte:19::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; restaurant logo in the header bar of every restaurant route (+layout.svelte:16-31) - above the fold"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-loading-hint::src/routes/(restaurant)/recipes/+page.svelte:122::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; recipe image per card in the {#each recipes} grid (:118-126) - later cards sit offscreen"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-loading-hint::src/routes/(restaurant)/settings/+page.svelte:116::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; src logoPreview is the FileReader readAsDataURL result of the picked file (:55-63) - inline data: URL, no network request to defer"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/image-loading-hint::src/routes/(restaurant)/settings/+page.svelte:122::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; current logo in the Restaurant Logo card, the first section under the page <h1> (:74-126) - above the fold"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/responsive-image::src/routes/(customer)/cart/+page.svelte:147::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; recipe.image_url is an uploaded S3 raster (lib/types/recipe.ts:17) shown at 96px - one fixed-size asset"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/responsive-image::src/routes/(customer)/home/+page.svelte:182::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; restaurant.logo_url is an uploaded raster shown full card width - one fixed-size asset"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/responsive-image::src/routes/(customer)/restaurant/[id]/+page.svelte:149::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; recipe.image_url uploaded S3 raster (lib/types/recipe.ts) - one fixed-size asset"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/responsive-image::src/routes/(customer)/restaurant/[id]/+page.svelte:82::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; restaurant.logo_url uploaded raster shown full width on mobile / 192px on desktop - one fixed-size asset"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/responsive-image::src/routes/(restaurant)/+layout.svelte:19::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; restaurant.logo_url uploaded raster drawn at 40px - one fixed-size asset (5 routes)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/responsive-image::src/routes/(restaurant)/recipes/+page.svelte:122::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; recipe.image_url uploaded S3 raster - one fixed-size asset"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/responsive-image::src/routes/(restaurant)/settings/+page.svelte:116::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src logoPreview is a FileReader data: URL of the user's picked file (:55-63) - no alternate sizes exist"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/responsive-image::src/routes/(restaurant)/settings/+page.svelte:122::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; restaurant.logo_url uploaded raster drawn at 128px - one fixed-size asset"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::performance/sequential-awaits::src/routes/(customer)/restaurant/[id]/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read restaurant/[id]/+page.server.ts:15-28: the /recipes/public/{id} fetch uses only params.id, nothing from the /restaurants/approved/{id} response, which only feeds the not-found return at :17-23 — independent backend HTTP requests serialized; Promise.all would work (ledger 404-gate convention)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(auth)/accept-invitation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /accept-invitation (src/routes/(auth)/accept-invitation/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); publicly reachable (not in hooks.server.ts PROTECTED_ROUTES, no gating layout), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(auth)/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password (src/routes/(auth)/forgot-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); publicly reachable (not in hooks.server.ts PROTECTED_ROUTES, no gating layout), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); publicly reachable (not in hooks.server.ts PROTECTED_ROUTES, no gating layout), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(auth)/logout/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /logout (src/routes/(auth)/logout/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); publicly reachable (not in hooks.server.ts PROTECTED_ROUTES, no gating layout), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(auth)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); publicly reachable (not in hooks.server.ts PROTECTED_ROUTES, no gating layout), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(auth)/register/customer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register/customer (src/routes/(auth)/register/customer/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); publicly reachable (not in hooks.server.ts PROTECTED_ROUTES, no gating layout), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(auth)/register/restaurant/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register/restaurant (src/routes/(auth)/register/restaurant/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); publicly reachable (not in hooks.server.ts PROTECTED_ROUTES, no gating layout), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(auth)/register/restaurant/business/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /register/restaurant/business (src/routes/(auth)/register/restaurant/business/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (step 2 of a form: register/restaurant/business/+page.server.ts:22-28 redirects back to /register/restaurant unless the step-1 cookie is set, which a crawler never has), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(auth)/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (src/routes/(auth)/reset-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); publicly reachable (not in hooks.server.ts PROTECTED_ROUTES, no gating layout), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(auth)/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /verify-email (src/routes/(auth)/verify-email/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); publicly reachable (not in hooks.server.ts PROTECTED_ROUTES, no gating layout), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(customer)/cart/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /cart (src/routes/(customer)/cart/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(customer)/home/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /home (src/routes/(customer)/home/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(customer)/orders/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /orders (src/routes/(customer)/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(customer)/restaurant/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /restaurant/[id] (src/routes/(customer)/restaurant/[id]/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(restaurant)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (src/routes/(restaurant)/dashboard/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(restaurant)/dashboard/orders/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/orders (src/routes/(restaurant)/dashboard/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(restaurant)/recipes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /recipes (src/routes/(restaurant)/recipes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(restaurant)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/(restaurant)/settings/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(restaurant)/staff/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /staff (src/routes/(restaurant)/staff/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(system)/overview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /overview (src/routes/(system)/overview/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(system)/restaurants/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /restaurants (src/routes/(system)/restaurants/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/(system)/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /users (src/routes/(system)/users/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); but not a search target (auth-gated: its group +layout.server.ts redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); publicly reachable (not in hooks.server.ts PROTECTED_ROUTES, no gating layout), no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/description-length::src/routes/+layout.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py): src/routes/+layout.svelte carries the literal <meta name=description> content of the reported length (Description is too short (65 chars; aim for 70–160)); route list ['/', '/accept-invitation', '/cart', '/dashboard', '/dashboard/orders', '/forgot-password', '/home', '/login', '/logout', '/orders', '/overview', '/recipes', '/register', '/register/customer', '/register/restaurant', '/register/restaurant/business', '/reset-password', '/restaurant/[id]', '/restaurants', '/settings', '/staff', '/users', '/verify-email'] from the local CLI run (claim holds); mixed: 11 of 23 routes public, the other 12 login-gated, labelled by majority"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/duplicate-description::src/routes/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "script-verified (lens.py): src/routes/+layout.svelte carries the literal <meta name=description>, the only description of these routes (Description is duplicated across 23 routes); route list ['/', '/accept-invitation', '/cart', '/dashboard', '/dashboard/orders', '/forgot-password', '/home', '/login', '/logout', '/orders', '/overview', '/recipes', '/register', '/register/customer', '/register/restaurant', '/register/restaurant/business', '/reset-password', '/restaurant/[id]', '/restaurants', '/settings', '/staff', '/users', '/verify-email'] from the local CLI run (claim holds); mixed: 11 of 23 routes public, the other 12 login-gated, labelled by majority"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py): src/routes/+layout.svelte carries the literal <title>, the only title of these routes (Title is duplicated across 19 routes); route list ['/', '/accept-invitation', '/dashboard', '/forgot-password', '/home', '/login', '/logout', '/overview', '/recipes', '/register', '/register/customer', '/register/restaurant', '/register/restaurant/business', '/reset-password', '/restaurants', '/settings', '/staff', '/users', '/verify-email'] from the local CLI run (claim holds); mixed: 11 of 19 routes public, the other 8 login-gated, labelled by majority"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/heading-level-skip::src/routes/(auth)/accept-invitation/+page.svelte:49::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: the page wraps its content in AuthLayout, which always renders <h1>{title} (lib/components/auth/AuthLayout.svelte:9) before its slot; the next heading is the page's <h3> (invitation restaurant name, +page.svelte:49) with nothing between -> h1 to h3; the load returns on every path"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/heading-level-skip::src/routes/(auth)/forgot-password/+page.svelte:29::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: the page wraps its content in AuthLayout, which always renders <h1>{title} (lib/components/auth/AuthLayout.svelte:9) before its slot; the next heading is the page's <h3> (Check your email, +page.svelte:29) with nothing between -> h1 to h3; the load returns on every path"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/heading-level-skip::src/routes/(auth)/register/+page.svelte:24::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: the page wraps its content in AuthLayout, which always renders <h1>{title} (lib/components/auth/AuthLayout.svelte:9) before its slot; the next heading is the page's <h3> (account-type cards, +page.svelte:24) with nothing between -> h1 to h3; the load returns on every path"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/heading-level-skip::src/routes/(auth)/reset-password/+page.svelte:47::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: the page wraps its content in AuthLayout, which always renders <h1>{title} (lib/components/auth/AuthLayout.svelte:9) before its slot; the next heading is the page's <h3> (Invalid Reset Link, +page.svelte:47) with nothing between -> h1 to h3; the load returns on every path"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/heading-level-skip::src/routes/(auth)/verify-email/+page.svelte:45::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: the page wraps its content in AuthLayout, which always renders <h1>{title} (lib/components/auth/AuthLayout.svelte:9) before its slot; the next heading is the page's <h3> (Email Verified!, +page.svelte:45) with nothing between -> h1 to h3; the load returns on every path"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/heading-level-skip::src/routes/(customer)/cart/+page.svelte:165::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: cart/+page.svelte:96 <h1>Your Cart, then in the {:else} (non-empty cart) arm the item <h3> (:165) in {#each}; the <h2>s (:114 empty arm, :223 summary after the list) do not precede it -> h1 to h3"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/heading-level-skip::src/routes/(restaurant)/recipes/+page.svelte:136::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: recipes/+page.svelte:85 <h1>Recipes (layout <h1> :31 before), then the recipe card <h3> (:136) in {#each recipes} with no heading between -> h1 to h3"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/heading-level-skip::src/routes/(system)/overview/+page.svelte:23::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: overview/+page.svelte:11 <h1>System Overview, then the stat card <h3>Total Restaurants (:23) with no heading between -> h1 to h3"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/heading-level-skip::src/routes/(system)/restaurants/+page.svelte:120::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: restaurants/+page.svelte:56 <h1>Restaurant Management, then in the pending tab the restaurant <h3> (:120) in {#each pendingRestaurants}; no heading between -> h1 to h3"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(auth)/accept-invitation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /accept-invitation renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(auth)/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /forgot-password renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /login renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(auth)/logout/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /logout renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(auth)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /register renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(auth)/register/customer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /register/customer renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(auth)/register/restaurant/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /register/restaurant renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(auth)/register/restaurant/business/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /register/restaurant/business renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(auth)/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /reset-password renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(auth)/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /verify-email renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(customer)/cart/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /cart renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(customer)/home/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /home renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(customer)/orders/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /orders renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(customer)/restaurant/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /restaurant/[id] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(restaurant)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /dashboard renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(restaurant)/dashboard/orders/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /dashboard/orders renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(restaurant)/recipes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /recipes renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(restaurant)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /settings renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(restaurant)/staff/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /staff renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(system)/overview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /overview renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(system)/restaurants/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /restaurants renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/(system)/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /users renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so / renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(auth)/accept-invitation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /accept-invitation (src/routes/(auth)/accept-invitation/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forgot-password (src/routes/(auth)/forgot-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(auth)/logout/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /logout (src/routes/(auth)/logout/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(auth)/register/customer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register/customer (src/routes/(auth)/register/customer/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(auth)/register/restaurant/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register/restaurant (src/routes/(auth)/register/restaurant/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(auth)/register/restaurant/business/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register/restaurant/business (src/routes/(auth)/register/restaurant/business/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: step 2 of a form: register/restaurant/business/+page.server.ts:22-28 redirects back to /register/restaurant unless the step-1 cookie is set, which a crawler never has (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password (src/routes/(auth)/reset-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /verify-email (src/routes/(auth)/verify-email/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(customer)/cart/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /cart (src/routes/(customer)/cart/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(customer)/home/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home (src/routes/(customer)/home/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(customer)/orders/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /orders (src/routes/(customer)/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(customer)/restaurant/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /restaurant/[id] (src/routes/(customer)/restaurant/[id]/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(restaurant)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard (src/routes/(restaurant)/dashboard/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(restaurant)/dashboard/orders/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/orders (src/routes/(restaurant)/dashboard/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(restaurant)/recipes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recipes (src/routes/(restaurant)/recipes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(restaurant)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/(restaurant)/settings/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(restaurant)/staff/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /staff (src/routes/(restaurant)/staff/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(system)/overview/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /overview (src/routes/(system)/overview/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(system)/restaurants/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /restaurants (src/routes/(system)/restaurants/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/(system)/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /users (src/routes/(system)/users/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(auth)/accept-invitation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /accept-invitation (src/routes/(auth)/accept-invitation/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forgot-password (src/routes/(auth)/forgot-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(auth)/logout/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /logout (src/routes/(auth)/logout/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(auth)/register/customer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register/customer (src/routes/(auth)/register/customer/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(auth)/register/restaurant/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register/restaurant (src/routes/(auth)/register/restaurant/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(auth)/register/restaurant/business/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register/restaurant/business (src/routes/(auth)/register/restaurant/business/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: step 2 of a form: register/restaurant/business/+page.server.ts:22-28 redirects back to /register/restaurant unless the step-1 cookie is set, which a crawler never has (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (src/routes/(auth)/reset-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /verify-email (src/routes/(auth)/verify-email/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(customer)/cart/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /cart (src/routes/(customer)/cart/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(customer)/home/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home (src/routes/(customer)/home/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(customer)/orders/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /orders (src/routes/(customer)/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(customer)/restaurant/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /restaurant/[id] (src/routes/(customer)/restaurant/[id]/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(restaurant)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard (src/routes/(restaurant)/dashboard/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(restaurant)/dashboard/orders/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/orders (src/routes/(restaurant)/dashboard/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(restaurant)/recipes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recipes (src/routes/(restaurant)/recipes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(restaurant)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/(restaurant)/settings/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(restaurant)/staff/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /staff (src/routes/(restaurant)/staff/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(system)/overview/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /overview (src/routes/(system)/overview/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(system)/restaurants/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /restaurants (src/routes/(system)/restaurants/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/(system)/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /users (src/routes/(system)/users/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(auth)/accept-invitation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /accept-invitation (src/routes/(auth)/accept-invitation/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forgot-password (src/routes/(auth)/forgot-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(auth)/logout/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /logout (src/routes/(auth)/logout/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(auth)/register/customer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register/customer (src/routes/(auth)/register/customer/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(auth)/register/restaurant/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register/restaurant (src/routes/(auth)/register/restaurant/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(auth)/register/restaurant/business/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register/restaurant/business (src/routes/(auth)/register/restaurant/business/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: step 2 of a form: register/restaurant/business/+page.server.ts:22-28 redirects back to /register/restaurant unless the step-1 cookie is set, which a crawler never has (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password (src/routes/(auth)/reset-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /verify-email (src/routes/(auth)/verify-email/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(customer)/cart/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /cart (src/routes/(customer)/cart/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(customer)/home/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home (src/routes/(customer)/home/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(customer)/orders/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /orders (src/routes/(customer)/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(customer)/restaurant/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /restaurant/[id] (src/routes/(customer)/restaurant/[id]/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(restaurant)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard (src/routes/(restaurant)/dashboard/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(restaurant)/dashboard/orders/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/orders (src/routes/(restaurant)/dashboard/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(restaurant)/recipes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recipes (src/routes/(restaurant)/recipes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(restaurant)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/(restaurant)/settings/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(restaurant)/staff/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /staff (src/routes/(restaurant)/staff/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(system)/overview/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /overview (src/routes/(system)/overview/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(system)/restaurants/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /restaurants (src/routes/(system)/restaurants/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/(system)/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /users (src/routes/(system)/users/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(auth)/accept-invitation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /accept-invitation (src/routes/(auth)/accept-invitation/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forgot-password (src/routes/(auth)/forgot-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(auth)/logout/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /logout (src/routes/(auth)/logout/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(auth)/register/customer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register/customer (src/routes/(auth)/register/customer/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(auth)/register/restaurant/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register/restaurant (src/routes/(auth)/register/restaurant/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(auth)/register/restaurant/business/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register/restaurant/business (src/routes/(auth)/register/restaurant/business/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: step 2 of a form: register/restaurant/business/+page.server.ts:22-28 redirects back to /register/restaurant unless the step-1 cookie is set, which a crawler never has (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (src/routes/(auth)/reset-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /verify-email (src/routes/(auth)/verify-email/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(customer)/cart/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /cart (src/routes/(customer)/cart/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(customer)/home/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home (src/routes/(customer)/home/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(customer)/orders/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /orders (src/routes/(customer)/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(customer)/restaurant/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /restaurant/[id] (src/routes/(customer)/restaurant/[id]/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(restaurant)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (src/routes/(restaurant)/dashboard/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(restaurant)/dashboard/orders/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/orders (src/routes/(restaurant)/dashboard/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(restaurant)/recipes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recipes (src/routes/(restaurant)/recipes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(restaurant)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/(restaurant)/settings/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(restaurant)/staff/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /staff (src/routes/(restaurant)/staff/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(system)/overview/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /overview (src/routes/(system)/overview/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(system)/restaurants/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /restaurants (src/routes/(system)/restaurants/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/(system)/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users (src/routes/(system)/users/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/single-h1::/logout::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: (auth)/logout/+page.svelte is a transient 'Logging out...' stub with no heading; its +page.server.ts only has the form action that clears the cookie and redirects to /login - no page content to title (ledger logout/redirect-stub convention)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/single-h1::src/routes/(restaurant)/dashboard/+page.svelte:12::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two <h1>s render on /dashboard: the (restaurant) layout header <h1>{restaurant?.restaurant_name || 'My Restaurant'} ((restaurant)/+layout.svelte:31, unconditional) and the page's own <h1> (+page.svelte:12, unconditional)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/single-h1::src/routes/(restaurant)/dashboard/orders/+page.svelte:179::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two <h1>s render on /dashboard/orders: the (restaurant) layout header <h1>{restaurant?.restaurant_name || 'My Restaurant'} ((restaurant)/+layout.svelte:31, unconditional) and the page's own <h1> (+page.svelte:179, unconditional)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/single-h1::src/routes/(restaurant)/recipes/+page.svelte:85::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two <h1>s render on /recipes: the (restaurant) layout header <h1>{restaurant?.restaurant_name || 'My Restaurant'} ((restaurant)/+layout.svelte:31, unconditional) and the page's own <h1> (+page.svelte:85, unconditional)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/single-h1::src/routes/(restaurant)/settings/+page.svelte:74::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two <h1>s render on /settings: the (restaurant) layout header <h1>{restaurant?.restaurant_name || 'My Restaurant'} ((restaurant)/+layout.svelte:31, unconditional) and the page's own <h1> (+page.svelte:74, unconditional)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/single-h1::src/routes/(restaurant)/staff/+page.svelte:69::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two <h1>s render on /staff: the (restaurant) layout header <h1>{restaurant?.restaurant_name || 'My Restaurant'} ((restaurant)/+layout.svelte:31, unconditional) and the page's own <h1> (+page.svelte:69, unconditional)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide search for sitemap outside node_modules/lockfiles): no sitemap.xml in static/, no sitemap.xml route endpoint, hook or generator anywhere in the repo (literal claim holds); public-facing restaurant ordering platform with an ungated landing page and auth pages"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/title-length::src/routes/(customer)/cart/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/(customer)/cart/+page.svelte, entities decoded, whitespace collapsed, 26 chars as reported; route list ['/cart'] from the local CLI run) (literal claim holds); but customer-only: (customer)/+layout.server.ts redirects to /login without a user"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/title-length::src/routes/(customer)/orders/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/(customer)/orders/+page.svelte, entities decoded, whitespace collapsed, 26 chars as reported; route list ['/orders'] from the local CLI run) (literal claim holds); but customer-only: (customer)/+layout.server.ts redirects to /login without a user"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/title-length::src/routes/(restaurant)/dashboard/orders/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/(restaurant)/dashboard/orders/+page.svelte, entities decoded, whitespace collapsed, 29 chars as reported; route list ['/dashboard/orders'] from the local CLI run) (literal claim holds); but restaurant-owner only: hooks PROTECTED_ROUTES and (restaurant)/+layout.server.ts redirect to /login"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(auth)/accept-invitation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /accept-invitation (src/routes/(auth)/accept-invitation/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forgot-password (src/routes/(auth)/forgot-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (src/routes/(auth)/login/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(auth)/logout/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /logout (src/routes/(auth)/logout/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register (src/routes/(auth)/register/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(auth)/register/customer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register/customer (src/routes/(auth)/register/customer/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(auth)/register/restaurant/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register/restaurant (src/routes/(auth)/register/restaurant/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(auth)/register/restaurant/business/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register/restaurant/business (src/routes/(auth)/register/restaurant/business/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: step 2 of a form: register/restaurant/business/+page.server.ts:22-28 redirects back to /register/restaurant unless the step-1 cookie is set, which a crawler never has (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(auth)/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (src/routes/(auth)/reset-password/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(auth)/verify-email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /verify-email (src/routes/(auth)/verify-email/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(customer)/cart/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /cart (src/routes/(customer)/cart/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(customer)/home/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home (src/routes/(customer)/home/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(customer)/orders/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /orders (src/routes/(customer)/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(customer)/restaurant/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /restaurant/[id] (src/routes/(customer)/restaurant/[id]/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(restaurant)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard (src/routes/(restaurant)/dashboard/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(restaurant)/dashboard/orders/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/orders (src/routes/(restaurant)/dashboard/orders/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(restaurant)/recipes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recipes (src/routes/(restaurant)/recipes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(restaurant)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/(restaurant)/settings/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(restaurant)/staff/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /staff (src/routes/(restaurant)/staff/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(system)/overview/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /overview (src/routes/(system)/overview/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(system)/restaurants/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /restaurants (src/routes/(system)/restaurants/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/(system)/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /users (src/routes/(system)/users/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session); route context: auth-gated: its group +layout.server.ts redirects guests to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "derrickshema/recipe-manager:frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (grep of frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:21 head is <title>/description only; no meta-tag library; local CLI reproduces the exact first-look route set); route renders (every redirect in hooks/layout/page loads is conditional on cookie or session)"
+  }
+]

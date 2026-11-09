@@ -1,0 +1,902 @@
+[
+  {
+    "key": "hawkins48b/cw-zro::a11y/permitted-contents::src/routes/calculators/compare-trajectories/add/+page.svelte:148::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read compare-trajectories/add/+page.svelte:143-148 (<button type=button class=card> in {#each filteredProfiles}): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "hawkins48b/cw-zro::a11y/permitted-contents::src/routes/calculators/compare-trajectories/add/+page.svelte:155::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read compare-trajectories/add/+page.svelte:143-155 (second <div class=border-t> row of the same profile <button>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "hawkins48b/cw-zro::architecture/component-size::src/lib/components/ProfileForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ProfileForm.svelte has 459 physical lines (split on \\n, trailing newline not counted; 426 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hawkins48b/cw-zro::architecture/component-size::src/lib/components/ScopeReticle.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ScopeReticle.svelte has 456 physical lines (split on \\n, trailing newline not counted; 402 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hawkins48b/cw-zro::architecture/component-size::src/lib/components/WindInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/WindInput.svelte has 246 physical lines (split on \\n, trailing newline not counted; 223 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hawkins48b/cw-zro::architecture/component-size::src/routes/calculators/ballistic/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/calculators/ballistic/+page.svelte has 740 physical lines (split on \\n, trailing newline not counted; 690 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hawkins48b/cw-zro::architecture/component-size::src/routes/calculators/compare-trajectories/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/calculators/compare-trajectories/+page.svelte has 322 physical lines (split on \\n, trailing newline not counted; 293 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hawkins48b/cw-zro::architecture/component-size::src/routes/calculators/mpbr/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/calculators/mpbr/+page.svelte has 468 physical lines (split on \\n, trailing newline not counted; 429 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hawkins48b/cw-zro::architecture/component-size::src/routes/calculators/trajectory-validation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/calculators/trajectory-validation/+page.svelte has 478 physical lines (split on \\n, trailing newline not counted; 441 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hawkins48b/cw-zro::architecture/component-size::src/routes/profiles/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profiles/+page.svelte has 491 physical lines (split on \\n, trailing newline not counted; 439 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hawkins48b/cw-zro::architecture/component-size::src/routes/scope-view/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/scope-view/+page.svelte has 290 physical lines (split on \\n, trailing newline not counted; 262 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "hawkins48b/cw-zro::architecture/prop-count::src/lib/components/UnitField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/UnitField.svelte has a single destructured $props() with 10 named props (> 6): label, value, unit, units, placeholder, prefix, suffix, inputmode, hint, invalid"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/lib/components/LanguageSwitcher.svelte:9::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LanguageSwitcher.svelte:9 '{#each locales as locale}' has no key; locales from $lib/paraglide/runtime, the app's fixed paraglide locale list; static list"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/lib/components/ScopeReticle.svelte:247::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ScopeReticle.svelte:247 '{#each MOA_GRID_LINES as n}' has no key; MOA_GRID_LINES = Array.from({ length: ... }, (_, i) => i + 1) (:24), fixed reticle line numbers (mapper gives values, so not the exempt length-only form); positional list (chart geometry)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/lib/components/ScopeReticle.svelte:272::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ScopeReticle.svelte:272 '{#each MOA_GRID_LINES as n}' has no key; MOA_GRID_LINES = Array.from({ length: ... }, (_, i) => i + 1) (:24), fixed reticle line numbers; positional list (chart geometry)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/lib/components/ScopeReticle.svelte:305::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ScopeReticle.svelte:305 '{#each MRAD_SUB_LINES as n}' has no key; MRAD_SUB_LINES = Array.from({ length: ... }, (_, i) => i + 1) (:29), fixed reticle line numbers; positional list (chart geometry)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/lib/components/ScopeReticle.svelte:330::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ScopeReticle.svelte:330 '{#each MRAD_SUB_LINES as n}' has no key; MRAD_SUB_LINES = Array.from({ length: ... }, (_, i) => i + 1) (:29), fixed reticle line numbers; positional list (chart geometry)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/lib/components/ScopeReticle.svelte:341::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ScopeReticle.svelte:341 '{#each MRAD_SUB_LINES as n}' has no key; MRAD_SUB_LINES = Array.from({ length: ... }, (_, i) => i + 1) (:29), fixed reticle line numbers; positional list (chart geometry)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/lib/components/ScopeReticle.svelte:352::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ScopeReticle.svelte:352 '{#each MRAD_SUB_LINES.filter(n => n % 5 === 0) as n}' has no key; a fixed filter of the fixed reticle line numbers (:29); positional list (chart geometry)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/lib/components/UnitField.svelte:62::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/UnitField.svelte:62 '{#each units as opt}' has no key; every caller passes an inline two-option literal (ProfileForm.svelte:208-426, e.g. [{ value: 'in' }, { value: 'mm' }]); static option list"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/lib/components/WindInput.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/WindInput.svelte:118 '{#each TICKS as tick}' has no key; TICKS = Array.from({ length: 12 }, mapper) (:74), fixed clock-face ticks; positional list (chart geometry)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/routes/+layout.svelte:116::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:116 '{#each item.subItems as sub}' has no key; sub-items of the same-file const navItems literal (:25-31); static nav list"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/routes/+layout.svelte:167::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:167 '{#each navItems.filter((item) => item.href !== '/settings') as item}' has no key; a fixed filter of the same-file const navItems literal (:25); static nav list"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/routes/calculators/ballistic/+page.svelte:699::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: calculators/ballistic/+page.svelte:699 '{#each group.columns as col}' has no key; columns of the same-file const COLUMN_GROUPS literal (:299); static list (column toggle buttons)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/routes/calculators/ballistic/+page.svelte:720::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: calculators/ballistic/+page.svelte:720 '{#each activeColumns as col}' has no key; activeColumns = $derived(ALL_COLUMNS.filter((c) => visibleColumns.includes(c.id))) (:392), the same-file fixed column definitions (COLUMN_GROUPS :299, ALL_COLUMNS :350) filtered by the user's toggle; static column list in fixed order (ledger column convention)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/routes/calculators/ballistic/+page.svelte:726::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: calculators/ballistic/+page.svelte:726 '{#each tablePoints as point}' has no key; tablePoints = trajectoryResult.trajectory (:38), the rows of calculateFullTrajectory at fixed range steps (ballisticCalculator.js:221-229), one stateless <tr> per step; positional list (table rows by range step)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/routes/calculators/ballistic/+page.svelte:728::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: calculators/ballistic/+page.svelte:728 '{#each activeColumns as col}' has no key; one cell per column of the fixed column definitions filtered by the user's toggle (:392); static column list (ledger column convention)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/routes/calculators/compare-trajectories/+page.svelte:216::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: calculators/compare-trajectories/+page.svelte:216 '{#each resolvedEntries as entry, i}' has no key; resolvedEntries = $derived(compareTrajectories.entries.map(...)) (:46), the comparison entries the user adds and removes; runtime records"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/routes/calculators/compare-trajectories/add/+page.svelte:142::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: calculators/compare-trajectories/add/+page.svelte:142 '{#each filteredProfiles as profile}' has no key; filteredProfiles = $derived.by (:43) the user's saved profiles filtered by the search query; runtime records"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/routes/profiles/ammo-selector/+page.svelte:79::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: profiles/ammo-selector/+page.svelte:79 '{#each filtered.profiles as item}' has no key; filtered = $derived.by (:38) over the user's saved profiles (profiles store) filtered by the query; runtime records"
+  },
+  {
+    "key": "hawkins48b/cw-zro::correctness/each-key::src/routes/profiles/ammo-selector/+page.svelte:97::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: profiles/ammo-selector/+page.svelte:97 '{#each filtered.library as item}' has no key; filtered.library = the bundled ammo.json catalog (:8) filtered by the search query (:32-38); static list in fixed order (ledger convention for filters of a constant list)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::performance/image-dimensions::src/routes/+layout.svelte:93::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; sidebar logo src={favicon} (imported $lib/assets/favicon.svg) with class size-9 shrink-0 (+layout.svelte:93) - box reserved by CSS (key covers all 16 routes, same layout element)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::performance/image-dimensions::src/routes/settings/about/+page.svelte:14::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; favicon.svg logo with class size-16 shrink-0 (settings/about/+page.svelte:14) - box reserved by CSS"
+  },
+  {
+    "key": "hawkins48b/cw-zro::performance/image-loading-hint::src/routes/+layout.svelte:93::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; ZRO logo at the top of the sidebar header (+layout.svelte:91-98, every route) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "hawkins48b/cw-zro::performance/image-loading-hint::src/routes/settings/about/+page.svelte:14::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; branding logo in the first card beside the page <h1> (settings/about/+page.svelte:12-18) - above the fold"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/calculators/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /calculators (src/routes/calculators/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/calculators/ballistic/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /calculators/ballistic (src/routes/calculators/ballistic/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/calculators/compare-trajectories/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /calculators/compare-trajectories (src/routes/calculators/compare-trajectories/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/calculators/compare-trajectories/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /calculators/compare-trajectories/add (src/routes/calculators/compare-trajectories/add/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/calculators/dope-cards/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /calculators/dope-cards (src/routes/calculators/dope-cards/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/calculators/mpbr/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /calculators/mpbr (src/routes/calculators/mpbr/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/calculators/trajectory-validation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /calculators/trajectory-validation (src/routes/calculators/trajectory-validation/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/profiles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /profiles (src/routes/profiles/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/profiles/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /profiles/[id] (src/routes/profiles/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/profiles/ammo-selector/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /profiles/ammo-selector (src/routes/profiles/ammo-selector/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/profiles/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /profiles/new (src/routes/profiles/new/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/scope-view/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /scope-view (src/routes/scope-view/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/settings/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/about (src/routes/settings/about/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/canonical-url::src/routes/settings/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/privacy (src/routes/settings/privacy/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders; publicly reachable SPA route, no auth gate, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on / (page src/routes/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/calculators/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /calculators (page src/routes/calculators/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/calculators/ballistic/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /calculators/ballistic (page src/routes/calculators/ballistic/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/calculators/compare-trajectories/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /calculators/compare-trajectories (page src/routes/calculators/compare-trajectories/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/calculators/compare-trajectories/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /calculators/compare-trajectories/add (page src/routes/calculators/compare-trajectories/add/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/calculators/dope-cards/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /calculators/dope-cards (page src/routes/calculators/dope-cards/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/calculators/mpbr/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /calculators/mpbr (page src/routes/calculators/mpbr/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/calculators/trajectory-validation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /calculators/trajectory-validation (page src/routes/calculators/trajectory-validation/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/profiles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /profiles (page src/routes/profiles/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/profiles/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /profiles/[id] (page src/routes/profiles/[id]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/profiles/ammo-selector/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /profiles/ammo-selector (page src/routes/profiles/ammo-selector/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/profiles/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /profiles/new (page src/routes/profiles/new/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/scope-view/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /scope-view (page src/routes/scope-view/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /settings (page src/routes/settings/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/settings/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /settings/about (page src/routes/settings/about/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/description-presence::src/routes/settings/privacy/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /settings/privacy (page src/routes/settings/privacy/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so / renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/calculators/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /calculators renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/calculators/ballistic/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /calculators/ballistic renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/calculators/compare-trajectories/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /calculators/compare-trajectories renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/calculators/compare-trajectories/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /calculators/compare-trajectories/add renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/calculators/dope-cards/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /calculators/dope-cards renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/calculators/mpbr/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /calculators/mpbr renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/calculators/trajectory-validation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /calculators/trajectory-validation renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/profiles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /profiles renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/profiles/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /profiles/[id] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/profiles/ammo-selector/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /profiles/ammo-selector renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/profiles/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /profiles/new renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/scope-view/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /scope-view renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /settings renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/settings/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /settings/about renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/json-ld::src/routes/settings/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /settings/privacy renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/calculators/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calculators (src/routes/calculators/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/calculators/ballistic/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calculators/ballistic (src/routes/calculators/ballistic/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/calculators/compare-trajectories/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calculators/compare-trajectories (src/routes/calculators/compare-trajectories/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/calculators/compare-trajectories/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calculators/compare-trajectories/add (src/routes/calculators/compare-trajectories/add/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/calculators/dope-cards/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calculators/dope-cards (src/routes/calculators/dope-cards/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/calculators/mpbr/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calculators/mpbr (src/routes/calculators/mpbr/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/calculators/trajectory-validation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /calculators/trajectory-validation (src/routes/calculators/trajectory-validation/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/profiles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profiles (src/routes/profiles/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/profiles/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profiles/[id] (src/routes/profiles/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/profiles/ammo-selector/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profiles/ammo-selector (src/routes/profiles/ammo-selector/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/profiles/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profiles/new (src/routes/profiles/new/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/scope-view/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /scope-view (src/routes/scope-view/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/settings/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/about (src/routes/settings/about/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-description::src/routes/settings/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/privacy (src/routes/settings/privacy/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/calculators/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calculators (src/routes/calculators/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/calculators/ballistic/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calculators/ballistic (src/routes/calculators/ballistic/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/calculators/compare-trajectories/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calculators/compare-trajectories (src/routes/calculators/compare-trajectories/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/calculators/compare-trajectories/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calculators/compare-trajectories/add (src/routes/calculators/compare-trajectories/add/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/calculators/dope-cards/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calculators/dope-cards (src/routes/calculators/dope-cards/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/calculators/mpbr/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calculators/mpbr (src/routes/calculators/mpbr/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/calculators/trajectory-validation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /calculators/trajectory-validation (src/routes/calculators/trajectory-validation/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/profiles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profiles (src/routes/profiles/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/profiles/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profiles/[id] (src/routes/profiles/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/profiles/ammo-selector/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profiles/ammo-selector (src/routes/profiles/ammo-selector/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/profiles/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profiles/new (src/routes/profiles/new/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/scope-view/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /scope-view (src/routes/scope-view/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/settings/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/about (src/routes/settings/about/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-image::src/routes/settings/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/privacy (src/routes/settings/privacy/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/calculators/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calculators (src/routes/calculators/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/calculators/ballistic/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calculators/ballistic (src/routes/calculators/ballistic/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/calculators/compare-trajectories/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calculators/compare-trajectories (src/routes/calculators/compare-trajectories/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/calculators/compare-trajectories/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calculators/compare-trajectories/add (src/routes/calculators/compare-trajectories/add/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/calculators/dope-cards/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calculators/dope-cards (src/routes/calculators/dope-cards/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/calculators/mpbr/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calculators/mpbr (src/routes/calculators/mpbr/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/calculators/trajectory-validation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /calculators/trajectory-validation (src/routes/calculators/trajectory-validation/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/profiles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profiles (src/routes/profiles/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/profiles/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profiles/[id] (src/routes/profiles/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/profiles/ammo-selector/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profiles/ammo-selector (src/routes/profiles/ammo-selector/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/profiles/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profiles/new (src/routes/profiles/new/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/scope-view/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /scope-view (src/routes/scope-view/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/settings/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/about (src/routes/settings/about/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-title::src/routes/settings/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/privacy (src/routes/settings/privacy/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/calculators/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calculators (src/routes/calculators/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/calculators/ballistic/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calculators/ballistic (src/routes/calculators/ballistic/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/calculators/compare-trajectories/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calculators/compare-trajectories (src/routes/calculators/compare-trajectories/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/calculators/compare-trajectories/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calculators/compare-trajectories/add (src/routes/calculators/compare-trajectories/add/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/calculators/dope-cards/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calculators/dope-cards (src/routes/calculators/dope-cards/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/calculators/mpbr/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calculators/mpbr (src/routes/calculators/mpbr/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/calculators/trajectory-validation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /calculators/trajectory-validation (src/routes/calculators/trajectory-validation/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/profiles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profiles (src/routes/profiles/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/profiles/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profiles/[id] (src/routes/profiles/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/profiles/ammo-selector/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profiles/ammo-selector (src/routes/profiles/ammo-selector/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/profiles/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profiles/new (src/routes/profiles/new/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/scope-view/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /scope-view (src/routes/scope-view/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/settings/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/about (src/routes/settings/about/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/og-url::src/routes/settings/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/privacy (src/routes/settings/privacy/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::/calculators/compare-trajectories/add::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /calculators/compare-trajectories/add: the page's top heading is an <h2>/none and the root +layout.svelte shows the page title as a <span> (pageTitle, +layout.svelte:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the app's only <h1>s are on /, /settings/about and +error); ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::/calculators/dope-cards::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /calculators/dope-cards: the page's top heading is an <h2>/none and the root +layout.svelte shows the page title as a <span> (pageTitle, +layout.svelte:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the app's only <h1>s are on /, /settings/about and +error); ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::/calculators::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /calculators: the page's top heading is an <h2>/none and the root +layout.svelte shows the page title as a <span> (pageTitle, +layout.svelte:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the app's only <h1>s are on /, /settings/about and +error); ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::/profiles/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /profiles/[id]: the page's top heading is an <h2>/none and the root +layout.svelte shows the page title as a <span> (pageTitle, +layout.svelte:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the app's only <h1>s are on /, /settings/about and +error); ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::/profiles/ammo-selector::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /profiles/ammo-selector: the page's top heading is an <h2>/none and the root +layout.svelte shows the page title as a <span> (pageTitle, +layout.svelte:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the app's only <h1>s are on /, /settings/about and +error); ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::/profiles/new::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /profiles/new: the page's top heading is an <h2>/none and the root +layout.svelte shows the page title as a <span> (pageTitle, +layout.svelte:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the app's only <h1>s are on /, /settings/about and +error); ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /settings: the page's top heading is an <h2>/none and the root +layout.svelte shows the page title as a <span> (pageTitle, +layout.svelte:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route (the app's only <h1>s are on /, /settings/about and +error); ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::src/routes/calculators/ballistic/+page.svelte:515::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: calculators/ballistic/+page.svelte has only <h2>s (+page.svelte:515 is an <h2>) and the root +layout.svelte shows the page title as a <span> (:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route; ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::src/routes/calculators/compare-trajectories/+page.svelte:316::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: calculators/compare-trajectories/+page.svelte has only <h2>s (+page.svelte:316 is an <h2>) and the root +layout.svelte shows the page title as a <span> (:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route; ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::src/routes/calculators/mpbr/+page.svelte:428::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: calculators/mpbr/+page.svelte has only <h2>s (+page.svelte:428 is an <h2>) and the root +layout.svelte shows the page title as a <span> (:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route; ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::src/routes/calculators/trajectory-validation/+page.svelte:472::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: calculators/trajectory-validation/+page.svelte has only <h2>s (+page.svelte:472 is an <h2>) and the root +layout.svelte shows the page title as a <span> (:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route; ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::src/routes/profiles/+page.svelte:428::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: profiles/+page.svelte has only <h2>s (+page.svelte:428 is an <h2>) and the root +layout.svelte shows the page title as a <span> (:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route; ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::src/routes/scope-view/+page.svelte:173::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: scope-view/+page.svelte has only <h2>s (+page.svelte:173 is an <h2>) and the root +layout.svelte shows the page title as a <span> (:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route; ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/single-h1::src/routes/settings/privacy/+page.svelte:15::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders: settings/privacy/+page.svelte has only <h2>s (+page.svelte:15 is an <h2>) and the root +layout.svelte shows the page title as a <span> (:150); script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route; ssr=false SPA, no load redirects"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep (repo-wide search for sitemap outside node_modules/lockfiles): no sitemap.xml in static/, no sitemap.xml route endpoint, hook or generator anywhere in the repo (literal claim holds); but not a search target: ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere)"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/ssr-disabled::src/routes/+layout.js:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.js:1 in the root layout (whole-app SPA) (literal claim holds); deliberate SPA, ZRO is a ballistic-calculator app built from one codebase for Capacitor/Electron and a static web SPA (README), data only in localStorage, root +layout.js:1 ssr=false, no SEO plumbing (no description, sitemap or per-page SEO anywhere); docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "literal claim holds: src/routes/+page.svelte has no svelte:head, root +layout.svelte:76-78 head is a favicon link only, app.html has no <title>, no document.title in src (grep; the only <title>s are other pages and +error.svelte); but / is a client redirect shim in an ssr=false app (+layout.js:1): a 2.5 s animated splash whose onMount goto(localizeHref('/scope-view'), {replaceState: true}) (+page.svelte:17-26), and the layout's isActive treats / as /scope-view, which has its own <title> (redirect-shim / goto-on-mount precedent: deskfolk /, shareviz example/[id])"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/calculators/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calculators (src/routes/calculators/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/calculators/ballistic/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calculators/ballistic (src/routes/calculators/ballistic/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/calculators/compare-trajectories/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calculators/compare-trajectories (src/routes/calculators/compare-trajectories/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/calculators/compare-trajectories/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calculators/compare-trajectories/add (src/routes/calculators/compare-trajectories/add/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/calculators/dope-cards/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calculators/dope-cards (src/routes/calculators/dope-cards/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/calculators/mpbr/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calculators/mpbr (src/routes/calculators/mpbr/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/calculators/trajectory-validation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /calculators/trajectory-validation (src/routes/calculators/trajectory-validation/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/profiles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profiles (src/routes/profiles/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/profiles/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profiles/[id] (src/routes/profiles/[id]/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/profiles/ammo-selector/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profiles/ammo-selector (src/routes/profiles/ammo-selector/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/profiles/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profiles/new (src/routes/profiles/new/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/scope-view/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /scope-view (src/routes/scope-view/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (src/routes/settings/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/settings/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/about (src/routes/settings/about/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  },
+  {
+    "key": "hawkins48b/cw-zro::seo/twitter-card::src/routes/settings/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/privacy (src/routes/settings/privacy/+page.svelte): script-verified (grep of src incl. app.html/hooks: no og:*, twitter:* or rel=canonical anywhere; root +layout.svelte:78 head is the favicon only; hooks transformPageChunk only fills %lang%/%dir%; no meta-tag library among deps; the local uninstalled CLI run reproduces exactly the installed first-look route set, so no followed npm Svelte package (skeleton-svelte, lucide, svelte-gestures) adds the tag); ssr=false app-wide (routes/+layout.js:1) so client heads count and none emit it; route renders"
+  }
+]

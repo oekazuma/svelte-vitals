@@ -1,0 +1,502 @@
+[
+  {
+    "key": "Marcus-Adair/svelte_portfolio::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 408 physical lines (split on \\n, trailing newline not counted; 369 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::architecture/prop-count::src/lib/components/ui/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button.svelte has a single destructured $props() with 8 named props (> 6) beside a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::architecture/prop-count::src/routes/blog/_components/blogCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/blog/_components/blogCard.svelte has a single destructured $props() with 8 named props (> 6) beside a ...rest element: id, title, date, about, href, imgSrc, hoverTitle, openInNewTab"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::architecture/prop-count::src/routes/projects/components/projectCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/projects/components/projectCard.svelte has a single destructured $props() with 7 named props (> 6): url, src, srcType, alt, title, description, divElt"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::correctness/each-index-key::src/lib/components/SvgWavyLines.svelte:176::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/SvgWavyLines.svelte:176 '{#each paths as d, i (i)}' keyed by its index binding; paths = computed wavy-line SVG path strings (:15-20, :122); positional list (decorative geometry)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::correctness/each-index-key::src/routes/+page.svelte:368::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:368 '{#each wavyPaths as d, i (i)}' keyed by its index binding; wavyPaths = the SvgWavyLines computed path strings (bind:paths, :18, :258); positional list (decorative geometry)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::performance/iframe-loading::src/routes/projects/components/projectCard.svelte:79::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread, but it sits in {#if srcType === 'iframe'} (projectCard.svelte:78-79) and srcType defaults to 'img' (:20); none of the 11 <ProjectCard> uses (projects/+page.svelte:73-164) passes srcType, so the iframe never renders - the claim holds for code that never runs"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::performance/image-dimensions::src/routes/blog/+page.svelte:119::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; coffee gif with class size-12 (blog/+page.svelte:119) - box reserved by CSS"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::performance/image-dimensions::src/routes/blog/hello-world/+page.svelte:38::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width/height, no spread; svelte logo PNG with class scale-70 only (hello-world/+page.svelte:38; transform does not size the box) - its 32x39 natural size decides the box"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::performance/image-loading-hint::src/routes/blog/+page.svelte:119::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; coffee gif button beside the tagline right under the page <h1> (:110-119) - above the fold"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::performance/image-loading-hint::src/routes/blog/hello-world/+page.svelte:38::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; logo in the code sample block after the post header and four paragraphs (:16-38) - offscreen on load"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::performance/responsive-image::src/routes/blog/+page.svelte:119::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; bundled $lib/assets/hot-coffee.gif is 1080x1080 (247KB) drawn at 48px - one oversized fixed asset"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::performance/responsive-image::src/routes/blog/hello-world/+page.svelte:38::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; $lib/assets/32px-Svelte_Logo.png is 32x39 (1.7KB) drawn at its native size - no smaller variant to pick, nothing wasted on small screens"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads); public page of a public personal portfolio (robots.txt allows all)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/canonical-url::src/routes/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog (src/routes/blog/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads); public page of a public personal portfolio (robots.txt allows all)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/canonical-url::src/routes/blog/easy-scrum/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/easy-scrum (src/routes/blog/easy-scrum/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads); public page of a public personal portfolio (robots.txt allows all)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/canonical-url::src/routes/blog/gsap/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/gsap (src/routes/blog/gsap/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads); public page of a public personal portfolio (robots.txt allows all)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/canonical-url::src/routes/blog/hello-world/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/hello-world (src/routes/blog/hello-world/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads); public page of a public personal portfolio (robots.txt allows all)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/canonical-url::src/routes/blog/lucy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/lucy (src/routes/blog/lucy/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads); public page of a public personal portfolio (robots.txt allows all)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/canonical-url::src/routes/blog/starter-template/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/starter-template (src/routes/blog/starter-template/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads); public page of a public personal portfolio (robots.txt allows all)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/canonical-url::src/routes/blog/svelte-2048/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/svelte-2048 (src/routes/blog/svelte-2048/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads); public page of a public personal portfolio (robots.txt allows all)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/canonical-url::src/routes/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /projects (src/routes/projects/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads); public page of a public personal portfolio (robots.txt allows all)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/canonical-url::src/routes/projects/odf/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /projects/odf (src/routes/projects/odf/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads); public page of a public personal portfolio (robots.txt allows all)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on / (page src/routes/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public page of the personal portfolio marcusadair.com (README), no gate"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/description-presence::src/routes/blog/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /blog (page src/routes/blog/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public page of the personal portfolio marcusadair.com (README), no gate"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/description-presence::src/routes/blog/easy-scrum/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /blog/easy-scrum (page src/routes/blog/easy-scrum/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public page of the personal portfolio marcusadair.com (README), no gate"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/description-presence::src/routes/blog/gsap/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /blog/gsap (page src/routes/blog/gsap/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public page of the personal portfolio marcusadair.com (README), no gate"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/description-presence::src/routes/blog/hello-world/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /blog/hello-world (page src/routes/blog/hello-world/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public page of the personal portfolio marcusadair.com (README), no gate"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/description-presence::src/routes/blog/lucy/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /blog/lucy (page src/routes/blog/lucy/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public page of the personal portfolio marcusadair.com (README), no gate"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/description-presence::src/routes/blog/starter-template/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /blog/starter-template (page src/routes/blog/starter-template/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public page of the personal portfolio marcusadair.com (README), no gate"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/description-presence::src/routes/blog/svelte-2048/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /blog/svelte-2048 (page src/routes/blog/svelte-2048/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public page of the personal portfolio marcusadair.com (README), no gate"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/description-presence::src/routes/projects/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /projects (page src/routes/projects/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public page of the personal portfolio marcusadair.com (README), no gate"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/description-presence::src/routes/projects/odf/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /projects/odf (page src/routes/projects/odf/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public page of the personal portfolio marcusadair.com (README), no gate"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so / renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /blog renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/json-ld::src/routes/blog/easy-scrum/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /blog/easy-scrum renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/json-ld::src/routes/blog/gsap/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /blog/gsap renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/json-ld::src/routes/blog/hello-world/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /blog/hello-world renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/json-ld::src/routes/blog/lucy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /blog/lucy renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/json-ld::src/routes/blog/starter-template/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /blog/starter-template renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/json-ld::src/routes/blog/svelte-2048/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /blog/svelte-2048 renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/json-ld::src/routes/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /projects renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/json-ld::src/routes/projects/odf/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /projects/odf renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-description::src/routes/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog (src/routes/blog/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-description::src/routes/blog/easy-scrum/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/easy-scrum (src/routes/blog/easy-scrum/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-description::src/routes/blog/gsap/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/gsap (src/routes/blog/gsap/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-description::src/routes/blog/hello-world/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/hello-world (src/routes/blog/hello-world/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-description::src/routes/blog/lucy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/lucy (src/routes/blog/lucy/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-description::src/routes/blog/starter-template/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/starter-template (src/routes/blog/starter-template/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-description::src/routes/blog/svelte-2048/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /blog/svelte-2048 (src/routes/blog/svelte-2048/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-description::src/routes/projects/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects (src/routes/projects/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-description::src/routes/projects/odf/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /projects/odf (src/routes/projects/odf/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-image::src/routes/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog (src/routes/blog/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-image::src/routes/blog/easy-scrum/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/easy-scrum (src/routes/blog/easy-scrum/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-image::src/routes/blog/gsap/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/gsap (src/routes/blog/gsap/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-image::src/routes/blog/hello-world/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/hello-world (src/routes/blog/hello-world/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-image::src/routes/blog/lucy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/lucy (src/routes/blog/lucy/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-image::src/routes/blog/starter-template/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/starter-template (src/routes/blog/starter-template/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-image::src/routes/blog/svelte-2048/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /blog/svelte-2048 (src/routes/blog/svelte-2048/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-image::src/routes/projects/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects (src/routes/projects/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-image::src/routes/projects/odf/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /projects/odf (src/routes/projects/odf/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-title::src/routes/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog (src/routes/blog/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-title::src/routes/blog/easy-scrum/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/easy-scrum (src/routes/blog/easy-scrum/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-title::src/routes/blog/gsap/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/gsap (src/routes/blog/gsap/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-title::src/routes/blog/hello-world/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/hello-world (src/routes/blog/hello-world/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-title::src/routes/blog/lucy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/lucy (src/routes/blog/lucy/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-title::src/routes/blog/starter-template/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/starter-template (src/routes/blog/starter-template/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-title::src/routes/blog/svelte-2048/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /blog/svelte-2048 (src/routes/blog/svelte-2048/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-title::src/routes/projects/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects (src/routes/projects/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-title::src/routes/projects/odf/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /projects/odf (src/routes/projects/odf/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-url::src/routes/blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog (src/routes/blog/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-url::src/routes/blog/easy-scrum/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/easy-scrum (src/routes/blog/easy-scrum/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-url::src/routes/blog/gsap/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/gsap (src/routes/blog/gsap/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-url::src/routes/blog/hello-world/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/hello-world (src/routes/blog/hello-world/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-url::src/routes/blog/lucy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/lucy (src/routes/blog/lucy/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-url::src/routes/blog/starter-template/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/starter-template (src/routes/blog/starter-template/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-url::src/routes/blog/svelte-2048/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /blog/svelte-2048 (src/routes/blog/svelte-2048/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-url::src/routes/projects/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects (src/routes/projects/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/og-url::src/routes/projects/odf/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /projects/odf (src/routes/projects/odf/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /: the hero name is <p>/<span> text in the heroText snippet (+page.svelte:210-219), and the layout/Footer have no <h1>; script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide search for sitemap outside node_modules/lockfiles): no sitemap.xml in static/, no sitemap.xml route endpoint, hook or generator anywhere in the repo (literal claim holds); public portfolio/blog marcusadair.com (README) on Cloudflare Pages"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/+page.svelte, entities decoded, whitespace collapsed, 19 chars as reported; route list ['/'] from the local CLI run); public page of the personal portfolio marcusadair.com (README), no gate, too short as claimed"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/title-length::src/routes/blog/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/blog/+page.svelte, entities decoded, whitespace collapsed, 19 chars as reported; route list ['/blog'] from the local CLI run); public page of the personal portfolio marcusadair.com (README), no gate, too short as claimed"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/title-length::src/routes/blog/gsap/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/blog/gsap/+page.svelte, entities decoded, whitespace collapsed, 26 chars as reported; route list ['/blog/gsap'] from the local CLI run); public page of the personal portfolio marcusadair.com (README), no gate, too short as claimed"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/title-length::src/routes/projects/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/projects/+page.svelte, entities decoded, whitespace collapsed, 23 chars as reported; route list ['/projects'] from the local CLI run); public page of the personal portfolio marcusadair.com (README), no gate, too short as claimed"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/title-length::src/routes/projects/odf/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/projects/odf/+page.svelte, entities decoded, whitespace collapsed, 29 chars as reported; route list ['/projects/odf'] from the local CLI run); public page of the personal portfolio marcusadair.com (README), no gate, too short as claimed"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/twitter-card::src/routes/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog (src/routes/blog/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/twitter-card::src/routes/blog/easy-scrum/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/easy-scrum (src/routes/blog/easy-scrum/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/twitter-card::src/routes/blog/gsap/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/gsap (src/routes/blog/gsap/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/twitter-card::src/routes/blog/hello-world/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/hello-world (src/routes/blog/hello-world/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/twitter-card::src/routes/blog/lucy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/lucy (src/routes/blog/lucy/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/twitter-card::src/routes/blog/starter-template/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/starter-template (src/routes/blog/starter-template/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/twitter-card::src/routes/blog/svelte-2048/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/svelte-2048 (src/routes/blog/svelte-2048/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/twitter-card::src/routes/projects/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects (src/routes/projects/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  },
+  {
+    "key": "Marcus-Adair/svelte_portfolio::seo/twitter-card::src/routes/projects/odf/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /projects/odf (src/routes/projects/odf/+page.svelte); script-verified (grep of the app tree excl. node_modules/tests, *.svelte/ts/js/html/md incl. app.html and hooks: no literal og:*/twitter:*/rel=canonical emitter, no dynamic <meta {property}>/<link rel={…}>, no document.head injection); app.html charset/viewport; root +layout.svelte:145-147 head is a favicon; page heads <title> only; npm Svelte deps mode-watcher@1.1.0 (ledger-recorded: theme-color + theme script only), bits-ui@2.19.5, lucide-svelte, embla-carousel-svelte emit no og/twitter/canonical (also confirmed by the installed first look reporting the same set as the local run); route renders (no loads) (og/twitter absence is tp regardless of gating, per the ledger)"
+  }
+]

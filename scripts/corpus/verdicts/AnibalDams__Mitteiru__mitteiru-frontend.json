@@ -1,0 +1,1122 @@
+[
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/aria-hidden-focus::src/lib/components/ui/CustomSelect.svelte:269::<select aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "design",
+    "basis": "read lib/components/ui/CustomSelect.svelte:268-269: hidden form-value <select {name} class=\"hidden\" aria-hidden=\"true\"> under {#if name}; Tailwind 'hidden' (tailwindcss ^4.3.0 in package.json) is display:none, so it is neither focusable nor exposed (ledger Tailwind-hidden precedent)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/disallowed-aria-props::src/lib/components/ui/DashPlayer.svelte:87::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/ui/DashPlayer.svelte:87-89 (<div class=\"relative … aspect-video\" aria-label={title}>): literal <div> with aria-label and no role, spread or use: action (not a dnd-zone child); a div is generic, which prohibits a name"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/lib/components/admin/SourcesPanel.svelte:398::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read lib/components/admin/SourcesPanel.svelte:393-398 (select-source <button>): literal <p> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/lib/components/admin/SourcesPanel.svelte:402::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read lib/components/admin/SourcesPanel.svelte:393-402 (select-source <button>, description <p>): literal <p> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/lib/components/admin/SourcesPanel.svelte:403::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read lib/components/admin/SourcesPanel.svelte:393-403 (select-source <button>, baseUrl <p>): literal <p> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/lib/components/admin/SourcesPanel.svelte:513::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read lib/components/admin/SourcesPanel.svelte:508-513 (result card <button>, poster <div>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/lib/components/admin/SourcesPanel.svelte:527::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read lib/components/admin/SourcesPanel.svelte:508-527 (result card <button>, text <div>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:410::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read anime/[id]/episode/[episodeId]/+page.svelte:404-410 (episode <button>, thumbnail <div>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:420::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read anime/[id]/episode/[episodeId]/+page.svelte:404-420 (episode <button>, text <div>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:429::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read anime/[id]/episode/[episodeId]/+page.svelte:404-429 (episode <button>, current-marker <div> in {#if}): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/routes/anime/[id]/review/[reviewId]/+page.svelte:135::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read anime/[id]/review/[reviewId]/+page.svelte:125-135: <h3> (anime name) directly inside the go-to-anime <button type=button>; a heading inside <button> crosses the phrasing boundary, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/routes/anime/[id]/review/[reviewId]/+page.svelte:139::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read anime/[id]/review/[reviewId]/+page.svelte:125-139 (go-to-anime <button>, japaneseName <p> in {#if}): literal <p> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/routes/lists/+page.svelte:287::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read lists/+page.svelte:285-287: <label class=flex-1> wraps the sr-only radio and a literal <div> card (no boundary); <label> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/routes/lists/+page.svelte:295::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read lists/+page.svelte:293-295: <label class=flex-1> wraps the sr-only radio and a literal <div> card (no boundary); <label> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/routes/selectprofile/+page.svelte:204::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read selectprofile/+page.svelte:197-204 (profile <button>, avatar <div>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/routes/selectprofile/+page.svelte:232::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read selectprofile/+page.svelte:227-232 (add-profile <button>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/permitted-contents::src/routes/selectprofile/+page.svelte:270::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read selectprofile/+page.svelte:265-270 (edit-profile <button>): literal <div> is a direct child of the literal <button> (no component/snippet/svg boundary between); <button> admits phrasing content only, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::a11y/top-level-landmark::src/routes/anime/[id]/review/[reviewId]/+page.svelte:123::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: anime/[id]/review/[reviewId]/+page.svelte:123 <aside> (no aria-hidden) in the {:else} arm (:43) renders inside root +layout.svelte:78 <main> ({@render children()} :79, unconditional); the route renders (its +page.server.ts load only fetches, hooks.server.ts always resolves), so a complementary landmark sits inside main, as reported"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/lib/components/admin/SourcesPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/SourcesPanel.svelte has 649 physical lines (split on \\n, trailing newline not counted; 595 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/lib/components/anime/AnimeCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/anime/AnimeCard.svelte has 233 physical lines (split on \\n, trailing newline not counted; 212 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/lib/components/layout/Navbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/Navbar.svelte has 424 physical lines (split on \\n, trailing newline not counted; 376 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/lib/components/ui/CustomSelect.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/CustomSelect.svelte has 323 physical lines (split on \\n, trailing newline not counted; 297 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/lib/components/ui/VideoPlayer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/VideoPlayer.svelte has 551 physical lines (split on \\n, trailing newline not counted; 511 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 448 physical lines (split on \\n, trailing newline not counted; 409 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/routes/anime/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/anime/[id]/+page.svelte has 668 physical lines (split on \\n, trailing newline not counted; 603 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/anime/[id]/episode/[episodeId]/+page.svelte has 475 physical lines (split on \\n, trailing newline not counted; 434 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/routes/anime/[id]/review/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/anime/[id]/review/new/+page.svelte has 359 physical lines (split on \\n, trailing newline not counted; 330 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/routes/directory/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/directory/+page.svelte has 273 physical lines (split on \\n, trailing newline not counted; 245 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/routes/history/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/history/+page.svelte has 268 physical lines (split on \\n, trailing newline not counted; 238 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/routes/lists/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/lists/+page.svelte has 368 physical lines (split on \\n, trailing newline not counted; 327 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/component-size::src/routes/selectprofile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/selectprofile/+page.svelte has 435 physical lines (split on \\n, trailing newline not counted; 390 non-blank) > 200, matches reported count"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/prop-count::src/lib/components/anime/AnimeCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/anime/AnimeCard.svelte has a single destructured $props() with 10 named props (> 6): anime, index, badgeText, badgeVariant, savedListName, likesCount, progress, showActions, onChangeList, onRemove"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 10 named props (> 6): variant, size, disabled, loading, fullWidth, type, onclick, children, class, aria-label"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/prop-count::src/lib/components/ui/ConfirmModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/ConfirmModal.svelte has a single destructured $props() with 12 named props (> 6): isOpen, title, message, type, variant, onConfirm, onCancel, onClose, confirmText, cancelText, isLoading, size"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/prop-count::src/lib/components/ui/CustomSelect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/CustomSelect.svelte has a single destructured $props() with 9 named props (> 6): options, value, placeholder, disabled, searchable, maxHeight, class, name, onchange"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::architecture/prop-count::src/lib/components/ui/VideoPlayer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/VideoPlayer.svelte has a single destructured $props() with 11 named props (> 6): src, title, external, allowExternal, allowedHosts, onPrevEpisode, onNextEpisode, hasPrev, hasNext, isFullscreen, onToggleFullscreen"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-index-key::src/lib/components/anime/AnimeGridSkeleton.svelte:16::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/anime/AnimeGridSkeleton.svelte:16 '{#each items as _, index (index)}' keyed by its index binding; items = $derived(Array.from({ length: Math.max(1, count) })) (:12), a length-only skeleton placeholder list held in a variable (not the exempt inline shape)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-key::src/lib/components/admin/SourcesPanel.svelte:449::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/SourcesPanel.svelte:449 '{#each importResult.warnings as warning}' has no key; warnings of the import API result, replaced per import; runtime results (ledger convention for API-result warnings)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-key::src/lib/components/ui/CustomSelect.svelte:270::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/CustomSelect.svelte:270 '{#each options as opt}' has no key; uses split 3-3: genre/studio/year options come from server data and from the current page's animes (directory/+page.svelte:37, :81-106), rebuilt as filters and pages change, while status/sort (directory) and range (history/+page.svelte:50) are fixed literals; real callers pass runtime lists whose options are inserted/removed mid-list, so the claim holds"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-key::src/lib/components/ui/Pagination.svelte:44::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/Pagination.svelte:44 '{#each pages as p}' has no key; pages = $derived.by page numbers and ellipsis markers (:17); positional list (page slots)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-key::src/routes/+page.svelte:60::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:60 '{#each featured.genres.slice(0, 4) as genre}' has no key; genre tags of the one featured anime, display-only spans; read-only parts of one record"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-key::src/routes/admin/+page.svelte:363::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/+page.svelte:363 '{#each animes as a}' has no key; animes = $derived([...customAnimes, ...initialAnimes]) (:10), fetched animes refreshed after edits (customAnimes = updated.animes, :73); runtime records"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-key::src/routes/anime/[id]/+page.svelte:409::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/anime/[id]/+page.svelte:409 '{#each anime.genres as genre}' has no key; genre tags of the one anime the route shows, display-only spans; read-only parts of one record"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-key::src/routes/anime/[id]/+page.svelte:519::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/anime/[id]/+page.svelte:519 '{#each episodes as episode}' has no key; episodes = $derived(data?.episodes || []) (:17), the anime's episode records from the load, rendered as EpisodeCard components and replaced across [id] navigations; runtime records"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-key::src/routes/anime/[id]/+page.svelte:526::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/anime/[id]/+page.svelte:526 '{#each episodes as episode}' has no key; episodes = $derived(data?.episodes || []) (:17), episode records rendered as EpisodeCard components; runtime records"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-key::src/routes/anime/[id]/+page.svelte:553::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/anime/[id]/+page.svelte:553 '{#each reviews as review}' has no key; reviews = $derived(data?.reviews || []) (:18), user reviews from the load; runtime records"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/each-key::src/routes/anime/[id]/review/[reviewId]/+page.svelte:145::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: anime/[id]/review/[reviewId]/+page.svelte:145 '{#each anime.genres as genre}' has no key; genre tags of the one anime, display-only spans; read-only parts of one record"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/effect-as-derived::src/lib/components/ui/SearchBar.svelte:27::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/SearchBar.svelte:27 the effect only does query = initialQuery (prop) after `let query = $state(initialQuery)` under a svelte-ignore state_referenced_locally (:20-21); the other write is bind:value={query} (:86), the writable-$derived override pattern (svelte ^5.56.1)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/effect-as-derived::src/routes/anime/[id]/+page.svelte:23::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/anime/[id]/+page.svelte:23 the effect only does activeSavedListIds = [...initialSavedListIds] (a $derived of data); later writes are whole reassignments (:233, :236, :257), the writable-$derived override pattern (svelte ^5.56.1)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/effect-as-derived::src/routes/history/+page.svelte:43::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/history/+page.svelte:43 the effect only copies initialFilters.range/from/to into $state; later writes are handler reassignments and binds (:124-125), the writable-$derived override pattern (svelte ^5.56.1)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::correctness/prop-mutation::src/routes/anime/[id]/+page.svelte:251::Prop \"data\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/routes/anime/[id]/+page.svelte:251 data.userLists = ... writes a member of the page's data prop, a plain load-data object (kit's root props are not a $state proxy), and userLists = $derived(data?.userLists || []) (:19) feeds the list at :607, so the write does not update the UI, as claimed"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/iframe-loading::src/lib/components/ui/VideoPlayer.svelte:513::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; the external embed player filling the VideoPlayer box (:510-523), used once as the episode page's player (episode/[episodeId]/+page.svelte:253) - the page's main content, above the fold, where eager is right"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/+page.svelte:27::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; hero background absolute inset-0 h-full w-full object-cover (+page.svelte:27-31), out of flow - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/+page.svelte:320::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full object-cover in the absolute h-[80vh] banner box (:318-324) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/+page.svelte:333::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; poster w-full aspect-[2/3] object-cover (:333-337) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/+page.svelte:562::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; review avatar w-12 h-12 (:562-566) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:172::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full object-cover in the absolute h-[50vh] banner box (:170-176) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:411::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full object-cover in the w-16 h-9 thumbnail box (:410-415) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:445::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full in the w-24 h-13.5 box (:444-449) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/review/[reviewId]/+page.svelte:130::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; poster w-full aspect-[2/3] (:130-134) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/review/[reviewId]/+page.svelte:47::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full object-cover in the absolute h-[55vh] background box (:46-51) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/review/[reviewId]/+page.svelte:75::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; author avatar w-12 h-12 (:75-79) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/review/new/+page.svelte:168::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full object-cover in the absolute h-[50vh] background box (:167-172) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/review/new/+page.svelte:191::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; cover w-16 h-24 md:w-20 md:h-30 (:191-195) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/anime/[id]/review/new/+page.svelte:209::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; profile avatar w-10 h-10 (:209-213) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/selectprofile/+page.svelte:207::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; h-full w-full object-cover in the w-32 h-32 sm:w-40 sm:h-40 tile (:204-210) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-dimensions::src/routes/selectprofile/+page.svelte:273::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; w-full h-full object-cover in the w-32 h-32 sm:w-40 sm:h-40 tile (:270-276) - box reserved by CSS"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/+page.svelte:27::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; hero background of the 85vh header with fetchpriority=high (:24-31) - above the fold, the LCP image"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/+page.svelte:320::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; blurred hero banner behind the detail header (:317-324) - above the fold"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/+page.svelte:333::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; poster at the top of the detail container (:328-337) - above the fold"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/+page.svelte:562::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; reviewer avatar per card in {#each reviews} at the bottom of the page (:551-566) - offscreen"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:172::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; blurred hero banner behind the player (:169-176) - above the fold"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:411::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; episode thumbnail per row of the episode list {#each} (:405-415) - later rows sit offscreen"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:445::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; episode thumbnail inside the details <Modal>, which renders its content only {#if isOpen} (Modal.svelte:31) after the user opens it - visible when rendered"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/review/[reviewId]/+page.svelte:130::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; poster in the side card, which the single-column layout (grid-cols-1 below lg) places after the full review card (:69-134) - offscreen on mobile"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/review/[reviewId]/+page.svelte:47::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; blurred page background at the top (:45-51) - above the fold"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/review/[reviewId]/+page.svelte:75::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; author avatar in the review card's top author bar (:70-79) - above the fold"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/review/new/+page.svelte:168::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; blurred page background at the top (:166-172) - above the fold"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/review/new/+page.svelte:191::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; cover next to the page <h1> in the header (:190-200) - above the fold"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/anime/[id]/review/new/+page.svelte:209::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; profile chip in the header beside the <h1> (:207-213) - above the fold"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/selectprofile/+page.svelte:207::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; profile tile in the select view right under its <h1> (:187-210), the page's main content - above the fold"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/image-loading-hint::src/routes/selectprofile/+page.svelte:273::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; profile tile in the manage view right under its <h1> (:254-276) - above the fold"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/+page.svelte:27::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; featured anime image/cover - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/+page.svelte:320::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; anime.image/horizontalImage/cover - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/+page.svelte:333::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; anime cover poster - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/+page.svelte:562::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; review.profileImage avatar - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:172::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; anime banner image - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:411::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; episode thumbnail shown at 64px - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/episode/[episodeId]/+page.svelte:445::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; episode thumbnail - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/review/[reviewId]/+page.svelte:130::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; anime cover poster - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/review/[reviewId]/+page.svelte:47::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; anime banner image - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/review/[reviewId]/+page.svelte:75::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; review.profileImage avatar - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/review/new/+page.svelte:168::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; anime banner image - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/review/new/+page.svelte:191::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; anime cover - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/anime/[id]/review/new/+page.svelte:209::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; profile.photo avatar - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/selectprofile/+page.svelte:207::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; profile.photo avatar (default i.ibb.co jpg) - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/responsive-image::src/routes/selectprofile/+page.svelte:273::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; profile.photo avatar (default i.ibb.co jpg) - remote raster (img-src https:, Unsplash fallbacks), one fixed-size asset"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::performance/state-raw::src/lib/components/ui/ContextMenu.svelte:23::\"menuPosition\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read every reference to menuPosition in ui/ContextMenu.svelte: declared $state({top:0,left:0}) :23, whole reassignment :64, read only as .top/.left in a style attribute :113 — reassign-only, $state.raw fits"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::security/raw-html::src/lib/components/ui/Markdown.svelte:16::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read Markdown.svelte:12-16 + lib/utils/markdown.ts:37-59: renderMarkdown = isomorphic-dompurify sanitize (tag/attr allowlist) of marked output, escapeHtml on failure — sanitized, reported per docs"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (src/routes/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); publicly reachable rendered route, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); but not a search target (auth-gated: admin/+layout.server.ts:11-19 redirects to /admin/login without an admin token), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/admin/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin/login (src/routes/admin/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); publicly reachable rendered route, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/anime/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /anime/[id] (src/routes/anime/[id]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); publicly reachable rendered route, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/anime/[id]/episode/[episodeId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /anime/[id]/episode/[episodeId] (src/routes/anime/[id]/episode/[episodeId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); publicly reachable rendered route, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/anime/[id]/review/[reviewId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /anime/[id]/review/[reviewId] (src/routes/anime/[id]/review/[reviewId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); publicly reachable rendered route, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/anime/[id]/review/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /anime/[id]/review/new (src/routes/anime/[id]/review/new/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); but not a search target (auth-gated: its load redirects guests to /login (review/new/+page.server.ts:8-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/directory/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /directory (src/routes/directory/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); publicly reachable rendered route, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/history/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /history (src/routes/history/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); but not a search target (auth-gated: its load redirects guests to /login (history/+page.server.ts:9-11)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/lists/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /lists (src/routes/lists/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); but not a search target (auth-gated: its load redirects guests to /login (lists/+page.server.ts:8-10)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (src/routes/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); publicly reachable rendered route, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /search (src/routes/search/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); publicly reachable rendered route, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/selectprofile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /selectprofile (src/routes/selectprofile/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); but not a search target (auth-gated: its load redirects guests to /login (selectprofile/+page.server.ts:14-21)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/canonical-url::src/routes/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /signup (src/routes/signup/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); publicly reachable rendered route, no noindex, static/robots.txt allows all"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on / (page src/routes/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /admin (page src/routes/admin/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but admin panel: admin/+layout.server.ts:12-19 redirects to /admin/login without a valid admin token"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/admin/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /admin/login (page src/routes/admin/login/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but the admin sign-in page of the admin panel (admin/+layout.server.ts), not content for search"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/anime/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /anime/[id] (page src/routes/anime/[id]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/anime/[id]/episode/[episodeId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /anime/[id]/episode/[episodeId] (page src/routes/anime/[id]/episode/[episodeId]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/anime/[id]/review/[reviewId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /anime/[id]/review/[reviewId] (page src/routes/anime/[id]/review/[reviewId]/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/anime/[id]/review/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /anime/[id]/review/new (page src/routes/anime/[id]/review/new/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but review form: its +page.server.ts:8-12 redirects to /login without a session/profile"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/directory/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /directory (page src/routes/directory/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/history/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /history (page src/routes/history/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but history/+page.server.ts redirects to /login without a session"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/lists/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /lists (page src/routes/lists/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but lists/+page.server.ts redirects to /login without a session"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /login (page src/routes/login/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /search (page src/routes/search/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/selectprofile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /selectprofile (page src/routes/selectprofile/+page.svelte, its layouts, components and app.html set none) (literal claim holds); but selectprofile/+page.server.ts redirects to /login without a session"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/description-presence::src/routes/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html for name=\"description\", <meta {…}>/name={…} and createElement('meta'); no meta-tag package in package.json): no <meta name=description> on /signup (page src/routes/signup/+page.svelte, its layouts, components and app.html set none) (literal claim holds); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/heading-level-skip::src/routes/anime/[id]/+page.svelte:568::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: anime/[id]/+page.svelte:541 <h2> reviews section, then the review card <h4> (:568) in {#each reviews} with no <h3> between -> h2 to h4"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/heading-level-skip::src/routes/anime/[id]/review/[reviewId]/+page.svelte:135::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: review/[reviewId]/+page.svelte:98 <h1>{review.title}, then <Markdown content={review.review}/> ({@html} of the user's review, user-authored, not counted per ledger), then the side card <h3>{anime.name} (:135) -> h1 to h3"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/heading-level-skip::src/routes/anime/[id]/review/new/+page.svelte:327::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: review/new/+page.svelte:200 <h1>{anime.name}, then the form (no headings) and the preview label <h3> (:327) -> h1 to h3"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so / renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /admin renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/admin/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /admin/login renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/anime/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /anime/[id] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/anime/[id]/episode/[episodeId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /anime/[id]/episode/[episodeId] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/anime/[id]/review/[reviewId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /anime/[id]/review/[reviewId] renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/anime/[id]/review/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /anime/[id]/review/new renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/directory/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /directory renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/history/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /history renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/lists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /lists renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /login renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /search renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/selectprofile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /selectprofile renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/json-ld::src/routes/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app's src incl. app.html/hooks for ld+json|jsonld|json-ld|schema.org|structured data; no meta/JSON-LD package in package.json): no JSON-LD anywhere in the app, so /signup renders none; the route renders (script-verified sweep of every +page/+layout load and hooks: no unconditional redirect/throw on it) (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (src/routes/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: admin/+layout.server.ts:11-19 redirects to /admin/login without an admin token (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/login (src/routes/admin/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/anime/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /anime/[id] (src/routes/anime/[id]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/anime/[id]/episode/[episodeId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /anime/[id]/episode/[episodeId] (src/routes/anime/[id]/episode/[episodeId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/anime/[id]/review/[reviewId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /anime/[id]/review/[reviewId] (src/routes/anime/[id]/review/[reviewId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/anime/[id]/review/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /anime/[id]/review/new (src/routes/anime/[id]/review/new/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (review/new/+page.server.ts:8-10) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/directory/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /directory (src/routes/directory/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/history/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /history (src/routes/history/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (history/+page.server.ts:9-11) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/lists/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /lists (src/routes/lists/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (lists/+page.server.ts:8-10) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (src/routes/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /search (src/routes/search/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/selectprofile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /selectprofile (src/routes/selectprofile/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (selectprofile/+page.server.ts:14-21) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-description::src/routes/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /signup (src/routes/signup/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (src/routes/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: admin/+layout.server.ts:11-19 redirects to /admin/login without an admin token (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/login (src/routes/admin/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/anime/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /anime/[id] (src/routes/anime/[id]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/anime/[id]/episode/[episodeId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /anime/[id]/episode/[episodeId] (src/routes/anime/[id]/episode/[episodeId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/anime/[id]/review/[reviewId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /anime/[id]/review/[reviewId] (src/routes/anime/[id]/review/[reviewId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/anime/[id]/review/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /anime/[id]/review/new (src/routes/anime/[id]/review/new/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (review/new/+page.server.ts:8-10) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/directory/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /directory (src/routes/directory/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/history/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /history (src/routes/history/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (history/+page.server.ts:9-11) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/lists/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /lists (src/routes/lists/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (lists/+page.server.ts:8-10) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (src/routes/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /search (src/routes/search/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/selectprofile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /selectprofile (src/routes/selectprofile/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (selectprofile/+page.server.ts:14-21) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-image::src/routes/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /signup (src/routes/signup/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (src/routes/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: admin/+layout.server.ts:11-19 redirects to /admin/login without an admin token (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/login (src/routes/admin/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/anime/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /anime/[id] (src/routes/anime/[id]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/anime/[id]/episode/[episodeId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /anime/[id]/episode/[episodeId] (src/routes/anime/[id]/episode/[episodeId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/anime/[id]/review/[reviewId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /anime/[id]/review/[reviewId] (src/routes/anime/[id]/review/[reviewId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/anime/[id]/review/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /anime/[id]/review/new (src/routes/anime/[id]/review/new/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (review/new/+page.server.ts:8-10) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/directory/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /directory (src/routes/directory/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/history/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /history (src/routes/history/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (history/+page.server.ts:9-11) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/lists/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /lists (src/routes/lists/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (lists/+page.server.ts:8-10) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (src/routes/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /search (src/routes/search/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/selectprofile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /selectprofile (src/routes/selectprofile/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (selectprofile/+page.server.ts:14-21) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-title::src/routes/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /signup (src/routes/signup/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (src/routes/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: admin/+layout.server.ts:11-19 redirects to /admin/login without an admin token (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/login (src/routes/admin/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/anime/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /anime/[id] (src/routes/anime/[id]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/anime/[id]/episode/[episodeId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /anime/[id]/episode/[episodeId] (src/routes/anime/[id]/episode/[episodeId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/anime/[id]/review/[reviewId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /anime/[id]/review/[reviewId] (src/routes/anime/[id]/review/[reviewId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/anime/[id]/review/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /anime/[id]/review/new (src/routes/anime/[id]/review/new/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (review/new/+page.server.ts:8-10) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/directory/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /directory (src/routes/directory/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/history/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /history (src/routes/history/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (history/+page.server.ts:9-11) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/lists/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /lists (src/routes/lists/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (lists/+page.server.ts:8-10) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (src/routes/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /search (src/routes/search/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/selectprofile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /selectprofile (src/routes/selectprofile/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (selectprofile/+page.server.ts:14-21) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/og-url::src/routes/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /signup (src/routes/signup/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/single-h1::/lists::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /lists: lists/+page.svelte renders list tabs, AnimeCard grid, EmptyState and Modals (title <h3>), and the root layout Navbar/Toaster; the app's only <h1> component is PageHeader, not used here; script-verified: grep of the app's src (page, layout chain, src/lib components) finds no <h1>, role=heading or heading svelte:element on this route; load redirects only without login/profile"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/single-h1::src/routes/anime/[id]/review/new/+page.svelte:336::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the page <h1>{anime.name} (:200) is the only <h1> on load; the second is the live preview <h1>{title} (:336) in {#if title || body}{#if title}, and title = $state('') (:17) is set only as the user types it (:234) - co-render only after user input"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep (repo-wide search for sitemap outside node_modules/lockfiles): no sitemap.xml in static/, no sitemap.xml route endpoint, hook or generator anywhere in the repo (literal claim holds); public SSR anime catalogue deployed on Vercel (DEPLOY.md) with ungated /anime/[id], /directory, /search pages"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/title-length::src/routes/admin/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/admin/login/+page.svelte, entities decoded, whitespace collapsed, 16 chars as reported; route list ['/admin/login'] from the local CLI run) (literal claim holds); but the admin sign-in page of the admin panel (admin/+layout.server.ts), not content for search"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/title-length::src/routes/directory/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/directory/+page.svelte, entities decoded, whitespace collapsed, 20 chars as reported; route list ['/directory'] from the local CLI run); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route, too short as claimed"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/title-length::src/routes/history/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/history/+page.svelte, entities decoded, whitespace collapsed, 18 chars as reported; route list ['/history'] from the local CLI run) (literal claim holds); but history/+page.server.ts redirects to /login without a session"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/title-length::src/routes/lists/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/lists/+page.svelte, entities decoded, whitespace collapsed, 19 chars as reported; route list ['/lists'] from the local CLI run) (literal claim holds); but lists/+page.server.ts redirects to /login without a session"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/login/+page.svelte, entities decoded, whitespace collapsed, 16 chars as reported; route list ['/login'] from the local CLI run); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route, too short as claimed"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/title-length::src/routes/selectprofile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/selectprofile/+page.svelte, entities decoded, whitespace collapsed, 26 chars as reported; route list ['/selectprofile'] from the local CLI run) (literal claim holds); but selectprofile/+page.server.ts redirects to /login without a session"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/title-length::src/routes/signup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lens.py: the only literal <title> in src/routes/signup/+page.svelte, entities decoded, whitespace collapsed, 17 chars as reported; route list ['/signup'] from the local CLI run); public, SSR-rendered page of the Mitteiru anime catalogue deployed on Vercel (DEPLOY.md), no login gate on this route, too short as claimed"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (src/routes/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (src/routes/admin/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: admin/+layout.server.ts:11-19 redirects to /admin/login without an admin token (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/admin/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/login (src/routes/admin/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/anime/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /anime/[id] (src/routes/anime/[id]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/anime/[id]/episode/[episodeId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /anime/[id]/episode/[episodeId] (src/routes/anime/[id]/episode/[episodeId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/anime/[id]/review/[reviewId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /anime/[id]/review/[reviewId] (src/routes/anime/[id]/review/[reviewId]/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/anime/[id]/review/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /anime/[id]/review/new (src/routes/anime/[id]/review/new/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (review/new/+page.server.ts:8-10) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/directory/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /directory (src/routes/directory/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/history/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /history (src/routes/history/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (history/+page.server.ts:9-11) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/lists/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /lists (src/routes/lists/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (lists/+page.server.ts:8-10) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (src/routes/login/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /search (src/routes/search/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/selectprofile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /selectprofile (src/routes/selectprofile/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session); route context: auth-gated: its load redirects guests to /login (selectprofile/+page.server.ts:14-21) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "AnibalDams/Mitteiru:mitteiru-frontend::seo/twitter-card::src/routes/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /signup (src/routes/signup/+page.svelte): script-verified (grep of mitteiru-frontend src incl. app.html/hooks.server.ts: no og:*, twitter:* or rel=canonical anywhere; page heads are <title>/theme-color/preconnect only; hooks.server.ts only sets locals and security headers; npm deps dashjs/marked/dompurify emit no head tags; local CLI reproduces the exact first-look route set); route renders (every redirect in its page/layout loads is conditional on session)"
+  }
+]
