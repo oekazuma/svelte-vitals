@@ -201,7 +201,7 @@ load-bearing:
   project-scoped result leaves both unset, so N findings collapse to one baseline entry and suppressing one
   silently suppresses the rest. M3 records this reasoning at the code; M4 has the same key space.
 - **It carries a glob that matched no directory too, counted per alternative.** `placements: { e2e:
-'src/route/**' }` reports every `e2e/` in the tree with no diagnostic otherwise. The unit M3's
+  'src/route/**' }` reports every `e2e/` in the tree with no diagnostic otherwise. The unit M3's
   `classifyUnusedKeys` counts is a whole map key; M4's must be **one `|`-separated alternative**, because a
   typo among good alternatives — `'src/route/**|src/lib/features/*'` — shrinks the permitted set by exactly
   the same mechanism while "some glob in this name's union matched something" stays true. Per-name counting
@@ -338,7 +338,7 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
     passes a single-glob test and reports nothing here, which is the five-of-eight case in the example
     encoding.
 11. **A unit-map glob matching only non-units is reported.** `capitalisedUnitPlacements: { parts:
-'src/lib/features/*' }` where those directories are concern directories: the declaration is live,
+    'src/lib/features/*' }` where those directories are concern directories: the declaration is live,
     governs nothing, and must say so. Item 10 does not catch it — the glob matched directories.
 12. **`exclude` removes a subtree**, asserted on a tree where the same misplacement reports without it.
 13. **Nothing is reported when no map is declared**, on a tree that would otherwise produce findings — the L3

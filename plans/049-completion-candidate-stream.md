@@ -132,7 +132,7 @@ sync". The fix site is one function.
 
 - Branch: `advisor/049-completion-candidate-stream`
 - Conventional commits, e.g. `fix(cli): emit one completion candidate per
-flag — collapse multi-line descriptions and restore --no-* text`
+  flag — collapse multi-line descriptions and restore --no-* text`
 - Do NOT push or open a PR unless the operator instructed it.
 
 ## Steps

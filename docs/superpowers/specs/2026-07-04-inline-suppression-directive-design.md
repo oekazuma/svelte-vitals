@@ -44,7 +44,7 @@ detection logic, not a suppression need.
   if empty it emits one PASS `Result`, otherwise one PENALIZED `Result` per bad item.
 - There is no existing inline-suppression mechanism anywhere in the codebase.
   The only existing silencing mechanism is whole-rule, whole-run: `--ignore
-<ids>` / `--rules <ids>` (`packages/cli/src/rules-config.ts`), which is too
+  <ids>` / `--rules <ids>` (`packages/cli/src/rules-config.ts`), which is too
   coarse for a single intentional occurrence.
 - Every component-rule fact already carries a 1-based source `line` (each block's
   opening tag, the `$effect(` call, the `{@html}` tag, the flagged attribute, …),
@@ -153,7 +153,7 @@ rule pages × 2 languages is out of proportion to this feature; can be linked fr
 individual rule pages later if it comes up):
 
 - `docs/src/content/docs/guides/cli.md` — new `### Suppressing a single finding
-inline` section after `### --ignore <ids>`: syntax, the Vibration-pattern
+  inline` section after `### --ignore <ids>`: syntax, the Vibration-pattern
   example from the issue, and the two matching caveats (no same-line trailing
   form; a blank line between comment and code breaks the match).
 - `docs/src/content/docs/ja/guides/cli.md` — same content in Japanese.

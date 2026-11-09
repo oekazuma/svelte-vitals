@@ -62,10 +62,10 @@ Checked against the installed SvelteKit 2.70.1 and the official docs before desi
   - `redirect`: `redirect(…, '<path>') is root-relative — the Location header points outside this project's kit.paths.base and 404s in production. Use resolve('<path>') from '$app/paths'.`
 - **recommendation**: `Wrap root-relative paths in resolve() from '$app/paths' so they resolve against kit.paths.base.`
 - **rationale**: `A root-relative literal resolves against the domain root, not kit.paths.base, so
-navigation lands outside an app served from a sub-path. The break only appears once the app is
-deployed under its base — locally base is usually '', so every such link works.`
+  navigation lands outside an app served from a sub-path. The break only appears once the app is
+  deployed under its base — locally base is usually '', so every such link works.`
 - **fix (description-only)**: `Import { resolve } from '$app/paths' and wrap the path:
-href={resolve('/about')}, goto(resolve('/about')), redirect(303, resolve('/login')).`
+  href={resolve('/about')}, goto(resolve('/about')), redirect(303, resolve('/login')).`
 
 ## Gate: the `kitPathsBase` project fact
 

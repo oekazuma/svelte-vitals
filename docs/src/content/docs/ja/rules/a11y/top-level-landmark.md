@@ -12,11 +12,13 @@ description: banner・main・complementary・contentinfo ランドマークは�
 代表的なケースは、レイアウトが子要素を `<main>` の中に描画し、ページが別のランドマーク、例えば `<aside>` を描画する場合です。
 
 ```svelte +layout.svelte
-<header>サイトナビゲーション</header><main>{@render children()}</main>
+<header>サイトナビゲーション</header>
+<main>{@render children()}</main>
 ```
 
 ```svelte +page.svelte
-<h1>ページの本文</h1><aside>関連リンク</aside>
+<h1>ページの本文</h1>
+<aside>関連リンク</aside>
 ```
 
 `role` は不要です。`<body>` または `<main>` の直下にある裸の `<aside>` は `complementary` ランドマークになります。`<article>`・`<aside>`・`<nav>`・`<section>` といったセクショニングコンテンツの中では、`aria-label` か `aria-labelledby` を持つ場合にのみランドマークになります。これが HTML のアクセシビリティマッピングの規定です。
@@ -37,7 +39,9 @@ description: banner・main・complementary・contentinfo ランドマークは�
 すべてのランドマークがルートの最上位で合成されるよう、ネストしたランドマークを外に出します。ページが描画するものはすべてレイアウトの `<main>` の中に入るため、`<aside>` はレイアウト側で `<main>` と並べて描画します。
 
 ```svelte +layout.svelte
-<header>サイトナビゲーション</header><main>{@render children()}</main><aside>関連リンク</aside>
+<header>サイトナビゲーション</header>
+<main>{@render children()}</main>
+<aside>関連リンク</aside>
 ```
 
 ```svelte +page.svelte

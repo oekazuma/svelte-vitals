@@ -24,7 +24,7 @@ A route-scoped rule still receives **all** routes in `ctx.heads`, so it can dete
 duplicates across the site. Build a shared `uniquenessRule` factory:
 
 - For each head, find the matching tag (`kind: 'title'`, or `kind: 'meta' && name
-=== 'description'`) with a captured `text`. Normalize with the same trim +
+  === 'description'`) with a captured `text`. Normalize with the same trim +
   whitespace-collapse used by `visibleLength` (case-sensitive).
 - Group routes by normalized text. A group of **2+ routes** → each route fails
   ("Title is duplicated across N routes"). A route whose text is unique → pass.

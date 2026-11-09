@@ -12,11 +12,13 @@ Flags a `banner`, `main`, `complementary`, or `contentinfo` landmark that ends u
 The flagship case is a layout that renders its children inside `<main>` while the page contributes another landmark, e.g. an `<aside>`:
 
 ```svelte +layout.svelte
-<header>Site navigation</header><main>{@render children()}</main>
+<header>Site navigation</header>
+<main>{@render children()}</main>
 ```
 
 ```svelte +page.svelte
-<h1>Page content</h1><aside>Related links</aside>
+<h1>Page content</h1>
+<aside>Related links</aside>
 ```
 
 No `role` is needed: a bare `<aside>` scoped to `<body>` or `<main>` is a `complementary` landmark. Inside sectioning content (`<article>`, `<aside>`, `<nav>`, `<section>`) it is one only when it has an `aria-label` or `aria-labelledby`, which is what the HTML accessibility mapping specifies.
@@ -37,7 +39,9 @@ Assistive technology exposes `banner`, `main`, `complementary`, and `contentinfo
 Move the nested landmark out so every landmark composes at the top level of the route. Anything the page renders lands inside the layout's `<main>`, so render the `<aside>` from the layout, beside `<main>`:
 
 ```svelte +layout.svelte
-<header>Site navigation</header><main>{@render children()}</main><aside>Related links</aside>
+<header>Site navigation</header>
+<main>{@render children()}</main>
+<aside>Related links</aside>
 ```
 
 ```svelte +page.svelte

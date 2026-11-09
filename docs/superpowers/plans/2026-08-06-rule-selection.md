@@ -354,7 +354,7 @@ git commit -m "feat(cli): compose a run's rules map in a pure function"
 - Create: `packages/cli/test/fixtures/dead-declaration-project/` — a copy of the shape of
   `rules-flag-config-project` (read that fixture and mirror its `package.json` and `src/` layout), whose
   `svelte-vitals.config.mjs` declares `'architecture/reserved-name-placement': { options: { placements: { e2e:
-'src/nowhere/**' } } }`. The glob matches no directory, so the rule emits its aggregated
+  'src/nowhere/**' } } }`. The glob matches no directory, so the rule emits its aggregated
   project-scoped diagnostic — which the defect silences along with everything else. Add a header comment
   saying that is what the fixture is for. Export a `deadDeclarationFixtureDir` constant beside the existing
   `rulesFlagConfigFixtureDir` in `analyze-project.test.ts`.

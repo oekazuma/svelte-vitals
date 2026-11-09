@@ -203,7 +203,7 @@ notes に明記し、CI の `check`/`test` ジョブでの検証に委ねる。�
   `getOctokit`(`rest.issues.listComments`/`updateComment`/`createComment` を
   `vi.fn()` でモックした octokit ライクなオブジェクトを返す)。
 - `svelte-vitals` — `analyzeProject`(固定の `{ results: [...], config: {...},
-version: '0.0.0-test' }` を返す)と `applyScope`(受け取った `results` をそのまま
+  version: '0.0.0-test' }` を返す)と `applyScope`(受け取った `results` をそのまま
   返す、またはテストケースに応じて critical な finding を混ぜる)。
 - `@svelte-vitals/core` — `formatGithubReport`・`formatMarkdownReport`・`summarize`・
   `hasFailureAtOrAbove` を、テストが分岐を制御できる程度の単純な `vi.fn()` にする

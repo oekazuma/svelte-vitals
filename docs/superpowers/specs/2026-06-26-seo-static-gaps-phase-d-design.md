@@ -28,7 +28,7 @@ absent in a mode that cannot see it (no false positives), mirroring the existing
 
 - **Rules see `<head>` + (optionally) images, never page body.** `RuleContext`
   (`packages/core/src/rule.ts`) is `{ heads: ResolvedHead[]; images?:
-ResolvedImages[]; project; config }`. `ResolvedHead` exposes only head tags.
+  ResolvedImages[]; project; config }`. `ResolvedHead` exposes only head tags.
 - **Image rules are CLI-only.** `ctx.images` is collected by the static provider
   (`collectImages` in `packages/cli/src/providers/source/parse.ts` walks the whole
   AST) and threaded via `packages/cli/src/index.ts`. The rendered (vite) provider
@@ -65,7 +65,7 @@ in **rendered** analysis — exactly the viewport situation.
 - Static (`parse.ts` meta branch): if a `<meta>` has a `charset` attribute, push
   `{ kind: 'meta', name: 'charset', value: <static|dynamic|absent of charset attr> }`.
 - Rendered (`parse-html.ts` meta loop): before the `if (!name && !property)
-continue` guard, detect `meta.getAttribute('charset')` and push
+  continue` guard, detect `meta.getAttribute('charset')` and push
   `{ kind: 'meta', name: 'charset', presence: 'own', value: 'static' }`.
 
 **Rule:** `headTagRule` matching `t.kind === 'meta' && t.name === 'charset'`,
@@ -114,9 +114,9 @@ When present it validates:
 **Capture:** add `hreflang?: string` to `HeadTag` (`packages/core/src/head.ts`).
 
 - Static (`parse.ts` link branch): `const hreflang = attrText(node.attributes,
-'hreflang')` and spread it when present.
+  'hreflang')` and spread it when present.
 - Rendered (`parse-html.ts` link loop): `const hreflang =
-link.getAttribute('hreflang')` and spread it when present.
+  link.getAttribute('hreflang')` and spread it when present.
 
 **Rule:** custom route-scoped rule (not `headTagRule` — it inspects a _set_ of
 link tags and validates values). Collects `head.tags.filter(t => t.kind ===
@@ -158,7 +158,7 @@ no-ops.
   `h1`–`h6`, record `level` + `line`. Thread through `routes.ts` (per layer,
   with `file`) and `index.ts` into `ctx.headings`.
 - Rendered (`parse-html.ts` / `collect.ts`): `root.querySelectorAll('h1,h2,h3,
-h4,h5,h6')` from the full document (node-html-parser parses the whole doc;
+  h4,h5,h6')` from the full document (node-html-parser parses the whole doc;
   today we only query `<head>`). Thread through `analyze.ts` into `ctx.headings`.
 
 **Rule:** custom route-scoped rule. Per route in `ctx.headings ?? []`: let `h1 =

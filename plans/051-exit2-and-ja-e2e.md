@@ -122,8 +122,8 @@ Two independent audit passes found the same pair of process-boundary gaps:
 
 - Branch: `advisor/051-exit2-and-ja-e2e`
 - Conventional commits, e.g. `fix(cli): map internal dispatch crashes to
-exit 2 instead of an unhandled rejection` and `test(cli): pin the ja
---help path through the built binary`
+  exit 2 instead of an unhandled rejection` and `test(cli): pin the ja
+  --help path through the built binary`
 - Do NOT push or open a PR unless the operator instructed it.
 
 ## Steps

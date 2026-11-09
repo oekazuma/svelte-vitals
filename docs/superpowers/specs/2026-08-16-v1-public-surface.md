@@ -130,7 +130,7 @@ is exactly this case.
 
 - **JSON reporter** (`JsonReport`): frozen field-for-field as documented in the reporters guide —
   `version, score, weights, categories, summary, rules{findings,passed}, routes[], siteIssues[],
-inventories, examined?, skipped?`, closed over exactly `Summary`, `RuleEvidence`, `JsonIssue`, `Result`,
+  inventories, examined?, skipped?`, closed over exactly `Summary`, `RuleEvidence`, `JsonIssue`, `Result`,
   `Detection`, `Presence`, `Value`, `Fix`, `Category`, `Severity`, `Config`, and `ScoreModel`.
   Every field listed above, and its meaning, is frozen; new fields may be added in a minor **only
   as optional**, and consumers must ignore fields they do not know — a parser that rejects unknown

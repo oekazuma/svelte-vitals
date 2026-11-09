@@ -96,7 +96,7 @@ the skill file, no network fetch required.
   ```
 
   `ruleLine()` renders one rule as `- **SEO002 — Description presence**
-(critical): <rationale>. Fix: <fix.description> ([docs](<url>))`. This is
+  (critical): <rationale>. Fix: <fix.description> ([docs](<url>))`. This is
   exactly the "rule catalog" content the new skill needs — reuse it, don't
   reimplement it.
 
@@ -530,7 +530,7 @@ adapted to this file — never approximated from memory.
   - Run this project's own typecheck, lint, and test commands (see Phase 1
     recon — don't assume a specific package manager).
 - **Behavior check**: Load the affected route and confirm `<observable
-behavior>` — for an SEO fix, View Source (not just the rendered DOM) to
+  behavior>` — for an SEO fix, View Source (not just the rendered DOM) to
   confirm the SSR output actually contains the fix.
 - **Done when**: the targeted finding is clear, the Health Score is not
   lower, required checks pass, and the behavior check matches the target.

@@ -211,7 +211,7 @@ that was being told to fix a correct declaration stops being told that, and one 
   unoccupied" report is worth having is a separate question, and the existing "declared name that never appears"
   entry already records the undecidable half of it.
 - **A glob scoped to a subtree whose units do not exist yet.** `capitalisedUnitPlacements: { parts:
-'src/lib/newarea/**' }`, with units elsewhere but none under `newarea`, is silent today and reports under this
+  'src/lib/newarea/**' }`, with units elsewhere but none under `newarea`, is silent today and reports under this
   design. Review found it and it is a real behaviour change, not covered by the bullet above. It is kept, for
   consistency: `matched no directory` already reports a glob naming a directory that does not exist yet, and a
   glob naming no unit yet is the same claim one level down. The message says what is missing rather than telling

@@ -103,8 +103,8 @@ plans in this directory.
 - Branch: `advisor/048-test-builds-before-run`
 - Conventional commits, scoped by package; this is a root-level change, use
   the `chore:` prefix (matching e.g. `chore(cli): stop exporting four
-internal-only types` from `git log`): `chore: build before the recursive
-test run so a stale dist can't fail or fake the suite`
+  internal-only types` from `git log`): `chore: build before the recursive
+  test run so a stale dist can't fail or fake the suite`
 - Do NOT push or open a PR unless the operator instructed it.
 
 ## Steps

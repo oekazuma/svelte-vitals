@@ -293,7 +293,7 @@ If a follow-up implementation plan is written, the shape this spike points to:
    given it's consumed only by the CLI's internal scoping logic and
    `@svelte-vitals/core` is meant to stay runtime-agnostic and mode-agnostic?
    An alternative is a CLI-local constant set (`CROSS_ROUTE_RULE_IDS = new
-Set(['SEO028', 'SEO029'])`) that doesn't touch core's `Rule` type at all —
+   Set(['SEO028', 'SEO029'])`) that doesn't touch core's `Rule` type at all —
    simpler, but drifts silently if a future rule needs the same treatment and
    nobody remembers to update the constant. A `core`-side field is
    self-documenting and enforced by the type checker at the rule's

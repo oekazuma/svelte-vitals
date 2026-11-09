@@ -204,8 +204,9 @@ it('rejects an Object.prototype-named option key as unknown, not as a wrong-type
 ```ts
 it('ignores an Object.prototype-named key in a layer instead of merging it in', () => {
   // resolveRuleOptions trusts validation, but the defensive `if (!s) continue` must hold for these names too.
-  const resolved =
-    resolveRuleOptions(/* same arguments the neighbouring cases use, with a layer { constructor: { z: 'y' } } */);
+  const resolved = resolveRuleOptions(
+    /* same arguments the neighbouring cases use, with a layer { constructor: { z: 'y' } } */
+  );
   expect(Object.hasOwn(resolved, 'constructor')).toBe(false);
 });
 ```

@@ -68,7 +68,7 @@ hand-added blocking scripts (typically in `app.html`), so it's rendered-only.
 
 - **Capture (parse-html):** for each `<head> <script>` with a `src` that is **not**
   `defer`/`async`/`type=module`, push `{ kind: 'script', presence: 'own', value:
-'static', blocking: true }`. Add `kind: 'script'` and `blocking?: boolean` to
+  'static', blocking: true }`. Add `kind: 'script'` and `blocking?: boolean` to
   `HeadTag`. (JSON-LD scripts keep their existing `kind: 'jsonld'` path.)
 - **Rule:** custom route-scoped rule; fail once per route that has any
   `kind: 'script' && blocking` tag, else (rendered head with none) pass. Static

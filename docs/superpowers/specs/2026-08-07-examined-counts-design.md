@@ -218,7 +218,7 @@ them need answering to close the gap that was measured. Recorded as deferred, no
 8. **An override-only declaration is not counted**, and a directory judged under one does not inflate a global
    declaration's number. This is the scope decision above. Its neighbour needs its own test: an override that
    **replaces** a global declaration's value must leave that global label at `0`, carrying its `matched no
-directory` diagnostic, so the count and the diagnostic never contradict each other about one label.
+   directory` diagnostic, so the count and the diagnostic never contradict each other about one label.
 9. **`--diff` does not narrow the count.** A run whose results are filtered to one finding still reports the
    full count. This is the decision most likely to be "simplified" later by someone who assumes the count should
    track the output.

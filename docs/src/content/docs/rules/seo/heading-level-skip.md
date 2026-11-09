@@ -16,7 +16,9 @@ Skipping a heading level breaks the document outline that assistive technology r
 ## How to fix
 
 ```svelte
-<h1>Page title</h1><h2>Section</h2><h3>Subsection</h3>
+<h1>Page title</h1>
+<h2>Section</h2>
+<h3>Subsection</h3>
 ```
 
 ## Mode differences
