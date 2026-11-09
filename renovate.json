@@ -42,6 +42,11 @@
       "enabled": false
     },
     {
+      "description": "@types/node follows the published engines.node floor (Node 24), not the dev runtime: newer typings would let code type-check against APIs the floor does not have.",
+      "matchPackageNames": ["@types/node"],
+      "allowedVersions": "<25"
+    },
+    {
       "description": "matchUpdateTypes keeps this rule off the lockFileMaintenance update type — without it, the group rename splits lock file maintenance into a second, permanently-conflicting -catalog twin PR.",
       "groupName": "catalog",
       "matchFileNames": ["pnpm-workspace.yaml"],
