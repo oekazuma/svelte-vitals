@@ -34,7 +34,7 @@ deploy-blocker test dominates the duplication test.
   false-positive on ordinary identifiers. A **curated high-signal list** is
   the correct adaptation.
 - Its recognised guards: `browser` from `$app/environment`, `typeof X !==
-'undefined'` checks, and `onMount` bodies. In svelte-vitals, function
+  'undefined'` checks, and `onMount` bodies. In svelte-vitals, function
   bodies (incl. `onMount`/`$effect` callbacks and event handlers) are already
   excluded by the eval-scope walk (`EVAL_SCOPE_BOUNDARIES`), so only the
   `browser`/`typeof` guard skipping is new machinery.
@@ -68,7 +68,7 @@ collision risk (`name`, `status`, `length`, …) are deliberately absent.
 1. **Pre-pass** — names that disqualify a candidate for the whole program:
    every import's local name and every top-level declaration name
    (export-unwrapped; `const document = …` / `import { window } from
-'happy-dom'` are real bindings, not global reads). Also collect the
+   'happy-dom'` are real bindings, not global reads). Also collect the
    **guard binding**: the local name(s) of `browser` value-imported from
    `'$app/environment'` (alias-resolved).
 2. **Walk** — stops at eval-scope boundaries (functions/classes never run at
@@ -85,17 +85,17 @@ collision risk (`name`, `status`, `length`, …) are deliberately absent.
 3. **Guard skipping** — an `IfStatement` / `ConditionalExpression` /
    `LogicalExpression` whose test contains (a) a reference to a guard
    binding (`browser`) or (b) a `typeof <tracked-global> === | !==
-'undefined'` comparison is skipped **entirely, including the else
+   'undefined'` comparison is skipped **entirely, including the else
    branch** — a `window` access in the server branch of `if (browser) … else
-…` is a conservative miss, documented. A **terminating early-return guard**
+   …` is a conservative miss, documented. A **terminating early-return guard**
    (`if (!browser) return {};` / `if (typeof window === 'undefined') throw
-…;`, any polarity) additionally stops the scan of the rest of its enclosing
+   …;`, any polarity) additionally stops the scan of the rest of its enclosing
    `BlockStatement`/`Program` — the remaining statements never run in the
    guarded environment, so the walk manually loops the container's
    statement list and breaks after such a guard instead of relying on the
    generic key-walk. A guard binding derived from another guard, one level
    deep (`const canUse = browser && !!window.matchMedia;` then `if (canUse)
-{…}`), is also recognised via a one-pass pre-scan of the program's
+   {…}`), is also recognised via a one-pass pre-scan of the program's
    top-level `const`/`let` declarators (`collectDerivedGuardBindings`) — no
    fixpoint chasing. The Kit parser and the `.svelte` instance scan run the
    same pre-scan on the module program and pass the result through
@@ -184,7 +184,7 @@ Changeset: core / `svelte-vitals` / vite / mcp — **minor**.
   `if (browser) … else …` that touches a browser global is a conservative
   miss.
 - **Client-only components are unprovable cross-file** (parent `{#if
-browser}`, dynamic import) — the reason CORRECT009 is a warning, with the
+  browser}`, dynamic import) — the reason CORRECT009 is a warning, with the
   inline suppression as the escape hatch.
 - **`ssr = false` opt-out is same-file only** — a root `+layout.ts` turning
   SSR off app-wide is not detected.
@@ -192,11 +192,11 @@ browser}`, dynamic import) — the reason CORRECT009 is a warning, with the
 - **Template expressions are not scanned** (`{window.innerWidth}` in markup
   also runs during SSR — future extension).
 - **Indirect access is not tracked** (`globalThis.window`, `const w =
-window` at a guarded site then used elsewhere).
+  window` at a guarded site then used elsewhere).
 - The curated list trades recall for precision — browser-only APIs outside
   the 17 names are not flagged.
 - **`$props()` destructuring defaults are not scanned** (`let { width =
-window.innerWidth } = $props()`) — the default only evaluates when the prop
+  window.innerWidth } = $props()`) — the default only evaluates when the prop
   is absent, including during SSR, but the scanner only visits a
   `VariableDeclarator`'s `init`, never its `id` pattern's defaults — a
   silent conservative miss.

@@ -257,7 +257,7 @@ meta-test coverage every rule has; the remaining rules follow one at a time unde
 - **The attribute-condition selectors.** `required`, `ineffective` and `condition` are not
   booleans on most rows: 7 of the 11 `required` rows are selectors (`":is(video, audio) > source"`,
   `"[itemprop]"`), `ineffective` rows like `script[defer]` are lists (`["[type='module' i]",
-":not([src])", "[async]"]`), and `condition` (51 rows) uses ancestor combinators (`a[href] img`).
+  ":not([src])", "[async]"]`), and `condition` (51 rows) uses ancestor combinators (`a[href] img`).
   `required-attr` and `ineffective-attr` therefore need a third selector surface, distinct from both
   the content-model DSL and the ARIA conditions, and their designs decide how much of it to evaluate
   against a template with holes in it.

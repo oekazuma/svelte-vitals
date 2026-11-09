@@ -64,8 +64,8 @@ passes (security and correctness) converged on this finding.
 - The raw interpolation sites that all route through those two bindings
   (do NOT wrap each individually — wrap the binding):
   - `packages/cli/src/index.ts:567` — `for (const w of analysis.warnings)
-errorLog(\`svelte-vitals: ${w}\`)`; `analysis.warnings`includes`skippedFileWarnings`(raw analyzed-repo file paths, built at`index.ts:253-262`) and `failedRuleWarnings`(raw exception first
-lines,`index.ts:270-271`).
+    errorLog(\`svelte-vitals: ${w}\`)`; `analysis.warnings`includes`skippedFileWarnings`(raw analyzed-repo file paths, built at`index.ts:253-262`) and `failedRuleWarnings`(raw exception first
+    lines,`index.ts:270-271`).
   - `index.ts:529` / `:545-546` — detected/multiple SvelteKit app directory
     names.
   - `index.ts:557,561,690` — `err.message` interpolations
@@ -181,7 +181,7 @@ types.
   your wrap altered clean strings — that's a bug in the wrap, not a
   snapshot to refresh).
 - Verification: `pnpm build && pnpm typecheck && pnpm test && pnpm lint &&
-pnpm check:publish` all green.
+  pnpm check:publish` all green.
 
 ## Done criteria
 

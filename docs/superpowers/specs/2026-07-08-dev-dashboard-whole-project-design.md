@@ -41,7 +41,7 @@ visited-routes-only Health).
 3. **Provenance badges.** Route headings show whether a route's findings are
    `measured` (live) or `static`. Implemented as an optional argument on
    core's `buildHtmlDocument` (`opts?: { routeBadges?: Record<string,
-'measured' | 'static'> }`) — core stays a pure string function and the CLI
+   'measured' | 'static'> }`) — core stays a pure string function and the CLI
    `--reporter html` path is untouched (argument omitted). No string
    post-processing hacks in `serve.ts`.
 4. **Dependency direction: `@svelte-vitals/vite` depends on `svelte-vitals`.**

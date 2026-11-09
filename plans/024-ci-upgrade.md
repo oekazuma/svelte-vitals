@@ -36,8 +36,8 @@
    (行末のバージョンコメントごと更新)。複数行あれば全部置換(matrix 構成対応)。
 3. `actions/checkout` 等**他のピンは触らない**(Renovate / ユーザー管轄)。
 4. ワークフローが無い → exit 2 + `run \`svelte-vitals ci install\` first`の案内。
-Action 参照行が無い → exit 2 + その旨(手書きワークフロー等)。
-既に最新 →`already up to date (@svelte-vitals/action@X)` で exit 0。
+   Action 参照行が無い → exit 2 + その旨(手書きワークフロー等)。
+   既に最新 →`already up to date (@svelte-vitals/action@X)` で exit 0。
 5. `--dry-run` 対応(置換予定の before → after を表示して書かない)。
 
 ## Current state

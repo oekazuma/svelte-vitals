@@ -129,7 +129,7 @@ its PR is deliberately not automerged because the bump is user-facing and needs 
   be legitimate — an inline directive left behind after the code was fixed is the worked example —
   the warning is deferred to an opt-in follow-up, and the design records why. Guard (1) has no exception. The class
   this prevents is a lever that silently does nothing while the run reports success — a `--route
-"/blog/**"` that matches zero routes and exits 0, passing a canary that asserts only that a
+  "/blog/**"` that matches zero routes and exits 0, passing a canary that asserts only that a
   report came back. Guard (2)'s "on a full run" is about where the warning
   would be noise, not a blanket rule: an unmatched `--route`, and a `--rules` id whose facts
   `--route` skips, are reported in the scoped run itself, since that is the only run they can be

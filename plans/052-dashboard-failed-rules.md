@@ -117,7 +117,7 @@ multi-line stack trace can flood the terminal).
   - `packages/vite/src/ui/middleware.ts:104-116` (ingest: validates with
     `isResultLike`, calls `store.set(route, results.filter(isResultLike))`)
     and `:138`/`:151` — `buildSnapshot(store, config, { version,
-coreVersion })` with the **unadjusted** plugin config;
+    coreVersion })` with the **unadjusted** plugin config;
     `packages/vite/src/ui/snapshot.ts:36` feeds it straight into
     `buildJsonReport`.
   - `packages/vite/src/ui/store.ts` — `FindingsStore` interface (`set`,
@@ -170,7 +170,7 @@ coreVersion })` with the **unadjusted** plugin config;
 
 - Branch: `advisor/052-dashboard-failed-rules`
 - Conventional commits, e.g. `fix(vite): score crashed rules as not-run on
-the dev dashboard, matching CLI and build mode`
+  the dev dashboard, matching CLI and build mode`
 - Do NOT push or open a PR unless the operator instructed it.
 
 ## Steps
@@ -212,7 +212,7 @@ In `packages/vite/src/ui/analysis.ts`:
   and change `opts.onResults(results)` to
   `opts.onResults(results, config)` (second param optional).
 - In the plugin's runner wiring (find the `createAnalysisRunner({ ...,
-onResults })` call site in `packages/vite/src/plugin.ts` around line
+  onResults })` call site in `packages/vite/src/plugin.ts` around line
   ~263-290), store the received adjusted config in a closure variable the
   middleware can read (see Step 4).
 
@@ -223,7 +223,7 @@ optional param means most should compile unchanged).
 ### Step 3: Thread live-layer failed rules through ingest
 
 - `packages/vite/src/hooks/handle.ts`: change `postIngest(origin, route,
-results)` to also send `failedRuleIds: failedRules.map((f) => f.id)` in
+  results)` to also send `failedRuleIds: failedRules.map((f) => f.id)` in
   the POST body (adjust `postIngest`'s signature in the same file).
 - `packages/vite/src/ui/middleware.ts:104-116`: read the optional
   `failedRuleIds` field; validate it is an array of strings (filter

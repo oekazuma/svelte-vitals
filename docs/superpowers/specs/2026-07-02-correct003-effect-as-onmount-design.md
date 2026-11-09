@@ -18,7 +18,7 @@ state → use `onMount`.
 ## Background / current state
 
 - `ComponentFacts.effects: EffectFact[]` where `EffectFact = { line: number;
-assignsOnlyState: boolean }` (CORRECT002 uses `assignsOnlyState`).
+  assignsOnlyState: boolean }` (CORRECT002 uses `assignsOnlyState`).
 - `packages/cli/src/providers/source/parse.ts` collects effects: it tracks
   `stateNames` (via `isStateDeclaration`, `$state` only), detects effect calls
   (`isEffectCall` → `$effect`/`$effect.pre`), and computes `assignsOnlyState`

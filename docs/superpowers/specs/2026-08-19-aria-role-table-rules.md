@@ -198,16 +198,16 @@ per-condition overrides are not; its own increment. `implicit-props`, `required-
 1. Projection: `namingProhibited` and `conditions` land as specified; the drift test covers them; the
    ARIA guard extends to condition outcomes; a role row still has no `required`.
 2. `disallowed-aria-props`, through `parseComponentFacts`: `<div aria-label>` and `<span
-aria-level>` fire with the two different messages; `<label for="x" aria-label="close">` fires (form
+   aria-level>` fire with the two different messages; `<label for="x" aria-label="close">` fires (form
    (a) is element-keyed); `<div aria-roledescription>` fires with the
    property-named message and `<p aria-brailleroledescription>` does not; `<canvas aria-label>`, `<a
-aria-label>`, `<img
-aria-label>`, `<input aria-checked>`, `<address aria-label>`, `<hgroup aria-label>` do not; `<li aria-level>` does not
+   aria-label>`, `<img
+   aria-label>`, `<input aria-checked>`, `<address aria-label>`, `<hgroup aria-label>` do not; `<li aria-level>` does not
    (exemption, all ten pairs pinned); a DPUB role,
    an expression role, and a spread with no literal role → nothing; a spread with a literal role →
    still judged; fallback tokens resolve; an unknown attribute is skipped.
 3. `deprecated-aria`: each arm; `aria-haspopup` on `<div role="checkbox">` fires, on `<div
-role="menuitem">` does not; `<div aria-disabled>` fires via `generic`; `<hgroup aria-disabled>` does
+   role="menuitem">` does not; `<div aria-disabled>` fires via `generic`; `<hgroup aria-disabled>` does
    not while `<hgroup aria-haspopup>` (deprecated on `group`) and `<hgroup aria-level>` (not owned by
    `group`) still fire — the fact replacement must not over-silence.
 4. `deprecated-element` reports `<marquee>`; kitchen-sink and the html-spec spec updated.

@@ -138,7 +138,7 @@ export type AnalyzeFn = (opts: {
 
 - **`plugin.ts` の呼び出し元**(既に読了済み) — `runner.notifyChange(file)` は
   `server.watcher.on('all', (_event, file) => { if (isRelevant(file, uiRoot))
-runner.notifyChange(file); })` から、Vite の watcher が渡す**絶対パス**で呼ばれる。
+  runner.notifyChange(file); })` から、Vite の watcher が渡す**絶対パス**で呼ばれる。
   `uiRoot`(= `options.cwd ?? server.config.root`)がプロジェクトルート。
 
 ## Commands you will need
@@ -357,7 +357,7 @@ import { relative, sep } from 'node:path';
    `toBe`(参照同一性)でアサートする — これが「キャッシュが使い回されている」
    ことの直接証拠。
 2. `parseCache` に事前に(テストが)ダミーのエントリ(`cache.set('src/routes/+page.svelte',
-Promise.resolve(...))` 相当 — モックの `AnalyzeFn` が受け取った `parseCache`
+   Promise.resolve(...))` 相当 — モックの `AnalyzeFn` が受け取った `parseCache`
    引数に対して行う)を入れておき、`notifyChange(absolutePathToThatFile)` を
    呼んだ後、そのキーが削除されていること、かつ**無関係な別のキーは残っている**
    ことをアサートする。

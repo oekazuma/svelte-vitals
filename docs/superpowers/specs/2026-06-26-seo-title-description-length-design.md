@@ -24,7 +24,7 @@ absent.
 ## Background / current state
 
 - `HeadTag` (`packages/core/src/head.ts`) carries `value: 'static' | 'dynamic' |
-'absent'` but **not** the literal text of a title or description. JSON-LD added
+  'absent'` but **not** the literal text of a title or description. JSON-LD added
   a literal-capture field (`jsonld?: string`, set only when static); this design
   follows the same pattern for title/description text.
 - Presence rules use the `headTagRule` factory (`seo002-005-008.ts`). The length

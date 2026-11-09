@@ -69,7 +69,7 @@ it differently:
 - supauth's eight detail routes export a `load` built by an imported factory (`createDetailRouteRedirect`):
   every route-level claim on them is false, 72 in all.
 - ieum's `/logout` ends both paths of its own `load` with `return redirect(303, next)`, after `await
-parent()` and a `try`/`catch`; `redirect()` throws, so the `return` never runs.
+  parent()` and a `try`/`catch`; `redirect()` throws, so the `return` never runs.
 
 They are counted as one class, as holdouts 17, 19 and 22 counted classes that reach one documented limit
 through different mechanisms. Split by mechanism they are two single-app classes, and C6 would pass; C3,

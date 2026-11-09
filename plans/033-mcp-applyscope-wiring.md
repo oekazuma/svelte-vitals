@@ -259,7 +259,7 @@ import {
   こと(stdio トランスポートは stdout を JSON-RPC メッセージ専用に使うため、
   `console.error`(stderr)は安全なはずだが、既存コードで `errorLog` を渡す/渡さない
   の判断基準があるか `packages/action/src/index.ts` の `errorLog: (line) =>
-core.warning(line)` のような明示的な指定パターンと比較して判断する)。
+  core.warning(line)` のような明示的な指定パターンと比較して判断する)。
   デフォルトで問題なければ `errorLog` は省略してよい。
 
 **Verify**: `pnpm --filter @svelte-vitals/mcp typecheck && pnpm --filter @svelte-vitals/mcp build`

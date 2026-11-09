@@ -65,7 +65,7 @@ per-rule `options.rules` config (e.g. `{ CORRECT002: 'off' }`), same as today.
      re-exported from `svelte-vitals`'s public `index.ts`, so moving them has
      no public-API consequence.
 - `packages/cli/src/providers/source/components.ts`'s `collectComponentFacts(rt,
-cwd)` (the glob-and-read wrapper around `parseComponentFacts`) already takes
+  cwd)` (the glob-and-read wrapper around `parseComponentFacts`) already takes
   an injected `Runtime` (`packages/core/src/runtime.ts`) rather than hardcoding
   `node:fs` — but `Runtime` itself, and this wrapper, stay CLI-only; vite gets
   its own trivial direct implementation (no abstraction needed — vite always
@@ -103,8 +103,8 @@ Two new files:
   layer 3's private helpers, moved verbatim, importing the shared utilities
   from `./svelte-ast.js`. `parseComponentFacts`'s signature and return shape
   are unchanged: `(source: string, filename: string) => { eachBlocks,
-effects, htmlTags, javascriptUrls, loc, propCount, imports,
-namespaceImports, constableStates, suppressions }`.
+  effects, htmlTags, javascriptUrls, loc, propCount, imports,
+  namespaceImports, constableStates, suppressions }`.
 
 Both files are pure (no I/O), matching every other file already in
 `packages/core/src/`.

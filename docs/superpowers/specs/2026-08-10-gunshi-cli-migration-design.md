@@ -285,7 +285,7 @@ plugin's own README:
   the internal subCommands map (flagged `.entry: true`, later found via `.find(cmd => cmd.entry)`
   in the plugin's `onExtension`) when `options.subCommands` is already non-empty _before_ any
   plugin's `setup()` runs; with zero declared subCommands, the plugin's own `addCommand('complete',
-...)` is the only entry in that map by the time `onExtension` reads it, so root-level flags
+  ...)` is the only entry in that map by the time `onExtension` reads it, so root-level flags
   silently disappear instead of erroring. Not a concern for this tree (it always declares
   `docs`/`explain`/`install`/`ci`), but real enough that an isolated repro (a bone `cli()` call
   with no `subCommands` at all, plus the completion plugin, querying `--` for entry-level flags)
