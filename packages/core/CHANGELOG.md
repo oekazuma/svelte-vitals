@@ -1,5 +1,13 @@
 # @svelte-vitals/core
 
+## 0.55.4
+
+### Patch Changes
+
+- 179e322: `a11y/disallowed-aria-props` no longer flags a name on a child element of a svelte-dnd-action zone (`use:dndzone` or `use:dragHandleZone`), since the zone gives each child `role="listitem"` at runtime. A zone whose options set `autoAriaDisabled: true` is judged as before.
+- 1beaefe: `performance/responsive-image` no longer reports a QR code: in source analysis, an `<img>` whose `src` is a plain name or a dot-access member whose name holds `qr`, in any case (`src={qrDataUrl}`, `src={totpSetupData.qrCode}`). A QR code is drawn at one fixed size, so a `srcset` has nothing to choose between, and one built at runtime (often an inline SVG data URI from a TOTP setup) is invisible to static analysis. A bracket access (`src={setup[qrKey]}`), a URL built in the template or a call (`src={qrUrl(address)}`) is still checked.
+- 75207c2: The schema.org vocabulary now comes from `schema-dts` 2.1.0, so `seo/json-ld-validity` no longer reports `Audiology`, `DeclarationOfConformity`, `DigitalProductPassport`, `EnvironmentalProductDeclaration` and `Ophthalmology` as unknown `@type` values.
+
 ## 0.55.3
 
 ### Patch Changes
