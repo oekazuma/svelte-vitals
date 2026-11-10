@@ -559,6 +559,11 @@ describe('parseKitModuleFacts — `dev` from $app/environment (false in every pr
     expect(facts(`${dev}export const ssr = isDev;`, 'src/routes/+layout.ts').ssrEnabled).toBeUndefined();
     expect(facts(`${dev}export const csr = isDev;`, 'src/routes/+layout.ts').csrDisabled).toEqual({ line: 2 });
   });
+  it("reads dev from SvelteKit 3's $app/env the same way", () => {
+    const devEnv = "import { dev as isDev } from '$app/env';\n";
+    expect(facts(`${devEnv}export const ssr = isDev;`, 'src/routes/+layout.ts').ssrDisabled).toEqual({ line: 2 });
+    expect(facts(`${devEnv}export const csr = isDev;`, 'src/routes/+layout.ts').csrDisabled).toEqual({ line: 2 });
+  });
   it('still scans the module scope of an `ssr = dev` file, which the server imports to read it', () => {
     const src = `${dev}export const ssr = isDev;\nconst width = window.innerWidth;`;
     expect(facts(src, 'src/routes/+layout.ts').browserGlobalRefs.map((r) => r.name)).toEqual(['window']);
@@ -645,6 +650,10 @@ describe('parseKitModuleFacts — loadNeverRendersOutsideBuild', () => {
     );
     expect(local.loadNeverRendersOutsideBuild).toBeUndefined();
     expect(of("  redirect(307, '/en');").loadNeverRendersOutsideBuild).toBeUndefined();
+  });
+  it("reads building from SvelteKit 3's $app/env the same way", () => {
+    const src = `${kit.replace('$app/environment', '$app/env')}export function load() {\n  if (building) return;\n  redirect(307, '/en');\n}`;
+    expect(facts(src, 'src/routes/+page.server.ts').loadNeverRendersOutsideBuild).toBe(true);
   });
   it('records a prerender export in any form', () => {
     expect(facts('export const prerender = true;', 'src/routes/+layout.ts').prerenderExported).toBe(true);

@@ -56,7 +56,7 @@ export interface KitModuleFacts {
   csrEnabled?: true;
   /** Set when the exported `load` redirects or throws `error()` on every call — every path through its body reaches a `redirect()`/`error()` before any `return`, directly or through a same-file top-level function that always does (see `loadNeverRenders` in kit-module-parse.ts). A `+page` module carrying it means the route never renders its own page. */
   loadNeverRenders?: true;
-  /** Set when the exported `load` redirects or errors on every call once `if (building)` (from `$app/environment`) is read false, as on every request; the page renders only if its route is prerendered (see `prerenderExported`). */
+  /** Set when the exported `load` redirects or errors on every call once `if (building)` (from `$app/environment` or `$app/env`) is read false, as on every request; the page renders only if its route is prerendered (see `prerenderExported`). */
   loadNeverRendersOutsideBuild?: true;
   /** The module exports `prerender`, in any form. */
   prerenderExported?: true;
