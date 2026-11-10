@@ -82,6 +82,11 @@ afterEach(() => {
 });
 
 describe('svelteVitalsHandle', () => {
+  it('is assignable to the SvelteKit Handle type', () => {
+    const handle: Handle = svelteVitalsHandle();
+    expect(typeof handle).toBe('function');
+  });
+
   it('reports a missing <title> for the visited route', async () => {
     const fetchMock = setup();
     const handle = svelteVitalsHandle();
