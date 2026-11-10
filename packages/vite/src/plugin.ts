@@ -224,7 +224,72 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
   let minify: unknown;
   let configFile: string | undefined;
   let ssrBuild = false;
+  let appBuild = false;
   let prerenderDir = DEFAULT_PRERENDER_DIR;
+  // SvelteKit builds into `${kit.outDir}/output/{server,client}` and prerenders into
+  // `${kit.outDir}/output/prerendered/pages`, so a resolved `outDir` gives `kit.outDir` back
+  // even when the config computes it (`process.env.X || '.svelte-kit'`).
+  const readPrerenderDir = (base: string, outDir: string | undefined): void => {
+    const out = outDir ? resolve(base, outDir) : '';
+    if (/[\\/]output[\\/](?:server|client)$/.test(out)) prerenderDir = join(dirname(out), 'prerendered/pages');
+  };
+  /** `afterPrerender`: an absent pages dir means "nothing was prerendered" rather than "not yet". */
+  const analyzeAndGate = async (afterPrerender: boolean): Promise<void> => {
+    const pagesDir = options.prerenderDir ? options.prerenderDir : prerenderDir;
+    const resolved = isAbsolute(pagesDir) ? pagesDir : join(root, pagesDir);
+    if (!afterPrerender && !existsSync(resolved)) return;
+
+    // Resolved OUTSIDE the try: a config-file validation error or a malformed
+    // suppressions file must fail the build (same stance as the CLI's exit 2) — the
+    // catch below is only for the analysis itself (unreadable output, glob errors).
+    const resolvedConfig = { ...(await resolveConfig(root, options)), suppressions: loadSuppressions(root) };
+
+    let result;
+    try {
+      const viteMinifyDisabled = await resolveMinifyDisabled(minify, configFile, root);
+      result = await analyze(
+        resolved,
+        root,
+        options,
+        viteMinifyDisabled ? { viteMinifyDisabled } : undefined,
+        resolvedConfig
+      );
+    } catch (err) {
+      // The analysis itself failed (unreadable/malformed output, glob error,
+      // …). That's our problem, not a real SEO finding, so warn and skip the
+      // gate instead of failing the whole build — distinct from `result.failed`.
+      // Config-file validation errors never reach here: resolved above, before
+      // the try, they propagate and fail the build instead.
+      warn(`svelte-vitals: skipped — analysis failed: ${err instanceof Error ? err.message : String(err)}`);
+      return;
+    }
+    for (const w of result.warnings) warn(`svelte-vitals: ${w}`);
+    if (result.routeCount === 0) {
+      if (!afterPrerender) return;
+      warn(
+        `svelte-vitals: no prerendered pages found in ${relative(root, resolved) || '.'} — route analysis skipped; ` +
+          'the source scan still ran. Prerender routes to check their HTML, or run `npx svelte-vitals` to check every route from source.'
+      );
+    }
+
+    if (options.report !== false) {
+      if (options.report === 'json') {
+        for (const chunk of result.jsonReportChunks()) {
+          if (process.stdout.destroyed) break;
+          if (!process.stdout.write(chunk)) await once(process.stdout, 'drain');
+        }
+        process.stdout.write('\n');
+      } else console.log(result.consoleReport);
+    }
+    if (options.outFile) {
+      const outPath = isAbsolute(options.outFile) ? options.outFile : join(root, options.outFile);
+      await mkdir(dirname(outPath), { recursive: true });
+      await writeFile(outPath, result.jsonReportChunks());
+    }
+    if (result.failed) {
+      throw new Error(`svelte-vitals: build failed — findings at or above "${result.failOn}".`);
+    }
+  };
   const buildPlugin: Plugin = {
     name: 'svelte-vitals',
     apply: 'build',
@@ -241,71 +306,26 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       if (!options.cwd) root = config.root;
       configFile = config.configFile;
       ssrBuild = Boolean(config.build?.ssr);
-      // SvelteKit builds into `${kit.outDir}/output/{server,client}` and prerenders into
-      // `${kit.outDir}/output/prerendered/pages`, so its resolved `outDir` gives `kit.outDir` back
-      // even when svelte.config computes it (`process.env.X || '.svelte-kit'`).
-      const out = config.build?.outDir ? resolve(config.root ?? root, config.build.outDir) : '';
-      if (/[\\/]output[\\/](?:server|client)$/.test(out)) prerenderDir = join(dirname(out), 'prerendered/pages');
+      // The switch Vite itself uses to leave its legacy single-environment build.
+      appBuild = Boolean(config.builder);
+      readPrerenderDir(config.root ?? root, config.build?.outDir);
     },
     async closeBundle() {
-      const pagesDir = options.prerenderDir ? options.prerenderDir : prerenderDir;
-      const resolved = isAbsolute(pagesDir) ? pagesDir : join(root, pagesDir);
-
-      // SvelteKit's client build is a nested `vite.build` with its own plugin instance whose
+      // Under an app build every environment's closeBundle precedes prerendering: `buildApp` runs it.
+      if (appBuild) return;
+      // SvelteKit 2's client build is a nested `vite.build` with its own plugin instance whose
       // closeBundle runs before prerendering. Only the outer SSR build's closeBundle runs after it
-      // (Kit gates its adapter on the same flag), so only there does an absent dir mean "nothing
-      // was prerendered" rather than "not yet".
-      if (!ssrBuild && !existsSync(resolved)) return;
-
-      // Resolved OUTSIDE the try: a config-file validation error or a malformed
-      // suppressions file must fail the build (same stance as the CLI's exit 2) — the
-      // catch below is only for the analysis itself (unreadable output, glob errors).
-      const resolvedConfig = { ...(await resolveConfig(root, options)), suppressions: loadSuppressions(root) };
-
-      let result;
-      try {
-        const viteMinifyDisabled = await resolveMinifyDisabled(minify, configFile, root);
-        result = await analyze(
-          resolved,
-          root,
-          options,
-          viteMinifyDisabled ? { viteMinifyDisabled } : undefined,
-          resolvedConfig
-        );
-      } catch (err) {
-        // The analysis itself failed (unreadable/malformed output, glob error,
-        // …). That's our problem, not a real SEO finding, so warn and skip the
-        // gate instead of failing the whole build — distinct from `result.failed`.
-        // Config-file validation errors never reach here: resolved above, before
-        // the try, they propagate and fail the build instead.
-        warn(`svelte-vitals: skipped — analysis failed: ${err instanceof Error ? err.message : String(err)}`);
-        return;
-      }
-      for (const w of result.warnings) warn(`svelte-vitals: ${w}`);
-      if (result.routeCount === 0) {
-        if (!ssrBuild) return;
-        warn(
-          `svelte-vitals: no prerendered pages found in ${relative(root, resolved) || '.'} — route analysis skipped; ` +
-            'the source scan still ran. Prerender routes to check their HTML, or run `npx svelte-vitals` to check every route from source.'
-        );
-      }
-
-      if (options.report !== false) {
-        if (options.report === 'json') {
-          for (const chunk of result.jsonReportChunks()) {
-            if (process.stdout.destroyed) break;
-            if (!process.stdout.write(chunk)) await once(process.stdout, 'drain');
-          }
-          process.stdout.write('\n');
-        } else console.log(result.consoleReport);
-      }
-      if (options.outFile) {
-        const outPath = isAbsolute(options.outFile) ? options.outFile : join(root, options.outFile);
-        await mkdir(dirname(outPath), { recursive: true });
-        await writeFile(outPath, result.jsonReportChunks());
-      }
-      if (result.failed) {
-        throw new Error(`svelte-vitals: build failed — findings at or above "${result.failOn}".`);
+      // (Kit gates its adapter on the same flag).
+      await analyzeAndGate(ssrBuild);
+    },
+    buildApp: {
+      // SvelteKit 3 builds, prerenders and adapts in `buildApp` hooks. Vite also calls this hook in
+      // a legacy build, before anything is built.
+      order: 'post',
+      async handler(builder) {
+        if (!appBuild) return;
+        readPrerenderDir(root, builder.environments.ssr?.config.build.outDir);
+        await analyzeAndGate(true);
       }
     }
   };
