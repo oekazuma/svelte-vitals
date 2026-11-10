@@ -83,13 +83,13 @@ export interface Project {
    * Absent means the app is served at the root — the rule stays silent.
    */
   kitPathsBase?: { value?: string; file: string };
-  /** `kit.router.type: 'hash'` in `svelte.config.{js,ts}`: SvelteKit then never server-renders or prerenders a page. */
+  /** The hash router, from `svelte.config.{js,ts}` or the `sveltekit()` plugin options: SvelteKit then never server-renders or prerenders a page. */
   kitHashRouter?: true;
   /**
    * The project's compiled SvelteKit alias entries, in Kit's own order (`$lib` first), read from
-   * `svelte.config.{js,ts}`. Absent means no config was read — resolution then falls back to
-   * `$lib` → `src/lib`, which is what this analyzer assumed unconditionally before. A collected
-   * list is never empty: `$lib` is always prepended.
+   * `svelte.config.{js,ts}` or the `sveltekit()` plugin options. Absent means no config was read —
+   * resolution then falls back to `$lib` → `src/lib`. A collected list is never empty: it always
+   * holds a `$lib` entry.
    */
   kitAliases?: KitAlias[];
   /**

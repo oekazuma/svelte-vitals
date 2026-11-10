@@ -193,6 +193,20 @@ describe('analyze: routes with ssr = false', () => {
     }
   });
 
+  it('reads the hash router from the sveltekit() options in the Vite config', async () => {
+    const hash = await fixture({
+      'vite.config.ts':
+        "import { sveltekit } from '@sveltejs/kit/vite';\nexport default { plugins: [sveltekit({ router: { type: 'hash' } })] };\n",
+      'index.html': SHELL
+    });
+    try {
+      const r = await analyze(hash.pages, hash.cwd, { report: false });
+      expect(r.consoleReport).toContain('Analyzed 0 prerendered route(s) (skipped 1 with the hash router).');
+    } finally {
+      await rm(hash.cwd, { recursive: true, force: true });
+    }
+  });
+
   it('analyzes a page that turns SSR back on under a disabled root layout', async () => {
     const back = await fixture({
       'src/routes/+layout.ts': 'export const ssr = false;\n',

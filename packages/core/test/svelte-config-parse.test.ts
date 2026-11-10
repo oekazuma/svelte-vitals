@@ -403,6 +403,17 @@ describe('resolveKitAliases', () => {
     ]);
   });
 
+  it('lets a $lib alias in plugin options stand in for the built-in entry, which SvelteKit 3 no longer adds', () => {
+    expect(resolveKitAliases(pluginWith(`{ alias: { '$lib': 'app/lib', '$a': 'src/a' } }`), undefined)).toEqual([
+      { find: '$lib', replacement: 'app/lib', match: 'prefix' },
+      { find: '$a', replacement: 'src/a', match: 'prefix' }
+    ]);
+    // SvelteKit 2 puts files.lib first, so a user $lib entry beside it stays dead.
+    expect(
+      resolveKitAliases(pluginWith(`{ files: { lib: 'src/library' }, alias: { '$lib': 'app/lib' } }`), undefined)![0]
+    ).toEqual({ find: '$lib', replacement: 'src/library', match: 'prefix' });
+  });
+
   it('gives plugin options without an alias the default $lib list', () => {
     expect(resolveKitAliases(pluginWith(`{ paths: { base: '/x' } }`), svelteWithAlias)).toEqual(DEFAULT_KIT_ALIASES);
   });

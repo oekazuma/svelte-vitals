@@ -278,7 +278,15 @@ export function resolveKitAliases(
 ): KitAlias[] | undefined {
   const plugin = viteConfig ? sveltekitPluginConfig(viteConfig.source) : undefined;
   if (plugin?.kind === 'unresolvable') return undefined;
-  if (plugin?.kind === 'resolved') return compileKitAliases(rawKitAliasesOf(plugin.config, plugin.bindings));
+  if (plugin?.kind === 'resolved') {
+    const raw = rawKitAliasesOf(plugin.config, plugin.bindings);
+    const compiled = compileKitAliases(raw);
+    // SvelteKit 3 has no built-in `$lib` and no `files.lib`: an app that keeps `$lib` declares it
+    // in `alias`, and that entry must not sit behind a default one. SvelteKit 2 does prepend its
+    // own, but an app there has no reason to declare a `$lib` alias that never fires.
+    const ownLib = raw.filesLib === undefined && raw.entries?.some((e) => e.key === '$lib');
+    return ownLib ? compiled.slice(1) : compiled;
+  }
   if (!svelteConfig) return undefined;
   return compileKitAliases(findKitAliasesInSvelteConfig(svelteConfig.source));
 }
@@ -395,7 +403,7 @@ function isHashRouter(kitConfig: ObjectExpression | undefined, bindings: Map<str
 }
 
 /** Whether `kit.router.type` is the literal `'hash'` in a config whose value is known. */
-function findKitHashRouterInSvelteConfig(source: string): boolean {
+export function findKitHashRouterInSvelteConfig(source: string): boolean {
   const program = programOf(source, 'svelte.config.js');
   if (!program) return false;
   const bindings = collectTopLevelBindings(program);

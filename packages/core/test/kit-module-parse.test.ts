@@ -652,7 +652,7 @@ describe('parseKitModuleFacts — loadNeverRendersOutsideBuild', () => {
     expect(of("  redirect(307, '/en');").loadNeverRendersOutsideBuild).toBeUndefined();
   });
   it("reads building from SvelteKit 3's $app/env the same way", () => {
-    const src = `${kit.replace('$app/environment', '$app/env')}export function load() {\n  if (building) return;\n  redirect(307, '/en');\n}`;
+    const src = `import { redirect } from '@sveltejs/kit';\nimport { building } from '$app/env';\nexport function load() {\n  if (building) return;\n  redirect(307, '/en');\n}`;
     expect(facts(src, 'src/routes/+page.server.ts').loadNeverRendersOutsideBuild).toBe(true);
   });
   it('records a prerender export in any form', () => {

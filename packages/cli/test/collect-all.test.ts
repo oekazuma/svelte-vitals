@@ -192,6 +192,14 @@ describe('collectAll — routes that never render', () => {
     expect((await collectAll(rt, '', defaultConfig)).project.kitHashRouter).toBe(true);
     expect((await collectAll(createMemoryRuntime(PROJECT), '', defaultConfig)).project.kitHashRouter).toBeUndefined();
   });
+
+  it("reads router.type: 'hash' from the sveltekit() options in the Vite config", async () => {
+    const rt = createMemoryRuntime({
+      ...PROJECT,
+      'vite.config.ts': `import { sveltekit } from '@sveltejs/kit/vite';\nexport default { plugins: [sveltekit({ router: { type: 'hash' } })] };`
+    });
+    expect((await collectAll(rt, '', defaultConfig)).project.kitHashRouter).toBe(true);
+  });
 });
 
 describe('collectAll — kit aliases', () => {
