@@ -427,14 +427,16 @@ it('static: reads ssr = dev with dev from $app/env', () => {
 
   Add one test through the full pipeline, in the same file the existing `src/lib/server` container case lives in. It asserts that an export of `new Map()` from `src/server/cache.ts` is still reported. Also assert that an opaque `$lib` (alias list `[{ find: '$lib', replacement: null, match: 'prefix' }]`) still reports nothing for `'../../server/kv'`.
 
-  Add a second full-pipeline case: a handler's `.set()` on `export const user = writable(null)` (from `svelte/store`) in `src/server/user.ts` is still reported. It passes today and fails once `isServerOnlyPath` alone is in, because `arbitrateServerStoreWrites` promotes only what `parseInMemoryExports` names, and a store factory is not a container. Step 3's store-factory reading makes it pass again. Today the same store under `src/lib/server` is already silent.
+  Add a second full-pipeline case: a handler's `.set()` on `export const user = writable(null)` (from `svelte/store`) in `src/server/user.ts` is still reported. It passes today and fails once `isServerOnlyPath` alone is in, because `arbitrateServerStoreWrites` promotes only what `parseInMemoryExports` names, and a store factory is not a container. Step 3's `writable` reading makes it pass again. Today the same store under `src/lib/server` is already silent.
+
+  Add a third: a handler's `.set()` on `export const kv = createStore(client)`, with `createStore` imported from a package named `kv-store`, in `src/server/kv.ts` is not reported. A store-named package can wrap a persistent backend, so only a factory known to hold its value in memory counts. It is reported today, because `src/server` is not exempt yet, and silent after Step 3.
 
 - [ ] **Step 2: Run** `pnpm --filter @svelte-vitals/core test -- kit-module-parse`. Expected: the first three cases FAIL.
-- [ ] **Step 3: Implement** `isServerOnlyPath` and the extra condition. Then make `parseInMemoryExports` also name an export initialized by a call to a store library's factory, with the same package test `parseClientExports` uses (`/^svelte|store/i` on a non-local import source). This also starts reporting such a store under `src/lib/server`.
+- [ ] **Step 3: Implement** `isServerOnlyPath` and the extra condition. Then make `parseInMemoryExports` also name an export initialized by a call to `writable` imported from exactly `svelte/store`. No other factory and no other source counts: the package test `parseClientExports` uses (`/^svelte|store/i`) also matches stores backed by a database, and this function is precision-first. This also starts reporting a `writable` store under `src/lib/server`.
 - [ ] **Step 4: Run** `pnpm --filter @svelte-vitals/core test`. Expected: exit 0.
 - [ ] **Step 5: Measure.** Run `pnpm build && pnpm corpus update --cache ~/.cache/svelte-vitals-corpus`, then diff `scripts/corpus/measurement.json`.
   - If no `tp` finding of `security/handler-state-write` or `security/shared-state-import` disappears, skip Task 9.
-  - The store-factory reading can add findings under `src/lib/server`. List each one for the user with its source before going further. If any is not a real defect, drop the store-factory reading and this case, and record the `src/server` store as a known miss instead.
+  - The `writable` reading can add findings under `src/lib/server`. List each one for the user with its source before going further. If any is not a real defect, stop and bring it to the user. Keep both store cases either way.
   - If any does, list those findings for the user and do Task 9.
 - [ ] **Step 6: Commit.** `feat(core): exempt SvelteKit 3 server-only locations from the shared-state rules`
 
