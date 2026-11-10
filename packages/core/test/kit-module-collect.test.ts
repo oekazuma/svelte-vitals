@@ -120,6 +120,13 @@ describe('collectKitModuleFacts — $lib/server store arbitration', () => {
           'src/routes/+page.server.ts': through('$lib/clients', "ns.db.set('user', locals.user)")
         })
       ).toEqual([]);
+      // Two members of one namespace on one line share a name and a line: only the client goes.
+      expect(
+        await writes({
+          'src/lib/both.ts': `import { drizzle } from 'drizzle-orm';\nexport const db = drizzle(url);\n${user}`,
+          'src/routes/+page.server.ts': through('$lib/both', "ns.db.set('k', 1); ns.user.set(locals.user)")
+        })
+      ).toEqual([{ name: 'ns', line: 3, via: 'set-call' }]);
     });
   });
 

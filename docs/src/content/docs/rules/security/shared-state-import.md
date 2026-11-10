@@ -10,7 +10,7 @@ description: A Kit server/universal file imports a .svelte.ts module holding mod
 Flags an import in a SvelteKit route/hooks file whose specifier resolves to a repo-local `.svelte.ts`/`.svelte.js` module with **module-scope `$state`** (a top-level `$state(...)` declaration, or a module-scope instance of a class with `$state` fields). Two flavours:
 
 - the server code **mutates** the imported state, outside handlers (`security/handler-state-write` reports handler writes as critical), or
-- the import is **read-only**, and on the server the state is still one shared instance that keeps its boot-time value.
+- the import is **read-only**, and on the server the state is still one shared instance that keeps its boot-time value. A handler's `.set()`/`.update()` call on a module in a [server-only location](/rules/security/handler-state-write) that `security/handler-state-write` leaves exempt is not counted as a write, so that import is reported in this flavour.
 
 Direct imports only (`$lib/…` and relative specifiers); `import type` is excluded. Client-only usage of such modules, the idiomatic shared-store pattern, is fine and never flagged; only imports from server-executed files are.
 

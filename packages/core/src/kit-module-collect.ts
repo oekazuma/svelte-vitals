@@ -133,8 +133,14 @@ async function dropClientWrites(
   return facts.map((f) => {
     const clients = (f.storeWriteTargets ?? []).filter((w) => byPath.get(w.resolved)?.has(w.imported));
     if (clients.length === 0) return f;
-    const drop = (w: { name: string; line: number; via: string }) =>
-      w.via === 'set-call' && clients.some((c) => c.name === w.name && c.line === w.line);
+    // One write goes per client: two members of a namespace on one line share a name and a line.
+    const left = new Map<string, number>();
+    for (const c of clients) left.set(`${c.name}:${c.line}`, (left.get(`${c.name}:${c.line}`) ?? 0) + 1);
+    const drop = (w: { name: string; line: number; via: string }) => {
+      const n = w.via === 'set-call' ? (left.get(`${w.name}:${w.line}`) ?? 0) : 0;
+      if (n > 0) left.set(`${w.name}:${w.line}`, n - 1);
+      return n > 0;
+    };
     return { ...f, importedStateWrites: f.importedStateWrites.filter((w) => !drop(w)) };
   });
 }

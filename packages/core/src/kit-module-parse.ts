@@ -1206,9 +1206,11 @@ function libServerRoot(aliases?: readonly KitAlias[]): string | undefined {
 }
 
 /**
- * SvelteKit's server-only module locations besides the `$lib` server directory: a `server`
+ * SvelteKit 3's server-only module locations besides the `$lib` server directory: a `server`
  * directory outside `src/routes` and `static`, or a file with a `server` segment in its name
- * (`db.server.ts`, `server.ts`, and so a directory imported as `…/server`).
+ * (`db.server.ts`, `server.ts`, and so a directory imported as `…/server`). Applied to every
+ * project: SvelteKit 2 itself knows only `$lib/server` and `*.server.*`, but the same
+ * directories hold its singletons by convention.
  */
 function isServerOnlyPath(path: string): boolean {
   const dirs = path.split('/');

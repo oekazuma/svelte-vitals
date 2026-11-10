@@ -18,7 +18,7 @@ export interface KitModuleFacts {
   /** Writes to an imported binding outside handlers — top level or helper functions (security/shared-state-import's write flavour). */
   importedStateWritesOutsideHandlers: { name: string; line: number }[];
   /**
-   * `.set()`/`.update()` in a handler on an import resolving under the `$lib` server root.
+   * `.set()`/`.update()` in a handler on an import resolving to a server-only location.
    * The call shape alone cannot tell a persistence client (`db.set(…)`) from a hand-rolled
    * in-memory store, so the decision needs the target module — which this pure parse cannot
    * read. `collectKitModuleFacts` resolves each one and promotes the in-memory ones into

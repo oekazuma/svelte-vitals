@@ -295,7 +295,7 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
       { name: 'user', line: 3, via: 'set-call' }
     ]);
   });
-  describe("SvelteKit's other server-only locations", () => {
+  describe("SvelteKit 3's other server-only locations", () => {
     const writes = (spec: string) =>
       facts(
         `import { kv } from '${spec}';\nexport function load({ locals }) {\n  kv.set('user', locals.user);\n}`,
@@ -311,8 +311,9 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
       expect(writes('../db.server')).toEqual([]);
       expect(writes('../../kv/server.js')).toEqual([]);
     });
-    it('still flags a server directory under src/routes, and a name that only starts with server', () => {
+    it('still flags a server directory under src/routes or static, and a name that only starts with server', () => {
       expect(writes('./server/store.js')).toEqual(flagged);
+      expect(writes('../../../static/server/store.js')).toEqual(flagged);
       expect(writes('../../serverless/store')).toEqual(flagged);
       expect(writes('../../observer/store')).toEqual(flagged);
     });

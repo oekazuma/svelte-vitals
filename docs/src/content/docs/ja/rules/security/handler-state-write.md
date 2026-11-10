@@ -18,7 +18,7 @@ universal な `+page.ts`/`+layout.ts` の load も対象です。SSR 時はサ�
 - ブラウザでしか実行されない書き込み。`if (!browser) return;` のような早期 return の後、`if (browser)` の中、`browser && …` の右辺にあるものです（`browser` は `$app/environment` か SvelteKit 3 の `$app/env` のもの、または `typeof window` の判定）。ブラウザでは、訪問者ごとにモジュールのコピーを持つためです。ガードのサーバー側にある書き込み（`if (!browser) user.set(…)`）は引き続き報告します。
 - インストール済みパッケージからの import への `.set()`/`.update()`。
 - 引数が更新関数（関数リテラル、またはモジュール内で関数に束縛した名前）でない `.update()`。ストアの `update` は更新関数を受け取りますが、データベースクライアントの `update` はテーブルやオプションを受け取ります（`prisma.post.update({ … })`、`db.update(table)`）。クライアントをどこから import していても同じです。
-- サーバー専用の場所にある **永続化クライアント**への `.set()`/`.update()`。Drizzle の `db.update(...).set(...)` のような呼び出しは永続化であり、共有状態への書き込みではないためです。サーバー専用の場所は次の 3 つです。`src/lib/server`（ディレクトリエントリポイントの `import { db } from '$lib/server'` とその配下すべて）、`src/routes` と `static` の外にあるその他の `server` ディレクトリ、名前に `server` セグメントを持つファイル（`db.server.ts`）。
+- サーバー専用の場所にある **永続化クライアント**への `.set()`/`.update()`。Drizzle の `db.update(...).set(...)` のような呼び出しは永続化であり、共有状態への書き込みではないためです。サーバー専用の場所は次の 3 つです。`src/lib/server`（ディレクトリエントリポイントの `import { db } from '$lib/server'` とその配下すべて）、`src/routes` と `static` の外にあるその他の `server` ディレクトリ、名前に `server` セグメントを持つファイル（`db.server.ts`）。これらは SvelteKit 3 がサーバー専用として扱う場所で、svelte-vitals は SvelteKit 2 のプロジェクトにも同じ扱いを適用します。
 
 この除外は解決後のパスに対して働くので、alias（`$lib/server/`）経由でも相対パス（`../../lib/server/db`）経由でも同じように適用されます。`..` でプロジェクトルートの外へ抜ける specifier は、保守的にリポジトリ内の共有状態としては扱いません。
 
@@ -29,7 +29,7 @@ export const db = new Map(); // handler から db.set(...) すると検出
 export const client = drizzle(url); // コンテナリテラルではないので除外
 ```
 
-コンテナだと断定できないものはすべて除外のままなので、実クライアントのラッパー、他のライブラリのストア（データベースを包んでいることがあります）、re-export、読めないモジュールが誤検知になることはありません。読み込むのは handler が実際に書き込んでいるモジュールだけです。
+コンテナだと断定できないものはすべて除外のままなので、実クライアントのラッパー、他のライブラリのストア（データベースを包んでいることがあります）、re-export、読めないモジュールが誤検知になることはありません。その代わり見落としがあります。ローカルのファクトリやクラスで作ったストア、関数だけのオブジェクトがクロージャで抱える状態、間接的に export したストア（`export { x }` や re-export）は、サーバー専用の場所では検出しません。読み込むのは handler が実際に書き込んでいるモジュールだけです。
 
 サーバー専用の場所の外では、既定の扱いが逆になります。handler からリポジトリ内の import への `.set()`/`.update()` は、対象モジュールがその binding をクライアントだと示さない限り検出します。クライアントとみなすのは次の 2 つです。1 つはクラスの `new` で初期化した export で、クラスはインストール済みパッケージから import したものか、そのモジュールで宣言され何も継承せず `Map`/`Set`/`WeakMap`/`WeakSet` のフィールドも持たないものに限ります（`export const kv = new KvService()`）。もう 1 つはインストール済みパッケージの関数の呼び出しで初期化した export です（`drizzle(url)` や `createClient(…)`）。パッケージかどうかは、アプリの SvelteKit の alias を先に解決してから判断します。名前が `svelte` で始まるパッケージ（`svelte/store` など）や名前に `store` を含むパッケージのストア生成関数はクライアントではないので、`export const user = writable(null)` は引き続き検出します。
 
