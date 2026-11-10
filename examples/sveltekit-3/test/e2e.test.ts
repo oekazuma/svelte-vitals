@@ -16,6 +16,10 @@ interface JsonReport {
 
 let staticReport: JsonReport;
 let buildReport: JsonReport;
+let buildStderr = '';
+
+const titleIssues = (report: JsonReport, route: string) =>
+  report.routes.find((r) => r.route === route)?.issues.filter((i) => i.id === 'seo/title-presence');
 
 beforeAll(() => {
   try {
@@ -38,8 +42,9 @@ beforeAll(() => {
       stdio: 'pipe'
     });
   } catch (e) {
-    // The plugin's gate fails the build on a critical finding, after writing the report.
-    if (!(e as { stderr?: string }).stderr?.includes('svelte-vitals: build failed')) throw e;
+    // The plugin's gate fails the build on /untitled's critical finding, after writing the report.
+    buildStderr = (e as { stderr?: string }).stderr ?? '';
+    if (!buildStderr.includes('svelte-vitals: build failed')) throw e;
   }
   if (!existsSync(reportPath)) throw new Error(`no ${reportPath} after vite build`);
   buildReport = JSON.parse(readFileSync(reportPath, 'utf8'));
@@ -48,7 +53,7 @@ beforeAll(() => {
 describe('sveltekit-3 e2e', () => {
   it('static: reaches the head behind the #lib import on /', () => {
     expect(staticReport.routes.map((r) => r.route)).toContain('/');
-    expect(staticReport.rules['seo/title-presence']).toMatchObject({ findings: 0 });
+    expect(titleIssues(staticReport, '/')).toEqual([]);
     expect(staticReport.rules['seo/title-presence']!.passed).toBeGreaterThan(0);
     expect(
       Object.values(staticReport.skipped ?? {})
@@ -59,7 +64,13 @@ describe('sveltekit-3 e2e', () => {
 
   it('build: analyzes the prerendered / from the SvelteKit 3 output', () => {
     expect(buildReport.routes.map((r) => r.route)).toContain('/');
+    expect(titleIssues(buildReport, '/')).toEqual([]);
     expect(buildReport.rules['seo/title-presence']!.passed).toBeGreaterThan(0);
+  });
+
+  it('build: a critical finding fails vite build', () => {
+    expect(titleIssues(buildReport, '/untitled')).toHaveLength(1);
+    expect(buildStderr).toContain('svelte-vitals: build failed');
   });
 
   it('ships hook types that name no @sveltejs/kit type', () => {
