@@ -103,7 +103,7 @@ git commit -m "fix(vite): type svelteVitalsHandle without importing SvelteKit's 
 - Modify: `renovate.json` (one `packageRules` entry)
 - Modify: `pnpm-lock.yaml` (via `pnpm install`)
 - Create: `examples/sveltekit-3/{package.json,vite.config.ts,vitest.config.ts,tsconfig.json,.gitignore}`
-- Create: `examples/sveltekit-3/src/{app.html,hooks.server.ts}`, `src/lib/Head.svelte`, `src/routes/{+layout.ts,+page.svelte}`
+- Create: `examples/sveltekit-3/src/{app.html,hooks.server.ts}`, `src/lib/Head.svelte`, `src/routes/{+layout.ts,+page.svelte}`, `src/routes/untitled/+page.svelte`
 - Create: `examples/sveltekit-3/test/e2e.test.ts`
 - Modify: `AGENTS.md` (Package map, one entry)
 
@@ -161,6 +161,7 @@ Verify with `node -e "JSON.parse(require('node:fs').readFileSync('renovate.json'
   - `export const handle = sequence(svelteVitalsHandle());`.
 - `src/lib/Head.svelte`: a `<svelte:head>` with a title of 30–60 characters and a description of 70–160 characters, so the length rules pass.
 - `src/routes/+page.svelte`: `import Head from '#lib/Head.svelte';`, renders `<Head />`, and has one `<h1>`.
+- `src/routes/untitled/+page.svelte`: one `<h1>` and no `<title>`. Its `seo/title-presence` finding is critical, so every `vite build` of the app fails the gate.
 - `src/routes/+layout.ts`: `export const prerender = true;`.
 - `src/app.html`: kitchen-sink's.
 
@@ -168,12 +169,12 @@ Run `pnpm install` from the repo root. Expected: exit 0, and the lockfile gains 
 
 - [ ] **Step 3: Write the e2e test**
 
-`test/e2e.test.ts` follows kitchen-sink's two files. A static `beforeAll` runs `packages/cli/dist/bin.js <appDir> --reporter json` and parses stdout, accepting exit status 0 or 1. A build `beforeAll` runs `node_modules/vite/bin/vite.js build`, tolerates a throw whose stderr contains `svelte-vitals: build failed`, rethrows any other failure, and reads `svelte-vitals-report.json`. Cases:
+`test/e2e.test.ts` follows kitchen-sink's two files. A static `beforeAll` runs `packages/cli/dist/bin.js <appDir> --reporter json` and parses stdout, accepting exit status 0 or 1. A build `beforeAll` runs `node_modules/vite/bin/vite.js build`, keeps the stderr of a throw as `buildStderr` when it contains `svelte-vitals: build failed`, rethrows any other failure, and reads `svelte-vitals-report.json`. `titleIssues(report, route)` returns that route's `seo/title-presence` issues. Cases:
 
 ```ts
 it('static: reaches the head behind the #lib import on /', () => {
   expect(staticReport.routes.map((r) => r.route)).toContain('/');
-  expect(staticReport.rules['seo/title-presence']).toMatchObject({ findings: 0 });
+  expect(titleIssues(staticReport, '/')).toEqual([]);
   expect(staticReport.rules['seo/title-presence']!.passed).toBeGreaterThan(0);
   expect(
     Object.values(staticReport.skipped ?? {})
@@ -183,7 +184,12 @@ it('static: reaches the head behind the #lib import on /', () => {
 });
 it('build: analyzes the prerendered / from the SvelteKit 3 output', () => {
   expect(buildReport.routes.map((r) => r.route)).toContain('/');
+  expect(titleIssues(buildReport, '/')).toEqual([]);
   expect(buildReport.rules['seo/title-presence']!.passed).toBeGreaterThan(0);
+});
+it('build: a critical finding fails vite build', () => {
+  expect(titleIssues(buildReport, '/untitled')).toHaveLength(1);
+  expect(buildStderr).toContain('svelte-vitals: build failed');
 });
 it('ships hook types that name no @sveltejs/kit type', () => {
   const dts = readFileSync(join(appDir, 'node_modules/@svelte-vitals/vite/dist/hooks/index.d.ts'), 'utf8');
@@ -409,7 +415,7 @@ it('static: reads ssr = dev with dev from $app/env', () => {
 **Files:**
 
 - Modify: `packages/core/src/kit-module-parse.ts` (`isLocalStateSpecifier` at ~1232 and the doc comment above it)
-- Test: `packages/core/test/kit-module-parse.test.ts` (the imported-state-writes suite at ~110)
+- Test: `packages/core/test/kit-module-parse.test.ts` (the imported-state-writes suite at ~110), and `packages/core/test/kit-module-collect.test.ts` for the full-pipeline cases
 - Docs: the `src/lib/server` exemption paragraphs in `rules/security/handler-state-write.md` (~19–32) and `rules/security/shared-state-import.md`, en + ja
 
 **Interfaces:**
@@ -418,6 +424,8 @@ it('static: reads ssr = dev with dev from $app/env', () => {
   - a directory segment is `server`, and the path is not under `src/routes/` or `static/`;
   - the last segment, split on `.`, contains `server` (`server.ts`, `db.server.ts`, `db.server`).
 - `isLocalStateSpecifier` returns `false` for such paths as well as for paths under `libServerRoot`, so a write to them takes the `pendingServerStoreWrites` path that `src/lib/server` takes today. When `libServerRoot` is `undefined` (an opaque `$lib`), it still returns `false` before any path check, as it does today.
+- A write through a namespace import (`ns.member.set(...)` on `import * as ns`, non-computed) records `member` as the target's `imported`, not `ns`. `storeWriteTargets` and `pendingServerStoreWrites` share that target, so both `dropClientWrites` and `arbitrateServerStoreWrites` then look up the export actually written.
+- Not read, by the precision-first rule `parseInMemoryExports` documents: an export whose initializer is not itself a container or a `svelte/store` `writable(...)` call, such as a local wrapper (`export const user = makeUser()`) or a re-export. A write to one is silent in the new locations, as it already is under `src/lib/server`. Step 5's list decides whether any such shape needs reading.
 
 - [ ] **Step 1: Write the failing tests**, modelled on the cases at ~253–300:
   - not flagged: `.set()` in a handler on an import from `'../../server/kv'` in `src/routes/a/+page.server.ts`, and on `'$lib/data/server/user'`;
@@ -431,13 +439,15 @@ it('static: reads ssr = dev with dev from $app/env', () => {
 
   Add a third: a handler's `.set()` on `export const kv = createStore(client)`, with `createStore` imported from a package named `kv-store`, in `src/server/kv.ts` is not reported. A store-named package can wrap a persistent backend, so only a factory known to hold its value in memory counts. It is reported today, because `src/server` is not exempt yet, and silent after Step 3.
 
-- [ ] **Step 2: Run** `pnpm --filter @svelte-vitals/core test -- kit-module-parse`. Expected: the first three cases FAIL.
-- [ ] **Step 3: Implement** `isServerOnlyPath` and the extra condition. Then make `parseInMemoryExports` also name an export initialized by a call to `writable` imported from exactly `svelte/store`. No other factory and no other source counts: the package test `parseClientExports` uses (`/^svelte|store/i`) also matches stores backed by a database, and this function is precision-first. This also starts reporting a `writable` store under `src/lib/server`.
+  Add two namespace cases. With `import * as stores from '../../server/user'`, a handler's `stores.user.set(...)` on the `writable` export above is still reported: it passes today and fails once `isServerOnlyPath` alone is in. With `import * as clients from '$lib/clients'`, a handler's `clients.db.set(...)` on `export const db = drizzle(url)` is not reported: it is reported today, because `dropClientWrites` looks up `clients`.
+
+- [ ] **Step 2: Run** `pnpm --filter @svelte-vitals/core test -- kit-module-parse kit-module-collect`. Expected: the not-flagged cases, the `kv-store` case and the `clients.db` case FAIL. The still-reported cases pass until `isServerOnlyPath` is in.
+- [ ] **Step 3: Implement** `isServerOnlyPath` and the extra condition. Then make `parseInMemoryExports` also name an export initialized by a call to `writable` imported from exactly `svelte/store`. No other factory and no other source counts: the package test `parseClientExports` uses (`/^svelte|store/i`) also matches stores backed by a database, and this function is precision-first. This also starts reporting a `writable` store under `src/lib/server`. Last, record the member name for a namespace write, as Interfaces says.
 - [ ] **Step 4: Run** `pnpm --filter @svelte-vitals/core test`. Expected: exit 0.
-- [ ] **Step 5: Measure.** Run `pnpm build && pnpm corpus update --cache ~/.cache/svelte-vitals-corpus`, then diff `scripts/corpus/measurement.json`.
-  - If no `tp` finding of `security/handler-state-write` or `security/shared-state-import` disappears, skip Task 9.
-  - The `writable` reading can add findings under `src/lib/server`. List each one for the user with its source before going further. If any is not a real defect, stop and bring it to the user. Keep both store cases either way.
-  - If any does, list those findings for the user and do Task 9.
+- [ ] **Step 5: Measure.** Run `pnpm build && pnpm corpus update --cache ~/.cache/svelte-vitals-corpus`, then diff `scripts/corpus/measurement.json`. Get the finding-level diff against the base with `pnpm corpus run` and `pnpm corpus diff`, as `corpus.yml` does.
+  - List every `security/handler-state-write` and `security/shared-state-import` finding that disappears or appears, whatever its verdict, each with the initializer of the export it writes to. Show the list to the user before going further.
+  - A disappeared finding with no verdict gets one now. If any disappeared finding is a `tp`, do Task 9. Otherwise skip it.
+  - The `writable` reading and the namespace key can add findings, also under `src/lib/server`, and the namespace key can remove a client write anywhere. If an added finding is not a real defect, stop and bring it to the user. Keep the store cases either way.
 - [ ] **Step 6: Commit.** `feat(core): exempt SvelteKit 3 server-only locations from the shared-state rules`
 
 ### Task 9 (only if Task 8 loses a `tp`): Gate the new locations on SvelteKit 3
