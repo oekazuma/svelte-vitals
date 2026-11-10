@@ -373,17 +373,28 @@ function knownObject(
   return undefined;
 }
 
+/** A known object's `key`, when that is a known object too. */
+function knownObjectAt(
+  obj: ObjectExpression | undefined,
+  key: string,
+  bindings: Map<string, TsExpression>
+): ObjectExpression | undefined {
+  const p = obj && propOf(obj, key);
+  return p ? knownObject(p.value as Expression, bindings) : undefined;
+}
+
+/** Whether `router.type` is the literal `'hash'` in a SvelteKit config object whose value is known. */
+function isHashRouter(kitConfig: ObjectExpression | undefined, bindings: Map<string, TsExpression>): boolean {
+  const router = knownObjectAt(kitConfig, 'router', bindings);
+  return stringLiteralOf(router && (propOf(router, 'type')?.value as Expression)) === 'hash';
+}
+
 /** Whether `kit.router.type` is the literal `'hash'` in a config whose value is known. */
-export function findKitHashRouterInSvelteConfig(source: string): boolean {
+function findKitHashRouterInSvelteConfig(source: string): boolean {
   const program = programOf(source, 'svelte.config.js');
   if (!program) return false;
   const bindings = collectTopLevelBindings(program);
-  const objectAt = (obj: ObjectExpression | undefined, key: string) => {
-    const p = obj && propOf(obj, key);
-    return p ? knownObject(p.value as Expression, bindings) : undefined;
-  };
-  const router = objectAt(objectAt(knownObject(findExportedExpression(program), bindings), 'kit'), 'router');
-  return stringLiteralOf(router && (propOf(router, 'type')?.value as Expression)) === 'hash';
+  return isHashRouter(knownObjectAt(knownObject(findExportedExpression(program), bindings), 'kit', bindings), bindings);
 }
 
 /**
@@ -400,7 +411,14 @@ function sveltekitLocalNames(program: Program): Set<string> {
 type PluginConfig =
   | { kind: 'no-plugin-config' }
   | { kind: 'unresolvable' }
-  | { kind: 'resolved'; config: ObjectExpression; program: Program; bindings: Map<string, TsExpression> };
+  | {
+      kind: 'resolved';
+      config: ObjectExpression;
+      /** The argument as written, for a reader that must rule out a merge or a spread first. */
+      arg: Expression;
+      program: Program;
+      bindings: Map<string, TsExpression>;
+    };
 
 /** The options object passed to the `sveltekit()` plugin in a Vite config source (since Kit 2.62). */
 function sveltekitPluginConfig(source: string): PluginConfig {
@@ -423,7 +441,7 @@ function sveltekitPluginConfig(source: string): PluginConfig {
     const arg = call.arguments[0] as Expression | undefined;
     if (arg === undefined) return none; // sveltekit() — svelte.config still applies
     const kitConfig = unwrapToObjectExpression(arg, bindings);
-    return kitConfig ? { kind: 'resolved', config: kitConfig, program, bindings } : { kind: 'unresolvable' };
+    return kitConfig ? { kind: 'resolved', config: kitConfig, arg, program, bindings } : { kind: 'unresolvable' };
   }
   return none;
 }
@@ -455,4 +473,18 @@ export function resolveKitPathsBase(
   if (!svelteConfig) return undefined;
   const base = findKitPathsBaseInSvelteConfig(svelteConfig.source);
   return base ? { ...base, file: svelteConfig.file } : undefined;
+}
+
+/**
+ * Whether the project uses the hash router, with the precedence of `resolveKitPathsBase`: plugin
+ * options decide when they are there, and say nothing when they cannot be resolved.
+ */
+export function resolveKitHashRouter(
+  viteConfig: { source: string } | undefined,
+  svelteConfig: { source: string } | undefined
+): boolean {
+  const plugin = viteConfig ? sveltekitPluginConfig(viteConfig.source) : undefined;
+  if (plugin?.kind === 'unresolvable') return false;
+  if (plugin?.kind === 'resolved') return isHashRouter(knownObject(plugin.arg, plugin.bindings), plugin.bindings);
+  return svelteConfig !== undefined && findKitHashRouterInSvelteConfig(svelteConfig.source);
 }

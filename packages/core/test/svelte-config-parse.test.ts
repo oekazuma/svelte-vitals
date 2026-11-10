@@ -6,7 +6,7 @@ import {
   findKitAliasesInSvelteConfig,
   resolveKitAliases,
   withPackageImports,
-  findKitHashRouterInSvelteConfig
+  resolveKitHashRouter
 } from '../src/svelte-config-parse.js';
 
 describe('findKitPathsBaseInSvelteConfig', () => {
@@ -448,29 +448,45 @@ describe('withPackageImports', () => {
   });
 });
 
-describe('findKitHashRouterInSvelteConfig', () => {
+describe('resolveKitHashRouter', () => {
+  const fromSvelteConfig = (source: string) => resolveKitHashRouter(undefined, { source });
   it("reads kit.router.type: 'hash'", () => {
-    expect(findKitHashRouterInSvelteConfig(`export default { kit: { router: { type: 'hash' } } };`)).toBe(true);
+    expect(fromSvelteConfig(`export default { kit: { router: { type: 'hash' } } };`)).toBe(true);
     expect(
-      findKitHashRouterInSvelteConfig(
+      fromSvelteConfig(
         `const config = { kit: { adapter: adapter(), router: { type: 'hash' } } };\nexport default config;`
       )
     ).toBe(true);
   });
   it('is false for the pathname router or no router', () => {
-    expect(findKitHashRouterInSvelteConfig(`export default { kit: { router: { type: 'pathname' } } };`)).toBe(false);
-    expect(findKitHashRouterInSvelteConfig(`export default { kit: {} };`)).toBe(false);
-    expect(findKitHashRouterInSvelteConfig(`export default { kit: { router: { type: mode } } };`)).toBe(false);
+    expect(fromSvelteConfig(`export default { kit: { router: { type: 'pathname' } } };`)).toBe(false);
+    expect(fromSvelteConfig(`export default { kit: {} };`)).toBe(false);
+    expect(fromSvelteConfig(`export default { kit: { router: { type: mode } } };`)).toBe(false);
   });
   it('is false when another value could override the literal', () => {
     const hash = `{ kit: { router: { type: 'hash' } } }`;
-    expect(findKitHashRouterInSvelteConfig(`export default defineConfig(${hash});`)).toBe(true);
-    expect(findKitHashRouterInSvelteConfig(`export default mergeConfigs(${hash}, base);`)).toBe(false);
-    expect(findKitHashRouterInSvelteConfig(`export default { ...base, kit: { router: { type: 'hash' } } };`)).toBe(
-      false
-    );
-    expect(findKitHashRouterInSvelteConfig(`export default { kit: { router: { type: 'hash', ...extra } } };`)).toBe(
-      false
-    );
+    expect(fromSvelteConfig(`export default defineConfig(${hash});`)).toBe(true);
+    expect(fromSvelteConfig(`export default mergeConfigs(${hash}, base);`)).toBe(false);
+    expect(fromSvelteConfig(`export default { ...base, kit: { router: { type: 'hash' } } };`)).toBe(false);
+    expect(fromSvelteConfig(`export default { kit: { router: { type: 'hash', ...extra } } };`)).toBe(false);
+  });
+  const vite = (arg: string) => ({
+    source: `import { sveltekit } from '@sveltejs/kit/vite';\nexport default { plugins: [sveltekit(${arg})] };`
+  });
+  const svelte = { source: "export default { kit: { router: { type: 'hash' } } };" };
+  it('reads router.type from the sveltekit() plugin options', () => {
+    expect(resolveKitHashRouter(vite("{ router: { type: 'hash' } }"), undefined)).toBe(true);
+    expect(resolveKitHashRouter(vite("{ router: { type: 'pathname' } }"), undefined)).toBe(false);
+    expect(resolveKitHashRouter(vite("{ ...base, router: { type: 'hash' } }"), undefined)).toBe(false);
+    expect(resolveKitHashRouter(vite("mergeConfigs({ router: { type: 'hash' } }, base)"), undefined)).toBe(false);
+  });
+  it('lets plugin options decide over svelte.config, and stays silent on unresolvable ones', () => {
+    expect(resolveKitHashRouter(vite("{ paths: { base: '/x' } }"), svelte)).toBe(false);
+    expect(resolveKitHashRouter(vite('opts'), svelte)).toBe(false);
+  });
+  it('reads svelte.config when the plugin carries no options', () => {
+    expect(resolveKitHashRouter(vite(''), svelte)).toBe(true);
+    expect(resolveKitHashRouter(undefined, svelte)).toBe(true);
+    expect(resolveKitHashRouter(undefined, undefined)).toBe(false);
   });
 });

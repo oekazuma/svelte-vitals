@@ -52,7 +52,7 @@ export {
   resolveKitPathsBase,
   resolveKitAliases,
   withPackageImports,
-  findKitHashRouterInSvelteConfig
+  resolveKitHashRouter
 } from './svelte-config-parse.js';
 export {
   declaredInstalledPackages,

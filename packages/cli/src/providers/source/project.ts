@@ -13,7 +13,7 @@ import {
   withPackageImports,
   withWorkspacePackages,
   resolveKitPathsBase,
-  findKitHashRouterInSvelteConfig,
+  resolveKitHashRouter,
   hasRel,
   servesRootFile,
   type Project,
@@ -340,7 +340,7 @@ async function detectKitConfigFacts(
   const headAliases = withInstalledPackages(componentAliases, installedPackages);
   return {
     ...(kitPathsBase ? { kitPathsBase } : {}),
-    ...(svelteConfig && findKitHashRouterInSvelteConfig(svelteConfig.source) ? { kitHashRouter: true as const } : {}),
+    ...(resolveKitHashRouter(viteConfig, svelteConfig) ? { kitHashRouter: true as const } : {}),
     ...(kitAliases ? { kitAliases } : {}),
     ...(componentAliases !== kitAliases ? { componentAliases } : {}),
     ...(headAliases !== componentAliases ? { headAliases } : {})
