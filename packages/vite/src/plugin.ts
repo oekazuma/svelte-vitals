@@ -295,7 +295,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
     apply: 'build',
     enforce: 'post',
     config(userConfig) {
-      // Read the user's value here, not the resolved one: SvelteKit runs `vite build` as an
+      // Read the user's value here, not the resolved one: SvelteKit 2 runs `vite build` as an
       // SSR build whose resolved `build.minify` is forced to false, and its client build is a
       // separate `vite.build({ configFile })` with a fresh plugin instance — so the instance
       // whose closeBundle sees the prerendered dir never gets a client `configResolved`.
@@ -311,7 +311,8 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       readPrerenderDir(config.root ?? root, config.build?.outDir);
     },
     async closeBundle() {
-      // Under an app build every environment's closeBundle precedes prerendering: `buildApp` runs it.
+      // An app build prerenders in a `buildApp` hook, between environment builds, so no closeBundle
+      // is reliably after it. The `buildApp` hook below is.
       if (appBuild) return;
       // SvelteKit 2's client build is a nested `vite.build` with its own plugin instance whose
       // closeBundle runs before prerendering. Only the outer SSR build's closeBundle runs after it
@@ -377,7 +378,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
           if (generation !== configGeneration) return;
           // Dev must not crash on a config typo; the dashboard runs on plugin
           // options/defaults (or the previous config, on a later edit) and says so.
-          // The build path (closeBundle) intentionally DOES fail — see the comment there.
+          // The build path (analyzeAndGate) intentionally DOES fail — see the comment there.
           warn(
             `svelte-vitals: config file invalid — dashboard using ${config ? 'the previous config' : 'plugin options/defaults'}: ${err instanceof Error ? err.message : String(err)}`
           );
@@ -410,7 +411,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         },
         onError: (err) =>
           warn(`svelte-vitals: dev analysis failed: ${err instanceof Error ? err.message : String(err)}`),
-        // Same sink and prefix as the build path (closeBundle) so the two never read differently.
+        // Same sink and prefix as the build path (analyzeAndGate) so the two never read differently.
         // The runner reloads the config file itself, so its warning set repeats whatever
         // applyConfig already printed for this edit — skip those to avoid printing twice.
         onWarnings: (warnings) => {

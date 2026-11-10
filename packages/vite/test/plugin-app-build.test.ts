@@ -10,8 +10,8 @@ function handlerOf(hook: unknown): Hook {
   return (typeof hook === 'function' ? hook : (hook as { handler: Hook }).handler).bind({}) as Hook;
 }
 
-// SvelteKit 3 builds through Vite's app builder: `config.builder` is set, each environment's
-// closeBundle runs before prerendering, and only `buildApp` hooks run after it.
+// SvelteKit 3 builds through Vite's app builder: `config.builder` is set, and it prerenders in a
+// `buildApp` hook, after the ssr and client closeBundle but before the service worker's.
 describe('svelteVitals under an app build', () => {
   let cwd: string;
   const builder = { environments: { ssr: { config: { build: { outDir: 'custom-out/output/server' } } } } };
@@ -27,15 +27,19 @@ describe('svelteVitals under an app build', () => {
   });
   afterAll(async () => rm(cwd, { recursive: true, force: true }));
 
-  function plugin(resolved: { builder?: object }): Plugin {
+  function plugin(resolved: { builder?: object; build?: object }): Plugin {
     const p = svelteVitals({ ui: false, report: false, failOn: 'critical' }) as Plugin;
     handlerOf(p.configResolved)({ root: cwd, build: { outDir: 'dist' }, ...resolved });
     return p;
   }
 
-  it('leaves closeBundle to buildApp, which analyzes the pages beside the ssr environment output', async () => {
-    const p = plugin({ builder: {} });
+  it('skips closeBundle, even an ssr one that already sees the prerendered pages', async () => {
+    const p = plugin({ builder: {}, build: { ssr: true, outDir: 'custom-out/output/server' } });
     await expect(handlerOf(p.closeBundle)()).resolves.toBeUndefined();
+  });
+
+  it('analyzes the pages beside the ssr environment output in buildApp', async () => {
+    const p = plugin({ builder: {} });
     await expect(handlerOf(p.buildApp)(builder)).rejects.toThrow(/svelte-vitals: build failed/);
   });
 
