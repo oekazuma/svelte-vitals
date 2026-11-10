@@ -1,5 +1,4 @@
 import { DEV } from 'esm-env';
-import type { Handle } from '@sveltejs/kit';
 import { defineConfig, type Config, type Result, type RuleSetting } from '@svelte-vitals/core';
 import {
   allRules,
@@ -169,13 +168,34 @@ async function analyzeAndIngest(
   }
 }
 
+type MaybePromise<T> = T | Promise<T>;
+
+/** The part of a SvelteKit 2 or 3 `RequestEvent` this handle reads. */
+interface HandleEvent {
+  route: { id: string | null };
+  url: URL;
+}
+
+/**
+ * Structural, so the package imports no SvelteKit type: `Handle` lives in a different module in
+ * each major. Generic in the event, because `resolve`'s parameter is checked contravariantly
+ * against SvelteKit's `RequestEvent`.
+ */
+type SvelteVitalsHandle = <E extends HandleEvent>(input: {
+  event: E;
+  resolve: (
+    event: E,
+    opts?: { transformPageChunk?: (input: { html: string; done: boolean }) => MaybePromise<string | undefined> }
+  ) => MaybePromise<Response>;
+}) => MaybePromise<Response>;
+
 /**
  * SvelteKit `handle` that analyzes each visited page's rendered HTML, in dev only,
  * and (when the live dashboard is enabled) feeds the results in — upgrading that
  * route's dashboard findings from static (source-only) to `measured` (real rendered
  * HTML). Add it to `src/hooks.server.ts`, e.g. `sequence(svelteVitalsHandle())`.
  */
-export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handle {
+export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): SvelteVitalsHandle {
   // Dev-only. `DEV` (esm-env) resolves statically to `true` under the dev server and
   // `false` in production builds; on non-Node runtimes (edge) its fallback reads no
   // bare `process`, so it stays `false`. Everywhere but dev this handle is a no-op,

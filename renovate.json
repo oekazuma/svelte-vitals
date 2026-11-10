@@ -65,6 +65,18 @@
       "matchPackageNames": ["@sveltejs/{/,}**", "svelte{/,}**"]
     },
     {
+      "description": "The default catalog stays on SvelteKit 2, which most analyzed apps still use; SvelteKit 3 lives in the kit3 catalog, used only by examples/sveltekit-3.",
+      "matchDepTypes": ["pnpm.catalog.default"],
+      "matchPackageNames": ["@sveltejs/kit"],
+      "allowedVersions": "<3"
+    },
+    {
+      "description": "adapter-static 4 requires SvelteKit 3, so it is held with it.",
+      "matchDepTypes": ["pnpm.catalog.default"],
+      "matchPackageNames": ["@sveltejs/adapter-static"],
+      "allowedVersions": "<4"
+    },
+    {
       "groupName": "build-tools",
       "matchPackageNames": ["tsdown{/,}**", "vite{/,}**", "vitest{/,}**"]
     },
