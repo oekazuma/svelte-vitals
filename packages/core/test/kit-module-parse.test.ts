@@ -295,6 +295,28 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
       { name: 'user', line: 3, via: 'set-call' }
     ]);
   });
+  describe("SvelteKit's other server-only locations", () => {
+    const writes = (spec: string) =>
+      facts(
+        `import { kv } from '${spec}';\nexport function load({ locals }) {\n  kv.set('user', locals.user);\n}`,
+        'src/routes/a/+page.server.ts'
+      ).importedStateWrites;
+    const flagged = [{ name: 'kv', line: 3, via: 'set-call' }];
+    it('leaves a write into a server directory outside src/routes to the collector', () => {
+      expect(writes('../../server/kv')).toEqual([]);
+      expect(writes('$lib/data/server/user')).toEqual([]);
+      expect(writes('../../server')).toEqual([]);
+    });
+    it('leaves a write into a file with a server segment in its name to the collector', () => {
+      expect(writes('../db.server')).toEqual([]);
+      expect(writes('../../kv/server.js')).toEqual([]);
+    });
+    it('still flags a server directory under src/routes, and a name that only starts with server', () => {
+      expect(writes('./server/store.js')).toEqual(flagged);
+      expect(writes('../../serverless/store')).toEqual(flagged);
+      expect(writes('../../observer/store')).toEqual(flagged);
+    });
+  });
   it('does not flag .set on a $lib/server directory-entrypoint import', () => {
     const src = [
       "import { db } from '$lib/server';",

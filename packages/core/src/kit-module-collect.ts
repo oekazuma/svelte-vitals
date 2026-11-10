@@ -168,9 +168,9 @@ async function decideFlagGuards(rt: Runtime, cwd: string, facts: KitModuleFacts[
 
 /**
  * Decide the `.set()`/`.update()` calls the parse could not: a call on a binding exported from
- * under the `$lib` server root is shared module state when that binding is an in-memory
+ * a server-only location is shared module state when that binding is an in-memory
  * container, and persistence when it is anything else. Only the modules actually targeted are
- * read, so a project whose handlers never write to `$lib/server` pays nothing.
+ * read, so a project whose handlers never write to one pays nothing.
  */
 async function arbitrateServerStoreWrites(
   rt: Runtime,

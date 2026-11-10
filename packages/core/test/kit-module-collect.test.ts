@@ -69,6 +69,60 @@ describe('collectKitModuleFacts — $lib/server store arbitration', () => {
     ]);
   });
 
+  describe('in a server directory outside $lib', () => {
+    const page = (name: string, spec = `../server/${name}`) => ({
+      'src/routes/+page.server.ts': handler(spec, `${name}.set('user', locals.user)`)
+    });
+    const flagged = (name: string) => [{ name, line: 3, via: 'set-call' }];
+    const user = "import { writable } from 'svelte/store';\nexport const user = writable(null);";
+
+    it('still flags an in-memory container', async () => {
+      expect(await writes({ 'src/server/cache.ts': 'export const cache = new Map();', ...page('cache') })).toEqual(
+        flagged('cache')
+      );
+    });
+
+    it('stays silent while $lib is opaque', async () => {
+      const facts = await collectKitModuleFacts(
+        createMemoryRuntime({ 'src/server/cache.ts': 'export const cache = new Map();', ...page('cache') }),
+        '',
+        [{ find: '$lib', replacement: null, match: 'prefix' }]
+      );
+      expect(facts.flatMap((f) => f.importedStateWrites)).toEqual([]);
+    });
+
+    it('still flags a svelte/store writable, which holds its value in memory', async () => {
+      expect(await writes({ 'src/server/user.ts': user, ...page('user') })).toEqual(flagged('user'));
+      expect(await writes({ 'src/lib/server/user.ts': user, ...page('user', '$lib/server/user') })).toEqual(
+        flagged('user')
+      );
+    });
+
+    it('leaves a store from another package exempt, since it can wrap a persistent backend', async () => {
+      const kv = "import { createStore } from 'kv-store';\nexport const kv = createStore(client);";
+      expect(await writes({ 'src/server/kv.ts': kv, ...page('kv') })).toEqual([]);
+      const local = "import { writable } from './my-store';\nexport const kv = writable(null);";
+      expect(await writes({ 'src/server/kv.ts': local, ...page('kv') })).toEqual([]);
+    });
+
+    it('looks up the member written through a namespace import', async () => {
+      const through = (spec: string, expr: string) =>
+        `import * as ns from '${spec}';\nexport function load({ locals }) {\n  ${expr};\n}`;
+      expect(
+        await writes({
+          'src/server/user.ts': user,
+          'src/routes/+page.server.ts': through('../server/user', 'ns.user.set(locals.user)')
+        })
+      ).toEqual([{ name: 'ns', line: 3, via: 'set-call' }]);
+      expect(
+        await writes({
+          'src/lib/clients.ts': "import { drizzle } from 'drizzle-orm';\nexport const db = drizzle(url);",
+          'src/routes/+page.server.ts': through('$lib/clients', "ns.db.set('user', locals.user)")
+        })
+      ).toEqual([]);
+    });
+  });
+
   it('resolves the exported name through an aliased import', async () => {
     const facts = await collectKitModuleFacts(
       createMemoryRuntime({

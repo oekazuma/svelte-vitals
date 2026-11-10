@@ -1206,11 +1206,23 @@ function libServerRoot(aliases?: readonly KitAlias[]): string | undefined {
 }
 
 /**
+ * SvelteKit's server-only module locations besides the `$lib` server directory: a `server`
+ * directory outside `src/routes` and `static`, or a file with a `server` segment in its name
+ * (`db.server.ts`, `server.ts`, and so a directory imported as `…/server`).
+ */
+function isServerOnlyPath(path: string): boolean {
+  const dirs = path.split('/');
+  const file = dirs.pop()!;
+  if (file.split('.').includes('server')) return true;
+  return dirs.includes('server') && !path.startsWith('src/routes/') && !path.startsWith('static/');
+}
+
+/**
  * Whether an import specifier points at repo-local module state that would be
  * SHARED on the server: relative or alias-resolved — but not the resolved `$lib`
- * server directory itself (see `libServerRoot`, which follows `kit.files.lib`) or
- * anything under it, where legitimate singletons (DB connections, KV/API clients)
- * live. The check resolves the specifier to its repo-relative path first, so a
+ * server directory itself (see `libServerRoot`, which follows `kit.files.lib`),
+ * anything under it, or another server-only location (`isServerOnlyPath`), where
+ * legitimate singletons (DB connections, KV/API clients) live. The check resolves the specifier to its repo-relative path first, so a
  * relative import that lands in that directory is exempt exactly like the
  * alias-resolved form, and the directory-entrypoint import itself (`$lib/server`, or
  * an equivalent relative path, resolving to exactly that directory — importing the
@@ -1236,8 +1248,10 @@ function isLocalStateSpecifier(spec: string, importerFile: string, aliases?: rea
   if (serverRoot === undefined) return false;
   const path = resolveRepoLocalPath(spec, importerFile, aliases);
   if (path === undefined) return false;
-  return path !== serverRoot && !path.startsWith(`${serverRoot}/`);
+  return path !== serverRoot && !path.startsWith(`${serverRoot}/`) && !isServerOnlyPath(path);
 }
+
+const WRITABLE_NAMES = new Set(['writable']);
 
 /** Container constructors whose instances hold data in process memory. */
 const IN_MEMORY_CTORS = new Set(['Map', 'Set', 'WeakMap', 'WeakSet']);
@@ -1320,14 +1334,15 @@ export function parseClientExports(
 
 /**
  * The exported bindings of a module that are initialized to an in-memory container — an object
- * or array literal (a spread literal only as `isInMemoryInit` allows), or `new Map`/`Set`/`WeakMap`/`WeakSet`. Used to arbitrate a `.set()` call on
- * an import from under the `$lib` server root, where the call shape alone cannot separate a
- * hand-rolled store from a database client.
+ * or array literal (a spread literal only as `isInMemoryInit` allows), `new Map`/`Set`/`WeakMap`/`WeakSet`,
+ * or `writable(…)` from `svelte/store`. Used to arbitrate a `.set()` call on an import from a
+ * server-only location, where the call shape alone cannot separate a hand-rolled store from a
+ * database client.
  *
  * Precision-first, matching the rest of this default-on security rule: only an initializer that
- * positively names a container counts. Anything else — a call into an imported package, a
- * re-export, an unreadable file — is left alone, so a wrapper this cannot see stays exempt
- * rather than becoming a false positive.
+ * positively names a container counts. Anything else — a call into any other package (a store
+ * library can wrap a database), a local wrapper, a re-export, an unreadable file — is left alone,
+ * so a wrapper this cannot see stays exempt rather than becoming a false positive.
  */
 export function parseInMemoryExports(source: string, filename: string): ReadonlySet<string> {
   const names = new Set<string>();
@@ -1337,12 +1352,17 @@ export function parseInMemoryExports(source: string, filename: string): Readonly
     const decl = unwrapExport(stmt);
     if (decl?.type === 'FunctionDeclaration' && decl.id) fns.add(decl.id.name);
   }
+  const writables = program ? collectNamedImportAliases(program, 'svelte/store', WRITABLE_NAMES) : new Set<string>();
+  const isWritable = (init: Node): boolean => {
+    const call = unwrapTs(init);
+    return call?.type === 'CallExpression' && call.callee?.type === 'Identifier' && writables.has(call.callee.name);
+  };
   for (const stmt of program?.body ?? []) {
     if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
     const decl = stmt.declaration;
     if (decl.type !== 'VariableDeclaration') continue;
     for (const d of decl.declarations ?? []) {
-      if (d?.id?.type === 'Identifier' && isInMemoryInit(d.init, fns)) names.add(d.id.name);
+      if (d?.id?.type === 'Identifier' && (isInMemoryInit(d.init, fns) || isWritable(d.init))) names.add(d.id.name);
     }
   }
   return names;
@@ -1525,13 +1545,21 @@ export function parseKitModuleFacts(
         const spec = r ? importedSpecifiers.get(r)! : undefined;
         if (r && spec !== undefined) {
           const resolved = localModulePath(spec, filename, aliases);
-          const target = { name: r, imported: importedNames.get(r) ?? r, resolved: resolved!, line: line(n.start) };
+          // Through `import * as ns`, the export written is the member next to `ns`, not `ns`.
+          let member: Node = n.callee.object;
+          while (member?.type === 'MemberExpression' && member.object?.type !== 'Identifier') member = member.object;
+          const viaNamespace =
+            namespaceImports.has(r) && member?.type === 'MemberExpression' && !member.computed
+              ? member.property?.name
+              : undefined;
+          const imported = viaNamespace ?? importedNames.get(r) ?? r;
+          const target = { name: r, imported, resolved: resolved!, line: line(n.start) };
           if (isLocalStateSpecifier(spec, filename, aliases)) {
             write = { name: r, via: 'set-call' };
             // The collector drops it when the target module shows a persistence client instead.
             if (inHandler) storeWriteTargets.push(target);
           } else if (resolved !== undefined && inHandler) {
-            // Under the `$lib` server root: the call shape cannot tell a persistence client from
+            // In a server-only location: the call shape cannot tell a persistence client from
             // a hand-rolled store, so defer to the collector, which can read the target module.
             pendingServerStoreWrites.push(target);
           }
