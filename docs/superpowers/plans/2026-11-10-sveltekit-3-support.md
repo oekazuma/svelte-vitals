@@ -274,7 +274,7 @@ expect(resolveKitHashRouter(vite("{ ...base, router: { type: 'hash' } }"), undef
 ```
 
 - [ ] **Step 2: Run.** `pnpm --filter @svelte-vitals/core test -- svelte-config-parse`. Expected: FAIL, because `resolveKitHashRouter` is not exported.
-- [ ] **Step 3: Implement.** Apply the same strictness as `findKitHashRouterInSvelteConfig`: `knownObject` at each level, and a literal `'hash'` only. Keep `findKitHashRouterInSvelteConfig` module-private. Switch both call sites to `resolveKitHashRouter(viteConfig, svelteConfig) ? { kitHashRouter: true as const } : {}`.
+- [ ] **Step 3: Implement.** Apply the same strictness as `findKitHashRouterInSvelteConfig`: `knownObject` at each level, and a literal `'hash'` only. Keep `findKitHashRouterInSvelteConfig` module-private, and move the cases of the existing `describe('findKitHashRouterInSvelteConfig')` to `resolveKitHashRouter(undefined, { source })` with their assertions unchanged. Switch both call sites to `resolveKitHashRouter(viteConfig, svelteConfig) ? { kitHashRouter: true as const } : {}`.
 - [ ] **Step 4: Run.** `pnpm --filter @svelte-vitals/core test`, then `pnpm typecheck`. Expected: exit 0.
 - [ ] **Step 5: Docs.** In each listed page (en + ja), the sentence becomes "With `router.type: 'hash'` in `svelte.config.js`, or in the options passed to `sveltekit()` in the Vite config, no route renders on the server." Stamp the four English pages.
 - [ ] **Step 6: Commit.** `feat(core): read router.type from the sveltekit() plugin options`
@@ -308,6 +308,8 @@ expect(resolveKitAliases(vite('opts'), svelteWithAlias)).toBeUndefined();
 ```
 
 Here `svelteWithAlias` is a `svelte.config` with a `kit.alias`, which must be ignored whenever the plugin has options.
+
+The existing case "reads nothing when the Vite config carries a sveltekit() config" asserts `undefined` and no longer holds. Rewrite it to give the plugin `{ alias: { '$a': 'src/a' } }` and `svelte.config` `{ alias: { '$b': 'src/b' } }`, and to expect `$lib` and `$a` only.
 
 - [ ] **Step 2: Run** the suite. Expected: the first two cases and the `$lib` case FAIL, because today the function returns `undefined`.
 - [ ] **Step 3: Implement.** Rewrite the doc comment so that it states the current precedence and no longer says that reading plugin aliases "is deliberately not done".
@@ -425,11 +427,14 @@ it('static: reads ssr = dev with dev from $app/env', () => {
 
   Add one test through the full pipeline, in the same file the existing `src/lib/server` container case lives in. It asserts that an export of `new Map()` from `src/server/cache.ts` is still reported. Also assert that an opaque `$lib` (alias list `[{ find: '$lib', replacement: null, match: 'prefix' }]`) still reports nothing for `'../../server/kv'`.
 
+  Add a second full-pipeline case: a handler's `.set()` on `export const user = writable(null)` (from `svelte/store`) in `src/server/user.ts` is still reported. It passes today and fails once `isServerOnlyPath` alone is in, because `arbitrateServerStoreWrites` promotes only what `parseInMemoryExports` names, and a store factory is not a container. Step 3's store-factory reading makes it pass again. Today the same store under `src/lib/server` is already silent.
+
 - [ ] **Step 2: Run** `pnpm --filter @svelte-vitals/core test -- kit-module-parse`. Expected: the first three cases FAIL.
-- [ ] **Step 3: Implement** `isServerOnlyPath` and the extra condition.
+- [ ] **Step 3: Implement** `isServerOnlyPath` and the extra condition. Then make `parseInMemoryExports` also name an export initialized by a call to a store library's factory, with the same package test `parseClientExports` uses (`/^svelte|store/i` on a non-local import source). This also starts reporting such a store under `src/lib/server`.
 - [ ] **Step 4: Run** `pnpm --filter @svelte-vitals/core test`. Expected: exit 0.
 - [ ] **Step 5: Measure.** Run `pnpm build && pnpm corpus update --cache ~/.cache/svelte-vitals-corpus`, then diff `scripts/corpus/measurement.json`.
   - If no `tp` finding of `security/handler-state-write` or `security/shared-state-import` disappears, skip Task 9.
+  - The store-factory reading can add findings under `src/lib/server`. List each one for the user with its source before going further. If any is not a real defect, drop the store-factory reading and this case, and record the `src/server` store as a known miss instead.
   - If any does, list those findings for the user and do Task 9.
 - [ ] **Step 6: Commit.** `feat(core): exempt SvelteKit 3 server-only locations from the shared-state rules`
 
