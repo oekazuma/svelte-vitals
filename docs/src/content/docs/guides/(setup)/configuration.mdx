@@ -249,7 +249,9 @@ section with its exact option names and defaults.
 
 Rules that follow imports (`architecture/private-scope-import`, `architecture/route-component-import`,
 `security/shared-state-import`, `security/handler-state-write`) resolve specifiers through the aliases your project declares in
-`svelte.config.{js,ts}`: `kit.alias`, plus `kit.files.lib` when `$lib` has been moved. svelte-vitals
+`svelte.config.{js,ts}`: `kit.alias`, plus `kit.files.lib` when `$lib` has been moved. When the project
+passes options to the `sveltekit()` plugin in its Vite config instead, `alias` and `files.lib` are read
+from those options, and `svelte.config` is ignored, as SvelteKit does. svelte-vitals
 reads them statically, in the same order SvelteKit builds them, and the first matching alias wins,
 exactly as it does at build time.
 
@@ -300,8 +302,9 @@ The following cases are not resolved:
   too: every rule above falls silent on `$lib/...` specifiers, and
   [`security/handler-state-write`](/rules/security/handler-state-write)'s lib `server/` exemption stays
   off rather than guessing at where the directory now points;
-- a project that passes its SvelteKit options to the `sveltekit()` plugin in `vite.config.ts` instead of
-  `svelte.config.{js,ts}`, with the same result, nothing reported;
+- options passed to the `sveltekit()` plugin that are not an object literal written in the Vite config
+  file itself (an imported value, for example): the aliases in them are not read, and only the default
+  `$lib` is assumed;
 - a `kit.alias` object containing a spread (`{ ...shared, '$a': 'src/a' }`) or a computed key
   (`{ [key]: 'src/a' }`); an unknown key could shadow any entry declared after it, so svelte-vitals
   discards the _whole_ of `kit.alias` rather than just that one entry. Every literal alias declared alongside it stops

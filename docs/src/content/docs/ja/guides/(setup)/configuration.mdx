@@ -197,7 +197,9 @@ export default {
 
 インポートを追跡するルール（`architecture/private-scope-import`、`architecture/route-component-import`、
 `security/shared-state-import`、`security/handler-state-write`）は、プロジェクトが `svelte.config.{js,ts}` で宣言しているエイリアス、つまり
-`kit.alias` と、`$lib` を移動している場合の `kit.files.lib` を通じて指定子を解決します。svelte-vitals はこれらを
+`kit.alias` と、`$lib` を移動している場合の `kit.files.lib` を通じて指定子を解決します。Vite 設定の `sveltekit()`
+プラグインにオプションを渡しているプロジェクトでは、SvelteKit と同じく `svelte.config` を無視し、
+そのオプションの `alias` と `files.lib` を読みます。svelte-vitals はこれらを
 静的に、SvelteKit がエイリアスを構築するのと同じ順序で読み取り、ビルド時とまったく同じく最初にマッチ
 したエイリアスが使われます。
 
@@ -246,8 +248,8 @@ pnpm のリンクもそのままたどって読みます。インポートは `s
   上記のルールは `$lib/...` から始まる指定子に沈黙するだけでなく、
   [`security/handler-state-write`](/ja/rules/security/handler-state-write) の lib `server/` 免除も、
   ディレクトリの移動先を推測せず無効のままになります。
-- `svelte.config.{js,ts}` ではなく `vite.config.ts` の `sveltekit()` プラグインに SvelteKit のオプションを
-  渡しているプロジェクトの場合。この場合も同様に何も報告されません。
+- `sveltekit()` プラグインに渡すオプションが、Vite 設定ファイル内に書かれたオブジェクトリテラルでは
+  ない場合（import した値など）。そこで宣言したエイリアスは読まず、既定の `$lib` だけを仮定します。
 - `kit.alias` オブジェクトにスプレッド（`{ ...shared, '$a': 'src/a' }`）や計算されたキー
   （`{ [key]: 'src/a' }`）が含まれる場合。未知のキーはそれより後ろに宣言されたどのエントリでも上書き
   しうるため、そのエントリ1つだけでなく `kit.alias` **全体**が読み取り不能として扱われます。隣に書か
