@@ -8,6 +8,7 @@ import {
   withPackageImports,
   resolveKitHashRouter
 } from '../src/svelte-config-parse.js';
+import { DEFAULT_KIT_ALIASES } from '../src/kit-module-parse.js';
 
 describe('findKitPathsBaseInSvelteConfig', () => {
   it('reads a literal base from an exported object', () => {
@@ -384,14 +385,30 @@ describe('resolveKitAliases', () => {
     expect(resolveKitAliases(undefined, undefined)).toBeUndefined();
   });
 
-  it('reads nothing when the Vite config carries a sveltekit() config, which makes svelte.config ignored', () => {
-    const vite = {
-      source: [
-        `import { sveltekit } from '@sveltejs/kit/vite';`,
-        `export default { plugins: [sveltekit({ alias: { '$a': 'src/a' } })] };`
-      ].join('\n')
-    };
-    expect(resolveKitAliases(vite, svelte(`{ alias: { '$a': 'src/a' } }`))).toBeUndefined();
+  const pluginWith = (arg: string) => ({
+    source: `import { sveltekit } from '@sveltejs/kit/vite';\nexport default { plugins: [sveltekit(${arg})] };`
+  });
+  const svelteWithAlias = svelte(`{ alias: { '$b': 'src/b' } }`);
+
+  it('reads alias from the sveltekit() plugin options, which make svelte.config ignored', () => {
+    expect(resolveKitAliases(pluginWith(`{ alias: { '$a': 'src/a' } }`), svelteWithAlias)).toEqual([
+      { find: '$lib', replacement: 'src/lib', match: 'prefix' },
+      { find: '$a', replacement: 'src/a', match: 'prefix' }
+    ]);
+  });
+
+  it('reads files.lib from the sveltekit() plugin options', () => {
+    expect(resolveKitAliases(pluginWith(`{ files: { lib: 'app/lib' } }`), undefined)).toEqual([
+      { find: '$lib', replacement: 'app/lib', match: 'prefix' }
+    ]);
+  });
+
+  it('gives plugin options without an alias the default $lib list', () => {
+    expect(resolveKitAliases(pluginWith(`{ paths: { base: '/x' } }`), svelteWithAlias)).toEqual(DEFAULT_KIT_ALIASES);
+  });
+
+  it('reads nothing from plugin options it cannot resolve', () => {
+    expect(resolveKitAliases(pluginWith('opts'), svelteWithAlias)).toBeUndefined();
   });
 
   it('still reads svelte.config when sveltekit() takes no argument', () => {

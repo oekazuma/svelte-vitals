@@ -209,6 +209,12 @@ function filesLibOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpress
   return stringValueOf(lib) ?? null;
 }
 
+/** `alias` and `files.lib` of a SvelteKit config object: `kit` in `svelte.config`, or the plugin options. */
+function rawKitAliasesOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpression>): RawKitAliases {
+  const filesLib = filesLibOf(kitConfig, bindings);
+  return { entries: aliasEntriesOf(kitConfig, bindings), ...(filesLib !== undefined ? { filesLib } : {}) };
+}
+
 /** `kit.alias` and `kit.files.lib` from a `svelte.config.{js,ts}` source. */
 export function findKitAliasesInSvelteConfig(source: string): RawKitAliases {
   const program = programOf(source, 'svelte.config.js');
@@ -217,9 +223,7 @@ export function findKitAliasesInSvelteConfig(source: string): RawKitAliases {
   const bindings = collectTopLevelBindings(program);
   const kit = propOf(config, 'kit');
   const kitObj = kit ? unwrapToObjectExpression(kit.value as Expression, bindings) : undefined;
-  if (!kitObj) return { entries: [] };
-  const filesLib = filesLibOf(kitObj, bindings);
-  return { entries: aliasEntriesOf(kitObj, bindings), ...(filesLib !== undefined ? { filesLib } : {}) };
+  return kitObj ? rawKitAliasesOf(kitObj, bindings) : { entries: [] };
 }
 
 /**
@@ -264,16 +268,17 @@ function compileKitAliases(raw: RawKitAliases): KitAlias[] {
 /**
  * The project's compiled alias list, following SvelteKit's config precedence: options passed to
  * the `sveltekit()` Vite plugin make `svelte.config` irrelevant (Kit logs "svelte.config.js is
- * ignored when options are passed via your Vite config"), so aliases are read from
- * `svelte.config` only when the Vite config carries no plugin config. Reading `kit.alias` out of
- * a plugin config is deliberately not done — that costs reach, not correctness, and such a
- * project keeps the resolver's default `$lib` behaviour. Undefined means "no config was read".
+ * ignored when options are passed via your Vite config"), so the list comes from those options
+ * when they are there, and from `svelte.config` only when the plugin carries none. Options this
+ * cannot resolve say nothing. Undefined means "no config was read".
  */
 export function resolveKitAliases(
   viteConfig: { source: string } | undefined,
   svelteConfig: { source: string } | undefined
 ): KitAlias[] | undefined {
-  if (viteConfig && findKitPathsBaseInViteConfig(viteConfig.source).kind !== 'no-plugin-config') return undefined;
+  const plugin = viteConfig ? sveltekitPluginConfig(viteConfig.source) : undefined;
+  if (plugin?.kind === 'unresolvable') return undefined;
+  if (plugin?.kind === 'resolved') return compileKitAliases(rawKitAliasesOf(plugin.config, plugin.bindings));
   if (!svelteConfig) return undefined;
   return compileKitAliases(findKitAliasesInSvelteConfig(svelteConfig.source));
 }
