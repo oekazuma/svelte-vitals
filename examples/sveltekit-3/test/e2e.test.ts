@@ -77,6 +77,12 @@ describe('sveltekit-3 e2e', () => {
     expect(file?.issues.map((i) => i.id)).toEqual(['seo/ssr-disabled']);
   });
 
+  it('static: leaves a write to a client in a server directory outside #lib alone', () => {
+    const file = staticReport.routes.find((r) => r.route === 'src/routes/kv/+page.server.ts');
+    expect(file?.issues.map((i) => i.id) ?? []).not.toContain('security/handler-state-write');
+    expect(staticReport.rules['security/handler-state-write']).toMatchObject({ findings: 0 });
+  });
+
   it('build: analyzes the prerendered / from the SvelteKit 3 output', () => {
     expect(buildReport.routes.map((r) => r.route)).toContain('/');
     expect(titleIssues(buildReport, '/')).toEqual([]);
