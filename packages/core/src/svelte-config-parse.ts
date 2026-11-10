@@ -397,9 +397,14 @@ function sveltekitLocalNames(program: Program): Set<string> {
   return out;
 }
 
-/** SvelteKit config passed to the `sveltekit()` plugin in a Vite config source (since Kit 2.62). */
-export function findKitPathsBaseInViteConfig(source: string): ViteKitConfigResult {
-  const none: ViteKitConfigResult = { kind: 'no-plugin-config' };
+type PluginConfig =
+  | { kind: 'no-plugin-config' }
+  | { kind: 'unresolvable' }
+  | { kind: 'resolved'; config: ObjectExpression; program: Program; bindings: Map<string, TsExpression> };
+
+/** The options object passed to the `sveltekit()` plugin in a Vite config source (since Kit 2.62). */
+function sveltekitPluginConfig(source: string): PluginConfig {
+  const none: PluginConfig = { kind: 'no-plugin-config' };
   const program = programOf(source, 'vite.config.ts');
   if (!program) return none;
   const config = resolveConfigObject(program);
@@ -418,11 +423,17 @@ export function findKitPathsBaseInViteConfig(source: string): ViteKitConfigResul
     const arg = call.arguments[0] as Expression | undefined;
     if (arg === undefined) return none; // sveltekit() — svelte.config still applies
     const kitConfig = unwrapToObjectExpression(arg, bindings);
-    if (!kitConfig) return { kind: 'unresolvable' };
-    const base = basePathOf(kitConfig, bindings, constBindings(program, bindings));
-    return base ? { kind: 'resolved', base } : { kind: 'resolved' };
+    return kitConfig ? { kind: 'resolved', config: kitConfig, program, bindings } : { kind: 'unresolvable' };
   }
   return none;
+}
+
+/** `paths.base` from the `sveltekit()` plugin config in a Vite config source. */
+export function findKitPathsBaseInViteConfig(source: string): ViteKitConfigResult {
+  const plugin = sveltekitPluginConfig(source);
+  if (plugin.kind !== 'resolved') return plugin;
+  const base = basePathOf(plugin.config, plugin.bindings, constBindings(plugin.program, plugin.bindings));
+  return base ? { kind: 'resolved', base } : { kind: 'resolved' };
 }
 
 /**
