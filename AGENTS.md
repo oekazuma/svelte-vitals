@@ -38,6 +38,8 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
   canary, and live-dashboard dogfood; every new rule needs a planted sample here — the meta-test
   in `examples/kitchen-sink/test/e2e-static.test.ts` enforces coverage against `allRules`. See
   `examples/kitchen-sink/README.md`.
+- `examples/sveltekit-3` — a small SvelteKit 3 app (config in `vite.config.ts`, `#lib`, the Vite plugin)
+  on the `kit3` catalog. It guards SvelteKit 3 reading end to end. It is not a per-rule gallery.
 - `packages/cli/docs` — the handful of topics `svelte-vitals docs show <name>` prints. Edit the
   markdown, then `pnpm --filter svelte-vitals run gen:docs && pnpm format`; `packages/cli/test/docs-embed.test.ts`
   fails the build if the committed `src/docs/generated.ts` drifts. Keep them terse and terminal-first —
