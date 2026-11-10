@@ -62,6 +62,21 @@ describe('sveltekit-3 e2e', () => {
     ).not.toContain('/');
   });
 
+  it('static: follows an alias declared in the sveltekit() options', () => {
+    expect(titleIssues(staticReport, '/via-alias')).toEqual([]);
+    expect(
+      Object.values(staticReport.skipped ?? {})
+        .flat()
+        .map((s) => s.route)
+    ).not.toContain('/via-alias');
+  });
+
+  it('static: reads ssr = dev with dev from $app/env', () => {
+    // A kit-module finding is listed under its file, not under the URL.
+    const file = staticReport.routes.find((r) => r.route === 'src/routes/dev-ssr/+page.ts');
+    expect(file?.issues.map((i) => i.id)).toEqual(['seo/ssr-disabled']);
+  });
+
   it('build: analyzes the prerendered / from the SvelteKit 3 output', () => {
     expect(buildReport.routes.map((r) => r.route)).toContain('/');
     expect(titleIssues(buildReport, '/')).toEqual([]);

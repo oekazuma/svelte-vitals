@@ -449,7 +449,9 @@ called `complete`, write `svelte-vitals ./complete`.
 
 ## Supported Svelte/SvelteKit versions
 
-Rules assume **Svelte 5+ (runes)** and **SvelteKit 2+**. If the analyzed project declares an
+Rules assume **Svelte 5+ (runes)** and **SvelteKit 2+**. In a SvelteKit 3 app, svelte-vitals reads the
+options passed to `sveltekit()` in the Vite config and the renamed `$app/env` module, in the places
+where it reads `svelte.config.js` and `$app/environment` for SvelteKit 2. If the analyzed project declares an
 older `svelte` or `@sveltejs/kit` version in `package.json`, svelte-vitals prints a warning to stderr.
 The analysis still runs normally, but rules that key off runes syntax (e.g.
 [correctness/stale-prop-derivation](/rules/correctness/stale-prop-derivation),
