@@ -13,9 +13,9 @@ universal な `+page.ts`/`+layout.ts` の load も対象です。SSR 時はサ�
 
 検出しないもの:
 
-- 同じファイルで `ssr = false` を export している universal な `+page.ts`/`+layout.ts`。ルートがサーバーでレンダリングされない universal ファイルも対象外です。ページ自身の `+page` ファイル、続いてレイアウトチェーン（`+page@`/`+layout@` によるリセットに従います）の順にたどり、最も近い `ssr` の export が `ssr = false` なら、そのルートはサーバーでレンダリングされません。`svelte.config.js` で `kit.router.type: 'hash'` を指定したアプリでは、どのルートもサーバーでレンダリングされません。`ssr = dev`（`dev` は `$app/environment` のもの）は、本番ビルドでの値である `false` として扱います。それ以外の値で export された `ssr` は、SSR を再び有効にするものとみなします。同じ階層の universal モジュール（`+page.ts`/`+layout.ts`）と server モジュールの両方が export している場合は、SvelteKit と同じく universal 側を採用します。レイアウトは配下のすべてのページがこれに当たる場合に限り、ルートレイアウトは自身が `ssr = false` を export する場合に限り対象外です。その load はサーバーで実行されないため、リークする共有インスタンスがそもそも存在しません。`+page.server.ts` は `ssr` の値に関わらず常にサーバーで実行されるため、server 系のファイルはこの除外の対象外です。
+- 同じファイルで `ssr = false` を export している universal な `+page.ts`/`+layout.ts`。ルートがサーバーでレンダリングされない universal ファイルも対象外です。ページ自身の `+page` ファイル、続いてレイアウトチェーン（`+page@`/`+layout@` によるリセットに従います）の順にたどり、最も近い `ssr` の export が `ssr = false` なら、そのルートはサーバーでレンダリングされません。`svelte.config.js` の `kit.router.type: 'hash'` か、Vite 設定の `sveltekit()` に渡すオプションの `router.type: 'hash'` を指定したアプリでは、どのルートもサーバーでレンダリングされません。`ssr = dev`（`dev` は `$app/environment` か SvelteKit 3 の `$app/env` のもの）は、本番ビルドでの値である `false` として扱います。それ以外の値で export された `ssr` は、SSR を再び有効にするものとみなします。同じ階層の universal モジュール（`+page.ts`/`+layout.ts`）と server モジュールの両方が export している場合は、SvelteKit と同じく universal 側を採用します。レイアウトは配下のすべてのページがこれに当たる場合に限り、ルートレイアウトは自身が `ssr = false` を export する場合に限り対象外です。その load はサーバーで実行されないため、リークする共有インスタンスがそもそも存在しません。`+page.server.ts` は `ssr` の値に関わらず常にサーバーで実行されるため、server 系のファイルはこの除外の対象外です。
 - 読み取り、その他のメソッド呼び出し（`logger.info(…)`）、ローカル変数への書き込み。
-- ブラウザでしか実行されない書き込み。`if (!browser) return;` のような早期 return の後、`if (browser)` の中、`browser && …` の右辺にあるものです（`browser` は `$app/environment` のもの、または `typeof window` の判定）。ブラウザでは、訪問者ごとにモジュールのコピーを持つためです。ガードのサーバー側にある書き込み（`if (!browser) user.set(…)`）は引き続き報告します。
+- ブラウザでしか実行されない書き込み。`if (!browser) return;` のような早期 return の後、`if (browser)` の中、`browser && …` の右辺にあるものです（`browser` は `$app/environment` か SvelteKit 3 の `$app/env` のもの、または `typeof window` の判定）。ブラウザでは、訪問者ごとにモジュールのコピーを持つためです。ガードのサーバー側にある書き込み（`if (!browser) user.set(…)`）は引き続き報告します。
 - インストール済みパッケージからの import への `.set()`/`.update()`。
 - 引数が更新関数（関数リテラル、またはモジュール内で関数に束縛した名前）でない `.update()`。ストアの `update` は更新関数を受け取りますが、データベースクライアントの `update` はテーブルやオプションを受け取ります（`prisma.post.update({ … })`、`db.update(table)`）。クライアントをどこから import していても同じです。
 - 解決先が `src/lib/server` になる **永続化クライアント**への `.set()`/`.update()`。ディレクトリエントリポイント（`import { db } from '$lib/server'`）と `src/lib/server/**` 配下が該当します。Drizzle の `db.update(...).set(...)` のような呼び出しは永続化であり、共有状態への書き込みではないためです。
@@ -31,7 +31,7 @@ export const client = drizzle(url); // コンテナリテラルではないの�
 
 コンテナだと断定できないものはすべて除外のままなので、実クライアントのラッパーや re-export、読めないモジュールが誤検知になることはありません。読み込むのは handler が実際に書き込んでいるモジュールだけです。
 
-`src/lib/server` の外では、既定の扱いが逆になります。handler からリポジトリ内の import への `.set()`/`.update()` は、対象モジュールがその binding をクライアントだと示さない限り検出します。クライアントとみなすのは次の 2 つです。1 つはクラスの `new` で初期化した export で、クラスはインストール済みパッケージから import したものか、そのモジュールで宣言され何も継承せず `Map`/`Set`/`WeakMap`/`WeakSet` のフィールドも持たないものに限ります（`export const kv = new KvService()`）。もう 1 つはインストール済みパッケージの関数の呼び出しで初期化した export です（`drizzle(url)` や `createClient(…)`）。パッケージかどうかは、アプリの `kit.alias` を先に解決してから判断します。名前が `svelte` で始まるパッケージ（`svelte/store` など）や名前に `store` を含むパッケージのストア生成関数はクライアントではないので、`export const user = writable(null)` は引き続き検出します。
+`src/lib/server` の外では、既定の扱いが逆になります。handler からリポジトリ内の import への `.set()`/`.update()` は、対象モジュールがその binding をクライアントだと示さない限り検出します。クライアントとみなすのは次の 2 つです。1 つはクラスの `new` で初期化した export で、クラスはインストール済みパッケージから import したものか、そのモジュールで宣言され何も継承せず `Map`/`Set`/`WeakMap`/`WeakSet` のフィールドも持たないものに限ります（`export const kv = new KvService()`）。もう 1 つはインストール済みパッケージの関数の呼び出しで初期化した export です（`drizzle(url)` や `createClient(…)`）。パッケージかどうかは、アプリの SvelteKit の alias を先に解決してから判断します。名前が `svelte` で始まるパッケージ（`svelte/store` など）や名前に `store` を含むパッケージのストア生成関数はクライアントではないので、`export const user = writable(null)` は引き続き検出します。
 
 ## なぜ重要か
 

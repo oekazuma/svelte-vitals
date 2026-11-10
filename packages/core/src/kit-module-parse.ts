@@ -12,6 +12,7 @@ import {
   browserOnlyRanges,
   collectBrowserGlobalRefs,
   collectBrowserGuardImports,
+  collectKitEnvImports,
   collectDerivedGuardBindings,
   collectProgramBindings,
   collectNamedImportAliases,
@@ -177,8 +178,9 @@ function findFalseOptOut(
   source: string,
   name: 'ssr' | 'csr'
 ): { line: number; literal: boolean } | undefined {
-  // `dev` from `$app/environment` is false in every production build, which is what the options describe.
-  const dev = collectNamedImportAliases(program, '$app/environment', DEV_NAMES);
+  // `dev` from `$app/environment` (SvelteKit 3: `$app/env`) is false in every production build,
+  // which is what the options describe.
+  const dev = collectKitEnvImports(program, DEV_NAMES);
   let hit: { line: number; literal: boolean } | undefined;
   forEachNamedExport(program, (exported, value, anchor) => {
     const literal = value?.type === 'Literal' && value.value === false;
@@ -429,7 +431,7 @@ function loadNeverRenders(program: Node, locals: Set<string>, building = new Set
 
 /**
  * Whether `fn`, a function of `program`, redirects or errors on every call (see `loadNeverRenders`).
- * `building` holds the names `building` from `$app/environment` is imported as: an `if` on one of them
+ * `building` holds the names `building` from `$app/environment` or `$app/env` is imported as: an `if` on one of them
  * is read with the test false, as it is on every request.
  */
 function alwaysExits(program: Node, fn: Node, locals: Set<string>, building = new Set<string>()): boolean {
@@ -1595,7 +1597,7 @@ export function parseKitModuleFacts(
 
   const exitLocals = collectNamedImportAliases(program, '@sveltejs/kit', EXIT_NAMES);
   const neverRenders = loadNeverRenders(program, exitLocals);
-  const building = collectNamedImportAliases(program, '$app/environment', BUILDING_NAMES);
+  const building = collectKitEnvImports(program, BUILDING_NAMES);
   const hooks = /(^|\/)hooks\.server\.(ts|js)$/.test(filename);
   const answered = hooks ? handleAnsweredPaths(program, exitLocals) : [];
   const chunkTokens = hooks ? pageChunkTokens(program) : [];

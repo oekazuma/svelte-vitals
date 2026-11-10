@@ -412,7 +412,9 @@ svelte-vitals complete powershell >> $PROFILE
 
 ## 対応する Svelte/SvelteKit バージョン
 
-ルールは **Svelte 5+（runes）** と **SvelteKit 2+** を前提としています。解析対象プロジェクトの
+ルールは **Svelte 5+（runes）** と **SvelteKit 2+** を前提としています。SvelteKit 3 のアプリが設定を置く
+Vite 設定の `sveltekit()` のオプションは、`svelte.config.js` を読む箇所すべてで読みます。
+`$app/env` も、`$app/environment` を読む箇所すべてで読みます。解析対象プロジェクトの
 `package.json` がそれより古い `svelte`/`@sveltejs/kit` バージョンを宣言している場合、stderr に
 警告が表示されます。解析自体は通常どおり実行されますが、
 [correctness/stale-prop-derivation](/ja/rules/correctness/stale-prop-derivation)や

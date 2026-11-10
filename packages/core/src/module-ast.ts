@@ -391,17 +391,21 @@ export function collectNamedImportAliases(program: Node, moduleSource: string, n
 
 const BROWSER_GUARD_NAMES = new Set(['browser']);
 
+/** Local names of `names` value-imported from '$app/environment' or its SvelteKit 3 name '$app/env'. */
+export function collectKitEnvImports(program: Node, names: Set<string>): Set<string> {
+  return new Set([
+    ...collectNamedImportAliases(program, '$app/environment', names),
+    ...collectNamedImportAliases(program, '$app/env', names)
+  ]);
+}
+
 /**
- * Local names of `browser` value-imported from '$app/environment' or its SvelteKit 3 name
- * '$app/env' (alias-resolved) —
+ * Local names of `browser` from SvelteKit's environment module (alias-resolved) —
  * the guard binding recognised by the browser-global scanner (correctness/server-browser-global, correctness/instance-browser-global).
  * Shared with the Kit-module parser.
  */
 export function collectBrowserGuardImports(program: Node): Set<string> {
-  return new Set([
-    ...collectNamedImportAliases(program, '$app/environment', BROWSER_GUARD_NAMES),
-    ...collectNamedImportAliases(program, '$app/env', BROWSER_GUARD_NAMES)
-  ]);
+  return collectKitEnvImports(program, BROWSER_GUARD_NAMES);
 }
 
 /**

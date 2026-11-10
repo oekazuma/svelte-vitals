@@ -209,6 +209,12 @@ function filesLibOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpress
   return stringValueOf(lib) ?? null;
 }
 
+/** `alias` and `files.lib` of a SvelteKit config object: `kit` in `svelte.config`, or the plugin options. */
+function rawKitAliasesOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpression>): RawKitAliases {
+  const filesLib = filesLibOf(kitConfig, bindings);
+  return { entries: aliasEntriesOf(kitConfig, bindings), ...(filesLib !== undefined ? { filesLib } : {}) };
+}
+
 /** `kit.alias` and `kit.files.lib` from a `svelte.config.{js,ts}` source. */
 export function findKitAliasesInSvelteConfig(source: string): RawKitAliases {
   const program = programOf(source, 'svelte.config.js');
@@ -217,9 +223,7 @@ export function findKitAliasesInSvelteConfig(source: string): RawKitAliases {
   const bindings = collectTopLevelBindings(program);
   const kit = propOf(config, 'kit');
   const kitObj = kit ? unwrapToObjectExpression(kit.value as Expression, bindings) : undefined;
-  if (!kitObj) return { entries: [] };
-  const filesLib = filesLibOf(kitObj, bindings);
-  return { entries: aliasEntriesOf(kitObj, bindings), ...(filesLib !== undefined ? { filesLib } : {}) };
+  return kitObj ? rawKitAliasesOf(kitObj, bindings) : { entries: [] };
 }
 
 /**
@@ -264,16 +268,25 @@ function compileKitAliases(raw: RawKitAliases): KitAlias[] {
 /**
  * The project's compiled alias list, following SvelteKit's config precedence: options passed to
  * the `sveltekit()` Vite plugin make `svelte.config` irrelevant (Kit logs "svelte.config.js is
- * ignored when options are passed via your Vite config"), so aliases are read from
- * `svelte.config` only when the Vite config carries no plugin config. Reading `kit.alias` out of
- * a plugin config is deliberately not done — that costs reach, not correctness, and such a
- * project keeps the resolver's default `$lib` behaviour. Undefined means "no config was read".
+ * ignored when options are passed via your Vite config"), so the list comes from those options
+ * when they are there, and from `svelte.config` only when the plugin carries none. Options this
+ * cannot resolve say nothing. Undefined means "no config was read".
  */
 export function resolveKitAliases(
   viteConfig: { source: string } | undefined,
   svelteConfig: { source: string } | undefined
 ): KitAlias[] | undefined {
-  if (viteConfig && findKitPathsBaseInViteConfig(viteConfig.source).kind !== 'no-plugin-config') return undefined;
+  const plugin = viteConfig ? sveltekitPluginConfig(viteConfig.source) : undefined;
+  if (plugin?.kind === 'unresolvable') return undefined;
+  if (plugin?.kind === 'resolved') {
+    const raw = rawKitAliasesOf(plugin.config, plugin.bindings);
+    const compiled = compileKitAliases(raw);
+    // SvelteKit 3 has no built-in `$lib` and no `files.lib`: an app that keeps `$lib` declares it
+    // in `alias`, and that entry must not sit behind a default one. SvelteKit 2 does prepend its
+    // own, but an app there has no reason to declare a `$lib` alias that never fires.
+    const ownLib = raw.filesLib === undefined && raw.entries?.some((e) => e.key === '$lib');
+    return ownLib ? compiled.slice(1) : compiled;
+  }
   if (!svelteConfig) return undefined;
   return compileKitAliases(findKitAliasesInSvelteConfig(svelteConfig.source));
 }
@@ -373,17 +386,28 @@ function knownObject(
   return undefined;
 }
 
+/** A known object's `key`, when that is a known object too. */
+function knownObjectAt(
+  obj: ObjectExpression | undefined,
+  key: string,
+  bindings: Map<string, TsExpression>
+): ObjectExpression | undefined {
+  const p = obj && propOf(obj, key);
+  return p ? knownObject(p.value as Expression, bindings) : undefined;
+}
+
+/** Whether `router.type` is the literal `'hash'` in a SvelteKit config object whose value is known. */
+function isHashRouter(kitConfig: ObjectExpression | undefined, bindings: Map<string, TsExpression>): boolean {
+  const router = knownObjectAt(kitConfig, 'router', bindings);
+  return stringLiteralOf(router && (propOf(router, 'type')?.value as Expression)) === 'hash';
+}
+
 /** Whether `kit.router.type` is the literal `'hash'` in a config whose value is known. */
 export function findKitHashRouterInSvelteConfig(source: string): boolean {
   const program = programOf(source, 'svelte.config.js');
   if (!program) return false;
   const bindings = collectTopLevelBindings(program);
-  const objectAt = (obj: ObjectExpression | undefined, key: string) => {
-    const p = obj && propOf(obj, key);
-    return p ? knownObject(p.value as Expression, bindings) : undefined;
-  };
-  const router = objectAt(objectAt(knownObject(findExportedExpression(program), bindings), 'kit'), 'router');
-  return stringLiteralOf(router && (propOf(router, 'type')?.value as Expression)) === 'hash';
+  return isHashRouter(knownObjectAt(knownObject(findExportedExpression(program), bindings), 'kit', bindings), bindings);
 }
 
 /**
@@ -397,9 +421,21 @@ function sveltekitLocalNames(program: Program): Set<string> {
   return out;
 }
 
-/** SvelteKit config passed to the `sveltekit()` plugin in a Vite config source (since Kit 2.62). */
-export function findKitPathsBaseInViteConfig(source: string): ViteKitConfigResult {
-  const none: ViteKitConfigResult = { kind: 'no-plugin-config' };
+type PluginConfig =
+  | { kind: 'no-plugin-config' }
+  | { kind: 'unresolvable' }
+  | {
+      kind: 'resolved';
+      config: ObjectExpression;
+      /** The argument as written, for a reader that must rule out a merge or a spread first. */
+      arg: Expression;
+      program: Program;
+      bindings: Map<string, TsExpression>;
+    };
+
+/** The options object passed to the `sveltekit()` plugin in a Vite config source (since Kit 2.62). */
+function sveltekitPluginConfig(source: string): PluginConfig {
+  const none: PluginConfig = { kind: 'no-plugin-config' };
   const program = programOf(source, 'vite.config.ts');
   if (!program) return none;
   const config = resolveConfigObject(program);
@@ -418,11 +454,17 @@ export function findKitPathsBaseInViteConfig(source: string): ViteKitConfigResul
     const arg = call.arguments[0] as Expression | undefined;
     if (arg === undefined) return none; // sveltekit() — svelte.config still applies
     const kitConfig = unwrapToObjectExpression(arg, bindings);
-    if (!kitConfig) return { kind: 'unresolvable' };
-    const base = basePathOf(kitConfig, bindings, constBindings(program, bindings));
-    return base ? { kind: 'resolved', base } : { kind: 'resolved' };
+    return kitConfig ? { kind: 'resolved', config: kitConfig, arg, program, bindings } : { kind: 'unresolvable' };
   }
   return none;
+}
+
+/** `paths.base` from the `sveltekit()` plugin config in a Vite config source. */
+export function findKitPathsBaseInViteConfig(source: string): ViteKitConfigResult {
+  const plugin = sveltekitPluginConfig(source);
+  if (plugin.kind !== 'resolved') return plugin;
+  const base = basePathOf(plugin.config, plugin.bindings, constBindings(plugin.program, plugin.bindings));
+  return base ? { kind: 'resolved', base } : { kind: 'resolved' };
 }
 
 /**
@@ -444,4 +486,18 @@ export function resolveKitPathsBase(
   if (!svelteConfig) return undefined;
   const base = findKitPathsBaseInSvelteConfig(svelteConfig.source);
   return base ? { ...base, file: svelteConfig.file } : undefined;
+}
+
+/**
+ * Whether the project uses the hash router, with the precedence of `resolveKitPathsBase`: plugin
+ * options decide when they are there, and say nothing when they cannot be resolved.
+ */
+export function resolveKitHashRouter(
+  viteConfig: { source: string } | undefined,
+  svelteConfig: { source: string } | undefined
+): boolean {
+  const plugin = viteConfig ? sveltekitPluginConfig(viteConfig.source) : undefined;
+  if (plugin?.kind === 'unresolvable') return false;
+  if (plugin?.kind === 'resolved') return isHashRouter(knownObject(plugin.arg, plugin.bindings), plugin.bindings);
+  return svelteConfig !== undefined && findKitHashRouterInSvelteConfig(svelteConfig.source);
 }

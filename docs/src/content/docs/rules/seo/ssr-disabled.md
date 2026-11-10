@@ -9,7 +9,7 @@ description: export const ssr = false makes a route's content invisible to non-J
 
 Flags SvelteKit route files that disable server-side rendering with `export const ssr = false` (the `satisfies`/`as` and same-file alias-export forms included). Disabling it in the root `+layout` turns the whole app into an SPA, and gets a stronger, app-wide message.
 
-`export const ssr = dev` (with `dev` from `$app/environment`) is flagged too: it is `false` in every production build. Not flagged: `csr = false` (server-only rendering, which is fine for SEO), other non-literal values, and non-exported `const ssr = false` (has no effect in SvelteKit).
+`export const ssr = dev` (with `dev` from `$app/environment` or SvelteKit 3's `$app/env`) is flagged too: it is `false` in every production build. Not flagged: `csr = false` (server-only rendering, which is fine for SEO), other non-literal values, and non-exported `const ssr = false` (has no effect in SvelteKit).
 
 ## Why it matters
 

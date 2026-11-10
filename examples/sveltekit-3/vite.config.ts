@@ -4,5 +4,8 @@ import { svelteVitals } from '@svelte-vitals/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [sveltekit({ adapter: adapter() }), svelteVitals({ outFile: 'svelte-vitals-report.json' })]
+  plugins: [
+    sveltekit({ adapter: adapter(), alias: { $seo: 'src/seo' } }),
+    svelteVitals({ outFile: 'svelte-vitals-report.json' })
+  ]
 });

@@ -52,6 +52,9 @@ export {
   resolveKitPathsBase,
   resolveKitAliases,
   withPackageImports,
+  resolveKitHashRouter,
+  // No consumer left in this repo. A removal from `./internal` ships in a core minor, so an older
+  // plugin that still imports it is rejected at install time rather than at module link.
   findKitHashRouterInSvelteConfig
 } from './svelte-config-parse.js';
 export {
