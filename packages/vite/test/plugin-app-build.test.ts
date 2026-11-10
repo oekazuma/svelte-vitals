@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { Plugin } from 'vite';
@@ -41,6 +41,22 @@ describe('svelteVitals under an app build', () => {
   it('analyzes the pages beside the ssr environment output in buildApp', async () => {
     const p = plugin({ builder: {} });
     await expect(handlerOf(p.buildApp)(builder)).rejects.toThrow(/svelte-vitals: build failed/);
+  });
+
+  it('reads minify from the client environment, which can differ from the top-level value', async () => {
+    const minifyFindings = async (topLevel: boolean, client: boolean): Promise<number> => {
+      const p = svelteVitals({ cwd, ui: false, report: false, outFile: 'report.json' }) as Plugin;
+      handlerOf(p.config)({ build: { minify: topLevel } }, {});
+      handlerOf(p.configResolved)({ root: cwd, builder: {}, build: { outDir: 'dist' } });
+      const environments = { ...builder.environments, client: { config: { build: { minify: client } } } };
+      await handlerOf(p.buildApp)({ environments }).catch(() => {});
+      const report = JSON.parse(await readFile(join(cwd, 'report.json'), 'utf8')) as {
+        rules: Record<string, { findings: number }>;
+      };
+      return report.rules['performance/minify-disabled']!.findings;
+    };
+    expect(await minifyFindings(true, false)).toBe(1);
+    expect(await minifyFindings(false, true)).toBe(0);
   });
 
   it('runs buildApp after the other buildApp hooks', () => {

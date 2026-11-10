@@ -326,6 +326,8 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       async handler(builder) {
         if (!appBuild) return;
         readPrerenderDir(root, builder.environments.ssr?.config.build.outDir);
+        // The client environment's resolved value is what ships; it can differ from the top level.
+        minify = builder.environments.client?.config.build.minify ?? minify;
         await analyzeAndGate(true);
       }
     }
