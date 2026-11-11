@@ -10,6 +10,28 @@
 
 **Spec:** `docs/superpowers/specs/2026-11-11-action-runs-project-cli-design.md` in `oekazuma/svelte-vitals` (the "Phase 1: the action" section and "Guards").
 
+## Settled during execution
+
+The spec is the authority. Execution and review changed these points, and the task text below still
+shows the original wording:
+
+- **Absolute path.** `main()` passes `resolve(path)` to both runs, because the CLI reads a first
+  argument such as `docs` or `ci` as a subcommand. `cliArgs` still passes its `path` through as given.
+- **Empty report.** Run 1 exiting `0` or `1` with an empty stdout is a failed run: a bin that cannot
+  start makes Node exit `1` and print nothing.
+- **Fallback message.** Its lead is `svelte-vitals: using the bundled svelte-vitals X.`, and it is
+  emitted before the bundled analysis, so it is there when the analysis throws.
+- **Bundled version.** `X` is injected at build time from `node_modules/svelte-vitals/package.json`.
+  `analysis.version` inside the bundle is this action's own version. The bundled path's report uses
+  the same constant.
+- **Annotation run.** When run 2 cannot start, is killed or exits `2`, one warning says the
+  annotations are missing. The gate is unaffected.
+- **Child environment.** `runCli` withholds the action's `INPUT_*` variables from the child.
+- **End-to-end check.** The installed scenario also asserts that annotations were printed, and a
+  second scenario runs the bundle with no install and asserts the bundled analyzer's version.
+- **Renovate.** Task 4 Step 6 was dropped: `config:recommended` already ignores `**/test/**`, and a
+  repository-level `ignorePaths` replaces that list.
+
 ## Global Constraints
 
 - Minimum installed version: `0.44.0`. Below it, fall back to the bundled analyzer.

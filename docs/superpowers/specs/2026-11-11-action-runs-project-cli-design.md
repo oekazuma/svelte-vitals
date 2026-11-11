@@ -146,9 +146,9 @@ The action's inputs, outputs (none) and gate semantics do not change, so this is
 
 ### Phase 1: the scaffold and docs (`svelte-vitals`)
 
-- **`buildWorkflowYaml` gains an install step before the action call.** One rule bounds it: a
-  generated workflow never fails before the action runs. A live step is emitted only where it is
-  known to work, decided from the lockfile name (`install/package-manager.ts`) and the
+- **`buildWorkflowYaml` gains an install step before the action call.** One rule bounds it: the
+  generator never emits a step it can know will fail. A live step is emitted only where the tool it
+  needs is known to be there, decided from the lockfile name (`install/package-manager.ts`) and the
   `packageManager` / `devEngines.packageManager` fields of `package.json`:
   - npm with a `package-lock.json`: `npm ci --ignore-scripts`.
   - pnpm with a `pnpm-lock.yaml` and a declared pnpm of 11 or newer: `pnpm/setup` at the SHA this
@@ -160,6 +160,12 @@ The action's inputs, outputs (none) and gate semantics do not change, so this is
     None of these has a setup action this repository already pins and keeps current, and a stale
     third-party pin in generated output is worse than a visible to-do. Such a workflow behaves as
     today's does, and the action's message says what is missing.
+- **An install that fails at run time fails the job.** A lockfile out of step with `package.json`,
+  an unreachable registry and a private registry without credentials are all outside what the
+  generator can know. The step does not carry `continue-on-error`: the action would then analyze
+  with the bundled analyzer or a partial install, which is the mismatch this design removes, and a
+  lockfile that does not install is a defect the project wants CI to show. The docs say where a
+  private registry's credentials go.
 - Lifecycle scripts are disabled in the generated install step. The analysis is static and needs no
   built dependency, and the job holds `pull-requests: write`. How to pass that through `pnpm/setup`
   is for the plan to verify against that action's inputs.
