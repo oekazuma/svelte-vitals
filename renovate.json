@@ -31,9 +31,10 @@
       "automerge": true
     },
     {
-      "description": "Later rules win: a pin bump changes what `ci install` scaffolds, so it needs a changeset before it can ship — no automerge, a human adds one.",
+      "description": "Later rules win: a pin bump changes what `ci install` scaffolds, so it needs a changeset before it can ship — no automerge, a human adds one. No release-age wait either: the action is first-party, and until the pin moves the scaffolded CI analyzes with an older core than the CLI.",
       "matchDepNames": ["oekazuma/svelte-vitals-action"],
-      "automerge": false
+      "automerge": false,
+      "minimumReleaseAge": null
     },
     {
       "description": "Published packages' engines.node is a public compatibility floor for consumers, not a dev-toolchain pin — never auto-bump it.",
