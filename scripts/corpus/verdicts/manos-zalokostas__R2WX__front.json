@@ -10,7 +10,7 @@
     "basis": "read src/lib/client/component/EventList.svelte:28: literal <div> sits directly (or via an {#if}/{#each} block) in the literal parent named in the finding, with no component boundary in between; `<summary>`'s content model is phrasing content per the HTML content model, as reported"
   },
   {
-    "key": "manos-zalokostas/R2WX:front::correctness/base-path-navigation::src/routes/[[lang]]/+layout.server.js:13::redirect(…, '/authenticate') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/authenticate') from '$app/paths'.",
+    "key": "manos-zalokostas/R2WX:front::correctness/base-path-navigation::src/routes/[[lang]]/+layout.server.js:13::redirect(…, '/authenticate') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/authenticate') from '$app/paths' (resolve('authenticate') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: [[lang]]/+layout.server.js:13 redirect(302, \"/authenticate\") root-relative; svelte.config.js sets kit.paths.base = process.env.PUBLIC_BASEPATH (computed, so the documented gate opens), but nothing sets it non-empty: .env.example and front/.env.example leave PUBLIC_BASEPATH= blank (dev and PRODUCTION sections), front/Dockerfile and docker-compose.yml set no base; blink() ($lib/index.js:12) and authall.js:110 honour the base, so this redirect is the one spot that would break if one were set"
   },

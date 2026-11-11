@@ -360,57 +360,57 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/UploadModal.svelte has a single destructured $props() with 7 named props (> 6): isOpen, presetCourseId, mode, targetLessonId, targetLessonTitle, onClose, onUploaded"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:115::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:115::goto('/') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/Header.svelte:115 goto('/') from $app/navigation with a root-relative literal; svelte.config.js:16 sets kit.paths.base = process.env.BASE_PATH ?? '' and the GitHub Pages deploy (.github/workflows/deploy-pages.yml:40) builds with BASE_PATH='/<repo name>', so the navigation leaves the base and 404s there"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:128::goto('/checkpoints') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/checkpoints')) with resolve from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:128::goto('/checkpoints') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/checkpoints')) with resolve from '$app/paths' (resolve('checkpoints') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/Header.svelte:128 goto('/checkpoints') root-relative literal; kit.paths.base = process.env.BASE_PATH ?? '' (svelte.config.js:16), set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:141::goto('/schedules') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/schedules')) with resolve from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:141::goto('/schedules') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/schedules')) with resolve from '$app/paths' (resolve('schedules') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/Header.svelte:141 goto('/schedules') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:170::goto('/settings') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings')) with resolve from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:170::goto('/settings') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/settings')) with resolve from '$app/paths' (resolve('settings') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/Header.svelte:170 goto('/settings') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:79::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/Header.svelte:79::goto('/') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/Header.svelte:79 goto('/') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/SyncScheduleModal.svelte:586::goto('/settings/sync-mcp?provider=google') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings/sync-mcp?provider=google')) with resolve from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/SyncScheduleModal.svelte:586::goto('/settings/sync-mcp?provider=google') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/settings/sync-mcp?provider=google')) with resolve from '$app/paths' (resolve('settings/sync-mcp?provider=google') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/SyncScheduleModal.svelte:586 goto('/settings/sync-mcp?provider=google') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/SyncScheduleModal.svelte:701::goto('/settings/sync-mcp?provider=arc') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings/sync-mcp?provider=arc')) with resolve from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/SyncScheduleModal.svelte:701::goto('/settings/sync-mcp?provider=arc') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/settings/sync-mcp?provider=arc')) with resolve from '$app/paths' (resolve('settings/sync-mcp?provider=arc') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/SyncScheduleModal.svelte:701 goto('/settings/sync-mcp?provider=arc') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/SyncScheduleModal.svelte:726::goto('/settings/sync-mcp?provider=arc') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings/sync-mcp?provider=arc')) with resolve from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/lib/components/SyncScheduleModal.svelte:726::goto('/settings/sync-mcp?provider=arc') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/settings/sync-mcp?provider=arc')) with resolve from '$app/paths' (resolve('settings/sync-mcp?provider=arc') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/SyncScheduleModal.svelte:726 goto('/settings/sync-mcp?provider=arc') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/routes/prompts/+page.svelte:8::goto('/settings?tab=prompts') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings?tab=prompts')) with resolve from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/routes/prompts/+page.svelte:8::goto('/settings?tab=prompts') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/settings?tab=prompts')) with resolve from '$app/paths' (resolve('settings?tab=prompts') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/prompts/+page.svelte:8 goto('/settings?tab=prompts') is root-relative under the BASE_PATH base, but the page's own load (src/routes/prompts/+page.ts:4) throws redirect on every call, so this component never renders; the claim holds for code that never runs (ledger convention for component findings on always-redirecting pages)"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/routes/prompts/+page.ts:4::redirect(…, '/settings?tab=prompts') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/settings?tab=prompts') from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/routes/prompts/+page.ts:4::redirect(…, '/settings?tab=prompts') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/settings?tab=prompts') from '$app/paths' (resolve('settings?tab=prompts') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/prompts/+page.ts:4 throw redirect(307, '/settings?tab=prompts') root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40), so the Location leaves the base"
   },
   {
-    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/routes/settings/llm/+page.svelte:6::goto('/settings?tab=llm') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings?tab=llm')) with resolve from '$app/paths'.",
+    "key": "mindflowgo/coursedeck:app::correctness/base-path-navigation::src/routes/settings/llm/+page.svelte:6::goto('/settings?tab=llm') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/settings?tab=llm')) with resolve from '$app/paths' (resolve('settings?tab=llm') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/settings/llm/+page.svelte:6 goto('/settings?tab=llm', { replaceState: true }) in onMount, root-relative literal; kit.paths.base = BASE_PATH, set to '/<repo name>' by the GitHub Pages deploy (deploy-pages.yml:40); leaves the base"
   },

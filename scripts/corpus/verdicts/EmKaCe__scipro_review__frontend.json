@@ -425,27 +425,27 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/tests/components/right-panel-tabs-harness.svelte has a single destructured $props() with 12 named props (> 6): activeTab, onTabChange, dimensions, grading, gradeResult, totalDeductions, onUpdateDimension, rubric, studentId, assignmentId, disabled, hideTabBar (test-only component; still counted, per ledger convention)"
   },
   {
-    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:215::<a href=\"/submissions\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths'.",
+    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:215::<a href=\"/submissions\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths' (resolve('submissions') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/docs-content.svelte:215 '<a href=\"/submissions\">' root-relative literal; svelte.config.js sets kit.paths.base = isNode || dev ? \"\" : \"/scipro_review\" and the student static build is served under /scipro_review (AGENTS.md:35-36 preview probe at /scipro_review/); /docs renders this component in that build (routes/docs/+page.svelte:3, root +layout.ts prerender = true), so the link leaves the base"
   },
   {
-    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:275::<a href=\"/submissions\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths'.",
+    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:275::<a href=\"/submissions\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths' (resolve('submissions') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/docs-content.svelte:275 '<a href=\"/submissions\">' root-relative literal under the student build's base /scipro_review (svelte.config.js paths.base; AGENTS.md:35-36); rendered by routes/docs/+page.svelte in that build; points outside the app"
   },
   {
-    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:312::<a href=\"/submissions\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths'.",
+    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:312::<a href=\"/submissions\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths' (resolve('submissions') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/docs-content.svelte:312 '<a href=\"/submissions\">' root-relative literal under the student build's base /scipro_review (svelte.config.js paths.base; AGENTS.md:35-36); rendered by routes/docs/+page.svelte; points outside the app"
   },
   {
-    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:327::<a href=\"/submissions\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths'.",
+    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/lib/components/docs-content.svelte:327::<a href=\"/submissions\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/submissions') from '$app/paths' (resolve('submissions') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/docs-content.svelte:327 '<a href=\"/submissions\">' root-relative literal under the student build's base /scipro_review (svelte.config.js paths.base; AGENTS.md:35-36); rendered by routes/docs/+page.svelte; points outside the app"
   },
   {
-    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/routes/+page.ts:10::redirect(…, '/submissions') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/submissions') from '$app/paths'.",
+    "key": "EmKaCe/scipro_review:frontend::correctness/base-path-navigation::src/routes/+page.ts:10::redirect(…, '/submissions') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/submissions') from '$app/paths' (resolve('submissions') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/+page.ts:10 'throw redirect(307, \"/submissions\")' runs only when !dev && __TEACHER_MODE__ (:9), and __TEACHER_MODE__ = ADAPTER === \"node\" (vite.config.ts:13), the build whose base is \"\" (svelte.config.js: isNode || dev ? \"\" : \"/scipro_review\"); the computed base opens the documented gate, but this line never runs under a base"
   },

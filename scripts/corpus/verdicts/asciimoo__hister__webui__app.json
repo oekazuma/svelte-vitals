@@ -95,7 +95,7 @@
     "basis": "script-verified (svelte parse, own walk): src/lib/components/TimelinePeriodRows.svelte has a single destructured $props() with 9 named props (> 6): buckets, colorOffset, activeKey, expandedPeriods, periodDays, loadingPeriods, periodErrors, onToggle, onSelect"
   },
   {
-    "key": "asciimoo/hister:webui/app::correctness/base-path-navigation::src/routes/help/+page.svelte:90::<a href=\"/rules\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/rules') from '$app/paths'.",
+    "key": "asciimoo/hister:webui/app::correctness/base-path-navigation::src/routes/help/+page.svelte:90::<a href=\"/rules\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/rules') from '$app/paths' (resolve('rules') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/help/+page.svelte:90 <a href=\"/rules\"> under svelte.config.js base = dev ? '' : '/magic-string-that-we-replace-runtime-in-the-app', which server/server.go:140 replaces with cfg.BasePathPrefix() at runtime; every other link in the app prefixes {base} (e.g. +page.svelte:3064 `${base}/rules#...`), so under a configured path prefix this one link leaves the app"
   },

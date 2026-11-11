@@ -165,12 +165,12 @@
     "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/admin/UpDownChart.svelte has a single destructured $props() with 9 named props (> 6): series, fmt, when, height, downColor, upColor, readout, latestLabel, ticks"
   },
   {
-    "key": "JairusSW/wasm.fyi::correctness/base-path-navigation::src/routes/dashboard/+page.svelte:130::<a href=\"/auth/github/login\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/github/login') from '$app/paths'.",
+    "key": "JairusSW/wasm.fyi::correctness/base-path-navigation::src/routes/dashboard/+page.svelte:130::<a href=\"/auth/github/login\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/github/login') from '$app/paths' (resolve('auth/github/login') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/dashboard/+page.svelte:130 root-relative link to a Go service endpoint (/auth/github/login), not an app page; svelte.config.js:10 sets paths.base from BASE_PATH (gate opens, /wasm.fyi on the Pages build), but API.md:26/:430 documents these endpoints at the production root https://wasm.fyi, which deploy-remote.yml:47 builds with BASE_PATH '' (the page also fetches '/auth/me' at root); the Pages build has no service at all, so a base prefix would not help"
   },
   {
-    "key": "JairusSW/wasm.fyi::correctness/base-path-navigation::src/routes/health/+page.svelte:128::<a href=\"/healthz\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/healthz') from '$app/paths'.",
+    "key": "JairusSW/wasm.fyi::correctness/base-path-navigation::src/routes/health/+page.svelte:128::<a href=\"/healthz\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/healthz') from '$app/paths' (resolve('healthz') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/health/+page.svelte:128 root-relative link to a Go service endpoint (/healthz), not an app page; svelte.config.js:10 sets paths.base from BASE_PATH (gate opens, /wasm.fyi on the Pages build), but API.md:26/:430 documents these endpoints at the production root https://wasm.fyi, which deploy-remote.yml:47 builds with BASE_PATH '' (the page also fetches '/auth/me' at root); the Pages build has no service at all, so a base prefix would not help"
   },

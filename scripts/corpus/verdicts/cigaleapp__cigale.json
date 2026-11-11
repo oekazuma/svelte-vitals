@@ -795,17 +795,17 @@
     "basis": "script-verified: the import declaration has only named specifiers (module-script exports such as narrowingState/getTheme/focusedImage) and no default — the route component is never rendered here, so \"renders without the data Kit would give it\" is false"
   },
   {
-    "key": "cigaleapp/cigale::correctness/base-path-navigation::src/routes/(app)/protocols/[id]/MetadataLink.svelte:61::goto('/(app)/protocols/[id]/metadata/[metadata]/infos') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/(app)/protocols/[id]/metadata/[metadata]/infos')) with resolve from '$app/paths'.",
+    "key": "cigaleapp/cigale::correctness/base-path-navigation::src/routes/(app)/protocols/[id]/MetadataLink.svelte:61::goto('/(app)/protocols/[id]/metadata/[metadata]/infos') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/(app)/protocols/[id]/metadata/[metadata]/infos')) with resolve from '$app/paths' (resolve('(app)/protocols/[id]/metadata/[metadata]/infos') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: goto imported from '$app/navigation' (not the app's resolving $lib/paths wrapper) with a root-relative literal; kit.paths.base = BASE_PATH, set to /cigale by build.yml for GitHub Pages; kit 2.70 goto takes (url, opts), so the route id is not resolved either"
   },
   {
-    "key": "cigaleapp/cigale::correctness/base-path-navigation::src/routes/(app)/protocols/[id]/MetadataLink.svelte:92::goto('/(app)/protocols/[id]/metadata/[metadata]/infos') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/(app)/protocols/[id]/metadata/[metadata]/infos')) with resolve from '$app/paths'.",
+    "key": "cigaleapp/cigale::correctness/base-path-navigation::src/routes/(app)/protocols/[id]/MetadataLink.svelte:92::goto('/(app)/protocols/[id]/metadata/[metadata]/infos') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/(app)/protocols/[id]/metadata/[metadata]/infos')) with resolve from '$app/paths' (resolve('(app)/protocols/[id]/metadata/[metadata]/infos') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: same file, goto from '$app/navigation' with root-relative literal under BASE_PATH=/cigale (build.yml GitHub Pages)"
   },
   {
-    "key": "cigaleapp/cigale::correctness/base-path-navigation::src/routes/(app)/results/+page.ts:12::redirect(…, '/') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "cigaleapp/cigale::correctness/base-path-navigation::src/routes/(app)/results/+page.ts:12::redirect(…, '/') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: redirect(307, '/') in (app)/results/+page.ts; kit.paths.base = BASE_PATH (/cigale on GitHub Pages builds), so Location points outside the base"
   },

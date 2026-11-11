@@ -220,22 +220,22 @@
     "basis": "read: src/routes/webhooks/[webhookId]/[tab]/+page.svelte:1-5 only default-imports ../+page.svelte and renders it with no props; deliberate tab wrapper route: the imported parent +page.svelte declares no $props()/data and reads page.params.webhookId, .tab from $app/state, and its own +page.js always redirect(307)s to {id}/<default tab> via createDetailRouteRedirect (src/lib/detail-route.js), so this [tab] route is the only place it renders (ssr = false app) -- same exceptionless-wrapper shape as the ledger's design entries"
   },
   {
-    "key": "vibeunion/supauth:packages/admin-console::correctness/base-path-navigation::src/lib/components/AccountCenterPage.svelte:427::<a href=\"/account\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account') from '$app/paths'.",
+    "key": "vibeunion/supauth:packages/admin-console::correctness/base-path-navigation::src/lib/components/AccountCenterPage.svelte:427::<a href=\"/account\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account') from '$app/paths' (resolve('account') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: AccountCenterPage.svelte:427 <a href=\"/account\" target=\"_blank\"> under kit.paths.base = '/admin' (svelte.config.js); the 'Hosted URLs' section deliberately links the auth server's root-level hosted page /account (packages/auth-server/generated/permissions.ts:590), outside the admin app by intent, not an in-app route"
   },
   {
-    "key": "vibeunion/supauth:packages/admin-console::correctness/base-path-navigation::src/lib/components/AccountCenterPage.svelte:433::<a href=\"/account.html\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account.html') from '$app/paths'.",
+    "key": "vibeunion/supauth:packages/admin-console::correctness/base-path-navigation::src/lib/components/AccountCenterPage.svelte:433::<a href=\"/account.html\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account.html') from '$app/paths' (resolve('account.html') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: AccountCenterPage.svelte:433 <a href=\"/account.html\" target=\"_blank\"> under base '/admin'; the 'Hosted URLs' section deliberately links the auth server's root-level hosted page /account.html (auth-server generated/permissions.ts:596), outside the admin app by intent"
   },
   {
-    "key": "vibeunion/supauth:packages/admin-console::correctness/base-path-navigation::src/lib/components/AccountCenterPage.svelte:439::<a href=\"/account/password\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/password') from '$app/paths'.",
+    "key": "vibeunion/supauth:packages/admin-console::correctness/base-path-navigation::src/lib/components/AccountCenterPage.svelte:439::<a href=\"/account/password\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/password') from '$app/paths' (resolve('account/password') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: AccountCenterPage.svelte:439 <a href=\"/account/password\" target=\"_blank\"> under base '/admin'; the 'Hosted URLs' section deliberately links the auth server's root-level hosted page /account/password (auth-server generated/permissions.ts:602), outside the admin app by intent"
   },
   {
-    "key": "vibeunion/supauth:packages/admin-console::correctness/base-path-navigation::src/routes/get-started/+page.svelte:165::<a href=\"/api/swagger\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/api/swagger') from '$app/paths'.",
+    "key": "vibeunion/supauth:packages/admin-console::correctness/base-path-navigation::src/routes/get-started/+page.svelte:165::<a href=\"/api/swagger\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/api/swagger') from '$app/paths' (resolve('api/swagger') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: get-started/+page.svelte:165 <a href=\"/api/swagger\" target=\"_blank\"> under base '/admin'; it opens the auth server's API docs (auth-server http-application.ts:47 serves /swagger, reached through the /api proxy, vite.config.js), a deliberate link outside the admin app, not an in-app route"
   },

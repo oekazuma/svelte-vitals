@@ -1,6 +1,6 @@
 ---
 title: correctness/base-path-navigation · Root-relative navigation under a base path
-description: 'A hardcoded root-relative link resolves against the domain root, not kit.paths.base, so under a base path it lands outside the app and 404s in production.'
+description: 'A hardcoded root-relative link resolves against the domain root, not paths.base, so under a base path it lands outside the app and 404s in production.'
 ---
 
 **Severity:** warning · **Category:** correctness
@@ -53,7 +53,17 @@ goto(resolve('/dashboard')); // in a component or a .svelte.ts module
 redirect(303, resolve('/login')); // in a load function or form action
 ```
 
-`resolve()` (SvelteKit 2.26+) prefixes the base path for you, and also populates route parameters when you pass a route ID. It supersedes both `base` and `resolveRoute`, which are deprecated.
+`resolve()` (SvelteKit 2.26+) prefixes the base path for you, and also populates route parameters when you pass a route ID. It supersedes both `base` and `resolveRoute`, which SvelteKit 2 deprecates and SvelteKit 3 removes.
+
+SvelteKit 3 reads a leading `/` as a route ID, and a path is written without it. `resolve('/about')` still type-checks there when `/about` is itself a route, but a path under a dynamic route does not:
+
+```js
+resolve('/blog/hello-world'); // SvelteKit 2
+resolve('blog/hello-world'); // SvelteKit 3
+resolve('/blog/[slug]', { slug: 'hello-world' }); // both
+```
+
+The rule does not read which major the project uses, so its message names both spellings.
 
 ## Limitations
 

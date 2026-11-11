@@ -390,82 +390,82 @@
     "basis": "read: mobileItem.svelte:2834 <video autoplay loop src={im.attributes.url}> (product-video arm of {#each imge}) has no muted, unlike its siblings :2807/:2823 which carry muted — browsers block its autoplay"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/+layout.svelte:22::goto('/admin/login') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/+layout.svelte:22::goto('/admin/login') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths' (resolve('admin/login') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/+layout.svelte:22 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/+layout.svelte:24::goto('/admin/orders') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/orders')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/+layout.svelte:24::goto('/admin/orders') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/orders')) with resolve from '$app/paths' (resolve('admin/orders') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/+layout.svelte:24 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/+layout.svelte:30::goto('/admin/login') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/+layout.svelte:30::goto('/admin/login') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths' (resolve('admin/login') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/+layout.svelte:30 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/+layout.svelte:44::<a href=\"/admin/orders\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/admin/orders') from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/+layout.svelte:44::<a href=\"/admin/orders\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/admin/orders') from '$app/paths' (resolve('admin/orders') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/+layout.svelte:44 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/+layout.svelte:48::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/+layout.svelte:48::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/+layout.svelte:48 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/login/+page.svelte:13::goto('/admin/orders') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/orders')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/login/+page.svelte:13::goto('/admin/orders') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/orders')) with resolve from '$app/paths' (resolve('admin/orders') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/login/+page.svelte:13 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/login/+page.svelte:23::goto('/admin/orders') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/orders')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/login/+page.svelte:23::goto('/admin/orders') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/orders')) with resolve from '$app/paths' (resolve('admin/orders') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/login/+page.svelte:23 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/orders/+page.svelte:40::goto('/admin/login') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/orders/+page.svelte:40::goto('/admin/login') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths' (resolve('admin/login') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/orders/+page.svelte:40 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/orders/+page.svelte:58::goto('/admin/login') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/orders/+page.svelte:58::goto('/admin/login') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths' (resolve('admin/login') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/orders/+page.svelte:58 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/orders/[id]/+page.svelte:189::goto('/admin/orders') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/orders')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/orders/[id]/+page.svelte:189::goto('/admin/orders') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/orders')) with resolve from '$app/paths' (resolve('admin/orders') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/orders/[id]/+page.svelte:189 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/orders/[id]/+page.svelte:60::goto('/admin/login') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/orders/[id]/+page.svelte:60::goto('/admin/login') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths' (resolve('admin/login') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/orders/[id]/+page.svelte:60 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/orders/[id]/+page.svelte:75::goto('/admin/login') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/admin/orders/[id]/+page.svelte:75::goto('/admin/login') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/login')) with resolve from '$app/paths' (resolve('admin/login') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/admin/orders/[id]/+page.svelte:75 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/sadna/+page.svelte:117::<a href=\"/tachshit-ishi\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/tachshit-ishi') from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/sadna/+page.svelte:117::<a href=\"/tachshit-ishi\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/tachshit-ishi') from '$app/paths' (resolve('tachshit-ishi') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/sadna/+page.svelte:117 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/sadnaot/+page.svelte:176::<a href=\"/customjewelry\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/customjewelry') from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/sadnaot/+page.svelte:176::<a href=\"/customjewelry\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/customjewelry') from '$app/paths' (resolve('customjewelry') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/sadnaot/+page.svelte:176 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/sadnaot/+page.svelte:322::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/sadnaot/+page.svelte:322::goto('/') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/sadnaot/+page.svelte:322 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },
   {
-    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/tachshit-ishi/+page.svelte:651::<a href=\"/sadnaot\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/sadnaot') from '$app/paths'.",
+    "key": "barbi1001/eco:eco::correctness/base-path-navigation::src/routes/tachshit-ishi/+page.svelte:651::<a href=\"/sadnaot\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/sadnaot') from '$app/paths' (resolve('sadnaot') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: src/routes/tachshit-ishi/+page.svelte:651 root-relative literal, but svelte.config.js:12 sets kit.paths.base = process.env.TAURI_PLATFORM ? './' : ''; @sveltejs/kit@2.46.4 (lockfile) src/core/config/options.js:166-173 throws unless base is '' or starts with '/' and does not end with '/', so the Tauri branch fails config load and the Vercel build has base '' — the app is never served under a base, so it resolves inside the app and does not 404; the analyzer counts './' as a base (svelte-config-parse.ts:27/:47)"
   },

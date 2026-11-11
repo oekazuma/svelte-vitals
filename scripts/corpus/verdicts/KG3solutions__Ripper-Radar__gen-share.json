@@ -85,22 +85,22 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Textarea.svelte has a single destructured $props() with 10 named props (> 6)"
   },
   {
-    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/profile/+page.svelte:272::<a href=\"/profile/edit\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/profile/edit') from '$app/paths'.",
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/profile/+page.svelte:272::<a href=\"/profile/edit\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/profile/edit') from '$app/paths' (resolve('profile/edit') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: root-relative literal href/goto('/'); svelte.config.js:15 sets kit.paths.base = '/generator-share' (fixed), so it leaves the app"
   },
   {
-    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/profile/+page.svelte:70::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/profile/+page.svelte:70::goto('/') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: root-relative literal href/goto('/'); svelte.config.js:15 sets kit.paths.base = '/generator-share' (fixed), so it leaves the app"
   },
   {
-    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/profile/+page.svelte:81::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/profile/+page.svelte:81::goto('/') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: root-relative literal href/goto('/'); svelte.config.js:15 sets kit.paths.base = '/generator-share' (fixed), so it leaves the app"
   },
   {
-    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/review/[id]/+page.svelte:73::goto('/profile') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/profile')) with resolve from '$app/paths'.",
+    "key": "KG3solutions/Ripper-Radar:gen-share::correctness/base-path-navigation::src/routes/review/[id]/+page.svelte:73::goto('/profile') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/profile')) with resolve from '$app/paths' (resolve('profile') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: root-relative literal href/goto('/'); svelte.config.js:15 sets kit.paths.base = '/generator-share' (fixed), so it leaves the app"
   },

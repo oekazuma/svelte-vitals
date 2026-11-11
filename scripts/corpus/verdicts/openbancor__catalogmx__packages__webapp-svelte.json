@@ -475,12 +475,12 @@
     "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/TreeView.svelte with 9 named props (> 6): items, level, selectedId, expandedIds, loadingIds, onSelect, onExpand, renderLabel, renderMeta"
   },
   {
-    "key": "openbancor/catalogmx:packages/webapp-svelte::correctness/base-path-navigation::src/routes/mexico/+page.svelte:92::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "openbancor/catalogmx:packages/webapp-svelte::correctness/base-path-navigation::src/routes/mexico/+page.svelte:92::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/mexico/+page.svelte:92 literal <a href=\"/\"> with svelte.config.js kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/catalogmx' : '' (.github/workflows/webapp-pages.yml sets github-pages); sibling links in the same file use {base}/..., and there is no hooks file or <base> in app.html, so under /catalogmx this link lands on the domain root"
   },
   {
-    "key": "openbancor/catalogmx:packages/webapp-svelte::correctness/base-path-navigation::src/routes/mexico/[estado]/+page.svelte:162::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "openbancor/catalogmx:packages/webapp-svelte::correctness/base-path-navigation::src/routes/mexico/[estado]/+page.svelte:162::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/mexico/[estado]/+page.svelte:162 literal <a href=\"/\"> with svelte.config.js kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/catalogmx' : '' (.github/workflows/webapp-pages.yml sets github-pages); sibling links in the same file use {base}/..., and there is no hooks file or <base> in app.html, so under /catalogmx this link lands on the domain root"
   },

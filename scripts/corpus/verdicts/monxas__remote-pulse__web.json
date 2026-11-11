@@ -210,7 +210,7 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/dialog/dialog-content.svelte has a single destructured $props() with 7 named props (> 6), beside a ...rest element: ref, class, side, showClose, portal, closeLabel, children"
   },
   {
-    "key": "monxas/remote-pulse:web::correctness/base-path-navigation::src/lib/components/app/UserMenu.svelte:28::<a href=\"/auth/logout\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/logout') from '$app/paths'.",
+    "key": "monxas/remote-pulse:web::correctness/base-path-navigation::src/lib/components/app/UserMenu.svelte:28::<a href=\"/auth/logout\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/logout') from '$app/paths' (resolve('auth/logout') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: UserMenu.svelte:28 <a href=\"/auth/logout\" data-sveltekit-reload> under kit.paths.base = '/dash-next' (svelte.config.js:22); a root-relative literal as reported, but it deliberately leaves the SPA for the FastAPI logout endpoint at the server root (server/src/rp_server/routers/auth_oidc.py:14 GET /auth/logout; web/eslint.config.js:33 says so)"
   },

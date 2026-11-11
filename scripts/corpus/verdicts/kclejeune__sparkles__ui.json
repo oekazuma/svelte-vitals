@@ -435,12 +435,12 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/VectorIndexPanel.svelte has a single destructured $props() with 11 named props (> 6): name, branch, prefixes, predicates, canAdmin, readOnly, busy, refreshKey, onstart, onstarted, onchanged"
   },
   {
-    "key": "kclejeune/sparkles:ui::correctness/base-path-navigation::src/routes/server/+page.svelte:471::<a href=\"/$/openapi.json\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/$/openapi.json') from '$app/paths'.",
+    "key": "kclejeune/sparkles:ui::correctness/base-path-navigation::src/routes/server/+page.svelte:471::<a href=\"/$/openapi.json\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/$/openapi.json') from '$app/paths' (resolve('$/openapi.json') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: routes/server/+page.svelte:471 <a href=\"/$/openapi.json\" target=\"_blank\"> under the literal kit.paths.base = '/ui' (svelte.config.js:11); the line is a root-relative literal as reported, but it deliberately leaves the UI for the Sparkles server's own API description, which the server serves at /$/openapi.json outside the /ui app (README.md:257, crates/sparkles-client/src/routes.rs:337)"
   },
   {
-    "key": "kclejeune/sparkles:ui::correctness/base-path-navigation::src/routes/server/+page.svelte:476::<a href=\"/$/openapi.yaml\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/$/openapi.yaml') from '$app/paths'.",
+    "key": "kclejeune/sparkles:ui::correctness/base-path-navigation::src/routes/server/+page.svelte:476::<a href=\"/$/openapi.yaml\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/$/openapi.yaml') from '$app/paths' (resolve('$/openapi.yaml') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: routes/server/+page.svelte:476 <a href=\"/$/openapi.yaml\" target=\"_blank\"> under kit.paths.base = '/ui' (svelte.config.js:11); a deliberate link to the Sparkles server's API description at the server root, outside the /ui app (README.md:257)"
   },
