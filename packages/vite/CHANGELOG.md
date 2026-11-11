@@ -1,5 +1,30 @@
 # @svelte-vitals/vite
 
+## 0.55.5
+
+### Patch Changes
+
+- a71a437: `correctness/base-path-navigation` now names the SvelteKit 3 spelling next to the SvelteKit 2 one. SvelteKit 3 reads a leading `/` as a route ID, so `resolve('/blog/hello-world')` does not type-check there, while SvelteKit 2 requires the slash. The message gives both (`resolve('/blog/hello-world')`, and `resolve('blog/hello-world')` in SvelteKit 3), and the texts say `paths.base` instead of `kit.paths.base`. Detection is unchanged.
+- 9d7e618: The fix hints of `correctness/server-browser-global` and `correctness/instance-browser-global` now name `$app/env`, the module SvelteKit 3 moved `browser` to, next to `$app/environment`.
+- badaa20: The build-time analysis now runs under SvelteKit 3. SvelteKit 3 prerenders in Vite's `buildApp` phase, after every `closeBundle`, so the plugin found no prerendered pages there and printed no report, wrote no `outFile` and never failed the build.
+- badaa20: `@svelte-vitals/vite` now accepts SvelteKit 3 as a peer, and `svelteVitalsHandle()` type-checks against both SvelteKit 2's and 3's `Handle`.
+- 27862fb: The options passed to `sveltekit()` in the Vite config are now read for `alias`, `files.lib` and `router.type`. That is SvelteKit 3's only config home, and SvelteKit 2.62+ accepts it too. `dev` and `building` are recognized from `$app/env` as well as from `$app/environment`.
+  
+  In an app that passes options to `sveltekit()`, this changes three things. Modules behind an alias declared there are followed, so rules can report in files they did not reach before. A `$lib` alias declared there, which is how a SvelteKit 3 app keeps `$lib`, is used in place of the `src/lib` default. And `svelte.config.js` is no longer read for the hash router, since SvelteKit ignores that file once the plugin has options.
+- 5dd52b6: `security/handler-state-write` now treats SvelteKit 3's other server-only locations like `src/lib/server`: any `server` directory outside `src/routes` and `static`, and any file with a `server` segment in its name (`db.server.ts`). A handler's `.set()`/`.update()` on an export from one is reported only when that export is positively a store kept in memory. This applies to SvelteKit 2 projects too, although SvelteKit 2 itself knows only `$lib/server` and `*.server.*`: a finding on a write into one of these locations disappears there unless the export is such a store. When the target is a `.svelte.ts` module with module-scope `$state`, the import can then show up as a `security/shared-state-import` warning instead, which a recorded `handler-state-write` suppression does not cover.
+  
+  Two readings changed with it.
+  
+  - An export initialized with `writable(…)` from `svelte/store` counts as a store kept in memory, so a handler writing to one in a server-only location, `src/lib/server` included, is now reported. This is a new finding of an existing rule, so a project's recorded suppressions for it can already cover it.
+  - A write through a namespace import (`stores.user.set(…)` on `import * as stores`) is matched against the member it writes to, everywhere. In a server-only location that can add a finding; outside one, a write to a member that is a persistence client is no longer reported.
+- Updated dependencies [a71a437]
+- Updated dependencies [c139bfe]
+- Updated dependencies [9d7e618]
+- Updated dependencies [27862fb]
+- Updated dependencies [5dd52b6]
+  - @svelte-vitals/core@0.55.5
+  - svelte-vitals@0.55.5
+
 ## 0.55.4
 
 ### Patch Changes
