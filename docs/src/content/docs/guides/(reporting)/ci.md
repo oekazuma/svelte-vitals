@@ -125,8 +125,20 @@ place and uncomment the install command; until you do, the action uses its bundl
 When the directory has a `package.json` that does not declare `svelte-vitals` and is not a
 workspace root (it has no `workspaces` field, and there is no `pnpm-workspace.yaml` beside it),
 `ci install` also prints the command that adds it for your package manager, such as
-`pnpm add -D svelte-vitals`. At a workspace root, declare it in the app's own `package.json`. Without it, CI does not
-analyze with a version you chose: the action runs whatever `svelte-vitals` the install happens to
+`pnpm add -D svelte-vitals`.
+
+At a workspace root, `ci install` does not print that command. Declare `svelte-vitals` in the app's
+own `package.json`, and set the action's `path` input to the app's directory, because the action
+analyzes that directory and looks for the installed `svelte-vitals` from there upward:
+
+```yaml
+- uses: oekazuma/svelte-vitals-action@<sha> # v<version>
+  with:
+    path: apps/web
+```
+
+Unless `svelte-vitals` is declared and installed where the action looks, CI does not analyze with a
+version you chose: the action runs whatever `svelte-vitals` the install happens to
 bring in, such as a peer dependency of another package, or else its bundled analyzer.
 
 Lifecycle scripts stay off: the analysis needs none, and they would run dependency code in a job

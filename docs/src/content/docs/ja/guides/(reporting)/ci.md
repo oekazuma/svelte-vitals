@@ -78,7 +78,17 @@ pnpm のバージョンは、セットアップ Action と同じ方法で読み�
 
 コメントアウトされるのは、`ci install` が初回の実行から動くステップを書けない場合です。この CLI は Yarn と Bun のセットアップステップをピン留めしていません。ピン留めした `pnpm/setup` は `package.json` で pnpm 11 以降が宣言されている必要があります。ロックファイルがなければパッケージマネージャーを判別できません。このとき `ci install` は `! Add an install step` で始まる行に理由を添えて出力します。その位置でパッケージマネージャーをセットアップし、インストールコマンドのコメントを外してください。それまでは、Action は同梱のアナライザーを使います。
 
-そのディレクトリの `package.json` が `svelte-vitals` を宣言しておらず、ワークスペースのルートでもない場合（`workspaces` フィールドがなく、隣に `pnpm-workspace.yaml` もない場合）、`ci install` はパッケージマネージャーに合わせて追加用のコマンド（`pnpm add -D svelte-vitals` など）も出力します。ワークスペースのルートでは、アプリ自身の `package.json` で宣言してください。追加しないと、CI は自分で選んだバージョンで解析しません。Action が実行するのは、ほかのパッケージの peer dependency などとしてたまたまインストールされた `svelte-vitals` か、それもなければ同梱のアナライザーです。
+そのディレクトリの `package.json` が `svelte-vitals` を宣言しておらず、ワークスペースのルートでもない場合（`workspaces` フィールドがなく、隣に `pnpm-workspace.yaml` もない場合）、`ci install` はパッケージマネージャーに合わせて追加用のコマンド（`pnpm add -D svelte-vitals` など）も出力します。
+
+ワークスペースのルートでは、`ci install` はこのコマンドを出力しません。アプリ自身の `package.json` で `svelte-vitals` を宣言し、Action の `path` 入力にアプリのディレクトリを指定してください。Action はそのディレクトリを解析し、インストールされた `svelte-vitals` をそこから親ディレクトリへ向かって探すためです。
+
+```yaml
+- uses: oekazuma/svelte-vitals-action@<sha> # v<version>
+  with:
+    path: apps/web
+```
+
+Action が探す場所で `svelte-vitals` を宣言してインストールしていないと、CI は自分で選んだバージョンで解析しません。Action が実行するのは、ほかのパッケージの peer dependency などとしてたまたまインストールされた `svelte-vitals` か、それもなければ同梱のアナライザーです。
 
 ライフサイクルスクリプトは無効のままにします。解析には不要なうえ、有効にすると `pull-requests: write` を与えられたジョブで依存パッケージのコードが実行されるためです。
 

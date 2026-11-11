@@ -34,7 +34,9 @@ or newer), the version your lockfile pins. `ci install` writes it for npm (`npm 
 --ignore-scripts`; the pnpm version comes from a single-object `devEngines.packageManager` naming
 pnpm, else `packageManager`, and the array form is not read); for anything else it leaves the step commented out and prints why. It also
 prints the command to add `svelte-vitals` when `package.json` does not declare it and is not a
-workspace root. An installed CLI that cannot produce a report fails the step; there is no fallback.
+workspace root. In a monorepo, declare it in the app's `package.json` and set the action's `path`
+input to the app's directory (`path: apps/web`): the action looks for `node_modules/svelte-vitals`
+from `path` upward. An installed CLI that cannot produce a report fails the step; there is no fallback.
 
 Without a usable install, the action uses its bundled analyzer and says so in a message
 beginning `svelte-vitals: using the bundled svelte-vitals <version>.` To clear it, declare

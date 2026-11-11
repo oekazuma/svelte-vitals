@@ -123,6 +123,14 @@ its PR is deliberately not automerged because the bump is user-facing and needs 
   closure (unique `name@version` reachable through `dependencies` / `optionalDependencies`) of each published package at its
   measured size. Adding or bumping a runtime dependency means checking that test. Lowering a ceiling
   is welcome; raising one is a design decision needing a recorded reason in the PR, not a number edit.
+- **Setup-action pins move in lockstep.** The workflow `ci install` scaffolds pins `actions/checkout`
+  and `pnpm/setup` at the SHA and version this repository's own workflows use (`CHECKOUT_*` and
+  `PNPM_SETUP_*` in `packages/cli/src/ci/workflow.ts`). `packages/cli/test/ci/lockstep.test.ts`
+  fails when a workflow under `.github/workflows/` moves one of them, and
+  `packages/cli/test/ci/guide.test.ts` fails when the "Writing it by hand" YAML in the CI guide
+  (English and Japanese) differs from the generator. So a bump of either action means updating the
+  constants and both guide pages, re-stamping the English page, and adding a changeset, because the
+  scaffolded output changes.
 - **User-facing levers ship with two guards.** A lever is anything a user sets to change what the
   run does — a CLI flag, a config key, an inline directive, a suppressions entry, an override. Each
   needs (1) a case in the kitchen-sink e2e suite asserting an **observable effect** on the real
