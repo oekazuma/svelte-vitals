@@ -57,6 +57,8 @@ Action は `path` のディレクトリから親ディレクトリを順にワ�
 | `path` の `package.json` に `svelte-vitals` が宣言されているが、インストールが見つからない | Warning | Action より前のステップで依存関係をインストールする                                  |
 | `path` の `package.json` に `svelte-vitals` が宣言されておらず、インストールもされていない | Notice  | `svelte-vitals` を devDependency に追加し、Action より前に依存関係をインストールする |
 
+Action は `node_modules/svelte-vitals` ディレクトリを必要とします。そのため Yarn の Plug'n'Play では、インストールした後でも同梱のアナライザーを使います。`.yarnrc.yml` で `nodeLinker: node-modules` を設定すると、インストールした CLI を Action が使えるようになります。
+
 ## インストールステップ
 
 `ci install` は、実行したディレクトリにあるロックファイルからインストールステップを選びます。ロックファイルが複数ある場合の優先順は `pnpm-lock.yaml`、`yarn.lock`、Bun のロックファイル、`package-lock.json` です。
@@ -68,11 +70,13 @@ Action は `path` のディレクトリから親ディレクトリを順にワ�
 | `pnpm-lock.yaml` があり、宣言された pnpm が 11 より古いか、pnpm のバージョンを宣言していない                     | コメントアウト：`pnpm install --frozen-lockfile --ignore-scripts`                                                                            |
 | `yarn.lock`                                                                                                      | コメントアウト：Yarn 1 は `yarn install --frozen-lockfile --ignore-scripts`、それ以降の Yarn は `yarn install --immutable --mode=skip-build` |
 | `bun.lock` または `bun.lockb`                                                                                    | コメントアウト：`bun install --frozen-lockfile --ignore-scripts`                                                                             |
-| ロックファイルなし                                                                                               | コメントアウト：`npm ci --ignore-scripts`                                                                                                    |
+| ロックファイルなし                                                                                               | コメントアウト：`npm ci --ignore-scripts`。ロックファイルをコミットし、`ci install --force` を再実行するとステップを生成できる               |
+
+生成される `npm ci` ステップは、ランナーイメージに入っている Node.js と npm で実行されます。`engines` や `devEngines` がそのバージョンを受け付けないプロジェクトでは、その前に独自の Node のセットアップステップが必要です。
 
 コメントアウトされるのは、`ci install` が初回の実行から動くステップを書けない場合です。この CLI は Yarn と Bun のセットアップステップをピン留めしていません。ピン留めした `pnpm/setup` は `package.json` で pnpm 11 以降が宣言されている必要があります。ロックファイルがなければパッケージマネージャーを判別できません。このとき `ci install` は `! Add an install step` で始まる行に理由を添えて出力します。その位置でパッケージマネージャーをセットアップし、インストールコマンドのコメントを外してください。それまでは、Action は同梱のアナライザーを使います。
 
-`package.json` が `svelte-vitals` を宣言していない場合、`ci install` はパッケージマネージャーに合わせて追加用のコマンド（`pnpm add -D svelte-vitals` など）も出力します。追加しないと、CI は自分で選んだバージョンで解析しません。Action が実行するのは、ほかのパッケージの peer dependency などとしてたまたまインストールされた `svelte-vitals` か、それもなければ同梱のアナライザーです。
+そのディレクトリの `package.json` が `svelte-vitals` を宣言しておらず、ワークスペースのルートでもない場合（`workspaces` フィールドがなく、隣に `pnpm-workspace.yaml` もない場合）、`ci install` はパッケージマネージャーに合わせて追加用のコマンド（`pnpm add -D svelte-vitals` など）も出力します。ワークスペースのルートでは、アプリ自身の `package.json` で宣言してください。追加しないと、CI は自分で選んだバージョンで解析しません。Action が実行するのは、ほかのパッケージの peer dependency などとしてたまたまインストールされた `svelte-vitals` か、それもなければ同梱のアナライザーです。
 
 ライフサイクルスクリプトは無効のままにします。解析には不要なうえ、有効にすると `pull-requests: write` を与えられたジョブで依存パッケージのコードが実行されるためです。
 

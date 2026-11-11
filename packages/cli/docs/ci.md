@@ -32,13 +32,15 @@ The install step is there so the action runs the `svelte-vitals` in your `node_m
 or newer), the version your lockfile pins. `ci install` writes it for npm (`npm ci
 --ignore-scripts`) and for pnpm 11+ (`pnpm/setup`, then `pnpm install --frozen-lockfile
 --ignore-scripts`); for anything else it leaves the step commented out and prints why. It also
-prints the command to add `svelte-vitals` when `package.json` does not declare it. An installed
-CLI that cannot produce a report fails the step; there is no fallback.
+prints the command to add `svelte-vitals` when `package.json` does not declare it and is not a
+workspace root. An installed CLI that cannot produce a report fails the step; there is no fallback.
 
 Without a usable install, the action uses its bundled analyzer and says so in a message
 beginning `svelte-vitals: using the bundled svelte-vitals <version>.` To clear it, declare
 `svelte-vitals` (0.44.0 or newer) in `package.json` and install dependencies in a step before
-the action. `ci upgrade` moves only the pin; it does not add the install step.
+the action. `ci upgrade` moves only the pin; it does not add the install step. The action needs
+`node_modules/svelte-vitals`, so under Yarn Plug'n'Play set `nodeLinker: node-modules` in
+`.yarnrc.yml`.
 
 Inputs: `path` (default `.`), `diff`, `baseline`, `github-token`. No `reporter` input. The
 outputs are fixed. Whichever `svelte-vitals` runs reads your committed `svelte-vitals.config.*` and

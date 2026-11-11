@@ -79,7 +79,7 @@
   - pnpm undeclared or unparseable: `the pinned pnpm setup action needs the pnpm version from "packageManager" or "devEngines.packageManager" in package.json`
   - yarn: `this CLI does not pin a setup step for Yarn`
   - bun: `this CLI does not pin a setup step for Bun`
-  - no lockfile: `no lockfile was found, so the package manager is unknown`
+  - no lockfile: `no lockfile was found, so the package manager is unknown (commit your lockfile and re-run with --force to generate the step)`
 
 - [ ] **Step 1: Write the failing tests** in `packages/cli/test/ci/install-step.test.ts`, driving `planInstallStep` with an in-memory `readFile` (a `Record<string, string>` keyed by absolute path under a fake `cwd`). One case per table row, plus:
 
@@ -171,7 +171,7 @@
   ```yaml
   # The action analyzes with the svelte-vitals installed in this project. Set up your package
   # manager and install dependencies here; without an install it uses its bundled analyzer
-  # and says so in a warning.
+  # and says so in its log.
   # - run: <command>
   ```
 

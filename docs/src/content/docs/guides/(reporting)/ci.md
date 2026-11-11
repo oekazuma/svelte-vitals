@@ -90,6 +90,10 @@ directory up to the workspace root, and uses the first one it finds.
 | `package.json` at `path` declares `svelte-vitals`, but no installation was found  | Warning | Install dependencies in a step before the action                                   |
 | `package.json` at `path` does not declare `svelte-vitals`, and none was installed | Notice  | Add `svelte-vitals` as a devDependency, and install dependencies before the action |
 
+The action needs a `node_modules/svelte-vitals` directory, so under Yarn Plug'n'Play it uses its
+bundled analyzer even after an install. Setting `nodeLinker: node-modules` in `.yarnrc.yml` makes
+the installed CLI available to it.
+
 ## The install step
 
 `ci install` picks the install step from the lockfile in the directory it runs in. When several
@@ -103,7 +107,10 @@ lockfiles are present, `pnpm-lock.yaml` wins, then `yarn.lock`, then Bun's, then
 | `pnpm-lock.yaml`, with an older pnpm or no pnpm version declared                                           | Commented out: `pnpm install --frozen-lockfile --ignore-scripts`                                                                         |
 | `yarn.lock`                                                                                                | Commented out: `yarn install --frozen-lockfile --ignore-scripts` for Yarn 1, `yarn install --immutable --mode=skip-build` for later Yarn |
 | `bun.lock` or `bun.lockb`                                                                                  | Commented out: `bun install --frozen-lockfile --ignore-scripts`                                                                          |
-| No lockfile                                                                                                | Commented out: `npm ci --ignore-scripts`                                                                                                 |
+| No lockfile                                                                                                | Commented out: `npm ci --ignore-scripts`. Commit your lockfile and re-run `ci install --force` to generate the step                      |
+
+The generated `npm ci` step runs on the Node.js and npm that the runner image provides; a project
+whose `engines` or `devEngines` reject that version needs its own Node setup step before it.
 
 A commented-out step is one `ci install` cannot write so that it works on the first run: this CLI
 pins no setup step for Yarn or Bun, the pinned `pnpm/setup` needs pnpm 11 or newer declared in
@@ -111,8 +118,10 @@ pins no setup step for Yarn or Bun, the pinned `pnpm/setup` needs pnpm 11 or new
 line beginning `! Add an install step` that gives the reason. Set up your package manager in that
 place and uncomment the install command; until you do, the action uses its bundled analyzer.
 
-When `package.json` does not declare `svelte-vitals`, `ci install` also prints the command that
-adds it for your package manager, such as `pnpm add -D svelte-vitals`. Without it, CI does not
+When the directory has a `package.json` that does not declare `svelte-vitals` and is not a
+workspace root (it has no `workspaces` field, and there is no `pnpm-workspace.yaml` beside it),
+`ci install` also prints the command that adds it for your package manager, such as
+`pnpm add -D svelte-vitals`. At a workspace root, declare it in the app's own `package.json`. Without it, CI does not
 analyze with a version you chose: the action runs whatever `svelte-vitals` the install happens to
 bring in, such as a peer dependency of another package, or else its bundled analyzer.
 
