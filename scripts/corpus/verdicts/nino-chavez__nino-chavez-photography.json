@@ -475,7 +475,7 @@
     "basis": "read: src/lib/components/layout/Footer.svelte:137 <a href=\"/privacy\">; svelte.config.js sets kit.paths.base = '/photography' (relative: false \"so proxy rewrites work\"), and the app's own routes/privacy/+page.ts redirects to '/privacy', so the domain-root privacy page is the intended target; that the parent ninochavez.co site serves it is inferred from the shared site shell (Header.svelte:39-46), not verified (DEPLOY.md names photography.ninochavez.co)"
   },
   {
-    "key": "nino-chavez/nino-chavez-photography::correctness/base-path-navigation::src/lib/components/layout/Header.svelte:63::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "nino-chavez/nino-chavez-photography::correctness/base-path-navigation::src/lib/components/layout/Header.svelte:63::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/lib/components/layout/Header.svelte:63 root-relative href ('/' or '/search') with data-sveltekit-reload in the shared ninochavez.co site shell, whose practiceLinks (Header.svelte:39-46: /work, /blog, /photography...) are the parent site's routes; deliberately leaves the /photography base for sibling pages on the same domain"
   },

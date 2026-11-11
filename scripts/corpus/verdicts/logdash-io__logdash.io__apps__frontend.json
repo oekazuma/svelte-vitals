@@ -520,7 +520,7 @@
     "basis": "read: svelte.config.js:14 sets kit.paths.base = process.env.NODE_ENV === 'production' ? '' : '' (empty in both branches; vite.config.ts sets no paths), so the app is never served under a base and this root-relative literal (href=\"/app/auth?needs_account=true\") resolves inside the app; the analyzer treats any computed base as non-empty"
   },
   {
-    "key": "logdash-io/logdash.io:apps/frontend::correctness/base-path-navigation::src/lib/domains/auth/ui/AuthPage.svelte:12::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "logdash-io/logdash.io:apps/frontend::correctness/base-path-navigation::src/lib/domains/auth/ui/AuthPage.svelte:12::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js:14 sets kit.paths.base = process.env.NODE_ENV === 'production' ? '' : '' (empty in both branches; vite.config.ts sets no paths), so the app is never served under a base and this root-relative literal (<a href=\"/\" class=\"flex items-center space-x-2\">) resolves inside the app; the analyzer treats any computed base as non-empty"
   },
@@ -535,17 +535,17 @@
     "basis": "read: svelte.config.js:14 sets kit.paths.base = process.env.NODE_ENV === 'production' ? '' : '' (empty in both branches; vite.config.ts sets no paths), so the app is never served under a base and this root-relative literal (throw redirect(302, '/app/auth');) resolves inside the app; the analyzer treats any computed base as non-empty"
   },
   {
-    "key": "logdash-io/logdash.io:apps/frontend::correctness/base-path-navigation::src/routes/app/callbacks/oauth/[provider]/+page.server.ts:119::redirect(…, '/') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "logdash-io/logdash.io:apps/frontend::correctness/base-path-navigation::src/routes/app/callbacks/oauth/[provider]/+page.server.ts:119::redirect(…, '/') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js:14 sets kit.paths.base = process.env.NODE_ENV === 'production' ? '' : '' (empty in both branches; vite.config.ts sets no paths), so the app is never served under a base and this root-relative literal (redirect(302, '/');) resolves inside the app; the analyzer treats any computed base as non-empty"
   },
   {
-    "key": "logdash-io/logdash.io:apps/frontend::correctness/base-path-navigation::src/routes/app/callbacks/oauth/[provider]/+page.svelte:7::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "logdash-io/logdash.io:apps/frontend::correctness/base-path-navigation::src/routes/app/callbacks/oauth/[provider]/+page.svelte:7::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js:14 sets kit.paths.base = process.env.NODE_ENV === 'production' ? '' : '' (empty in both branches; vite.config.ts sets no paths), so the app is never served under a base and this root-relative literal (<a href=\"/\" class=\"btn btn-primary btn-sm mx-auto w-fit\">Mai) resolves inside the app; the analyzer treats any computed base as non-empty"
   },
   {
-    "key": "logdash-io/logdash.io:apps/frontend::correctness/base-path-navigation::src/routes/app/callbacks/oauth/github/+page.svelte:7::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "logdash-io/logdash.io:apps/frontend::correctness/base-path-navigation::src/routes/app/callbacks/oauth/github/+page.svelte:7::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js:14 sets kit.paths.base = process.env.NODE_ENV === 'production' ? '' : '' (empty in both branches; vite.config.ts sets no paths), so the app is never served under a base and this root-relative literal (<a href=\"/\" class=\"btn btn-primary btn-sm mx-auto w-fit\">Mai) resolves inside the app; the analyzer treats any computed base as non-empty"
   },
@@ -555,7 +555,7 @@
     "basis": "read: svelte.config.js:14 sets kit.paths.base = process.env.NODE_ENV === 'production' ? '' : '' (empty in both branches; vite.config.ts sets no paths), so the app is never served under a base and this root-relative literal (<a href=\"/app/clusters\" class=\"btn btn-sm btn-primary\">Conti) resolves inside the app; the analyzer treats any computed base as non-empty"
   },
   {
-    "key": "logdash-io/logdash.io:apps/frontend::correctness/base-path-navigation::src/routes/d/[public_dashboard_id]/+error.svelte:18::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "logdash-io/logdash.io:apps/frontend::correctness/base-path-navigation::src/routes/d/[public_dashboard_id]/+error.svelte:18::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js:14 sets kit.paths.base = process.env.NODE_ENV === 'production' ? '' : '' (empty in both branches; vite.config.ts sets no paths), so the app is never served under a base and this root-relative literal (<a href=\"/\" rel=\"noopener noreferrer\" class=\"btn btn-sm btn-) resolves inside the app; the analyzer treats any computed base as non-empty"
   },

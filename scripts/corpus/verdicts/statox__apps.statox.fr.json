@@ -195,7 +195,7 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/NumericSliderPicker/NumericSliderPicker.svelte has a single destructured $props() with 10 named props (> 6): value, min, max, step, unit, decimals, adjustmentButtons, showSlider, showDirectInput, validate"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/lib/components/Header/Main.svelte:13::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/lib/components/Header/Main.svelte:13::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },

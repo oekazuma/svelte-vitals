@@ -75,7 +75,7 @@
     "basis": "script-verified: src/routes/workspaces/[workspace]/users/[id]/+page.svelte has 204 physical lines (newline count, trailing newline not counted) > 200, matches reported count"
   },
   {
-    "key": "pjonaszik/rustbase:ui::correctness/base-path-navigation::src/routes/+layout.svelte:76::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "pjonaszik/rustbase:ui::correctness/base-path-navigation::src/routes/+layout.svelte:76::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: root-relative literal <a href>; ui/svelte.config.js:23 base = VITE_BASE, and crates/rustbase-server/build.rs:140 builds the embedded dashboard with VITE_BASE=/_, so it is served under /_ in production"
   },

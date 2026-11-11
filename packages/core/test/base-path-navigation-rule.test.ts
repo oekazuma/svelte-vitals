@@ -85,11 +85,17 @@ describe('correctness/base-path-navigation', () => {
     expect(results[0]!.fix?.description).toContain("resolve('blog/hello-world')");
   });
 
-  it.each(['/', '/?tab=a', '/#top'])('keeps the one form for %s, which is a route ID in every major', async (path) => {
+  it.each([
+    ['/', ''],
+    ['/?tags[]=a', '?tags[]=a'],
+    ['/#top', '#top']
+  ])('names the SvelteKit 3 pathname form for the root path %s too', async (path, pathname) => {
     const results = await correctnessBasePathNavigation.check(
       ctx(withBase, [comp('src/routes/+page.svelte', [{ kind: 'href', path, line: 3 }])])
     );
-    expect(results[0]!.message).toMatch(/Use resolve\('[^']+'\) from '\$app\/paths'\.$/);
+    expect(results[0]!.message).toContain(
+      `Use resolve('${path}') from '$app/paths' (resolve('${pathname}') in SvelteKit 3).`
+    );
   });
 
   it('fires on a dynamic base (fact present, value unknown)', async () => {

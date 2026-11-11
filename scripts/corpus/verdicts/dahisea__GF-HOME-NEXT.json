@@ -40,7 +40,7 @@
     "basis": "script-verified: src/routes/[lang]/+layout.svelte has 212 physical lines (newline count, trailing newline not counted; 186 non-blank) > 200, matches reported count"
   },
   {
-    "key": "dahisea/GF-HOME-NEXT::correctness/base-path-navigation::src/routes/+error.svelte:20::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "dahisea/GF-HOME-NEXT::correctness/base-path-navigation::src/routes/+error.svelte:20::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/+error.svelte:20 <a href=\"/\"> root-relative literal; svelte.config.js:33 sets kit.paths.base = process.env.VITE_BUILD_BASE_PATH || '' (computed, so the documented gate opens), but the only deploy (.github/workflows/deploy.yml) runs npm run build with no VITE_BUILD_BASE_PATH, so the site is served at the root (buildBasePath in cdn-toggle.ts only feeds paths.assets)"
   },

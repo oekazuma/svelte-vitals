@@ -14,12 +14,12 @@ const FIX = {
 };
 
 /**
- * SvelteKit 3 types a leading `/` as a route ID and SvelteKit 2 throws without one, so no single
- * spelling is right in both. `/` itself is a route ID in every major and needs no second form.
+ * SvelteKit 3 types a leading `/` as a route ID and SvelteKit 2 requires one, so no single spelling
+ * is right in both. The root path gets the second form too: `/` is not a route ID in SvelteKit 3
+ * when the home page sits in a route group, and a `[` in its query string is read as a parameter.
  */
 function kit3Hint(path: string): string {
-  const pathname = path.slice(1);
-  return pathname === '' || /^[?#]/.test(pathname) ? '' : ` (resolve('${pathname}') in SvelteKit 3)`;
+  return ` (resolve('${path.slice(1)}') in SvelteKit 3)`;
 }
 
 function messageFor(link: BasePathLinkFact): string {

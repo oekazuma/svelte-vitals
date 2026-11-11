@@ -45,12 +45,12 @@
     "basis": "script-verified: src/routes/setup/installation/+page.svelte has 403 physical lines (newline count, trailing newline not counted; 395 non-blank) > 200, matches reported count"
   },
   {
-    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/(auth)/authorize/_Authorize.svelte:212::goto('/') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/(auth)/authorize/_Authorize.svelte:212::goto('/') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: authorize/_Authorize.svelte:212 goto(\"/\") is a root-relative literal; svelte.config.js sets kit.paths.base = process.env.VITE_BASE_PATH (computed, so the documented gate opens), but nothing in the repo sets it non-empty (.env.example leaves VITE_BASE_PATH= blank); claim per the docs, not a demonstrated defect"
   },
   {
-    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/logout/+page.ts:6::redirect(…, '/') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/logout/+page.ts:6::redirect(…, '/') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: logout/+page.ts:6 redirect(302, \"/\") root-relative literal; kit.paths.base = process.env.VITE_BASE_PATH (computed), which nothing in the repo sets non-empty (.env.example VITE_BASE_PATH= blank); claim per the docs, not a demonstrated defect"
   },

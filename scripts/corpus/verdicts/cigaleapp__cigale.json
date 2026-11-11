@@ -805,7 +805,7 @@
     "basis": "read: same file, goto from '$app/navigation' with root-relative literal under BASE_PATH=/cigale (build.yml GitHub Pages)"
   },
   {
-    "key": "cigaleapp/cigale::correctness/base-path-navigation::src/routes/(app)/results/+page.ts:12::redirect(…, '/') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "cigaleapp/cigale::correctness/base-path-navigation::src/routes/(app)/results/+page.ts:12::redirect(…, '/') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/') from '$app/paths' (resolve('') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: redirect(307, '/') in (app)/results/+page.ts; kit.paths.base = BASE_PATH (/cigale on GitHub Pages builds), so Location points outside the base"
   },
