@@ -198,7 +198,8 @@ async function runCiUpgrade(
       }
 
       if (outcome.status === 'up-to-date') {
-        io.log(`= already up to date (@svelte-vitals/action@${ACTION_VERSION}).`);
+        // Not "up to date": the bundled pin can trail the action's latest release.
+        io.log(`= already on the pin bundled with this CLI (@svelte-vitals/action@${ACTION_VERSION}).`);
         exitCode = 0;
         return;
       }
