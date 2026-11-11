@@ -34,7 +34,7 @@ Each package is versioned independently and depends on `@svelte-vitals/core` (th
 | Needs a build  | No                                                                                   | Yes                                                                                  | No                                                                                                         |
 | Typical home   | CI, pre-commit hooks, one-off audits, agent tool loops                               | Build pipeline gate                                                                  | Local dev feedback (on by default)                                                                         |
 
-Two pieces are deliberately absent from this table. The GitHub Action runs the CLI's own engine in-process, so its coverage is the CLI column; what it adds is the PR experience rather than different analysis, meaning inline annotations, a job summary and a sticky comment. Agent Skills run no analysis of their own at all. They give the agent the rule knowledge and tell it when to run the scanner.
+Two pieces are deliberately absent from this table. The GitHub Action runs the CLI, the one installed in the project or its own bundled copy, so its coverage is the CLI column; what it adds is the PR experience rather than different analysis, meaning inline annotations, a job summary and a sticky comment. Agent Skills run no analysis of their own at all. They give the agent the rule knowledge and tell it when to run the scanner.
 
 ### Why build-mode coverage is close to the CLI's
 

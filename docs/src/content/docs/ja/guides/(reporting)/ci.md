@@ -13,7 +13,7 @@ sidebar:
 npx svelte-vitals@latest ci install
 ```
 
-このコマンドは `.github/workflows/svelte-vitals.yml` を書き出します。コミットしてプルリクエストを開けば、実行される様子を確認できます。
+このコマンドは、パッケージマネージャーに合わせたインストールステップを含む `.github/workflows/svelte-vitals.yml` を書き出します（[インストールステップ](#インストールステップ)を参照）。コミットしてプルリクエストを開けば、実行される様子を確認できます。
 
 Vite との連携や Cursor rules と一緒にセットアップするなら、[`svelte-vitals install`](/ja/guides/install#--client-ids) でも `ci-workflow` をターゲットとして選べます。`ci install` を別途実行しなくても、同じワークフローファイルを同じ実行の中で書き出せます。`ci upgrade`（後述）にはウィザード側の対応はなく、引き続き単体のコマンドです。
 
@@ -22,7 +22,7 @@ npx svelte-vitals@latest ci install --dry-run   # 書き込まずにプレビュ
 npx svelte-vitals@latest ci install --force     # 既存のワークフローファイルを再生成
 ```
 
-ファイルが既に存在する場合、`--force` を付けずに `ci install` を再実行しても何もしません（冪等なので、svelte-vitals をアップグレードした後に再実行しても安全です）。以前のバージョンの svelte-vitals が生成したワークフローが既にある場合は、`--force` を付けて再実行すると現行の短いテンプレートに移行できます。
+ファイルが既に存在する場合、`--force` を付けずに `ci install` を再実行しても何もしません（冪等なので、svelte-vitals をアップグレードした後に再実行しても安全です）。`--force` を付けると既存のファイルを現行のテンプレートで置き換えます。ファイルに加えた編集は失われます。
 
 ## 既存プロジェクトへの導入
 
@@ -35,12 +35,50 @@ npx svelte-vitals@latest ci install --force     # 既存のワークフローフ
 `pull_request` イベントが発生するたびに、生成されるワークフローは以下を行います。
 
 1. `fetch-depth: 0` でリポジトリをフル履歴でチェックアウトし、Action が `diff`/`baseline` のために PR のベース ref を解決できるようにします。
-2. `@svelte-vitals/action` を呼び出します。この Action は svelte-vitals を**インプロセスで**（`npx` なし、Node セットアップステップなし、出力ごとの個別スキャンなしで）PR にスコープを絞って実行します。`diff: origin/<base>` は PR が変更したファイルに検出結果を限定し、[`baseline: origin/<base>`](/ja/guides/cli) はさらに PR が**新たに導入した**検出結果だけに絞り込みます。変更したファイルに元からあった問題が PR をブロックすることはありません。
-3. この単一の解析結果から、Action は3つの出力をまとめて生成します：
+2. ライフサイクルスクリプトを無効にしてプロジェクトの依存関係をインストールします。これにより、Action はロックファイルが固定した版の `svelte-vitals` を見つけられます（[どの svelte-vitals が実行されるか](#どの-svelte-vitals-が実行されるか)を参照）。環境によってはこのステップがコメントアウトされた状態で書き出されるので、自分で仕上げてください。詳しくは[インストールステップ](#インストールステップ)を参照してください。
+3. `@svelte-vitals/action` を呼び出します。この Action は svelte-vitals を PR にスコープを絞って実行します。`diff: origin/<base>` は PR が変更したファイルに検出結果を限定し、[`baseline: origin/<base>`](/ja/guides/cli) はさらに PR が**新たに導入した**検出結果だけに絞り込みます。変更したファイルに元からあった問題が PR をブロックすることはありません。
+4. Action は3つの出力を生成します：
    - diff 上のインラインアノテーション。
    - ジョブサマリー。
    - スティッキー PR コメント。隠された `<!-- svelte-vitals-report -->` マーカーにより、以降のプッシュで新しいコメントを積み上げるのではなく同じコメントを更新します。
-4. スキャンでゲート対象の検出結果が見つかった場合、サマリーとコメントを書き込んだ**後に**ジョブを失敗させます。そのため、失敗した実行でも PR コメントは必ず残ります。
+5. スキャンでゲート対象の検出結果が見つかった場合、サマリーとコメントを書き込んだ**後に**ジョブを失敗させます。そのため、失敗した実行でも PR コメントは必ず残ります。
+
+## どの svelte-vitals が実行されるか
+
+Action は `path` のディレクトリから親ディレクトリを順にワークスペースのルートまでたどって `node_modules/svelte-vitals` を探し、最初に見つかったものを使います。
+
+- バージョン 0.44.0 以降がインストールされていれば、Action はそのインストールの CLI を実行します。CI はロックファイルにあるバージョンで解析し、検出結果、レポート、成否はローカルで `svelte-vitals` を実行した場合と一致します。スキャンは2回実行されます。1回目は `--reporter md` でジョブサマリーと PR コメントを作り、その終了コードでステップの成否が決まります。2回目は `--reporter github` でアノテーションを作ります。CLI が stderr に書いた行は warning アノテーションとして表示されます。アノテーション用の実行だけが失敗した場合はその旨の warning が出て、ステップの成否は1回目の実行に従います。
+- インストールされた CLI がレポートを出せないとき（起動できない、設定が不正などのエラーで終了する、何も出力しない）は、ステップは CLI 自身のエラーで失敗します。Action が同梱のアナライザーに切り替えることはありません。
+- 使えるインストールがなければ、Action は同梱のアナライザーで解析します。解析を始める前に、`svelte-vitals: using the bundled svelte-vitals <version>.` で始まるメッセージを1つ出します。`<version>` は同梱アナライザーのバージョンで、レポートに記載されるものと同じです。
+
+| 状況                                                                                       | レベル  | 解消方法                                                                             |
+| ------------------------------------------------------------------------------------------ | ------- | ------------------------------------------------------------------------------------ |
+| インストールされた `svelte-vitals` が 0.44.0 より古い                                      | Warning | プロジェクトの `svelte-vitals` を 0.44.0 以降に更新する                              |
+| `path` の `package.json` に `svelte-vitals` が宣言されているが、インストールが見つからない | Warning | Action より前のステップで依存関係をインストールする                                  |
+| `path` の `package.json` に `svelte-vitals` が宣言されておらず、インストールもされていない | Notice  | `svelte-vitals` を devDependency に追加し、Action より前に依存関係をインストールする |
+
+## インストールステップ
+
+`ci install` は、実行したディレクトリにあるロックファイルからインストールステップを選びます。ロックファイルが複数ある場合の優先順は `pnpm-lock.yaml`、`yarn.lock`、Bun のロックファイル、`package-lock.json` です。
+
+| プロジェクト                                                                                                     | インストールステップ                                                                                                                         |
+| ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `package-lock.json`                                                                                              | `npm ci --ignore-scripts`                                                                                                                    |
+| `pnpm-lock.yaml` があり、`package.json` の `packageManager` か `devEngines.packageManager` で pnpm 11 以降を宣言 | コミット SHA でピン留めした `pnpm/setup` と、その後の `pnpm install --frozen-lockfile --ignore-scripts`                                      |
+| `pnpm-lock.yaml` があり、宣言された pnpm が 11 より古いか、pnpm のバージョンを宣言していない                     | コメントアウト：`pnpm install --frozen-lockfile --ignore-scripts`                                                                            |
+| `yarn.lock`                                                                                                      | コメントアウト：Yarn 1 は `yarn install --frozen-lockfile --ignore-scripts`、それ以降の Yarn は `yarn install --immutable --mode=skip-build` |
+| `bun.lock` または `bun.lockb`                                                                                    | コメントアウト：`bun install --frozen-lockfile --ignore-scripts`                                                                             |
+| ロックファイルなし                                                                                               | コメントアウト：`npm ci --ignore-scripts`                                                                                                    |
+
+コメントアウトされるのは、`ci install` が初回の実行から動くステップを書けない場合です。この CLI は Yarn と Bun のセットアップステップをピン留めしていません。ピン留めした `pnpm/setup` は `package.json` で pnpm 11 以降が宣言されている必要があります。ロックファイルがなければパッケージマネージャーを判別できません。このとき `ci install` は `! Add an install step` で始まる行に理由を添えて出力します。その位置でパッケージマネージャーをセットアップし、インストールコマンドのコメントを外してください。それまでは、Action は同梱のアナライザーを使います。
+
+`package.json` が `svelte-vitals` を宣言していない場合、`ci install` はパッケージマネージャーに合わせて追加用のコマンド（`pnpm add -D svelte-vitals` など）も出力します。追加しないと、CI は自分で選んだバージョンで解析しません。Action が実行するのは、ほかのパッケージの peer dependency などとしてたまたまインストールされた `svelte-vitals` か、それもなければ同梱のアナライザーです。
+
+ライフサイクルスクリプトは無効のままにします。解析には不要なうえ、有効にすると `pull-requests: write` を与えられたジョブで依存パッケージのコードが実行されるためです。
+
+インストールステップが失敗すると、他のステップと同じくジョブも失敗し、Action は実行されません。たとえばロックファイルが `package.json` と食い違っている場合や、レジストリに到達できない場合です。プライベートレジストリを使う場合は、プロジェクトの `.npmrc` が読み取る認証情報を、リポジトリのシークレットから埋める `env:` としてインストールステップに渡してください。ライフサイクルスクリプトは無効で、ジョブ内でパッケージをインストールするステップは他にないため、認証情報が必要なのはインストールステップだけです。
+
+ワークフローの Action ステップより前にインストールステップがない場合、Action は同梱のアナライザーで解析し、上記のメッセージを出します。チェックアウトと Action の間に[手書きする場合](#手書きする場合)のようにステップを追加するか、`ci install --force` でファイルを再生成してください（ファイルに加えた編集は失われます）。`ci upgrade` が変更するのは Action のピンだけで、インストールステップは追加しません。
 
 ## コメントの見た目
 
@@ -82,9 +120,9 @@ npx svelte-vitals@latest ci install --force     # 既存のワークフローフ
 | `baseline`     | この git ref にまだ存在しない検出結果のみを報告                               | （未指定）            |
 | `github-token` | スティッキー PR コメントの読み取り、投稿、更新に使うトークン                  | `${{ github.token }}` |
 
-`reporter` という入力はありません。Action は常にアノテーション、ジョブサマリー、スティッキーコメントを1回のパスでまとめて生成します。この出力の振り分けは、個別に設定するものではありません。
+`reporter` という入力はありません。Action は常にアノテーション、ジョブサマリー、スティッキーコメントをまとめて生成します。この出力の振り分けは、個別に設定するものではありません。
 
-上記の入力が設定のすべてでは**ありません**。Action は CLI とまったく同じ解析をするため、コミット済みの
+上記の入力が設定のすべてでは**ありません**。インストールされたものでも同梱のものでも、実行される `svelte-vitals` はローカルの CLI 実行と同じようにプロジェクトを読むため、コミット済みの
 [`svelte-vitals.config.*`](/ja/guides/configuration) と
 [`svelte-vitals-suppressions.json`](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
 を自動的に読み取ります。次のセクションを参照してください。
@@ -128,7 +166,7 @@ PR コメントの投稿と更新には `pull-requests: write` が必要です�
 
 ## 手書きする場合
 
-インストーラーを使いたくない場合、`ci install` が生成するのは正確には次の内容です。
+インストーラーを使いたくない場合、npm のプロジェクトに対して `ci install` が生成するのは正確には次の内容です。
 
 ```yaml
 # Generated by svelte-vitals (`ci install` or `install --client ci-workflow`).
@@ -150,11 +188,46 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - run: npm ci --ignore-scripts
       - uses: oekazuma/svelte-vitals-action@<sha> # v<version>
         with:
           diff: origin/${{ github.base_ref }}
           baseline: origin/${{ github.base_ref }}
 ```
+
+pnpm 11 以降を宣言している pnpm のプロジェクトでは、次の内容を生成します。
+
+```yaml
+# Generated by svelte-vitals (`ci install` or `install --client ci-workflow`).
+# Re-run with --force to regenerate.
+name: svelte-vitals
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  svelte-vitals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
+        with:
+          install: false
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - uses: oekazuma/svelte-vitals-action@<sha> # v<version>
+        with:
+          diff: origin/${{ github.base_ref }}
+          baseline: origin/${{ github.base_ref }}
+```
+
+ほかのパッケージマネージャーでは、同じ位置（チェックアウトと Action の間）でそのパッケージマネージャーをセットアップし、ライフサイクルスクリプトを無効にして依存関係をインストールしてください。
 
 `ci install` は `<sha>`/`<version>` に、実行している `svelte-vitals` CLI に同梱されたピンを埋め込みます。これは `svelte-vitals` の各リリース時点の [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) 最新リリースから解決されたものです。`ci install` 自体が GitHub に問い合わせることはありません。動作するピンを得る一番簡単な方法は(最新の同梱ピンを得るために `@latest` を付けて)インストーラーを実行することです。手書きする場合は、その[リポジトリ](https://github.com/oekazuma/svelte-vitals-action/releases)にある最新リリースタグのコミット SHA とバージョンを使ってください。
 

@@ -17,9 +17,9 @@ set up in the same pass as everything else. Both support `--dry-run` and `--forc
 
 ## What the generated workflow does
 
-On every `pull_request` it checks out with `fetch-depth: 0`, then calls `@svelte-vitals/action`,
-which runs the analysis **in-process** scoped to the PR (`diff`/`baseline` at `origin/<base>`).
-From that one analysis it produces:
+On every `pull_request` it checks out with `fetch-depth: 0`, installs dependencies with lifecycle
+scripts off, then calls `@svelte-vitals/action` scoped to the PR (`diff`/`baseline` at
+`origin/<base>`). It produces:
 
 - inline annotations on the diff,
 - a job summary,
@@ -28,8 +28,20 @@ From that one analysis it produces:
 
 It fails the job **after** writing those, so a failing run still leaves the feedback behind.
 
+The install step is there so the action runs the `svelte-vitals` in your `node_modules` (0.44.0
+or newer), the version your lockfile pins. `ci install` writes it for npm (`npm ci
+--ignore-scripts`) and for pnpm 11+ (`pnpm/setup`, then `pnpm install --frozen-lockfile
+--ignore-scripts`); for anything else it leaves the step commented out and prints why. It also
+prints the command to add `svelte-vitals` when `package.json` does not declare it. An installed
+CLI that cannot produce a report fails the step; there is no fallback.
+
+Without a usable install, the action uses its bundled analyzer and says so in a message
+beginning `svelte-vitals: using the bundled svelte-vitals <version>.` To clear it, declare
+`svelte-vitals` (0.44.0 or newer) in `package.json` and install dependencies in a step before
+the action. `ci upgrade` moves only the pin; it does not add the install step.
+
 Inputs: `path` (default `.`), `diff`, `baseline`, `github-token`. No `reporter` input. The
-fan-out is fixed. It reads your committed `svelte-vitals.config.*` and
+outputs are fixed. Whichever `svelte-vitals` runs reads your committed `svelte-vitals.config.*` and
 `svelte-vitals-suppressions.json`, so rule policy stays in those files.
 
 Permissions: `contents: read`, `pull-requests: write`. On fork PRs GitHub downgrades the token
