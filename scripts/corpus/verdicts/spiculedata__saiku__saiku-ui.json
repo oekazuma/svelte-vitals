@@ -975,37 +975,37 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/views/dashboard/widgets/CascadingFilterPicker.svelte has a single destructured $props() with 9 named props (> 6): cube, dimension, hierarchy, startLevel, defaultStartLevel, depth, selections, readOnly, onCommit"
   },
   {
-    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/lib/design-system/EmptyState.stories.svelte:50::<a href=\"/cubes/new\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/cubes/new') from '$app/paths'.",
+    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/lib/design-system/EmptyState.stories.svelte:50::<a href=\"/cubes/new\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/cubes/new') from '$app/paths' (resolve('cubes/new') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/lib/design-system/EmptyState.stories.svelte:50 '<a href=\"/cubes/new\">' is a Storybook CSF demo snippet (defineMeta from @storybook/addon-svelte-csf, :2-5), rendered only in Storybook, never in the SvelteKit app built under /ui; literal is root-relative as reported (svelte.config.js:4/27 sets kit.paths.base = process.env.SAIKU_BASE_PATH ?? '' and the production builds set SAIKU_BASE_PATH=/ui (saiku-webapp/pom.xml:295, .github/workflows/release.yml:529)) but no shipped navigation breaks"
   },
   {
-    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/lib/views/admin/ApiAccessAdmin.svelte:146::<a href=\"/rest/saiku/info/mcp.dxt\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/rest/saiku/info/mcp.dxt') from '$app/paths'.",
+    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/lib/views/admin/ApiAccessAdmin.svelte:146::<a href=\"/rest/saiku/info/mcp.dxt\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/rest/saiku/info/mcp.dxt') from '$app/paths' (resolve('rest/saiku/info/mcp.dxt') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/lib/views/admin/ApiAccessAdmin.svelte:146 '<a href=\"/rest/saiku/info/mcp.dxt\" download>' is a root-relative literal under the computed base (svelte.config.js:4/27, SAIKU_BASE_PATH=/ui in saiku-webapp/pom.xml:295), as reported, but it deliberately targets the Java backend's REST API served at the domain root (the app itself fetches '/rest/saiku/admin/version', src/lib/stores/platform.svelte.ts:58), so it does not 404; a deliberate link outside the app, not app navigation (ledger /api/swagger convention)"
   },
   {
-    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/lib/views/admin/SchemasAdmin.svelte:73::goto('/admin/model-ide') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/model-ide')) with resolve from '$app/paths'.",
+    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/lib/views/admin/SchemasAdmin.svelte:73::goto('/admin/model-ide') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/model-ide')) with resolve from '$app/paths' (resolve('admin/model-ide') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/views/admin/SchemasAdmin.svelte:73 goto('/admin/model-ide') from $app/navigation with a root-relative literal; svelte.config.js:4/27 sets kit.paths.base = process.env.SAIKU_BASE_PATH ?? '' and the production builds set SAIKU_BASE_PATH=/ui (saiku-webapp/pom.xml:295, .github/workflows/release.yml:529), so it navigates outside the app; other code prefixes base (NotebookIndex.svelte:73 goto(`${base}/notebooks/...`))"
   },
   {
-    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/routes/admin/+page.svelte:82::<a href=\"/admin/lineage\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/admin/lineage') from '$app/paths'.",
+    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/routes/admin/+page.svelte:82::<a href=\"/admin/lineage\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/admin/lineage') from '$app/paths' (resolve('admin/lineage') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/admin/+page.svelte:82 '<a href=\"/admin/lineage\" role=\"tab\">' root-relative app route; svelte.config.js:4/27 sets kit.paths.base = process.env.SAIKU_BASE_PATH ?? '' and the production builds set SAIKU_BASE_PATH=/ui (saiku-webapp/pom.xml:295, .github/workflows/release.yml:529), so it points outside the app"
   },
   {
-    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/routes/admin/cube-designer/[dataSourceId]/+page.svelte:329::goto('/admin?tab=datasources') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin?tab=datasources')) with resolve from '$app/paths'.",
+    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/routes/admin/cube-designer/[dataSourceId]/+page.svelte:329::goto('/admin?tab=datasources') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin?tab=datasources')) with resolve from '$app/paths' (resolve('admin?tab=datasources') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/admin/cube-designer/[dataSourceId]/+page.svelte:329 goto('/admin?tab=datasources') root-relative literal; svelte.config.js:4/27 sets kit.paths.base = process.env.SAIKU_BASE_PATH ?? '' and the production builds set SAIKU_BASE_PATH=/ui (saiku-webapp/pom.xml:295, .github/workflows/release.yml:529), so it navigates outside the app"
   },
   {
-    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/routes/admin/schema-generator/[dataSourceId]/+page.svelte:85::goto('/admin?tab=datasources') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin?tab=datasources')) with resolve from '$app/paths'.",
+    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/routes/admin/schema-generator/[dataSourceId]/+page.svelte:85::goto('/admin?tab=datasources') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin?tab=datasources')) with resolve from '$app/paths' (resolve('admin?tab=datasources') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/admin/schema-generator/[dataSourceId]/+page.svelte:85 goto('/admin?tab=datasources') root-relative literal; svelte.config.js:4/27 sets kit.paths.base = process.env.SAIKU_BASE_PATH ?? '' and the production builds set SAIKU_BASE_PATH=/ui (saiku-webapp/pom.xml:295, .github/workflows/release.yml:529), so it navigates outside the app"
   },
   {
-    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/routes/admin/schema-generator/[dataSourceId]/+page.svelte:90::goto('/admin?tab=datasources') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin?tab=datasources')) with resolve from '$app/paths'.",
+    "key": "spiculedata/saiku:saiku-ui::correctness/base-path-navigation::src/routes/admin/schema-generator/[dataSourceId]/+page.svelte:90::goto('/admin?tab=datasources') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin?tab=datasources')) with resolve from '$app/paths' (resolve('admin?tab=datasources') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/admin/schema-generator/[dataSourceId]/+page.svelte:90 goto('/admin?tab=datasources') root-relative literal; svelte.config.js:4/27 sets kit.paths.base = process.env.SAIKU_BASE_PATH ?? '' and the production builds set SAIKU_BASE_PATH=/ui (saiku-webapp/pom.xml:295, .github/workflows/release.yml:529), so it navigates outside the app"
   },

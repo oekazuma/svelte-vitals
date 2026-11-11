@@ -185,7 +185,7 @@
     "basis": "script-verified (svelte parse, own walk): src/routes/games/[gameName]/image-selector.svelte has a single destructured $props() with 12 named props (> 6): open, disabled, showTrigger, title, description, detail, triggerLabel, triggerTitle, triggerVariant, triggerSize, triggerClass, onSelect"
   },
   {
-    "key": "simonhackler/digitable:packages/app::correctness/base-path-navigation::src/routes/sign-up/+server.ts:5::redirect(…, '/sign-up') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/sign-up') from '$app/paths'.",
+    "key": "simonhackler/digitable:packages/app::correctness/base-path-navigation::src/routes/sign-up/+server.ts:5::redirect(…, '/sign-up') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/sign-up') from '$app/paths' (resolve('sign-up') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: packages/app/src/routes/sign-up/+server.ts:5 redirect(308, '/sign-up') under kit.paths.base = '/app'; this deliberately leaves the app for the sibling studio package's /sign-up page (packages/studio/src/routes/sign-up/+page.svelte, no base), which infrastructure/nix/hosts/studio.nix:175-180 serves on the same host (handle /app* -> app, else -> studio), so it does not 404; literal root-relative redirect flagged as documented"
   },

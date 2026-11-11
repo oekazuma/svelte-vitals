@@ -120,7 +120,7 @@
     "basis": "script-verified (svelte/compiler parse, own walk of instance script): src/lib/layerCake/CirclePackForce.svelte has a single destructured $props() with 12 named props (> 6): manyBodyStrength, xStrength, yStrength, yOffset, vertical, nodeColor, nodeStroke, nodeStrokeWidth, lineBreak, textThresh, onTopicClick, selectedTopic"
   },
   {
-    "key": "Vermont-Complex-Systems/vcsi-website::correctness/base-path-navigation::src/routes/manifesto/+page.svelte:27::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "Vermont-Complex-Systems/vcsi-website::correctness/base-path-navigation::src/routes/manifesto/+page.svelte:27::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
     "verdict": "design",
     "basis": "read: +page.svelte:27 root-relative <a href=\"/\">; svelte.config.js sets kit.paths.base = process.argv.includes('dev') ? '' : process.env.BASE_PATH (computed, so the rule applies), but the only deploy (.github/workflows/build-deploy.yml) runs npm run build without BASE_PATH and rsyncs build/ to the site root, so the link resolves inside the app"
   },

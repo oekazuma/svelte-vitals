@@ -80,17 +80,17 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/state-card.svelte has a single destructured $props() with 7 named props (> 6): title, description, icon, loading, children, actions, class"
   },
   {
-    "key": "radio4000/r4atproto::correctness/base-path-navigation::src/routes/settings/+page.svelte:6::goto('/settings/account') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings/account')) with resolve from '$app/paths'.",
+    "key": "radio4000/r4atproto::correctness/base-path-navigation::src/routes/settings/+page.svelte:6::goto('/settings/account') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/settings/account')) with resolve from '$app/paths' (resolve('settings/account') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: settings/+page.svelte:6 goto('/settings/account') from $app/navigation with a root-relative literal; svelte.config.js:4 sets kit.paths.base = process.env.R4_BASE || '' and the GitHub Pages deploy builds with R4_BASE='/r4atproto' (package.json build:github, deploy-static-site.yml), so it navigates outside the base"
   },
   {
-    "key": "radio4000/r4atproto::correctness/base-path-navigation::src/routes/settings/appearance/+page.svelte:22::goto('/settings/account') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings/account')) with resolve from '$app/paths'.",
+    "key": "radio4000/r4atproto::correctness/base-path-navigation::src/routes/settings/appearance/+page.svelte:22::goto('/settings/account') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/settings/account')) with resolve from '$app/paths' (resolve('settings/account') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: settings/appearance/+page.svelte:22 goto('/settings/account') from $app/navigation with a root-relative literal; the GitHub Pages deploy builds with R4_BASE='/r4atproto' (package.json build:github), so it navigates outside the base"
   },
   {
-    "key": "radio4000/r4atproto::correctness/base-path-navigation::src/routes/settings/sync/+page.svelte:42::goto('/settings/account') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/settings/account')) with resolve from '$app/paths'.",
+    "key": "radio4000/r4atproto::correctness/base-path-navigation::src/routes/settings/sync/+page.svelte:42::goto('/settings/account') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/settings/account')) with resolve from '$app/paths' (resolve('settings/account') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: settings/sync/+page.svelte:42 goto('/settings/account') from $app/navigation with a root-relative literal; the GitHub Pages deploy builds with R4_BASE='/r4atproto' (package.json build:github), so it navigates outside the base"
   },

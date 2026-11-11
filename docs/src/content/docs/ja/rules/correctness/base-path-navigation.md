@@ -1,6 +1,6 @@
 ---
 title: correctness/base-path-navigation · Root-relative navigation under a base path
-description: ルート相対リンクをハードコードすると kit.paths.base ではなくドメインのルートを指すため、base path の配下ではアプリの外に出てしまい、本番で 404 になります。
+description: ルート相対リンクをハードコードすると paths.base ではなくドメインのルートを指すため、base path の配下ではアプリの外に出てしまい、本番で 404 になります。
 ---
 
 **重大度:** warning · **カテゴリ:** correctness
@@ -53,7 +53,17 @@ goto(resolve('/dashboard')); // コンポーネントや .svelte.ts モジュー
 redirect(303, resolve('/login')); // load 関数や form action で
 ```
 
-`resolve()`(SvelteKit 2.26以降)が base path を前置してくれます。ルートIDを渡せばルートパラメータの埋め込みも行います。非推奨になった `base` と `resolveRoute` の置き換えです。
+`resolve()`(SvelteKit 2.26以降)が base path を前置してくれます。ルートIDを渡せばルートパラメータの埋め込みも行います。`base` と `resolveRoute` の置き換えで、この 2 つは SvelteKit 2 で非推奨、SvelteKit 3 で削除されています。
+
+SvelteKit 3 は先頭の `/` をルートIDとして読むため、パスは `/` なしで書きます。`/about` 自体がルートであれば `resolve('/about')` は SvelteKit 3 でも型チェックを通りますが、動的ルート配下のパスは通りません。
+
+```js
+resolve('/blog/hello-world'); // SvelteKit 2
+resolve('blog/hello-world'); // SvelteKit 3
+resolve('/blog/[slug]', { slug: 'hello-world' }); // どちらでも
+```
+
+このルールはプロジェクトの SvelteKit のメジャーバージョンを読まないため、メッセージには両方の書き方が出ます。
 
 ## 制限事項
 

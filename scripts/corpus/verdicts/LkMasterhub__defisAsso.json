@@ -55,67 +55,67 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MediaPlayer.svelte has a single destructured $props() with 8 named props (> 6): spotifyArtistId, spotifyAlbumId, deezerAlbumId, appleAlbumId, appleAlbumSlug, albumTitle, albumMeta, albumBadge"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/actions/+page.server.ts:49::redirect(…, '/admin/actions') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/admin/actions') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/actions/+page.server.ts:49::redirect(…, '/admin/actions') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/admin/actions') from '$app/paths' (resolve('admin/actions') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/admin/actions/+page.server.ts:49 'throw redirect(303, '/admin/actions')'; svelte.config.js sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens), but DEPLOY.md:5-8,36 deploys at the subdomain root with BASE_PATH empty (BASE_PATH= npm run build); claim per the docs, not a defect in the deploy"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/actions/+page.server.ts:76::redirect(…, '/admin/actions') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/admin/actions') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/actions/+page.server.ts:76::redirect(…, '/admin/actions') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/admin/actions') from '$app/paths' (resolve('admin/actions') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/admin/actions/+page.server.ts:76 root-relative redirect literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/actions/+page.server.ts:92::redirect(…, '/admin/actions') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/admin/actions') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/actions/+page.server.ts:92::redirect(…, '/admin/actions') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/admin/actions') from '$app/paths' (resolve('admin/actions') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/admin/actions/+page.server.ts:92 root-relative redirect literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/messages/+page.server.ts:41::redirect(…, '/admin/messages') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/admin/messages') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/messages/+page.server.ts:41::redirect(…, '/admin/messages') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/admin/messages') from '$app/paths' (resolve('admin/messages') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/admin/messages/+page.server.ts:41 root-relative redirect literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/messages/+page.server.ts:57::redirect(…, '/admin/messages') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/admin/messages') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/messages/+page.server.ts:57::redirect(…, '/admin/messages') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/admin/messages') from '$app/paths' (resolve('admin/messages') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/admin/messages/+page.server.ts:57 root-relative redirect literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/settings/+page.svelte:115::<a href=\"/admin/setup\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/admin/setup') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/settings/+page.svelte:115::<a href=\"/admin/setup\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/admin/setup') from '$app/paths' (resolve('admin/setup') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/admin/settings/+page.svelte:115 '<a href=\"/admin/setup\">' root-relative literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/setup/+page.svelte:7::<a href=\"/login\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/login') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/admin/setup/+page.svelte:7::<a href=\"/login\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/login') from '$app/paths' (resolve('login') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/admin/setup/+page.svelte:7 '<a href=\"/login\">' root-relative literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/+page.server.ts:18::redirect(…, '/demo/better-auth/login') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/demo/better-auth/login') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/+page.server.ts:18::redirect(…, '/demo/better-auth/login') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/demo/better-auth/login') from '$app/paths' (resolve('demo/better-auth/login') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/demo/better-auth/+page.server.ts:18 root-relative redirect literal in the scaffolded better-auth demo; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/+page.server.ts:8::redirect(…, '/demo/better-auth/login') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/demo/better-auth/login') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/+page.server.ts:8::redirect(…, '/demo/better-auth/login') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/demo/better-auth/login') from '$app/paths' (resolve('demo/better-auth/login') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/demo/better-auth/+page.server.ts:8 root-relative redirect literal in the scaffolded better-auth demo; computed base from BASE_PATH, but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/login/+page.server.ts:35::redirect(…, '/demo/better-auth') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/demo/better-auth') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/login/+page.server.ts:35::redirect(…, '/demo/better-auth') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/demo/better-auth') from '$app/paths' (resolve('demo/better-auth') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/demo/better-auth/login/+page.server.ts:35 root-relative redirect literal in the scaffolded better-auth demo; computed base from BASE_PATH, but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/login/+page.server.ts:59::redirect(…, '/demo/better-auth') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/demo/better-auth') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/login/+page.server.ts:59::redirect(…, '/demo/better-auth') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/demo/better-auth') from '$app/paths' (resolve('demo/better-auth') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/demo/better-auth/login/+page.server.ts:59 root-relative redirect literal in the scaffolded better-auth demo; computed base from BASE_PATH, but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/login/+page.server.ts:9::redirect(…, '/demo/better-auth') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/demo/better-auth') from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/demo/better-auth/login/+page.server.ts:9::redirect(…, '/demo/better-auth') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/demo/better-auth') from '$app/paths' (resolve('demo/better-auth') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/demo/better-auth/login/+page.server.ts:9 root-relative redirect literal in the scaffolded better-auth demo; computed base from BASE_PATH, but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },
   {
-    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/login/+page.svelte:14::goto('/admin') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin')) with resolve from '$app/paths'.",
+    "key": "LkMasterhub/defisAsso::correctness/base-path-navigation::src/routes/login/+page.svelte:14::goto('/admin') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin')) with resolve from '$app/paths' (resolve('admin') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/login/+page.svelte:14 \"goto('/admin')\" root-relative literal; computed base from BASE_PATH (svelte.config.js), but DEPLOY.md:5-8,36 builds with BASE_PATH empty for the subdomain root"
   },

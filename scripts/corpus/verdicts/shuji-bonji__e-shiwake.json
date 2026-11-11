@@ -260,7 +260,7 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6): ref, class, sideOffset, side, children, arrowClasses, portalProps (plus rest element ...restProps)"
   },
   {
-    "key": "shuji-bonji/e-shiwake::correctness/base-path-navigation::src/lib/components/data/BackupCard.svelte:245::goto('/archive') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/archive')) with resolve from '$app/paths'.",
+    "key": "shuji-bonji/e-shiwake::correctness/base-path-navigation::src/lib/components/data/BackupCard.svelte:245::goto('/archive') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/archive')) with resolve from '$app/paths' (resolve('archive') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/data/BackupCard.svelte:245 goto('/archive') from $app/navigation (line 2) with a root-relative literal; svelte.config.js:16 sets kit.paths.base = '/e-shiwake' in production, and every other goto in the app prefixes ${base} (ChatPanel.svelte:32, +layout.svelte:168-191), so this one leaves the app"
   },

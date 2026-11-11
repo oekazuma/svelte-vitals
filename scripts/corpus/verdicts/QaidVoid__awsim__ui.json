@@ -890,7 +890,7 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, class, sideOffset, side, children, arrowClasses, portalProps"
   },
   {
-    "key": "QaidVoid/awsim:ui::correctness/base-path-navigation::src/lib/components/cognito/idp-tab.svelte:99::<a href=\"/guide/cognito-federation/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/guide/cognito-federation/') from '$app/paths'.",
+    "key": "QaidVoid/awsim:ui::correctness/base-path-navigation::src/lib/components/cognito/idp-tab.svelte:99::<a href=\"/guide/cognito-federation/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/guide/cognito-federation/') from '$app/paths' (resolve('guide/cognito-federation/') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/cognito/idp-tab.svelte:99 <a href=\"/guide/cognito-federation/\"> root-relative literal; svelte.config.js sets kit.paths.base = dev ? '' : '/_awsim/ui' (the production build is mounted under /_awsim/ui); /guide is not a route of this app (no src/routes/guide; the guide is the separate VitePress site in docs/), so the link lands outside the app and 404s on the awsim server, as claimed"
   },

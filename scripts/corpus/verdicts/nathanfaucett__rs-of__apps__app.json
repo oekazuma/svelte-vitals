@@ -45,27 +45,27 @@
     "basis": "script-verified: src/routes/setup/installation/+page.svelte has 403 physical lines (newline count, trailing newline not counted; 395 non-blank) > 200, matches reported count"
   },
   {
-    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/(auth)/authorize/_Authorize.svelte:212::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/(auth)/authorize/_Authorize.svelte:212::goto('/') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
     "verdict": "design",
     "basis": "read: authorize/_Authorize.svelte:212 goto(\"/\") is a root-relative literal; svelte.config.js sets kit.paths.base = process.env.VITE_BASE_PATH (computed, so the documented gate opens), but nothing in the repo sets it non-empty (.env.example leaves VITE_BASE_PATH= blank); claim per the docs, not a demonstrated defect"
   },
   {
-    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/logout/+page.ts:6::redirect(…, '/') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/logout/+page.ts:6::redirect(…, '/') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/') from '$app/paths'.",
     "verdict": "design",
     "basis": "read: logout/+page.ts:6 redirect(302, \"/\") root-relative literal; kit.paths.base = process.env.VITE_BASE_PATH (computed), which nothing in the repo sets non-empty (.env.example VITE_BASE_PATH= blank); claim per the docs, not a demonstrated defect"
   },
   {
-    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/setup/+page.ts:7::redirect(…, '/signin') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/signin') from '$app/paths'.",
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/setup/+page.ts:7::redirect(…, '/signin') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/signin') from '$app/paths' (resolve('signin') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: setup/+page.ts:7 redirect(302, \"/signin\") root-relative literal; kit.paths.base = process.env.VITE_BASE_PATH (computed), which nothing in the repo sets non-empty (.env.example blank); claim per the docs, not a demonstrated defect"
   },
   {
-    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/setup/device/+page.ts:6::redirect(…, '/setup/installation') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/setup/installation') from '$app/paths'.",
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/setup/device/+page.ts:6::redirect(…, '/setup/installation') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/setup/installation') from '$app/paths' (resolve('setup/installation') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: setup/device/+page.ts:6 redirect(302, \"/setup/installation\") root-relative literal; kit.paths.base = process.env.VITE_BASE_PATH (computed), which nothing in the repo sets non-empty (.env.example blank); claim per the docs, not a demonstrated defect"
   },
   {
-    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/signin/+page.ts:7::redirect(…, '/setup') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/setup') from '$app/paths'.",
+    "key": "nathanfaucett/rs-of:apps/app::correctness/base-path-navigation::src/routes/signin/+page.ts:7::redirect(…, '/setup') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/setup') from '$app/paths' (resolve('setup') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: signin/+page.ts:7 redirect(302, \"/setup\") root-relative literal; kit.paths.base = process.env.VITE_BASE_PATH (computed), which nothing in the repo sets non-empty (.env.example blank); claim per the docs, not a demonstrated defect"
   },

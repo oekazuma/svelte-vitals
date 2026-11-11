@@ -43,7 +43,7 @@ describe('correctness/base-path-navigation', () => {
     expect(penalized[0]!.line).toBe(3);
     expect(penalized[0]!.severity).toBe('warning');
     expect(penalized[0]!.message).toBe(
-      `<a href="/about"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and 404s in production. Use resolve('/about') from '$app/paths'.`
+      `<a href="/about"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and 404s in production. Use resolve('/about') from '$app/paths' (resolve('about') in SvelteKit 3).`
     );
     expect(penalized[0]!.fix?.description).toContain('$app/paths');
   });
@@ -55,7 +55,7 @@ describe('correctness/base-path-navigation', () => {
     const penalized = results.filter((r) => r.detection.presence === 'none');
     expect(penalized).toHaveLength(1);
     expect(penalized[0]!.message).toBe(
-      `goto('/dashboard') is root-relative — it navigates outside this project's kit.paths.base and 404s in production. Use goto(resolve('/dashboard')) with resolve from '$app/paths'.`
+      `goto('/dashboard') is root-relative — it navigates outside this project's paths.base and 404s in production. Use goto(resolve('/dashboard')) with resolve from '$app/paths' (resolve('dashboard') in SvelteKit 3).`
     );
   });
 
@@ -67,8 +67,29 @@ describe('correctness/base-path-navigation', () => {
     expect(penalized).toHaveLength(1);
     expect(penalized[0]!.location).toBe('src/routes/+page.server.ts');
     expect(penalized[0]!.message).toBe(
-      `redirect(…, '/login') is root-relative — the Location header points outside this project's kit.paths.base and 404s in production. Use resolve('/login') from '$app/paths'.`
+      `redirect(…, '/login') is root-relative — the Location header points outside this project's paths.base and 404s in production. Use resolve('/login') from '$app/paths' (resolve('login') in SvelteKit 3).`
     );
+  });
+
+  it('names the SvelteKit 3 pathname form, where a leading slash marks a route ID', async () => {
+    const results = await correctnessBasePathNavigation.check(
+      ctx(
+        withBase,
+        [],
+        [kit('src/routes/+page.server.ts', [{ kind: 'redirect', path: '/blog/hello-world?ref=nav', line: 4 }])]
+      )
+    );
+    expect(results[0]!.message).toContain(
+      "Use resolve('/blog/hello-world?ref=nav') from '$app/paths' (resolve('blog/hello-world?ref=nav') in SvelteKit 3)."
+    );
+    expect(results[0]!.fix?.description).toContain("resolve('blog/hello-world')");
+  });
+
+  it.each(['/', '/?tab=a', '/#top'])('keeps the one form for %s, which is a route ID in every major', async (path) => {
+    const results = await correctnessBasePathNavigation.check(
+      ctx(withBase, [comp('src/routes/+page.svelte', [{ kind: 'href', path, line: 3 }])])
+    );
+    expect(results[0]!.message).toMatch(/Use resolve\('[^']+'\) from '\$app\/paths'\.$/);
   });
 
   it('fires on a dynamic base (fact present, value unknown)', async () => {

@@ -385,7 +385,7 @@
     "basis": "script-verified (svelte parse, own walk of instance script, style blocks blanked): src/lib/components/visualisation/MapDrawTools.svelte has a single destructured $props() with 10 named props (> 6): map, selection, onApply, canApply, disabledReason, showApply, onDrawingChange, countFeatures, countKey, lockedReason"
   },
   {
-    "key": "maris-development/beacon-studio-ihm::correctness/base-path-navigation::src/routes/queries/+page.server.ts:4::redirect(…, '/queries/workbench') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/queries/workbench') from '$app/paths'.",
+    "key": "maris-development/beacon-studio-ihm::correctness/base-path-navigation::src/routes/queries/+page.server.ts:4::redirect(…, '/queries/workbench') is root-relative — the Location header points outside this project's paths.base and #s in production. Use resolve('/queries/workbench') from '$app/paths' (resolve('queries/workbench') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/queries/+page.server.ts:4 redirect(307, '/queries/workbench') in a +page.server.ts load; svelte.config.js sets paths.base from BASE_PATH (README documents a /studio build, so the gate opens), but the app is an adapter-static SPA (fallback index.html, src/routes/+layout.server.ts ssr=false/prerender=false) with no server, so this server load never runs in a deployed build; the literal is real but not a demonstrable production defect"
   },

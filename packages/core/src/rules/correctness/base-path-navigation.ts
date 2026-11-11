@@ -7,21 +7,30 @@ import { PENALIZED, PASS } from '../detection.js';
 const ID = 'correctness/base-path-navigation';
 const DOCS_URL = docsUrlFor(ID);
 const LABEL = 'Base-path-aware navigation';
-const RECOMMENDATION =
-  "Wrap root-relative paths in resolve() from '$app/paths' so they resolve against kit.paths.base.";
+const RECOMMENDATION = "Wrap root-relative paths in resolve() from '$app/paths' so they resolve against paths.base.";
 const FIX = {
   description:
-    "Import { resolve } from '$app/paths' and wrap the path: href={resolve('/about')}, goto(resolve('/about')), redirect(303, resolve('/login'))."
+    "Import { resolve } from '$app/paths' and wrap the path: href={resolve('/about')}, goto(resolve('/about')), redirect(303, resolve('/login')). SvelteKit 3 reads a leading / as a route ID, so write a path there without it: resolve('blog/hello-world')."
 };
 
+/**
+ * SvelteKit 3 types a leading `/` as a route ID and SvelteKit 2 throws without one, so no single
+ * spelling is right in both. `/` itself is a route ID in every major and needs no second form.
+ */
+function kit3Hint(path: string): string {
+  const pathname = path.slice(1);
+  return pathname === '' || /^[?#]/.test(pathname) ? '' : ` (resolve('${pathname}') in SvelteKit 3)`;
+}
+
 function messageFor(link: BasePathLinkFact): string {
+  const hint = kit3Hint(link.path);
   if (link.kind === 'href') {
-    return `<a href="${link.path}"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
+    return `<a href="${link.path}"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and 404s in production. Use resolve('${link.path}') from '$app/paths'${hint}.`;
   }
   if (link.kind === 'goto') {
-    return `goto('${link.path}') is root-relative — it navigates outside this project's kit.paths.base and 404s in production. Use goto(resolve('${link.path}')) with resolve from '$app/paths'.`;
+    return `goto('${link.path}') is root-relative — it navigates outside this project's paths.base and 404s in production. Use goto(resolve('${link.path}')) with resolve from '$app/paths'${hint}.`;
   }
-  return `redirect(…, '${link.path}') is root-relative — the Location header points outside this project's kit.paths.base and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
+  return `redirect(…, '${link.path}') is root-relative — the Location header points outside this project's paths.base and 404s in production. Use resolve('${link.path}') from '$app/paths'${hint}.`;
 }
 
 /**
@@ -82,7 +91,7 @@ function emitFile(
 
 /**
  * correctness/base-path-navigation — root-relative navigation literals in a project that sets
- * `kit.paths.base`. A custom check because it is gated on a PROJECT fact and its own facts live
+ * `paths.base`. A custom check because it is gated on a PROJECT fact and its own facts live
  * on BOTH the component channel (`<a href>`, `goto()`) and the Kit-module channel (`redirect()`).
  * With no base path configured the rule emits nothing at all — the gate is the whole point.
  */
@@ -93,7 +102,7 @@ export const correctnessBasePathNavigation: Rule = {
   severity: 'warning',
   scope: 'component',
   rationale:
-    'A root-relative literal resolves against the domain root, not kit.paths.base, so navigation lands outside an app served from a sub-path. The break only appears once the app is deployed under its base — locally base is usually empty, so every such link works.',
+    'A root-relative literal resolves against the domain root, not paths.base, so navigation lands outside an app served from a sub-path. The break only appears once the app is deployed under its base — locally base is usually empty, so every such link works.',
   fix: { ...FIX },
   async check(ctx: RuleContext): Promise<Result[]> {
     if (!ctx.project.kitPathsBase) return [];

@@ -515,7 +515,7 @@
     "basis": "exceptionless wrapper route: src/routes/(app)/stack/[slug=savedview]/+page.svelte:1-5 only default-imports ../+page.svelte and renders <StacksPage /> with no props; the imported (app)/stack/+page.svelte declares no $props()/data, has no load file beside it, and reads page.params.slug from $app/state (lines 277-300) to resolve the saved view, so nothing Kit would give it is missing -- deliberate saved-view wrapper (same shape as the ledger convertigo/OpenMates design entries); reported as documented, not a defect"
   },
   {
-    "key": "exceptionless/Exceptionless:src/Exceptionless.Web/ClientApp::correctness/base-path-navigation::src/lib/features/shared/components/detail-sheet.test-harness.svelte:10::<a href=\"/event/abc#\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/event/abc#') from '$app/paths'.",
+    "key": "exceptionless/Exceptionless:src/Exceptionless.Web/ClientApp::correctness/base-path-navigation::src/lib/features/shared/components/detail-sheet.test-harness.svelte:10::<a href=\"/event/abc#\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/event/abc#') from '$app/paths' (resolve('event/abc#') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/lib/features/shared/components/detail-sheet.test-harness.svelte:10 <a href=\"/event/abc123\"> under svelte.config.js:23 base '/next' is literally root-relative, but the file is a vitest test harness for detail-sheet (never routed or shipped); test data, not a production link"
   },

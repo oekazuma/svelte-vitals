@@ -195,112 +195,112 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/NumericSliderPicker/NumericSliderPicker.svelte has a single destructured $props() with 10 named props (> 6): value, min, max, step, unit, decimals, adjustmentButtons, showSlider, showDirectInput, validate"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/lib/components/Header/Main.svelte:13::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/lib/components/Header/Main.svelte:13::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/lib/components/NavItems/AuthNavItem.svelte:17::goto('/auth/me') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/auth/me')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/lib/components/NavItems/AuthNavItem.svelte:17::goto('/auth/me') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/auth/me')) with resolve from '$app/paths' (resolve('auth/me') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/lib/components/NavItems/AuthNavItem.svelte:23::goto('/auth/login') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/auth/login')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/lib/components/NavItems/AuthNavItem.svelte:23::goto('/auth/login') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/auth/login')) with resolve from '$app/paths' (resolve('auth/login') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/auth/me/+page.svelte:24::<a href=\"/auth/login\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/login') from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/auth/me/+page.svelte:24::<a href=\"/auth/login\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/auth/login') from '$app/paths' (resolve('auth/login') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/clipboard/create/+page.svelte:15::goto('/clipboard') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/clipboard')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/clipboard/create/+page.svelte:15::goto('/clipboard') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/clipboard')) with resolve from '$app/paths' (resolve('clipboard') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/cookbook/+page.svelte:29::goto('/cookbook/add') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/cookbook/add')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/cookbook/+page.svelte:29::goto('/cookbook/add') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/cookbook/add')) with resolve from '$app/paths' (resolve('cookbook/add') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/cookbook/add/+page.svelte:9::goto('/cookbook') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/cookbook')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/cookbook/add/+page.svelte:9::goto('/cookbook') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/cookbook')) with resolve from '$app/paths' (resolve('cookbook') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/cookbook/recipe/[...id]/+page.svelte:10::goto('/cookbook') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/cookbook')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/cookbook/recipe/[...id]/+page.svelte:10::goto('/cookbook') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/cookbook')) with resolve from '$app/paths' (resolve('cookbook') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/gravitrips/1player/+page.svelte:167::goto('/gravitrips') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/gravitrips')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/gravitrips/1player/+page.svelte:167::goto('/gravitrips') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/gravitrips')) with resolve from '$app/paths' (resolve('gravitrips') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/gravitrips/2players/+page.svelte:108::goto('/gravitrips') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/gravitrips')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/gravitrips/2players/+page.svelte:108::goto('/gravitrips') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/gravitrips')) with resolve from '$app/paths' (resolve('gravitrips') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/personal-tracker/+page.svelte:37::goto('/personal-tracker/add') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/personal-tracker/add')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/personal-tracker/+page.svelte:37::goto('/personal-tracker/add') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/personal-tracker/add')) with resolve from '$app/paths' (resolve('personal-tracker/add') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/personal-tracker/add/[...timestamp]/+page.svelte:203::goto('/personal-tracker') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/personal-tracker')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/personal-tracker/add/[...timestamp]/+page.svelte:203::goto('/personal-tracker') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/personal-tracker')) with resolve from '$app/paths' (resolve('personal-tracker') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/personal-tracker/add/[...timestamp]/+page.svelte:230::goto('/personal-tracker') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/personal-tracker')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/personal-tracker/add/[...timestamp]/+page.svelte:230::goto('/personal-tracker') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/personal-tracker')) with resolve from '$app/paths' (resolve('personal-tracker') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/reactor/+page.svelte:23::goto('/reactor/create') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/reactor/create')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/reactor/+page.svelte:23::goto('/reactor/create') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/reactor/create')) with resolve from '$app/paths' (resolve('reactor/create') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/reactor/create/+page.svelte:14::goto('/reactor') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/reactor')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/reactor/create/+page.svelte:14::goto('/reactor') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/reactor')) with resolve from '$app/paths' (resolve('reactor') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/songbook/+page.svelte:132::goto('/songbook/edit') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/songbook/edit')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/songbook/+page.svelte:132::goto('/songbook/edit') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/songbook/edit')) with resolve from '$app/paths' (resolve('songbook/edit') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/songbook/edit/+page.svelte:102::goto('/songbook/edit/create') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/songbook/edit/create')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/songbook/edit/+page.svelte:102::goto('/songbook/edit/create') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/songbook/edit/create')) with resolve from '$app/paths' (resolve('songbook/edit/create') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/songbook/edit/+page.svelte:95::goto('/songbook') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/songbook')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/songbook/edit/+page.svelte:95::goto('/songbook') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/songbook')) with resolve from '$app/paths' (resolve('songbook') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/songbook/edit/create/+page.svelte:14::goto('/songbook/edit') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/songbook/edit')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/songbook/edit/create/+page.svelte:14::goto('/songbook/edit') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/songbook/edit')) with resolve from '$app/paths' (resolve('songbook/edit') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/webwatcher/+page.svelte:17::goto('/webwatcher/create') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/webwatcher/create')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/webwatcher/+page.svelte:17::goto('/webwatcher/create') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/webwatcher/create')) with resolve from '$app/paths' (resolve('webwatcher/create') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/webwatcher/create/+page.svelte:9::goto('/webwatcher') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/webwatcher')) with resolve from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(apps)/webwatcher/create/+page.svelte:9::goto('/webwatcher') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/webwatcher')) with resolve from '$app/paths' (resolve('webwatcher') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },
   {
-    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(garden)/garden/+layout.svelte:13::<a href=\"/garden\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/garden') from '$app/paths'.",
+    "key": "statox/apps.statox.fr::correctness/base-path-navigation::src/routes/(garden)/garden/+layout.svelte:13::<a href=\"/garden\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/garden') from '$app/paths' (resolve('garden') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets paths: { relative: false, base } where base is `const base = ''` (svelte.config.js:8, comment 'base remain empty even on prod'), the docs' explicit-'' case that keeps the rule silent; vite.config.ts calls sveltekit() with no paths, so svelte.config.js governs; the analyzer does not resolve the shorthand identifier to its module const and treats it as a computed base, so the gate opens although no environment serves a base and this root-relative literal never leaves the app"
   },

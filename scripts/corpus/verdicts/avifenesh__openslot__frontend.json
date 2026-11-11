@@ -130,17 +130,17 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, class, sideOffset, side, children, arrowClasses, portalProps"
   },
   {
-    "key": "avifenesh/openslot:frontend::correctness/base-path-navigation::src/routes/apps/+page.svelte:69::<a href=\"/v#/apps/gmail/connect\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/v#/apps/gmail/connect') from '$app/paths'.",
+    "key": "avifenesh/openslot:frontend::correctness/base-path-navigation::src/routes/apps/+page.svelte:69::<a href=\"/v#/apps/gmail/connect\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/v#/apps/gmail/connect') from '$app/paths' (resolve('v#/apps/gmail/connect') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/apps/+page.svelte:69 <a href=\"/v1/apps/gmail/connect\" data-sveltekit-reload> under kit.paths.base '/admin' (svelte.config.js); /v1/* is the Go backend's API at the domain root (the SPA is served under /admin by frontend/embed.go:32-34, api.ts:327 fetches root-relative /v1 paths, handlers build h.baseURL + \"/v1/...\"), so the link deliberately leaves the app for a backend OAuth start and does not 404; outside the app by intent (ledger convention)"
   },
   {
-    "key": "avifenesh/openslot:frontend::correctness/base-path-navigation::src/routes/settings/google/+page.svelte:225::<a href=\"/v#/calendar/connect?provider=google\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/v#/calendar/connect?provider=google') from '$app/paths'.",
+    "key": "avifenesh/openslot:frontend::correctness/base-path-navigation::src/routes/settings/google/+page.svelte:225::<a href=\"/v#/calendar/connect?provider=google\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/v#/calendar/connect?provider=google') from '$app/paths' (resolve('v#/calendar/connect?provider=google') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/settings/google/+page.svelte:225 <a href=\"/v1/calendar/connect?provider=google\" data-sveltekit-reload> under base '/admin'; a deliberate link to the Go backend's root-level /v1 OAuth endpoint (internal/handler/google_pkce.go, frontend/embed.go:32-34), outside the app by intent, not a 404 (ledger convention)"
   },
   {
-    "key": "avifenesh/openslot:frontend::correctness/base-path-navigation::src/routes/settings/google/+page.svelte:226::<a href=\"/v#/apps/gmail/connect\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/v#/apps/gmail/connect') from '$app/paths'.",
+    "key": "avifenesh/openslot:frontend::correctness/base-path-navigation::src/routes/settings/google/+page.svelte:226::<a href=\"/v#/apps/gmail/connect\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/v#/apps/gmail/connect') from '$app/paths' (resolve('v#/apps/gmail/connect') in SvelteKit #).",
     "verdict": "design",
     "basis": "read: src/routes/settings/google/+page.svelte:226 <a href=\"/v1/apps/gmail/connect\" data-sveltekit-reload> under base '/admin'; a deliberate link to the Go backend's root-level /v1 API, outside the app by intent, not a 404 (ledger convention)"
   },

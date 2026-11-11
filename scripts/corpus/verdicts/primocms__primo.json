@@ -510,112 +510,112 @@
     "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6) plus a ...rest element: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/lib/builder/views/editor/Toolbar.svelte:392::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/lib/builder/views/editor/Toolbar.svelte:392::goto('/admin/auth') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths' (resolve('admin/auth') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/LockAlert.svelte:18::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/LockAlert.svelte:18::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
     "verdict": "tp",
     "basis": "read: src/lib/components/LockAlert.svelte:18 <a href=\"/\"> with kit.paths.base = '/admin' (svelte.config.js); '/' is the domain root, outside the app's base, and not wrapped in resolve()"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/app-sidebar.svelte:156::goto('/admin/dashboard/library') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/library')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/app-sidebar.svelte:156::goto('/admin/dashboard/library') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/dashboard/library')) with resolve from '$app/paths' (resolve('admin/dashboard/library') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/library', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/app-sidebar.svelte:175::goto('/admin/dashboard/marketplace') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/marketplace')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/app-sidebar.svelte:175::goto('/admin/dashboard/marketplace') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/dashboard/marketplace')) with resolve from '$app/paths' (resolve('admin/dashboard/marketplace') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/marketplace', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/app-sidebar.svelte:240::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/lib/components/app-sidebar.svelte:240::goto('/admin/auth') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths' (resolve('admin/auth') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/+page.svelte:10::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/+page.svelte:10::goto('/admin/auth') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths' (resolve('admin/auth') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/+page.svelte:8::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/+page.svelte:8::goto('/admin/site') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths' (resolve('admin/site') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/+layout.svelte:35::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/+layout.svelte:35::goto('/admin/site') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths' (resolve('admin/site') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/+layout.svelte:41::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/+layout.svelte:41::goto('/admin/site') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths' (resolve('admin/site') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:108::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:108::goto('/admin/site') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths' (resolve('admin/site') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:110::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:110::goto('/admin/auth') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths' (resolve('admin/auth') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:58::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:58::goto('/admin/site') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths' (resolve('admin/site') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:79::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/auth/AuthForm.svelte:79::goto('/admin/auth') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths' (resolve('admin/auth') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/+layout.svelte:13::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/+layout.svelte:13::goto('/admin/auth') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths' (resolve('admin/auth') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/+page.svelte:6::goto('/admin/dashboard/sites') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/sites')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/+page.svelte:6::goto('/admin/dashboard/sites') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/dashboard/sites')) with resolve from '$app/paths' (resolve('admin/dashboard/sites') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/sites', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/library/+page.svelte:172::goto('/admin/dashboard/library') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/library')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/library/+page.svelte:172::goto('/admin/dashboard/library') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/dashboard/library')) with resolve from '$app/paths' (resolve('admin/dashboard/library') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/library', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/library/+page.svelte:419::goto('/admin/dashboard/marketplace/blocks') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/marketplace/blocks')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/library/+page.svelte:419::goto('/admin/dashboard/marketplace/blocks') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/dashboard/marketplace/blocks')) with resolve from '$app/paths' (resolve('admin/dashboard/marketplace/blocks') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/marketplace/blocks', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/marketplace/+page.svelte:6::goto('/admin/dashboard/marketplace/starters') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard/marketplace/starters')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/dashboard/marketplace/+page.svelte:6::goto('/admin/dashboard/marketplace/starters') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/dashboard/marketplace/starters')) with resolve from '$app/paths' (resolve('admin/dashboard/marketplace/starters') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard/marketplace/starters', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/setup/+page.svelte:81::goto('/admin/site') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/setup/+page.svelte:81::goto('/admin/site') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/site')) with resolve from '$app/paths' (resolve('admin/site') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/site', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/site/+layout.svelte:31::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/site/+layout.svelte:31::goto('/admin/auth') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths' (resolve('admin/auth') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/site/+layout.svelte:83::goto('/admin/dashboard') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/dashboard')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/site/+layout.svelte:83::goto('/admin/dashboard') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/dashboard')) with resolve from '$app/paths' (resolve('admin/dashboard') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/dashboard', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },
   {
-    "key": "primocms/primo::correctness/base-path-navigation::src/routes/sites/[site_id]/+layout.svelte:18::goto('/admin/auth') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths'.",
+    "key": "primocms/primo::correctness/base-path-navigation::src/routes/sites/[site_id]/+layout.svelte:18::goto('/admin/auth') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/admin/auth')) with resolve from '$app/paths' (resolve('admin/auth') in SvelteKit #).",
     "verdict": "fp",
     "basis": "read: svelte.config.js sets kit.paths.base = '/admin' and this goto literal is '/admin/auth', which already starts with the base; SvelteKit's goto treats a same-origin path under the base as an in-app navigation, so it does not navigate outside the base or 404 as the message claims; the rule (base-path-navigation.ts, BasePathLinkFact) never compares the literal against the configured base"
   },

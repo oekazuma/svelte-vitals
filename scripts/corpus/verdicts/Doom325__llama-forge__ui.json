@@ -95,7 +95,7 @@
     "basis": "read: src/routes/DashboardPageWrapper.svelte:2 imports the route entry only to wrap it in QueryClientTestWrapper for unit tests (testing/ helper, the route page takes no $props()); a test harness that renders it by hand, the rule's exempt-importers rationale, though the name is outside the default globs"
   },
   {
-    "key": "Doom325/llama-forge:ui::correctness/base-path-navigation::src/routes/+page.svelte:158::goto('/config/servers') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/config/servers')) with resolve from '$app/paths'.",
+    "key": "Doom325/llama-forge:ui::correctness/base-path-navigation::src/routes/+page.svelte:158::goto('/config/servers') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/config/servers')) with resolve from '$app/paths' (resolve('config/servers') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/+page.svelte:158 goto('/config/servers') root-relative literal; svelte.config.js:14 sets kit.paths.base = '/ui' (fixed), so it leaves the app"
   },

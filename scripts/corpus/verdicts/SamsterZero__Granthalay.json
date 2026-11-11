@@ -170,67 +170,67 @@
     "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) plus a ...rest element: ref, class, sideOffset, side, children, arrowClasses, portalProps"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:112::<a href=\"/account/verify-email\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/verify-email') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:112::<a href=\"/account/verify-email\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/verify-email') from '$app/paths' (resolve('account/verify-email') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/settings/AccountSection.svelte:112 'href=\"/account/verify-email\"'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:138::<a href=\"/account/password-reset\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/password-reset') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:138::<a href=\"/account/password-reset\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/password-reset') from '$app/paths' (resolve('account/password-reset') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/settings/AccountSection.svelte:138 '<a href=\"/account/password-reset\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:219::<a href=\"/account/sign-in\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:219::<a href=\"/account/sign-in\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths' (resolve('account/sign-in') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/settings/AccountSection.svelte:219 '<a href=\"/account/sign-in\" class=\"flex-1\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:222::<a href=\"/account/register\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/register') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/lib/components/settings/AccountSection.svelte:222::<a href=\"/account/register\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/register') from '$app/paths' (resolve('account/register') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/lib/components/settings/AccountSection.svelte:222 '<a href=\"/account/register\" class=\"flex-1\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/+layout.svelte:17::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/+layout.svelte:17::<a href=\"/\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
     "verdict": "tp",
     "basis": "read: src/routes/account/+layout.svelte:17 'href=\"/\"'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/password-reset/+page.svelte:112::<a href=\"/account/sign-in\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/password-reset/+page.svelte:112::<a href=\"/account/sign-in\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths' (resolve('account/sign-in') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/account/password-reset/+page.svelte:112 '<a href=\"/account/sign-in\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/register/+page.svelte:147::<a href=\"/account/sign-in\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/register/+page.svelte:147::<a href=\"/account/sign-in\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths' (resolve('account/sign-in') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/account/register/+page.svelte:147 '<a href=\"/account/sign-in\" class=\"font-medium text-primary hover:underline\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/register/+page.svelte:83::<a href=\"/account/sign-in\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/register/+page.svelte:83::<a href=\"/account/sign-in\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/sign-in') from '$app/paths' (resolve('account/sign-in') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/account/register/+page.svelte:83 '<a href=\"/account/sign-in\" class=\"flex-1\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/sign-in/+page.svelte:112::<a href=\"/account/register\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/register') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/sign-in/+page.svelte:112::<a href=\"/account/register\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/register') from '$app/paths' (resolve('account/register') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/account/sign-in/+page.svelte:112 '<a href=\"/account/register\" class=\"font-medium text-primary hover:underline\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/sign-in/+page.svelte:35::goto('/account') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/account')) with resolve from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/sign-in/+page.svelte:35::goto('/account') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/account')) with resolve from '$app/paths' (resolve('account') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/account/sign-in/+page.svelte:35 'goto('/account');'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/sign-in/+page.svelte:86::<a href=\"/account/password-reset\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/password-reset') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/sign-in/+page.svelte:86::<a href=\"/account/password-reset\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account/password-reset') from '$app/paths' (resolve('account/password-reset') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/account/sign-in/+page.svelte:86 '<a href=\"/account/password-reset\" class=\"text-xs text-primary hover:underline\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/verify-email/+page.svelte:80::<a href=\"/account\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account') from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/account/verify-email/+page.svelte:80::<a href=\"/account\"> is root-relative — under this project's paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/account') from '$app/paths' (resolve('account') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/account/verify-email/+page.svelte:80 '<a href=\"/account\">'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
   {
-    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/store/[slug]/+page.svelte:204::goto('/store') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/store')) with resolve from '$app/paths'.",
+    "key": "SamsterZero/Granthalay::correctness/base-path-navigation::src/routes/store/[slug]/+page.svelte:204::goto('/store') is root-relative — it navigates outside this project's paths.base and #s in production. Use goto(resolve('/store')) with resolve from '$app/paths' (resolve('store') in SvelteKit #).",
     "verdict": "tp",
     "basis": "read: src/routes/store/[slug]/+page.svelte:204 '<Button class=\"mt-4\" size=\"sm\" onclick={() => goto('/store')}>Return to Storefro'; svelte.config.js:17 sets kit.paths.base = DEPLOY_TARGET === 'github-pages' ? '/Granthalay' : '', and .github/workflows/deploy.yaml:47 builds with DEPLOY_TARGET=github-pages, so on the deployed site this root-relative literal resolves outside /Granthalay and 404s; no resolve()/base is applied"
   },
