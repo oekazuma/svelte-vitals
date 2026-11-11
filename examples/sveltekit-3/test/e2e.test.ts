@@ -10,7 +10,7 @@ const reportPath = join(appDir, 'svelte-vitals-report.json');
 
 interface JsonReport {
   rules: Record<string, { findings: number; passed: number }>;
-  routes: Array<{ route: string; issues: Array<{ id?: string; location?: string }> }>;
+  routes: Array<{ route: string; issues: Array<{ id?: string; location?: string; line?: number }> }>;
   skipped?: Record<string, Array<{ route: string }>>;
 }
 
@@ -75,6 +75,12 @@ describe('sveltekit-3 e2e', () => {
     // A kit-module finding is listed under its file, not under the URL.
     const file = staticReport.routes.find((r) => r.route === 'src/routes/dev-ssr/+page.ts');
     expect(file?.issues.map((i) => i.id)).toEqual(['seo/ssr-disabled']);
+  });
+
+  it('static: leaves a write to a client in a server directory outside #lib alone', () => {
+    const file = staticReport.routes.find((r) => r.route === 'src/routes/kv/+page.server.ts')!;
+    // Line 5 writes to src/server/kv.ts; line 7 writes to the same client through src/outside.
+    expect(file.issues.filter((i) => i.id === 'security/handler-state-write').map((i) => i.line)).toEqual([7]);
   });
 
   it('build: analyzes the prerendered / from the SvelteKit 3 output', () => {
