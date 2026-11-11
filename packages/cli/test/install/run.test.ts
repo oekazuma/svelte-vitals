@@ -469,6 +469,13 @@ describe('runInstall — config-file target', () => {
 });
 
 describe('runInstall — ci-workflow target', () => {
+  it('ci-workflow: plans an npm install step for a project with package-lock.json', async () => {
+    const { io, writes } = fakeIO({ files: { '/proj/package-lock.json': '{}' } });
+    const code = await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes['/proj/.github/workflows/svelte-vitals.yml']).toContain('npm ci --ignore-scripts');
+  });
+
   it('ci-workflow: not present → created, content calls @svelte-vitals/action', async () => {
     const { io, writes } = fakeIO();
     const code = await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts);

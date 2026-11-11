@@ -7,6 +7,9 @@ import { realIO } from '../install/cli.js';
 import { WORKFLOW_PATH, buildWorkflowYaml, planWorkflowWrite } from '../ci/workflow.js';
 import { upgradeActionPin } from '../ci/upgrade.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
+import { planInstallStep, type InstallStepPlan } from '../ci/install-step.js';
+import { detectPackageManager } from '../install/package-manager.js';
+import { hasSvelteVitalsDependency } from '../install/config-file-format.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
 import { localizedOptionsSection, type Locale } from './locale.js';
 
@@ -86,6 +89,18 @@ pins, like actions/checkout) untouched. To pick up the latest pin, run
 ${optionsSection}`;
 }
 
+function logInstallNotes(io: InstallIO, installStep: InstallStepPlan): void {
+  if (installStep.kind === 'manual') {
+    io.log(`! Add an install step to ${WORKFLOW_PATH} before the svelte-vitals step: ${installStep.reason}.`);
+  }
+  if (!hasSvelteVitalsDependency((p) => io.readFile(p), io.cwd)) {
+    const pm = detectPackageManager(io);
+    io.log(
+      `! svelte-vitals is not in package.json. Add it so CI analyzes with the version you choose: ${pm} ${pm === 'npm' ? 'install' : 'add'} -D svelte-vitals`
+    );
+  }
+}
+
 /** `ci install`'s own gunshi dispatch: guard/strip on `args.slice(1)`, then bone `cli()`. */
 async function runCiInstall(
   args: string[],
@@ -117,21 +132,25 @@ async function runCiInstall(
       const existing = io.readFile(path);
       const plan = planWorkflowWrite(existing, Boolean(ctx.values.force));
 
+      const installStep = plan.status === 'exists' ? undefined : planInstallStep(io);
+
       io.log('Plan:');
       io.log(`  ${WORKFLOW_PATH}  [${plan.status}]`);
 
       if (ctx.values['dry-run']) {
+        if (installStep) logInstallNotes(io, installStep);
         io.log('Dry run — no files written.');
         exitCode = 0;
         return;
       }
 
-      if (plan.status === 'exists') {
+      if (!installStep) {
         io.log(`= already installed (${WORKFLOW_PATH}) — use --force to regenerate.`);
       } else {
         try {
-          io.writeFile(path, buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION }));
+          io.writeFile(path, buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION, installStep }));
           io.log(`✓ ${plan.status} ${WORKFLOW_PATH}`);
+          logInstallNotes(io, installStep);
         } catch (err) {
           io.errorLog(
             `svelte-vitals: failed to write ${WORKFLOW_PATH}: ${err instanceof Error ? err.message : String(err)}`

@@ -91,9 +91,74 @@ describe('runCiCliGunshi', () => {
   });
 });
 
+describe('runCiCliGunshi install step', () => {
+  const DECLARED = JSON.stringify({ devDependencies: { 'svelte-vitals': '^0.1.0' } });
+  const notes = (out: string[]) => out.filter((l) => l.startsWith('!'));
+
+  it('writes an npm install step for a project with package-lock.json', async () => {
+    const { io, writes } = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': DECLARED } });
+    expect(await runCiCliGunshi(['install'], io)).toBe(0);
+    expect(writes[PATH]).toContain('      - run: npm ci --ignore-scripts');
+  });
+
+  it('writes the pnpm steps for a project that declares pnpm 12', async () => {
+    const pkg = JSON.stringify({ packageManager: 'pnpm@12.0.0', devDependencies: { 'svelte-vitals': '^0.1.0' } });
+    const { io, writes } = fakeIO({ files: { '/proj/pnpm-lock.yaml': '', '/proj/package.json': pkg } });
+    expect(await runCiCliGunshi(['install'], io)).toBe(0);
+    expect(writes[PATH]).toContain('      - uses: pnpm/setup@');
+    expect(writes[PATH]).toContain('      - run: pnpm install --frozen-lockfile --ignore-scripts');
+  });
+
+  it('tells the user to add an install step when it could only leave a commented one', async () => {
+    const { io, writes, out } = fakeIO({ files: { '/proj/bun.lock': '', '/proj/package.json': DECLARED } });
+    expect(await runCiCliGunshi(['install'], io)).toBe(0);
+    expect(writes[PATH]).toContain('      # - run: bun install --frozen-lockfile --ignore-scripts');
+    expect(out).toContain(
+      `! Add an install step to ${WORKFLOW_PATH} before the svelte-vitals step: this CLI does not pin a setup step for Bun.`
+    );
+  });
+
+  it('tells the user to add svelte-vitals when package.json does not declare it', async () => {
+    const pnpm = fakeIO({ files: { '/proj/pnpm-lock.yaml': '', '/proj/package.json': '{}' } });
+    expect(await runCiCliGunshi(['install'], pnpm.io)).toBe(0);
+    expect(pnpm.out).toContain(
+      '! svelte-vitals is not in package.json. Add it so CI analyzes with the version you choose: pnpm add -D svelte-vitals'
+    );
+    const npm = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': '{}' } });
+    expect(await runCiCliGunshi(['install'], npm.io)).toBe(0);
+    expect(npm.out.join('\n')).toContain('npm install -D svelte-vitals');
+  });
+
+  it('says nothing extra when the step is live and svelte-vitals is declared', async () => {
+    const { io, out } = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': DECLARED } });
+    expect(await runCiCliGunshi(['install'], io)).toBe(0);
+    expect(notes(out)).toEqual([]);
+  });
+
+  it('shows the same notes on --dry-run and writes nothing', async () => {
+    const files = { '/proj/bun.lock': '', '/proj/package.json': '{}' };
+    const real = fakeIO({ files });
+    await runCiCliGunshi(['install'], real.io);
+    const dry = fakeIO({ files });
+    expect(await runCiCliGunshi(['install', '--dry-run'], dry.io)).toBe(0);
+    expect(dry.writes).toEqual({});
+    expect(notes(dry.out)).toHaveLength(2);
+    expect(notes(dry.out)).toEqual(notes(real.out));
+  });
+
+  it('says nothing extra when the workflow already exists', async () => {
+    const files = { [PATH]: 'name: old\n', '/proj/bun.lock': '', '/proj/package.json': '{}' };
+    for (const args of [['install'], ['install', '--dry-run']]) {
+      const { io, out } = fakeIO({ files });
+      expect(await runCiCliGunshi(args, io)).toBe(0);
+      expect(notes(out)).toEqual([]);
+    }
+  });
+});
+
 describe('runCiCliGunshi upgrade', () => {
   const OLD_SHA = '1'.repeat(40);
-  const oldWorkflow = buildWorkflowYaml({ actionSha: OLD_SHA, actionVersion: '0.1.0' });
+  const oldWorkflow = buildWorkflowYaml({ actionSha: OLD_SHA, actionVersion: '0.1.0', installStep: { kind: 'npm' } });
 
   it('with no workflow file, exits 2 with an install hint', async () => {
     const { io, err } = fakeIO();
@@ -108,7 +173,11 @@ describe('runCiCliGunshi upgrade', () => {
   });
 
   it('when already pinned to the bundled sha, says so without claiming to be up to date, and writes nothing', async () => {
-    const current = buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION });
+    const current = buildWorkflowYaml({
+      actionSha: ACTION_SHA,
+      actionVersion: ACTION_VERSION,
+      installStep: { kind: 'npm' }
+    });
     const { io, writes, out } = fakeIO({ files: { [PATH]: current } });
     expect(await runCiCliGunshi(['upgrade'], io)).toBe(0);
     expect(writes).toEqual({});

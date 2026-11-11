@@ -15,6 +15,7 @@ import {
 import type { WriteStatus } from './codemod-types.js';
 import { planWorkflowWrite, buildWorkflowYaml } from '../ci/workflow.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
+import { planInstallStep } from '../ci/install-step.js';
 import { discoverApps } from '../discover-apps.js';
 import { hasDep, readPkg } from '../pkg-json.js';
 
@@ -195,7 +196,9 @@ function planForCiTarget(io: InstallIO, force: boolean): PlanRow {
   const existing = io.readFile(path);
   const plan = planWorkflowWrite(existing, force);
   const content =
-    plan.status === 'exists' ? undefined : buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION });
+    plan.status === 'exists'
+      ? undefined
+      : buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION, installStep: planInstallStep(io) });
   return { id: target.id, label: target.label, path, status: plan.status, content };
 }
 

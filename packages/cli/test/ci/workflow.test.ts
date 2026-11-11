@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { WORKFLOW_PATH, buildWorkflowYaml, planWorkflowWrite } from '../../src/ci/workflow.js';
+import {
+  PNPM_SETUP_SHA,
+  PNPM_SETUP_VERSION,
+  WORKFLOW_PATH,
+  buildWorkflowYaml,
+  planWorkflowWrite
+} from '../../src/ci/workflow.js';
+import type { InstallStepPlan } from '../../src/ci/install-step.js';
 
 describe('planWorkflowWrite', () => {
   it('reports created when no file exists', () => {
@@ -24,7 +31,7 @@ describe('WORKFLOW_PATH', () => {
 
 describe('buildWorkflowYaml', () => {
   const sha = 'a'.repeat(40);
-  const yaml = buildWorkflowYaml({ actionSha: sha, actionVersion: '1.2.3' });
+  const yaml = buildWorkflowYaml({ actionSha: sha, actionVersion: '1.2.3', installStep: { kind: 'npm' } });
 
   it('checks out full history (fetch-depth: 0) so diff/baseline can resolve the base ref', () => {
     expect(yaml).toContain('fetch-depth: 0');
@@ -60,5 +67,51 @@ describe('buildWorkflowYaml', () => {
 
   it('contains no tab characters (YAML indentation must be spaces)', () => {
     expect(yaml).not.toContain('\t');
+  });
+
+  const manual: InstallStepPlan = {
+    kind: 'manual',
+    command: 'bun install --frozen-lockfile --ignore-scripts',
+    reason: 'x'
+  };
+  const variants = {
+    npm: { plan: { kind: 'npm' }, marker: '      - run: npm ci --ignore-scripts' },
+    pnpm: { plan: { kind: 'pnpm' }, marker: '      - uses: pnpm/setup@' },
+    manual: { plan: manual, marker: '      # - run: bun install' }
+  } satisfies Record<InstallStepPlan['kind'], { plan: InstallStepPlan; marker: string }>;
+  const build = (installStep: InstallStepPlan) =>
+    buildWorkflowYaml({ actionSha: sha, actionVersion: '1.2.3', installStep });
+
+  it('installs with npm ci and no lifecycle scripts', () => {
+    expect(build({ kind: 'npm' })).toContain('      - run: npm ci --ignore-scripts');
+  });
+
+  it('sets up pnpm at the pinned SHA without installing, then installs without lifecycle scripts', () => {
+    const out = build({ kind: 'pnpm' });
+    expect(out).toContain(`      - uses: pnpm/setup@${PNPM_SETUP_SHA} # ${PNPM_SETUP_VERSION}`);
+    expect(out).toContain('          install: false');
+    expect(out).toContain('      - run: pnpm install --frozen-lockfile --ignore-scripts');
+  });
+
+  it('leaves a commented install step when it cannot write a working one', () => {
+    const out = build(manual);
+    expect(out).toContain('      # - run: bun install --frozen-lockfile --ignore-scripts');
+    expect(out.split('\n').some((l) => l.startsWith('      - run:'))).toBe(false);
+  });
+
+  it.each(['npm', 'pnpm', 'manual'] as const)(
+    'puts the %s install step after checkout and before the action',
+    (kind) => {
+      const out = build(variants[kind].plan);
+      const step = out.indexOf(variants[kind].marker);
+      expect(out.indexOf('actions/checkout@')).toBeLessThan(step);
+      expect(step).toBeLessThan(out.indexOf('oekazuma/svelte-vitals-action@'));
+    }
+  );
+
+  it('never marks the install step continue-on-error', () => {
+    for (const { plan } of Object.values(variants)) {
+      expect(build(plan)).not.toContain('continue-on-error');
+    }
   });
 });
