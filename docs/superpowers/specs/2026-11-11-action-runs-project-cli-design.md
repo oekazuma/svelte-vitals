@@ -81,8 +81,8 @@ config inside a worktree with no `node_modules` and reports every finding as new
 
 #### Running it
 
-Two runs of `process.execPath <bin> <path> ...`, with `--diff` and `--baseline` passed through from
-the inputs when set:
+Two runs of `process.execPath <bin> <absolute path> ...`, with `--diff` and `--baseline` passed
+through from the inputs when set:
 
 | Run | Reporter            | stdout                                    | stderr                         | Exit code |
 | --- | ------------------- | ----------------------------------------- | ------------------------------ | --------- |
@@ -92,13 +92,23 @@ the inputs when set:
 - `process.execPath` is the action's own Node 24 runtime, so the project's Node setup does not
   matter. Every supported CLI version runs on it.
 - The reporter is always explicit. Auto-detection under `GITHUB_ACTIONS` is not relied on.
+- The path is passed as an absolute path. The CLI dispatches on its first argument, so a project
+  directory named `docs`, `explain`, `install`, `ci` or `complete` would otherwise run that
+  subcommand.
+- The child does not receive the action's `INPUT_*` variables. The CLI reads none of them, and one
+  of them is the token.
 - Run 1's exit code decides the step: `0` passes, `1` fails with the existing "found blocking
   issues" message after the summary and comment are written, `2` fails with the CLI's stderr as the
   message and writes no summary or comment. Any other exit, or a spawn failure, fails the step with
   what happened.
+- Exit `0` or `1` with an empty stdout is a failed run too. A bin that cannot start makes Node exit
+  `1` and print nothing, and the `md` reporter always prints a report, so empty output means the
+  CLI never ran. The step fails with the bin's path and stderr; the bundled analyzer is not used in
+  its place.
 - Today `analysis.warnings` become warning annotations. Run 1's stderr lines keep that behaviour.
   Run 2 repeats the same lines, so its stderr is not annotated.
-- Run 2 is skipped when run 1 exits `2`.
+- Run 2 is skipped when run 1 fails. When run 2 itself cannot start, is killed or exits `2`, one
+  warning says the annotations are missing; the gate and the published report are unaffected.
 
 Everything after the markdown exists is unchanged: `core.summary`, the sticky comment with its
 marker and fork-PR skip, and the rule that a comment failure only warns.
@@ -114,13 +124,19 @@ used when the installed version has it; it is not part of this design.
 #### Fallback to the bundled analyzer
 
 Used when no installation is found or the installed version is below 0.44.0. The existing
-in-process path runs unchanged, plus one message:
+in-process path runs, plus one message emitted before the analysis starts, so it is there when the
+analysis then fails (a `.ts` config that imports `svelte-vitals`, a rule id the bundled analyzer
+does not know):
 
-| Situation                                              | Level   | Message says                                                                                                   |
-| ------------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------- |
-| `package.json` declares `svelte-vitals`, not installed | warning | analyzed with bundled X.Y.Z; the project declares `<range>`; install dependencies before this step             |
-| Installed, below 0.44.0                                | warning | analyzed with bundled X.Y.Z; installed A.B.C is older than the minimum 0.44.0                                  |
-| Not declared, not installed                            | notice  | analyzed with bundled X.Y.Z; add `svelte-vitals` as a devDependency and install it to choose the version in CI |
+| Situation                                              | Level   | Message says                                                                                               |
+| ------------------------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------- |
+| `package.json` declares `svelte-vitals`, not installed | warning | using the bundled X.Y.Z; the project declares `<range>`; install dependencies before this step             |
+| Installed, below 0.44.0                                | warning | using the bundled X.Y.Z; installed A.B.C is older than the minimum 0.44.0                                  |
+| Not declared, not installed                            | notice  | using the bundled X.Y.Z; add `svelte-vitals` as a devDependency and install it to choose the version in CI |
+
+X.Y.Z is the bundled analyzer's own version, injected at build time from the action's
+`node_modules/svelte-vitals/package.json`. The analyzer cannot report it at run time: inside the
+bundle it reads the action's `package.json`. The bundled path's report names the same version.
 
 `package.json` is the one in the `path` directory. A declaration through a workspace root or a
 catalog that this read misses lands on the notice instead of the warning, which is acceptable for a
@@ -182,7 +198,9 @@ When Phase 2 ships is the maintainer's call. Phase 1 is complete without it.
   message.
 - **Action, CI:** a fixture SvelteKit project with a pinned older `svelte-vitals` installed, run
   through the built `dist/index.js`. The job asserts the report names the fixture's version and not
-  the bundled one. This is the check that fails if resolution silently falls back.
+  the bundled one, and that the annotation run printed annotations. This is the check that fails if
+  resolution silently falls back. A second scenario runs the bundle on a copy of the fixture with no
+  install and asserts the message and the report name the bundled analyzer's version.
 - **This repository:** workflow tests for each package manager's output, the `pnpm/setup` lockstep
   test, and a `ci install` test for the missing-dependency message.
 
