@@ -154,7 +154,9 @@ The action's inputs, outputs (none) and gate semantics do not change, so this is
   - pnpm with a `pnpm-lock.yaml` and a declared pnpm of 11 or newer: `pnpm/setup` at the SHA this
     repository's own workflows use, held in lockstep by the same kind of test as `CHECKOUT_SHA`
     (`test/ci/lockstep.test.ts`). That action installs pnpm 11 and newer only, and needs the
-    version from one of those two fields.
+    version from one of those two fields. The declaration is read as that action reads it: a
+    single-object `devEngines.packageManager` first, then `packageManager`; the array form is not
+    read.
   - Everything else (pnpm 10 or older, pnpm with no declared version, yarn, bun, no lockfile): a
     commented block with the command to enable, and `ci install` prints that the workflow needs it.
     None of these has a setup action this repository already pins and keeps current, and a stale
@@ -170,7 +172,8 @@ The action's inputs, outputs (none) and gate semantics do not change, so this is
   built dependency, and the job holds `pull-requests: write`. How to pass that through `pnpm/setup`
   is for the plan to verify against that action's inputs.
 - **`ci install` checks that the project declares `svelte-vitals`.** When it does not, it prints
-  the command to add it (`pnpm add -D svelte-vitals` and the equivalents). It does not edit
+  the command to add it (`pnpm add -D svelte-vitals` and the equivalents), only when the directory
+  has a `package.json` that is not a workspace root. It does not edit
   `package.json`.
 - **`ci upgrade` stays a pin rewrite.** It does not insert steps into a workflow the user owns. The
   action's own message is what tells an existing workflow to add the install step, and

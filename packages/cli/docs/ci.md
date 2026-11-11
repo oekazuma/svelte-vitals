@@ -31,7 +31,8 @@ It fails the job **after** writing those, so a failing run still leaves the feed
 The install step is there so the action runs the `svelte-vitals` in your `node_modules` (0.44.0
 or newer), the version your lockfile pins. `ci install` writes it for npm (`npm ci
 --ignore-scripts`) and for pnpm 11+ (`pnpm/setup`, then `pnpm install --frozen-lockfile
---ignore-scripts`); for anything else it leaves the step commented out and prints why. It also
+--ignore-scripts`; the pnpm version comes from a single-object `devEngines.packageManager` naming
+pnpm, else `packageManager`, and the array form is not read); for anything else it leaves the step commented out and prints why. It also
 prints the command to add `svelte-vitals` when `package.json` does not declare it and is not a
 workspace root. An installed CLI that cannot produce a report fails the step; there is no fallback.
 

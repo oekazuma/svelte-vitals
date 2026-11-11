@@ -112,6 +112,10 @@ lockfiles are present, `pnpm-lock.yaml` wins, then `yarn.lock`, then Bun's, then
 The generated `npm ci` step runs on the Node.js and npm that the runner image provides; a project
 whose `engines` or `devEngines` reject that version needs its own Node setup step before it.
 
+The pnpm version is read the way the setup action reads it: `devEngines.packageManager`, as a
+single object with `name: "pnpm"`, decides when present, otherwise `packageManager`. The array form
+of `devEngines.packageManager` is not read.
+
 A commented-out step is one `ci install` cannot write so that it works on the first run: this CLI
 pins no setup step for Yarn or Bun, the pinned `pnpm/setup` needs pnpm 11 or newer declared in
 `package.json`, and without a lockfile the package manager is unknown. `ci install` then prints a

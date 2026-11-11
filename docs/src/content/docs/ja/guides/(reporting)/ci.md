@@ -74,6 +74,8 @@ Action は `node_modules/svelte-vitals` ディレクトリを必要とします�
 
 生成される `npm ci` ステップは、ランナーイメージに入っている Node.js と npm で実行されます。`engines` や `devEngines` がそのバージョンを受け付けないプロジェクトでは、その前に独自の Node のセットアップステップが必要です。
 
+pnpm のバージョンは、セットアップ Action と同じ方法で読み取ります。`name: "pnpm"` を持つ単一のオブジェクトとして `devEngines.packageManager` があればそれを使い、なければ `packageManager` を使います。配列形式の `devEngines.packageManager` は読み取りません。
+
 コメントアウトされるのは、`ci install` が初回の実行から動くステップを書けない場合です。この CLI は Yarn と Bun のセットアップステップをピン留めしていません。ピン留めした `pnpm/setup` は `package.json` で pnpm 11 以降が宣言されている必要があります。ロックファイルがなければパッケージマネージャーを判別できません。このとき `ci install` は `! Add an install step` で始まる行に理由を添えて出力します。その位置でパッケージマネージャーをセットアップし、インストールコマンドのコメントを外してください。それまでは、Action は同梱のアナライザーを使います。
 
 そのディレクトリの `package.json` が `svelte-vitals` を宣言しておらず、ワークスペースのルートでもない場合（`workspaces` フィールドがなく、隣に `pnpm-workspace.yaml` もない場合）、`ci install` はパッケージマネージャーに合わせて追加用のコマンド（`pnpm add -D svelte-vitals` など）も出力します。ワークスペースのルートでは、アプリ自身の `package.json` で宣言してください。追加しないと、CI は自分で選んだバージョンで解析しません。Action が実行するのは、ほかのパッケージの peer dependency などとしてたまたまインストールされた `svelte-vitals` か、それもなければ同梱のアナライザーです。

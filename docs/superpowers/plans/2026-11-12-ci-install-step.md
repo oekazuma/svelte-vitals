@@ -10,6 +10,17 @@
 
 **Spec:** `docs/superpowers/specs/2026-11-11-action-runs-project-cli-design.md`, section "Phase 1: the scaffold and docs (`svelte-vitals`)".
 
+## Settled during execution
+
+The spec is the authority. Execution and review changed these points, and the task text below still shows the original wording:
+
+- **Yarn 1 detection.** A `yarn.lock` is Yarn 1 when it contains `# yarn lockfile v1`; a real one has it on its second line.
+- **The pnpm declaration.** It is read as the pinned setup action reads it: a single-object `devEngines.packageManager` with `name: "pnpm"` and a non-empty version first, then `packageManager`. The array form of `devEngines.packageManager` is not read.
+- **The add-dependency note.** It is printed only when the directory has a `package.json` that is not a workspace root (no `workspaces` field, no `pnpm-workspace.yaml`) and does not declare `svelte-vitals`.
+- **The commented block's wording.** Its last comment line ends "and says so in its log.", since the action's message can be a notice rather than a warning.
+- **The no-lockfile reason.** It tells the user to commit a lockfile and re-run with `--force`: `no lockfile was found, so the package manager is unknown (commit your lockfile and re-run with --force to generate the step)`.
+- **The guide test.** `packages/cli/test/ci/guide.test.ts` asserts that the hand-written YAML blocks in both CI guides equal `buildWorkflowYaml`'s output for npm and pnpm.
+
 ## Global Constraints
 
 - **The generator never emits a step it can know will fail.** A live step only for: npm with a `package-lock.json`; pnpm with a `pnpm-lock.yaml` and a declared pnpm of 11 or newer. Everything else gets a commented block.
@@ -79,7 +90,7 @@
   - pnpm undeclared or unparseable: `the pinned pnpm setup action needs the pnpm version from "packageManager" or "devEngines.packageManager" in package.json`
   - yarn: `this CLI does not pin a setup step for Yarn`
   - bun: `this CLI does not pin a setup step for Bun`
-  - no lockfile: `no lockfile was found, so the package manager is unknown (commit your lockfile and re-run with --force to generate the step)`
+  - no lockfile: `no lockfile was found, so the package manager is unknown`
 
 - [ ] **Step 1: Write the failing tests** in `packages/cli/test/ci/install-step.test.ts`, driving `planInstallStep` with an in-memory `readFile` (a `Record<string, string>` keyed by absolute path under a fake `cwd`). One case per table row, plus:
 
@@ -171,7 +182,7 @@
   ```yaml
   # The action analyzes with the svelte-vitals installed in this project. Set up your package
   # manager and install dependencies here; without an install it uses its bundled analyzer
-  # and says so in its log.
+  # and says so in a warning.
   # - run: <command>
   ```
 
