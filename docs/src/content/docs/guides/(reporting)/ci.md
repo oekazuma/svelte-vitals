@@ -240,8 +240,10 @@ The pin `ci upgrade` writes comes from the CLI build itself, not a network looku
   pre-migration shape such as `# action-vX.Y.Z` or `# @svelte-vitals/action@X.Y.Z`). svelte-vitals
   rewrites them and reports the old version, read from the line's comment in any recognized
   format, or the old SHA's first 7 characters when there was no recognized version comment at all.
-- Already up to date. Every reference already matches the bundled pin **and** already
-  carries the canonical `# vX.Y.Z` comment; nothing is written.
+- Already on the bundled pin. Every reference already matches the bundled pin **and** already
+  carries the canonical `# vX.Y.Z` comment; nothing is written. This compares against the pin
+  this CLI bundles, so a newer action release can exist: it reaches `ci upgrade` with a later
+  `svelte-vitals` release.
 - No workflow found, or no action reference found. `ci upgrade` exits `2` with an error; when the
   workflow is missing, the error tells you to run `ci install` first. It never creates a workflow from scratch.
 

@@ -107,12 +107,15 @@ describe('runCiCliGunshi upgrade', () => {
     expect(err.join('\n')).toContain('no @svelte-vitals/action reference found');
   });
 
-  it('when already pinned to the current sha, reports up to date and writes nothing', async () => {
+  it('when already pinned to the bundled sha, says so without claiming to be up to date, and writes nothing', async () => {
     const current = buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION });
     const { io, writes, out } = fakeIO({ files: { [PATH]: current } });
     expect(await runCiCliGunshi(['upgrade'], io)).toBe(0);
     expect(writes).toEqual({});
-    expect(out.join('\n')).toContain('already up to date');
+    expect(out.join('\n')).toContain(
+      `already on the pin bundled with this CLI (@svelte-vitals/action@${ACTION_VERSION})`
+    );
+    expect(out.join('\n')).not.toContain('up to date');
   });
 
   it('upgrades a stale pin, rewriting only the action line', async () => {
