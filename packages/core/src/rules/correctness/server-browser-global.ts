@@ -9,7 +9,7 @@ const ID = 'correctness/server-browser-global';
 const DOCS_URL = docsUrlFor(ID);
 const LABEL = 'Server-safe module code';
 const RECOMMENDATION =
-  'Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).';
+  'Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment ($app/env in SvelteKit 3) or a typeof check.';
 
 const moduleMessage = (name: string) =>
   `${name} is accessed at module scope — it does not exist on the server, so importing this file crashes SSR with "${name} is not defined"`;

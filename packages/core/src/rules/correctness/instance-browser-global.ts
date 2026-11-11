@@ -7,7 +7,7 @@ export const correctnessInstanceBrowserGlobal = componentRule({
   category: 'correctness',
   label: 'Server-safe component init',
   recommendation:
-    'Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).',
+    'Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment ($app/env in SvelteKit 3) or a typeof check.',
   rationale:
     'A component instance script runs on the server on every SSR render, where window/document/localStorage do not exist. Warning, not critical: a component rendered only behind a parent {#if browser} (or a client-only dynamic import) is a legitimate pattern that static analysis cannot prove cross-file.',
   applies: (c, _o, ctx) =>
