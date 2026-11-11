@@ -69,6 +69,9 @@ describe('runCiCliGunshi', () => {
     expect(Object.keys(writes)).toEqual([PATH]);
     expect(writes[PATH]).toContain('name: svelte-vitals');
     expect(out.join('\n')).toContain('Done.');
+    expect(out.filter((l) => l.startsWith('!'))).toEqual([
+      `! Add an install step to ${WORKFLOW_PATH} before the svelte-vitals step: no lockfile was found, so the package manager is unknown (commit your lockfile and re-run with --force to generate the step).`
+    ]);
   });
 
   it('an existing file is left alone (status exists) without --force', async () => {
@@ -127,6 +130,16 @@ describe('runCiCliGunshi install step', () => {
     const npm = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': '{}' } });
     expect(await runCiCliGunshi(['install'], npm.io)).toBe(0);
     expect(npm.out.join('\n')).toContain('npm install -D svelte-vitals');
+  });
+
+  it.each([
+    ['a pnpm-workspace.yaml', { '/proj/pnpm-workspace.yaml': 'packages:\n  - apps/*\n', '/proj/package.json': '{}' }],
+    ['a workspaces field', { '/proj/package.json': JSON.stringify({ workspaces: ['apps/*'] }) }],
+    ['no package.json', {}]
+  ])('does not tell the user to add svelte-vitals at a root with %s', async (_, files) => {
+    const { io, out } = fakeIO({ files: { '/proj/pnpm-lock.yaml': '', ...files } });
+    expect(await runCiCliGunshi(['install'], io)).toBe(0);
+    expect(out.join('\n')).not.toContain('svelte-vitals is not in package.json');
   });
 
   it('says nothing extra when the step is live and svelte-vitals is declared', async () => {

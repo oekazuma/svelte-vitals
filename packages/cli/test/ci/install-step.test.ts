@@ -83,7 +83,8 @@ describe('planInstallStep', () => {
     expect(planInstallStep(io({ '/proj/package.json': '{}' }))).toEqual({
       kind: 'manual',
       command: 'npm ci --ignore-scripts',
-      reason: 'no lockfile was found, so the package manager is unknown'
+      reason:
+        'no lockfile was found, so the package manager is unknown (commit your lockfile and re-run with --force to generate the step)'
     });
   });
 
@@ -106,11 +107,28 @@ describe('planInstallStep', () => {
         { name: 'npm', version: '11' },
         { name: 'pnpm', version: '12.1.0' }
       ],
-      'pnpm'
+      'manual'
     ],
     [{ name: 'npm', version: '11.0.0' }, 'manual']
   ])('reads devEngines.packageManager %j as %s', (packageManager, kind) => {
     expect(planInstallStep(pnpmProject({ devEngines: { packageManager } })).kind).toBe(kind);
+  });
+
+  it.each([
+    [{ packageManager: 'pnpm@12.0.0', devEngines: { packageManager: [{ name: 'pnpm', version: '12.1.0' }] } }, 'pnpm'],
+    [{ packageManager: 'yarn@4.5.0', devEngines: { packageManager: { name: 'pnpm', version: '12.1.0' } } }, 'pnpm'],
+    [{ packageManager: 'pnpm@12.0.0', devEngines: { packageManager: { name: 'pnpm', version: '' } } }, 'pnpm']
+  ])('reads %j as %s, in the order the pinned setup action reads them', (pkg, kind) => {
+    expect(planInstallStep(pnpmProject(pkg)).kind).toBe(kind);
+  });
+
+  it('lets devEngines.packageManager decide over packageManager', () => {
+    const pkg = { packageManager: 'pnpm@12.0.0', devEngines: { packageManager: { name: 'pnpm', version: '^10' } } };
+    expect(planInstallStep(pnpmProject(pkg))).toEqual({
+      kind: 'manual',
+      command: PNPM_COMMAND,
+      reason: 'the pinned pnpm setup action installs pnpm 11 and newer, and this project declares pnpm 10'
+    });
   });
 
   it.each([['pnpm'], [11], [{ name: 'pnpm', version: 11 }]])(

@@ -17,16 +17,20 @@ const PNPM_COMMAND = 'pnpm install --frozen-lockfile --ignore-scripts';
 
 /** The major of the pnpm the project declares, or undefined when it declares none we can read. */
 function declaredPnpmMajor(pkg: PackageManagerFields | undefined): number | undefined {
+  // The order and the shapes accepted mirror how the pinned pnpm/setup picks its version.
+  const engine = pkg?.devEngines?.packageManager as { name?: unknown; version?: unknown } | undefined;
   let version: string | undefined;
-  if (typeof pkg?.packageManager === 'string' && pkg.packageManager.startsWith('pnpm@')) {
+  if (
+    typeof engine === 'object' &&
+    engine !== null &&
+    !Array.isArray(engine) &&
+    engine.name === 'pnpm' &&
+    typeof engine.version === 'string' &&
+    engine.version !== ''
+  ) {
+    version = engine.version;
+  } else if (typeof pkg?.packageManager === 'string' && pkg.packageManager.startsWith('pnpm@')) {
     version = pkg.packageManager.slice('pnpm@'.length);
-  } else {
-    const declared = pkg?.devEngines?.packageManager;
-    const pnpm = (Array.isArray(declared) ? declared : [declared]).find(
-      (e): e is { version: string } =>
-        typeof e === 'object' && e !== null && e.name === 'pnpm' && typeof e.version === 'string'
-    );
-    version = pnpm?.version;
   }
   const digits = version?.match(/\d+/)?.[0];
   return digits === undefined ? undefined : Number(digits);
@@ -56,7 +60,7 @@ export function planInstallStep(io: { cwd: string; readFile(path: string): strin
       };
     }
     case 'yarn': {
-      // Yarn 1 rejects Berry's --immutable, and Berry ignores Yarn 1's --frozen-lockfile.
+      // Yarn 1 has no --immutable, and Yarn 2+ has no --ignore-scripts on install (--mode=skip-build skips builds).
       const classic = io.readFile(join(io.cwd, 'yarn.lock'))?.includes('# yarn lockfile v1');
       return {
         kind: 'manual',
@@ -76,7 +80,8 @@ export function planInstallStep(io: { cwd: string; readFile(path: string): strin
       return {
         kind: 'manual',
         command: 'npm ci --ignore-scripts',
-        reason: 'no lockfile was found, so the package manager is unknown'
+        reason:
+          'no lockfile was found, so the package manager is unknown (commit your lockfile and re-run with --force to generate the step)'
       };
   }
 }

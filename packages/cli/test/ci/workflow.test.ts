@@ -99,6 +99,17 @@ describe('buildWorkflowYaml', () => {
     expect(out.split('\n').some((l) => l.startsWith('      - run:'))).toBe(false);
   });
 
+  it('says the action reports the bundled fallback in its log', () => {
+    expect(build(manual)).toContain(
+      [
+        '      # The action analyzes with the svelte-vitals installed in this project. Set up your package',
+        '      # manager and install dependencies here; without an install it uses its bundled analyzer',
+        '      # and says so in its log.',
+        '      # - run: bun install --frozen-lockfile --ignore-scripts'
+      ].join('\n')
+    );
+  });
+
   it.each(['npm', 'pnpm', 'manual'] as const)(
     'puts the %s install step after checkout and before the action',
     (kind) => {

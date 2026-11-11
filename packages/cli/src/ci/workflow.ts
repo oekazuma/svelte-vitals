@@ -30,16 +30,10 @@ export function planWorkflowWrite(existing: string | undefined, force: boolean):
 }
 
 /**
- * Build the short GitHub Actions workflow that calls the `svelte-vitals-action` GitHub
- * Action (issue #154 — replaces the old ~60-line inline template; see
- * plans/020-reusable-github-action.md). The action itself owns annotations, the job
- * summary, the sticky PR comment, and the gate — `ci install` only scaffolds the call,
- * pinned to a commit SHA with a same-line version comment. `actions/checkout` is pinned
- * the same way, matching this repo's own `actions/checkout@<sha> # vX.Y.Z` convention
- * (.github/workflows/ci.yml etc.) rather than a floating tag. `svelte-vitals-action` lives
- * in its own dedicated repository (not a subdirectory of this monorepo), so its tags are
- * plain `vX.Y.Z` — Renovate's github-actions manager parses that natively, no special
- * comment format needed.
+ * The workflow calls `svelte-vitals-action`, which owns annotations, the job summary, the sticky
+ * PR comment and the gate. Every action is pinned to a commit SHA with a same-line `# vX.Y.Z`
+ * comment, the convention this repo's own workflows follow; the action's repository tags plain
+ * `vX.Y.Z`, so Renovate's github-actions manager reads the pin with no extra configuration.
  *
  * The action analyzes with the svelte-vitals in the project's node_modules, so an install step
  * sits between checkout and the action call. It is live only for the shapes known to work on a
@@ -97,7 +91,7 @@ function installStepLines(plan: InstallStepPlan): string[] {
       return [
         '      # The action analyzes with the svelte-vitals installed in this project. Set up your package',
         '      # manager and install dependencies here; without an install it uses its bundled analyzer',
-        '      # and says so in a warning.',
+        '      # and says so in its log.',
         `      # - run: ${plan.command}`
       ];
   }

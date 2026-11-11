@@ -9,7 +9,7 @@ import { upgradeActionPin } from '../ci/upgrade.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
 import { planInstallStep, type InstallStepPlan } from '../ci/install-step.js';
 import { detectPackageManager } from '../install/package-manager.js';
-import { hasSvelteVitalsDependency } from '../install/config-file-format.js';
+import { hasDep, readPkg } from '../pkg-json.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
 import { localizedOptionsSection, type Locale } from './locale.js';
 
@@ -93,7 +93,11 @@ function logInstallNotes(io: InstallIO, installStep: InstallStepPlan): void {
   if (installStep.kind === 'manual') {
     io.log(`! Add an install step to ${WORKFLOW_PATH} before the svelte-vitals step: ${installStep.reason}.`);
   }
-  if (!hasSvelteVitalsDependency((p) => io.readFile(p), io.cwd)) {
+  const pkg = readPkg((p) => io.readFile(p), io.cwd) as { workspaces?: unknown } | undefined;
+  // At a workspace root the app's own package.json declares svelte-vitals, and adding it here would
+  // need a workspace flag (or, with no package.json, would create one).
+  const workspaceRoot = pkg?.workspaces !== undefined || io.readFile(join(io.cwd, 'pnpm-workspace.yaml')) !== undefined;
+  if (pkg && !workspaceRoot && !hasDep(pkg, 'svelte-vitals')) {
     const pm = detectPackageManager(io);
     io.log(
       `! svelte-vitals is not in package.json. Add it so CI analyzes with the version you choose: ${pm} ${pm === 'npm' ? 'install' : 'add'} -D svelte-vitals`
