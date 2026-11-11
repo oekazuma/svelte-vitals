@@ -98,8 +98,13 @@ the `$lib` entry it prepends. Kit 2.62+ apps that configure through the plugin s
 `conzani/cons-system` in the corpus declares `^2.63.0` and imports `$lib` from 105 files. Today
 those apps reach `$lib` through the `aliases ?? DEFAULT_KIT_ALIASES` fallbacks in
 `withPackageImports` and `workspace-packages.ts`, and a returned list without `$lib` would skip
-those fallbacks. In SvelteKit 3 the leftover `$lib` entry matches nothing, so it costs nothing.
-No version check is needed.
+those fallbacks.
+
+SvelteKit 3 has no built-in `$lib` and no `files.lib`. An app that keeps `$lib` declares it in
+`alias`, and the migration error tells it to. So when the plugin options declare a `$lib` alias and no
+`files.lib`, that entry replaces the prepended default: left behind it, an app pointing `$lib` away
+from `src/lib` gets a false `seo/title-presence`. SvelteKit 2 does prepend its own `$lib`, but an app
+there has no reason to declare one that never fires. No version check is needed.
 
 The corpus cannot exercise the new reading: of its apps, only two pass plugin options and neither
 sets `alias`. The gate guards the regression side (cons-system). The example app is the only
@@ -127,13 +132,18 @@ SvelteKit 3 marks more modules server-only, and therefore as legitimate singleto
 - any `server` directory outside `src/routes` and `static`;
 - any file whose name has a `server` segment (`db.server.ts`, `server.ts`).
 
-The default is to apply that set regardless of the project's SvelteKit major. Measure it on the
-corpus before deciding:
+The set applies regardless of the project's SvelteKit major, although SvelteKit 2 itself treats only
+`$lib/server` and `*.server.*` as server-only. The corpus could not decide this. No finding moves
+on it, but no pinned app writes into these locations from a handler except through a database
+client, so the measurement says nothing about precision. The owner chose the version-agnostic form
+on the direction of the trade: on a SvelteKit 2 project it removes possible false positives on an
+unrecognised client in a `server` directory, and adds possible misses on an unrecognised store
+there.
 
-- If no `tp` finding disappears, ship it version-agnostic.
-- If any does, gate the broader set on a declared SvelteKit major of 3 or more. That needs the
-  major as a `Project` fact on both the CLI and the Vite side. `checkVersionFloor` already reads
-  the declared range.
+If a SvelteKit 2 miss is reported, gate the broader set on a declared SvelteKit major of 3 or more:
+
+- That needs the major as a `Project` fact on both the CLI and the Vite side. `checkVersionFloor`
+  already reads the declared range.
   - Its `leadingMajor` returns undefined for `catalog:`, `workspace:` or a missing dependency.
     Treat an undefined major as 2, which keeps today's behaviour. Following pnpm catalogs would
     add file reads that `io-budget.test.ts` counts, and that is out of scope here.
