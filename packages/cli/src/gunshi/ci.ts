@@ -7,6 +7,9 @@ import { realIO } from '../install/cli.js';
 import { WORKFLOW_PATH, buildWorkflowYaml, planWorkflowWrite } from '../ci/workflow.js';
 import { upgradeActionPin } from '../ci/upgrade.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
+import { installStepNote, planInstallStep, type InstallStepPlan } from '../ci/install-step.js';
+import { detectPackageManager } from '../install/package-manager.js';
+import { hasDep, readPkg, type PkgJson } from '../pkg-json.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
 import { localizedOptionsSection, type Locale } from './locale.js';
 
@@ -86,6 +89,23 @@ pins, like actions/checkout) untouched. To pick up the latest pin, run
 ${optionsSection}`;
 }
 
+function installNotes(io: InstallIO, installStep: InstallStepPlan): string[] {
+  const notes: string[] = [];
+  const stepNote = installStepNote(installStep);
+  if (stepNote) notes.push(stepNote);
+  const pkg = readPkg((p) => io.readFile(p), io.cwd) as (PkgJson & { workspaces?: unknown }) | undefined;
+  // At a workspace root the app's own package.json declares svelte-vitals, and adding it here would
+  // need a workspace flag (or, with no package.json, would create one).
+  const workspaceRoot = pkg?.workspaces !== undefined || io.readFile(join(io.cwd, 'pnpm-workspace.yaml')) !== undefined;
+  if (pkg && !workspaceRoot && !hasDep(pkg, 'svelte-vitals')) {
+    const pm = detectPackageManager(io);
+    notes.push(
+      `! svelte-vitals is not in package.json. Add it so CI analyzes with the version you choose: ${pm} ${pm === 'npm' ? 'install' : 'add'} -D svelte-vitals`
+    );
+  }
+  return notes;
+}
+
 /** `ci install`'s own gunshi dispatch: guard/strip on `args.slice(1)`, then bone `cli()`. */
 async function runCiInstall(
   args: string[],
@@ -117,20 +137,24 @@ async function runCiInstall(
       const existing = io.readFile(path);
       const plan = planWorkflowWrite(existing, Boolean(ctx.values.force));
 
+      const installStep = plan.status === 'exists' ? undefined : planInstallStep(io);
+      const notes = installStep ? installNotes(io, installStep) : [];
+
       io.log('Plan:');
       io.log(`  ${WORKFLOW_PATH}  [${plan.status}]`);
 
       if (ctx.values['dry-run']) {
+        for (const note of notes) io.log(note);
         io.log('Dry run — no files written.');
         exitCode = 0;
         return;
       }
 
-      if (plan.status === 'exists') {
+      if (!installStep) {
         io.log(`= already installed (${WORKFLOW_PATH}) — use --force to regenerate.`);
       } else {
         try {
-          io.writeFile(path, buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION }));
+          io.writeFile(path, buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION, installStep }));
           io.log(`✓ ${plan.status} ${WORKFLOW_PATH}`);
         } catch (err) {
           io.errorLog(
@@ -139,6 +163,7 @@ async function runCiInstall(
           exitCode = 2;
           return;
         }
+        for (const note of notes) io.log(note);
       }
 
       io.log('Done. Commit the workflow file and open a PR to see it in action.');

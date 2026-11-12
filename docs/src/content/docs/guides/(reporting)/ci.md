@@ -15,8 +15,8 @@ sticky PR comment, with no YAML to hand-write.
 npx svelte-vitals@latest ci install
 ```
 
-This writes `.github/workflows/svelte-vitals.yml`. Commit it and open a pull request to see it
-run.
+This writes `.github/workflows/svelte-vitals.yml`, with an install step for your package manager
+(see [The install step](#the-install-step)). Commit it and open a pull request to see it run.
 
 Setting this up alongside the Vite integration or Cursor rules? `ci-workflow` is also
 a selectable target in [`svelte-vitals install`](/guides/install#--client-ids). Pick
@@ -29,8 +29,8 @@ npx svelte-vitals@latest ci install --force     # regenerate an existing workflo
 ```
 
 Re-running `ci install` without `--force` is a no-op if the file already exists, so it is safe to run
-again after upgrading svelte-vitals. If you already have a workflow from an older
-svelte-vitals version, re-run with `--force` to migrate to the current, shorter template.
+again after upgrading svelte-vitals. `--force` replaces an existing file with the current
+template, discarding any edits you made to it.
 
 ## Adopting on an existing project
 
@@ -50,18 +50,111 @@ On every `pull_request` event, the generated workflow:
 
 1. Checks out the repo with full history (`fetch-depth: 0`) so the Action can resolve the PR's
    base ref for `diff`/`baseline`.
-2. Calls `@svelte-vitals/action`, which runs svelte-vitals **in-process** (no `npx`, no Node setup
-   step, no separate scan per output) scoped to the PR: `diff: origin/<base>` limits findings to
-   files the PR touched, and [`baseline: origin/<base>`](/guides/cli) further
-   narrows to findings **newly introduced** by the PR. Pre-existing issues in touched files
-   don't block it.
-3. From that single analysis, the action produces all three outputs together:
+2. Installs the project's dependencies with lifecycle scripts off, so the action finds the
+   `svelte-vitals` your lockfile pins (see [Which svelte-vitals runs](#which-svelte-vitals-runs)).
+   For some setups this step is left commented out for you to complete; see
+   [The install step](#the-install-step).
+3. Calls `@svelte-vitals/action`, which runs svelte-vitals scoped to the PR:
+   `diff: origin/<base>` limits findings to files the PR touched, and
+   [`baseline: origin/<base>`](/guides/cli) further narrows to findings **newly introduced** by
+   the PR. Pre-existing issues in touched files don't block it.
+4. The action produces all three outputs:
    - Inline annotations on the diff.
    - A job summary.
    - A sticky PR comment. A hidden `<!-- svelte-vitals-report -->` marker lets subsequent pushes
      update the same comment instead of piling up new ones.
-4. Fails the job if the scan found any gating findings, after the summary and comment have already
+5. Fails the job if the scan found any gating findings, after the summary and comment have already
    been written, so you always get the PR comment, even on a failing run.
+
+## Which svelte-vitals runs
+
+The action looks for `node_modules/svelte-vitals` in the `path` directory and each parent
+directory up to the workspace root, and uses the first one it finds.
+
+- **Installed, version 0.44.0 or later.** The action runs that installation's CLI, so CI analyzes
+  with the version in your lockfile, and its findings, report and pass/fail match a local
+  `svelte-vitals` run. The scan runs twice: once with `--reporter md` for the job summary and the
+  PR comment, whose exit code decides whether the step fails, and once with `--reporter github`
+  for the annotations. Lines the CLI writes to stderr appear as warning annotations. If only the
+  annotation run fails, a warning says so, and the step's result still follows the first run.
+- **Installed, but the CLI cannot produce a report.** When it fails to start, exits with an error
+  such as an invalid config, or prints nothing, the step fails with the CLI's own error. The
+  action does not fall back to its bundled analyzer.
+- **No usable installation.** The action analyzes with its bundled analyzer. Before the analysis
+  starts, it prints one message beginning `svelte-vitals: using the bundled svelte-vitals <version>.`,
+  where `<version>` is the bundled analyzer's version, the same one the report names:
+
+| Situation                                                                         | Level   | To clear it                                                                        |
+| --------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| The installed `svelte-vitals` is older than 0.44.0                                | Warning | Update `svelte-vitals` in the project to 0.44.0 or later                           |
+| `package.json` at `path` declares `svelte-vitals`, but no installation was found  | Warning | Install dependencies in a step before the action                                   |
+| `package.json` at `path` does not declare `svelte-vitals`, and none was installed | Notice  | Add `svelte-vitals` as a devDependency, and install dependencies before the action |
+
+The action needs a `node_modules/svelte-vitals` directory, so under Yarn Plug'n'Play it uses its
+bundled analyzer even after an install. Setting `nodeLinker: node-modules` in `.yarnrc.yml` makes
+the installed CLI available to it.
+
+## The install step
+
+`ci install` picks the install step from the lockfile in the directory it runs in. When several
+lockfiles are present, `pnpm-lock.yaml` wins, then `yarn.lock`, then Bun's, then
+`package-lock.json`.
+
+| Project                                                                                                    | Install step                                                                                                                             |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `package-lock.json`                                                                                        | `npm ci --ignore-scripts`                                                                                                                |
+| `pnpm-lock.yaml`, and pnpm 11 or newer in `package.json`'s `packageManager` or `devEngines.packageManager` | `pnpm/setup`, pinned by commit SHA, then `pnpm install --frozen-lockfile --ignore-scripts`                                               |
+| `pnpm-lock.yaml`, with an older pnpm or no pnpm version declared                                           | Commented out: `pnpm install --frozen-lockfile --ignore-scripts`                                                                         |
+| `yarn.lock`                                                                                                | Commented out: `yarn install --frozen-lockfile --ignore-scripts` for Yarn 1, `yarn install --immutable --mode=skip-build` for later Yarn |
+| `bun.lock` or `bun.lockb`                                                                                  | Commented out: `bun install --frozen-lockfile --ignore-scripts`                                                                          |
+| No lockfile                                                                                                | Commented out: `npm ci --ignore-scripts`. Commit your lockfile and re-run `ci install --force` to generate the step                      |
+
+The generated `npm ci` step runs on the Node.js and npm that the runner image provides; a project
+whose `engines` or `devEngines` reject that version needs its own Node setup step before it.
+
+The pnpm version is read the way the setup action reads it: `devEngines.packageManager`, as a
+single object with `name: "pnpm"`, decides when present, otherwise `packageManager`. The array form
+of `devEngines.packageManager` is not read.
+
+A commented-out step is one `ci install` cannot write so that it works on the first run: this CLI
+pins no setup step for Yarn or Bun, the pinned `pnpm/setup` needs pnpm 11 or newer declared in
+`package.json`, and without a lockfile the package manager is unknown. `ci install` (and
+`install --client ci-workflow`) then prints a line beginning `! Add an install step` that gives the
+reason. Set up your package manager in that
+place and uncomment the install command; until you do, the action uses its bundled analyzer.
+
+When the directory has a `package.json` that does not declare `svelte-vitals` and is not a
+workspace root (it has no `workspaces` field, and there is no `pnpm-workspace.yaml` beside it),
+`ci install` also prints the command that adds it for your package manager, such as
+`pnpm add -D svelte-vitals`.
+
+At a workspace root, `ci install` does not print that command. Declare `svelte-vitals` in the app's
+own `package.json`, and set the action's `path` input to the app's directory, because the action
+analyzes that directory and looks for the installed `svelte-vitals` from there upward:
+
+```yaml
+- uses: oekazuma/svelte-vitals-action@<sha> # v<version>
+  with:
+    path: apps/web
+```
+
+Unless `svelte-vitals` is declared and installed where the action looks, CI does not analyze with a
+version you chose: the action runs whatever `svelte-vitals` the install happens to
+bring in, such as a peer dependency of another package, or else its bundled analyzer.
+
+Lifecycle scripts stay off: the analysis needs none, and they would run dependency code in a job
+granted `pull-requests: write`.
+
+The install step fails the job like any other step, before the action runs, for example when the
+lockfile is out of step with `package.json` or the registry cannot be reached. For a private
+registry, give the install step its credentials as an `env:` entry, filled from a repository
+secret, that your project's `.npmrc` reads. Lifecycle scripts are off and no other step in the job
+installs packages, so the install step is the only one that needs them.
+
+If your workflow has no install step before the action step, the action analyzes with its bundled
+analyzer and prints the message above. Add the step between checkout and the action, as in
+[Writing it by hand](#writing-it-by-hand), or regenerate the file with `ci install --force`, which
+discards your edits to it. `ci upgrade` changes only the action pin and does not add the step.
 
 ## What the comment looks like
 
@@ -109,10 +202,11 @@ A few things worth knowing before you see the real thing:
 | `github-token` | Token used to read/post/update the sticky PR comment                 | `${{ github.token }}` |
 
 There's no `reporter` input. The action always produces annotations, the job summary, and the
-sticky comment together in one pass; that combination isn't something you configure separately.
+sticky comment together; that combination isn't something you configure separately.
 
-The inputs above are **not** the whole configuration. The action runs the same analysis
-as the CLI, so it automatically picks up your committed
+The inputs above are **not** the whole configuration. Whichever `svelte-vitals` runs, installed
+or bundled, reads your project the way a local CLI run does, so it automatically picks up your
+committed
 [`svelte-vitals.config.*`](/guides/configuration) and
 [`svelte-vitals-suppressions.json`](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions).
 See the next section.
@@ -170,7 +264,8 @@ which can never fail the job. Inline annotations and the job summary still work 
 
 ## Writing it by hand
 
-If you'd rather not run the installer, this is exactly what `ci install` generates:
+If you'd rather not run the installer, this is exactly what `ci install` generates for an npm
+project:
 
 ```yaml
 # Generated by svelte-vitals (`ci install` or `install --client ci-workflow`).
@@ -192,11 +287,47 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - run: npm ci --ignore-scripts
       - uses: oekazuma/svelte-vitals-action@<sha> # v<version>
         with:
           diff: origin/${{ github.base_ref }}
           baseline: origin/${{ github.base_ref }}
 ```
+
+For a pnpm project that declares pnpm 11 or newer, it generates:
+
+```yaml
+# Generated by svelte-vitals (`ci install` or `install --client ci-workflow`).
+# Re-run with --force to regenerate.
+name: svelte-vitals
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  svelte-vitals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
+        with:
+          install: false
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - uses: oekazuma/svelte-vitals-action@<sha> # v<version>
+        with:
+          diff: origin/${{ github.base_ref }}
+          baseline: origin/${{ github.base_ref }}
+```
+
+With another package manager, set it up and install dependencies with lifecycle scripts off in the
+same place, between checkout and the action.
 
 `ci install` fills in `<sha>`/`<version>` with the pin bundled into the `svelte-vitals` CLI
 you're running, resolved from the latest

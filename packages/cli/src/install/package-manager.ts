@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import { hasDep, readPkg } from '../pkg-json.js';
 
-type PackageManager = 'pnpm' | 'yarn' | 'bun' | 'npm';
+export type PackageManager = 'pnpm' | 'yarn' | 'bun' | 'npm';
 
 interface ReadCwd {
   cwd: string;
