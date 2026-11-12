@@ -521,6 +521,41 @@ describe('runInstall — ci-workflow target', () => {
     expect(seenDefaults).toContain('ci-workflow');
   });
 
+  const WF = '/proj/.github/workflows/svelte-vitals.yml';
+  const STEP_NOTE = '! Add an install step to .github/workflows/svelte-vitals.yml before the svelte-vitals step:';
+
+  it.each([
+    ['Bun', { '/proj/bun.lock': '' }, 'this CLI does not pin a setup step for Bun'],
+    ['Yarn', { '/proj/yarn.lock': '' }, 'this CLI does not pin a setup step for Yarn']
+  ])('ci-workflow: tells a %s project to add an install step after writing', async (_, files, reason) => {
+    const { io, out } = fakeIO({ files });
+    expect(await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts)).toBe(0);
+    const written = out.indexOf(`✓ GitHub Actions CI: created ${WF}`);
+    expect(written).toBeGreaterThanOrEqual(0);
+    expect(out.indexOf(`${STEP_NOTE} ${reason}.`)).toBe(written + 1);
+  });
+
+  it('ci-workflow: says nothing about the install step when it is live', async () => {
+    const { io, out } = fakeIO({ files: { '/proj/package-lock.json': '{}' } });
+    expect(await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts)).toBe(0);
+    expect(out.join('\n')).not.toContain('! Add an install step');
+  });
+
+  it('ci-workflow: --dry-run shows the install-step note and writes nothing', async () => {
+    const { io, out, writes } = fakeIO({ files: { '/proj/bun.lock': '' } });
+    expect(await runInstall({ client: ['ci-workflow'], dryRun: true }, io, noPrompts)).toBe(0);
+    expect(writes).toEqual({});
+    const note = out.indexOf(`${STEP_NOTE} this CLI does not pin a setup step for Bun.`);
+    expect(note).toBeGreaterThan(out.indexOf('Plan:'));
+    expect(note).toBeLessThan(out.indexOf('Dry run — no files written.'));
+  });
+
+  it('ci-workflow: an existing workflow gets no install-step note', async () => {
+    const { io, out } = fakeIO({ files: { [WF]: 'name: old\n', '/proj/bun.lock': '' } });
+    expect(await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts)).toBe(0);
+    expect(out.join('\n')).not.toContain('! Add an install step');
+  });
+
   it('a read failure (e.g. EACCES) while planning the ci-workflow target is reported and exits 2', async () => {
     const { io, writes, err } = fakeIO({ throwOnRead: '/proj/.github/workflows/svelte-vitals.yml' });
     const code = await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts);

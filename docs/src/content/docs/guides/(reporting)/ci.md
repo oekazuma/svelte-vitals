@@ -118,8 +118,9 @@ of `devEngines.packageManager` is not read.
 
 A commented-out step is one `ci install` cannot write so that it works on the first run: this CLI
 pins no setup step for Yarn or Bun, the pinned `pnpm/setup` needs pnpm 11 or newer declared in
-`package.json`, and without a lockfile the package manager is unknown. `ci install` then prints a
-line beginning `! Add an install step` that gives the reason. Set up your package manager in that
+`package.json`, and without a lockfile the package manager is unknown. `ci install` (and
+`install --client ci-workflow`) then prints a line beginning `! Add an install step` that gives the
+reason. Set up your package manager in that
 place and uncomment the install command; until you do, the action uses its bundled analyzer.
 
 When the directory has a `package.json` that does not declare `svelte-vitals` and is not a

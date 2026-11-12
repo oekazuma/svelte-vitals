@@ -1,11 +1,12 @@
 import { join } from 'node:path';
 import { detectPackageManagerFromLockfile } from '../install/package-manager.js';
 import { readPkg } from '../pkg-json.js';
+import { WORKFLOW_PATH } from './workflow.js';
 
 export type InstallStepPlan =
   | { kind: 'npm' }
   | { kind: 'pnpm' }
-  /** `command` is what the commented block shows; `reason` is the sentence `ci install` prints. */
+  /** `command` is what the commented block shows; `reason` ends the sentence `installStepNote` prints. */
   | { kind: 'manual'; command: string; reason: string };
 
 interface PackageManagerFields {
@@ -34,6 +35,12 @@ function declaredPnpmMajor(pkg: PackageManagerFields | undefined): number | unde
   }
   const digits = version?.match(/\d+/)?.[0];
   return digits === undefined ? undefined : Number(digits);
+}
+
+export function installStepNote(plan: InstallStepPlan): string | undefined {
+  return plan.kind === 'manual'
+    ? `! Add an install step to ${WORKFLOW_PATH} before the svelte-vitals step: ${plan.reason}.`
+    : undefined;
 }
 
 /** Which install step a scaffolded workflow can carry without it failing on its first run. */

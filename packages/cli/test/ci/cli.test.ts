@@ -4,13 +4,18 @@ import { WORKFLOW_PATH, buildWorkflowYaml, CHECKOUT_SHA, CHECKOUT_VERSION } from
 import { ACTION_SHA, ACTION_VERSION } from '../../src/ci/action-pin.generated.js';
 import type { InstallIO } from '../../src/install/index.js';
 
-function fakeIO(over: { files?: Record<string, string>; failWritePath?: string } = {}) {
+function fakeIO(over: { files?: Record<string, string>; failWritePath?: string; throwOnRead?: string } = {}) {
   const files = over.files ?? {};
   const writes: Record<string, string> = {};
   const out: string[] = [];
   const err: string[] = [];
   const io: InstallIO = {
-    readFile: (p) => files[p],
+    readFile: (p) => {
+      if (over.throwOnRead && p === over.throwOnRead) {
+        throw new Error(`EACCES: permission denied, open '${p}'`);
+      }
+      return files[p];
+    },
     writeFile: (p, c) => {
       if (over.failWritePath && p === over.failWritePath) {
         throw new Error(`EACCES: permission denied, open '${p}'`);
@@ -157,6 +162,16 @@ describe('runCiCliGunshi install step', () => {
     expect(dry.writes).toEqual({});
     expect(notes(dry.out)).toHaveLength(2);
     expect(notes(dry.out)).toEqual(notes(real.out));
+  });
+
+  it('a package.json read failure stops before the workflow is written', async () => {
+    const { io, writes, err } = fakeIO({
+      files: { '/proj/package-lock.json': '{}' },
+      throwOnRead: '/proj/package.json'
+    });
+    await expect(runCiCliGunshi(['install'], io)).rejects.toThrow('EACCES');
+    expect(writes).toEqual({});
+    expect(err.join('\n')).not.toContain('failed to write');
   });
 
   it('says nothing extra when the workflow already exists', async () => {

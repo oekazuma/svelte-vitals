@@ -19,6 +19,7 @@ The spec is the authority. Execution and review changed these points, and the ta
 - **The add-dependency note.** It is printed only when the directory has a `package.json` that is not a workspace root (no `workspaces` field, no `pnpm-workspace.yaml`) and does not declare `svelte-vitals`.
 - **The commented block's wording.** Its last comment line ends "and says so in its log.", since the action's message can be a notice rather than a warning.
 - **The no-lockfile reason.** It tells the user to commit a lockfile and re-run with `--force`: `no lockfile was found, so the package manager is unknown (commit your lockfile and re-run with --force to generate the step)`.
+- **Where the notes print.** `install --client ci-workflow` prints the install-step reason too, from the same helper as `ci install`; the add-dependency note stays `ci install`-only. `ci install` computes its notes before writing, so a failed `package.json` read stops before the file is written.
 - **The guide test.** `packages/cli/test/ci/guide.test.ts` asserts that the hand-written YAML blocks in both CI guides equal `buildWorkflowYaml`'s output for npm and pnpm.
 
 ## Global Constraints

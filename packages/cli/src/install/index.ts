@@ -15,7 +15,7 @@ import {
 import type { WriteStatus } from './codemod-types.js';
 import { planWorkflowWrite, buildWorkflowYaml } from '../ci/workflow.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
-import { planInstallStep } from '../ci/install-step.js';
+import { installStepNote, planInstallStep } from '../ci/install-step.js';
 import { discoverApps } from '../discover-apps.js';
 import { hasDep, readPkg } from '../pkg-json.js';
 
@@ -75,6 +75,8 @@ interface PlanRow {
   status: WriteStatus;
   content?: string;
   snippet?: string;
+  /** Printed after the row is written, and on --dry-run. */
+  note?: string;
 }
 
 /**
@@ -195,11 +197,10 @@ function planForCiTarget(io: InstallIO, force: boolean): PlanRow {
   const path = join(io.cwd, target.relPaths[0]!);
   const existing = io.readFile(path);
   const plan = planWorkflowWrite(existing, force);
-  const content =
-    plan.status === 'exists'
-      ? undefined
-      : buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION, installStep: planInstallStep(io) });
-  return { id: target.id, label: target.label, path, status: plan.status, content };
+  if (plan.status === 'exists') return { id: target.id, label: target.label, path, status: plan.status };
+  const installStep = planInstallStep(io);
+  const content = buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION, installStep });
+  return { id: target.id, label: target.label, path, status: plan.status, content, note: installStepNote(installStep) };
 }
 
 function indent(text: string): string {
@@ -472,6 +473,7 @@ export async function runInstall(
 
   // 5. Dry-run / confirm.
   if (flags.dryRun) {
+    for (const r of rows) if (r.note) io.log(r.note);
     io.log('Dry run — no files written.');
     return 0;
   }
@@ -501,6 +503,7 @@ export async function runInstall(
     try {
       io.writeFile(r.path, r.content ?? '');
       io.log(`✓ ${r.label}: ${r.status} ${r.path}`);
+      if (r.note) io.log(r.note);
       if (isKind(r.id, 'vite')) viteWasWritten = true;
     } catch (err) {
       hadFailure = true;
