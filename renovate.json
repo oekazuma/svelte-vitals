@@ -22,6 +22,41 @@
       "depNameTemplate": "oekazuma/svelte-vitals-action",
       "datasourceTemplate": "github-tags",
       "extractVersionTemplate": "^v(?<version>.+)$"
+    },
+    {
+      "description": "The checkout and pnpm/setup pins `ci install` scaffolds must equal this repo's workflow pins (test/ci/lockstep.test.ts), which only the built-in github-actions manager sees — extract them under the same depName and datasource so one bump moves both.",
+      "customType": "regex",
+      "managerFilePatterns": ["/^packages/cli/src/ci/workflow\\.ts$/"],
+      "matchStrings": [
+        "CHECKOUT_SHA = ['\"](?<currentDigest>[0-9a-f]{40})['\"];\\s*export const CHECKOUT_VERSION = ['\"](?<currentValue>[^'\"]+)['\"];"
+      ],
+      "depNameTemplate": "actions/checkout",
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "github-actions"
+    },
+    {
+      "description": "See the CHECKOUT_SHA manager above.",
+      "customType": "regex",
+      "managerFilePatterns": ["/^packages/cli/src/ci/workflow\\.ts$/"],
+      "matchStrings": [
+        "PNPM_SETUP_SHA = ['\"](?<currentDigest>[0-9a-f]{40})['\"];\\s*export const PNPM_SETUP_VERSION = ['\"](?<currentValue>[^'\"]+)['\"];"
+      ],
+      "depNameTemplate": "pnpm/setup",
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "github-actions"
+    },
+    {
+      "description": "The CI guide quotes `ci install`'s output verbatim (test/ci/guide.test.ts), and the holdout workflow lives outside .github/ where the built-in github-actions manager does not look. History documents under plans/ and docs/superpowers/ keep their old pins on purpose, so they are not listed.",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^docs/src/content/docs/(ja/)?guides/\\(reporting\\)/ci\\.md$/",
+        "/^scripts/holdout-build/workflow\\.yml$/"
+      ],
+      "matchStrings": [
+        "uses: (?<depName>actions/checkout|pnpm/setup)@(?<currentDigest>[0-9a-f]{40}) # (?<currentValue>v[^\\s]+)"
+      ],
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "github-actions"
     }
   ],
   "packageRules": [
@@ -35,6 +70,11 @@
       "matchDepNames": ["oekazuma/svelte-vitals-action"],
       "automerge": false,
       "minimumReleaseAge": null
+    },
+    {
+      "description": "Later rules win: these bumps also change what `ci install` scaffolds and the English CI guide, so a human adds the changeset and re-stamps the guide's translation (blume translate --check) before merge.",
+      "matchDepNames": ["actions/checkout", "pnpm/setup"],
+      "automerge": false
     },
     {
       "description": "Published packages' engines.node is a public compatibility floor for consumers, not a dev-toolchain pin — never auto-bump it.",
