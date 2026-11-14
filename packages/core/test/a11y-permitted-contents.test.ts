@@ -66,6 +66,7 @@ describe('a11y/permitted-contents', () => {
 
   it('leaves interactive nesting to a11y/interactive-nesting', async () => {
     expect(await failing('<a href="/x"><button>b</button></a>\n<button><a href="/y">l</a></button>')).toEqual([]);
+    expect(await failing('<div><canvas><textarea></textarea><label>l</label></canvas></div>')).toEqual([]);
   });
 
   it('still evaluates non-interactive exclusion arms (form > form)', async () => {
@@ -119,6 +120,31 @@ describe('a11y/permitted-contents', () => {
         message: "`<b>` is not permitted content here — `<title>`'s content model is text content"
       }
     ]);
+  });
+
+  it('admits <style> in flow content only as the first element child', async () => {
+    const flagged = await failing(
+      '<div><p>x</p><style>p {}</style></div>\n<div><p>x</p>{#if a}<style>p {}</style>{/if}</div>'
+    );
+    expect(flagged.map((f) => [f.line, f.severity])).toEqual([
+      [1, 'info'],
+      [2, 'info']
+    ]);
+    expect(flagged[0]!.message).toBe(
+      "`<style>` is not permitted content here — `<div>`'s content model is flow content"
+    );
+    expect(await failing('<div>\n  text\n  <style>p {}</style>\n  <p>x</p>\n</div>')).toEqual([]);
+  });
+
+  it('stays silent on <style> whose earlier siblings may not render', async () => {
+    const src = [
+      '<div>{#if a}<p>x</p>{:else}<style>p {}</style>{/if}</div>',
+      '<div>{#if a}<p>x</p>{/if}<style>p {}</style></div>',
+      '<div><Card /><style>p {}</style></div>',
+      '<div>{@html html}<style>p {}</style></div>',
+      '<div>{#each xs as x}<style>p {}</style>{/each}</div>'
+    ].join('\n');
+    expect(await failing(src)).toEqual([]);
   });
 
   it('keeps judging literal children next to an unknowable sibling', async () => {

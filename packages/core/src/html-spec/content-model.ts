@@ -45,13 +45,14 @@ function splitTop(s: string): string[] {
 /**
  * The `a`/`button` interactive exclusions are `a11y/interactive-nesting`'s territory (measured:
  * 16 findings stay single-reported), so these exact tokens are dropped from `:not`/`:has`
- * argument lists before evaluation. Token-exact: `audio`'s and `label`'s own exclusions survive.
+ * argument lists before evaluation, as is an interactive arm narrowed by its own `:not` (`canvas`).
+ * Otherwise token-exact: `audio`'s and `label`'s own exclusions survive.
  */
 const INTERACTIVE_ARM_TOKENS = new Set([':model(interactive)', 'a', '[tabindex]']);
 
 function stripInteractiveArms(parts: string[]): string[] {
   return parts.filter((p) => {
-    if (INTERACTIVE_ARM_TOKENS.has(p)) return false;
+    if (INTERACTIVE_ARM_TOKENS.has(p) || p.startsWith(':model(interactive):not(')) return false;
     const has = /^:has\((.*)\)$/.exec(p);
     if (has) return stripInteractiveArms(splitTop(has[1]!)).length > 0;
     return true;
@@ -116,6 +117,16 @@ class Evaluator {
     return unknown;
   }
 
+  /** Certain only when an unconditional sibling precedes, or nothing unseen or conditional can. */
+  private firstChild(idx: number): Tri {
+    const el = this.els[idx]!;
+    if (el.parent === undefined) return 'unknown';
+    const siblings = this.children.get(el.parent) ?? [];
+    const before = siblings.slice(0, siblings.indexOf(idx));
+    if (before.some((s) => !this.els[s]!.viaBlock)) return false;
+    return before.length === 0 && !el.viaBlock && !this.els[el.parent]!.unknownContent ? true : 'unknown';
+  }
+
   matchSelector(sel: string, idx: number): Tri {
     sel = sel.trim();
     const el = this.els[idx]!;
@@ -143,9 +154,17 @@ class Evaluator {
         if (r === false) return false;
         if (r === 'unknown') unknown = true;
       } else if (rest.startsWith(':')) {
-        const open = rest.indexOf('(');
-        if (open === -1) return 'unknown';
-        const fn = rest.slice(1, open);
+        const fn = /^:([a-zA-Z-]+)/.exec(rest)?.[1];
+        if (fn === undefined) return 'unknown';
+        const open = 1 + fn.length;
+        if (rest[open] !== '(') {
+          if (fn !== 'first-child') return 'unknown';
+          rest = rest.slice(open);
+          const r = this.firstChild(idx);
+          if (r === false) return false;
+          if (r === 'unknown') unknown = true;
+          continue;
+        }
         let depth = 1;
         let i = open + 1;
         for (; i < rest.length && depth > 0; i++) {
