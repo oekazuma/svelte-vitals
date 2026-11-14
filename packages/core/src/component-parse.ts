@@ -1432,14 +1432,23 @@ const CHAIN_BREAKS = new Set([
 ]);
 const SILENT_BREAKS = new Set(['SnippetBlock', 'SvelteHead']);
 
-function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: boolean, parent?: number): void {
+function collectElements(
+  node: Node,
+  source: string,
+  acc: ElementFact[],
+  inSvg: boolean,
+  parent?: number,
+  viaBlock = false
+): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectElements(child, source, acc, inSvg, parent);
+    for (const child of node) collectElements(child, source, acc, inSvg, parent, viaBlock);
     return;
   }
   if (!node || typeof node !== 'object') return;
   let next = inSvg;
   let nextParent = parent;
+  // Anything between two elements but a plain fragment may not render, or may render more than once.
+  let nextViaBlock = viaBlock || (typeof node.type === 'string' && node.type !== 'Fragment');
   if (typeof node.type === 'string' && CHAIN_BREAKS.has(node.type)) {
     if (parent !== undefined && !SILENT_BREAKS.has(node.type)) acc[parent]!.unknownContent = true;
     nextParent = undefined;
@@ -1467,8 +1476,10 @@ function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: 
         }),
       ...(self ? { inSvg: true as const } : {}),
       ...(parent !== undefined ? { parent } : {}),
+      ...(parent !== undefined && viaBlock ? { viaBlock: true as const } : {}),
       ...(hasSpread ? { hasSpread: true as const } : {})
     });
+    nextViaBlock = false;
     // A custom element or unknown tag renders its light DOM wherever its definition puts it, so
     // the chain breaks (and the enclosing subtree is unknowable) exactly as at a component tag.
     if (tag.includes('-') || !KNOWN_TAGS.has(tag)) {
@@ -1479,7 +1490,7 @@ function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: 
     else if (tag === 'foreignobject') next = false;
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectElements(node[key], source, acc, next, nextParent);
+    if (key in node) collectElements(node[key], source, acc, next, nextParent, nextViaBlock);
   }
 }
 

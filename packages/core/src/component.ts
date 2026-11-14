@@ -186,6 +186,11 @@ export interface ElementFact {
    * judges across one.
    */
   parent?: number;
+  /**
+   * The link to `parent` passes through a block (`{#if}`, `{#each}`, …), so the element may not
+   * render, or may render more than once, among the parent's children.
+   */
+  viaBlock?: true;
   /** A spread attribute is present — every attribute test on this element is unknowable. */
   hasSpread?: true;
   /**

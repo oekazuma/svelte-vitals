@@ -116,6 +116,16 @@ class Evaluator {
     return unknown;
   }
 
+  /** Certain only when an unconditional sibling precedes, or nothing unseen or conditional can. */
+  private firstChild(idx: number): Tri {
+    const el = this.els[idx]!;
+    if (el.parent === undefined) return 'unknown';
+    const siblings = this.children.get(el.parent) ?? [];
+    const before = siblings.slice(0, siblings.indexOf(idx));
+    if (before.some((s) => !this.els[s]!.viaBlock)) return false;
+    return before.length === 0 && !el.viaBlock && !this.els[el.parent]!.unknownContent ? true : 'unknown';
+  }
+
   matchSelector(sel: string, idx: number): Tri {
     sel = sel.trim();
     const el = this.els[idx]!;
@@ -143,9 +153,17 @@ class Evaluator {
         if (r === false) return false;
         if (r === 'unknown') unknown = true;
       } else if (rest.startsWith(':')) {
-        const open = rest.indexOf('(');
-        if (open === -1) return 'unknown';
-        const fn = rest.slice(1, open);
+        const fn = /^:([a-zA-Z-]+)/.exec(rest)?.[1];
+        if (fn === undefined) return 'unknown';
+        const open = 1 + fn.length;
+        if (rest[open] !== '(') {
+          if (fn !== 'first-child') return 'unknown';
+          rest = rest.slice(open);
+          const r = this.firstChild(idx);
+          if (r === false) return false;
+          if (r === 'unknown') unknown = true;
+          continue;
+        }
         let depth = 1;
         let i = open + 1;
         for (; i < rest.length && depth > 0; i++) {
