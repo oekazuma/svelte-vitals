@@ -122,12 +122,16 @@ describe('a11y/permitted-contents', () => {
   });
 
   it('admits <style> in flow content only as the first element child', async () => {
-    const flagged = await failing('<div><p>x</p><style>p {}</style></div>\n<div><p>x</p>{#if a}<style>p {}</style>{/if}</div>');
+    const flagged = await failing(
+      '<div><p>x</p><style>p {}</style></div>\n<div><p>x</p>{#if a}<style>p {}</style>{/if}</div>'
+    );
     expect(flagged.map((f) => [f.line, f.severity])).toEqual([
       [1, 'info'],
       [2, 'info']
     ]);
-    expect(flagged[0]!.message).toBe("`<style>` is not permitted content here — `<div>`'s content model is flow content");
+    expect(flagged[0]!.message).toBe(
+      "`<style>` is not permitted content here — `<div>`'s content model is flow content"
+    );
     expect(await failing('<div>\n  text\n  <style>p {}</style>\n  <p>x</p>\n</div>')).toEqual([]);
   });
 
