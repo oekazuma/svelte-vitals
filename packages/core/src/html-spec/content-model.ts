@@ -45,13 +45,14 @@ function splitTop(s: string): string[] {
 /**
  * The `a`/`button` interactive exclusions are `a11y/interactive-nesting`'s territory (measured:
  * 16 findings stay single-reported), so these exact tokens are dropped from `:not`/`:has`
- * argument lists before evaluation. Token-exact: `audio`'s and `label`'s own exclusions survive.
+ * argument lists before evaluation, as is an interactive arm narrowed by its own `:not` (`canvas`).
+ * Otherwise token-exact: `audio`'s and `label`'s own exclusions survive.
  */
 const INTERACTIVE_ARM_TOKENS = new Set([':model(interactive)', 'a', '[tabindex]']);
 
 function stripInteractiveArms(parts: string[]): string[] {
   return parts.filter((p) => {
-    if (INTERACTIVE_ARM_TOKENS.has(p)) return false;
+    if (INTERACTIVE_ARM_TOKENS.has(p) || p.startsWith(':model(interactive):not(')) return false;
     const has = /^:has\((.*)\)$/.exec(p);
     if (has) return stripInteractiveArms(splitTop(has[1]!)).length > 0;
     return true;

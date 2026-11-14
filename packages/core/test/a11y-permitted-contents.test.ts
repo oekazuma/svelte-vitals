@@ -66,6 +66,7 @@ describe('a11y/permitted-contents', () => {
 
   it('leaves interactive nesting to a11y/interactive-nesting', async () => {
     expect(await failing('<a href="/x"><button>b</button></a>\n<button><a href="/y">l</a></button>')).toEqual([]);
+    expect(await failing('<div><canvas><textarea></textarea><label>l</label></canvas></div>')).toEqual([]);
   });
 
   it('still evaluates non-interactive exclusion arms (form > form)', async () => {
