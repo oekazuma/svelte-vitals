@@ -655,6 +655,15 @@ describe('runInstall — monorepo app resolution (vite/config targets)', () => {
     expect(writes['/proj/svelte-vitals.config.js']).toBeUndefined();
   });
 
+  it('the ci-workflow step analyzes the app detected for the config file', async () => {
+    const { io, writes } = fakeIO({
+      files: { '/proj/apps/web/svelte.config.js': 'export default {};' },
+      discoverApps: async () => ['apps/web']
+    });
+    expect(await runInstall({ client: ['config-file', 'ci-workflow'], yes: true }, io, noPrompts)).toBe(0);
+    expect(writes['/proj/.github/workflows/svelte-vitals.yml']).toContain("svelte-vitals 'apps/web' --reporter github");
+  });
+
   it("vite-plugin's candidate lookup and manual snippet path are app-relative", async () => {
     const { io, writes, out } = fakeIO({
       files: { '/proj/apps/web/svelte.config.js': 'export default {};' },
