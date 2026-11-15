@@ -36,14 +36,15 @@ There is no PR comment, and the only permission is `contents: read`.
 --ignore-scripts`) and for pnpm 11+ (`pnpm/setup` with `runtime: node`, then `pnpm install
 --frozen-lockfile --ignore-scripts`; the pnpm version comes from a single-object
 `devEngines.packageManager` naming pnpm, else `packageManager`, and the array form is not read).
-For anything else it leaves them commented out and prints why. The CLI needs Node.js 24.16.0 or
-newer.
+For anything else it writes the install commented out, with a comment telling you to set up
+Node.js 24.16.0 or newer and your package manager first, and prints why.
 
 The step runs `./node_modules/.bin/svelte-vitals`, never `npx`, so without an install it fails
 instead of downloading a CLI. Under Yarn Plug'n'Play set `nodeLinker: node-modules` in
-`.yarnrc.yml`. `ci install` also prints the command to add `svelte-vitals` when `package.json`
-does not declare it and is not a workspace root, and a note when `node_modules` holds a version
-older than 0.57.0, which writes no summary and no repository-relative paths.
+`.yarnrc.yml`. When it writes the workflow, `ci install` also prints the command to add
+`svelte-vitals` if `package.json` does not declare it and is not a workspace root, and a note if
+`node_modules` holds a version older than 0.57.0, which writes no summary and no
+repository-relative paths.
 
 In a monorepo the step runs at the repository root. `install --client ci-workflow --app apps/web`
 puts the app's path in the step; without one, svelte-vitals picks the app as a local run does

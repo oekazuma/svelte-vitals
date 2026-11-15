@@ -53,8 +53,8 @@ On every `pull_request` event, the generated workflow:
 1. Checks out the repo with full history (`fetch-depth: 0`) so svelte-vitals can resolve the PR's
    base ref for `--diff`/`--baseline`.
 2. Sets up Node.js and installs the project's dependencies with lifecycle scripts off. For some
-   setups these lines are left commented out for you to complete; see
-   [The install step](#the-install-step).
+   projects the install is written commented out, with a comment telling you to set up Node.js
+   24.16.0 or newer and your package manager first; see [The install step](#the-install-step).
 3. Runs the installed CLI scoped to the PR: `--diff "origin/$BASE_REF"` limits findings to files
    the PR touched, and [`--baseline "origin/$BASE_REF"`](/guides/cli) further narrows to findings
    **newly introduced** by the PR. Pre-existing issues in touched files don't block it. `BASE_REF`
@@ -141,15 +141,16 @@ published release when none is installed, which is not the version your lockfile
 installation the step fails instead. The path needs a `node_modules` directory, so Yarn Plug'n'Play
 is not supported; set `nodeLinker: node-modules` in `.yarnrc.yml`.
 
-When the directory has a `package.json` that does not declare `svelte-vitals` and is not a
-workspace root (it has no `workspaces` field, and there is no `pnpm-workspace.yaml` beside it),
-`ci install` also prints the command that adds it for your package manager, such as
-`pnpm add -D svelte-vitals`. At a workspace root it prints a different note; see
+When `ci install` writes the workflow and the directory has a `package.json` that does not
+declare `svelte-vitals` and is not a workspace root (it has no `workspaces` field, and there is no
+`pnpm-workspace.yaml` beside it), it also prints the command that adds it for your package manager,
+such as `pnpm add -D svelte-vitals`. At a workspace root it prints a different note; see
 [Monorepos](#monorepos).
 
-When `node_modules` holds a `svelte-vitals` older than 0.57.0, `ci install` prints a note naming
-that version. An older CLI runs the step, but it writes no job summary, and its annotation paths
-are relative to the app rather than the repository root. Update the devDependency.
+When `ci install` writes the workflow and `node_modules` holds a `svelte-vitals` older than
+0.57.0, it prints a note naming that version. An older CLI runs the step, but it writes no job
+summary, and its annotation paths are relative to the app rather than the repository root. Update
+the devDependency.
 
 Lifecycle scripts stay off: the analysis needs none, and they would run dependency code from the
 pull request.
@@ -193,9 +194,9 @@ the step there: add `working-directory:` and drop the path argument.
     BASE_REF: ${{ github.base_ref }}
 ```
 
-At a workspace root (a `workspaces` field in `package.json`, or a `pnpm-workspace.yaml`) whose
-`package.json` does not declare `svelte-vitals`, `ci install` and `install --client ci-workflow`
-print a note saying this.
+When `ci install` or `install --client ci-workflow` writes the workflow at a workspace root (a
+`workspaces` field in `package.json`, or a `pnpm-workspace.yaml`) whose `package.json` does not
+declare `svelte-vitals`, it prints a note saying this.
 
 ## Excluding routes or rules
 
