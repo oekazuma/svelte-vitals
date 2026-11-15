@@ -121,7 +121,7 @@ while its workflow is still pinned to the action gets two summary tables (the CL
 action's) and, when the action's `path` input is a subdirectory, a doubled path prefix
 (`apps/web/apps/web/...`), so annotations no longer attach to the diff.
 
-**Proposal (pending the owner's confirmation):** when `GITHUB_ACTION_REPOSITORY` is
+**Decision (owner, 2026-11-15): guard it.** When `GITHUB_ACTION_REPOSITORY` is
 `oekazuma/svelte-vitals-action`, the CLI keeps the old github reporter output (no summary write, no
 prefix, no extra `::warning`). With any reporter it also prints one stderr line saying the action is
 retired and naming the migration (`svelte-vitals ci install --force`): the action turns the stderr of
@@ -129,8 +129,7 @@ its first run (`--reporter md`) into warning annotations, so that is where the l
 The guard is not part of the 1.0 contract and is removed in the 1.0 release itself, so old-action
 users get the rest of 0.x to migrate.
 
-The alternative is no guard: the changeset states the breakage, and old-action users migrate when
-they upgrade the CLI.
+The rejected alternative was no guard, with the breakage stated in the changeset.
 
 ### 3. The scaffolded workflow
 
