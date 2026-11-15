@@ -27,7 +27,8 @@ export interface CliResult {
  * `env` resolves the `--help` locale exactly once per invocation (`docs/superpowers/specs/
  * 2026-08-11-cli-ja-help-design.md`) — never re-resolved per surface, so a single invocation can't
  * observe two different locales. `complete` is deliberately excluded from the localized dispatchers:
- * its command tree is always built from the raw English declarations regardless of `locale`.
+ * its command tree is always built from the raw English declarations regardless of `locale`. The
+ * analyzer reads the same `env` in place of `process.env`.
  */
 export async function runCli(
   argv: string[],
@@ -67,7 +68,7 @@ export async function runCli(
       return { code, exit: 'immediate' };
     }
 
-    return await runAnalyzeCliGunshi(argv, io, locale);
+    return await runAnalyzeCliGunshi(argv, io, locale, env);
   } catch (err) {
     // Last-resort net: any throw that escapes the dispatchers above is an internal crash, not a
     // failing finding — exit 2 keeps that distinction visible to a CI gate reading the exit code.

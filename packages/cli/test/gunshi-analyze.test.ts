@@ -156,9 +156,6 @@ describe('-- terminator: everything after it is a literal positional, never a fl
   // Before splitAtTerminator ran ahead of guard/strip: stripUnknownFlags treated the bare `--`
   // itself as an unknown long flag (name '') and dropped it, so gunshi never saw the terminator
   // and re-parsed what followed as real flags.
-  // Both cells assert reporter-agnostically (out non-empty, never a bare score number) — the
-  // reporter auto-detects from the environment (github under GITHUB_ACTIONS, agent under agent
-  // envs), so a format-specific marker like 'Health:' would fail on CI while passing locally.
   it('<fixture> -- --score: --score is a literal positional, not reactivated — full report, not a bare number', async () => {
     const { code, out } = await run([unitEntryFixtureDir, '--', '--score']);
     expect(code).toBe(1);

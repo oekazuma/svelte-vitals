@@ -13,7 +13,7 @@ import { captureIO } from './helpers/capture-io.js';
 
 async function cli(args: string[]): Promise<CliResult & { out: string; err: string }> {
   const io = captureIO();
-  const result = await runCli(args, io);
+  const result = await runCli(args, io, {});
   return { ...result, out: io.out, err: io.err };
 }
 

@@ -278,7 +278,8 @@ function toCliArgv(values: Record<string, unknown>, positionals: string[], rawAr
 export async function runAnalyzeCliGunshi(
   args: string[],
   io: CliIO = consoleIO,
-  locale: Locale = 'en'
+  locale: Locale = 'en',
+  env: NodeJS.ProcessEnv = process.env
 ): Promise<CliResult> {
   // `--` must be split off before any of guard/neutralize/strip run: none of them understands the
   // terminator, so a post-`--` token that merely looks like a flag (`<path> -- --score`) would
@@ -364,6 +365,7 @@ export async function runAnalyzeCliGunshi(
         ...options,
         minHealth,
         selectApp,
+        env,
         log: io.log,
         errorLog: io.errorLog
       });

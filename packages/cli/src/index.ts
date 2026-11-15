@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import {
   defineConfig,
@@ -19,6 +19,7 @@ import {
   formatAgentReport,
   formatSarifReport,
   formatGithubReport,
+  formatGithubWarning,
   formatHtmlReport,
   formatMarkdownReport,
   summarize,
@@ -38,7 +39,13 @@ import { detectProject, ProjectError, checkVersionFloor } from './providers/sour
 import { collectAll } from './collect-all.js';
 import { discoverApps } from './discover-apps.js';
 import { readPackageVersion, readCoreVersion } from './version.js';
-import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
+import {
+  resolveReporter,
+  isAutoDetectedAgent,
+  isAutoDetectedGithub,
+  isGithubActionsEnv,
+  type ReporterName
+} from './reporter-resolve.js';
 import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
 import { checkoutBaseline, filterToNewFindings } from './baseline.js';
 import { loadSuppressions, writeSuppressions, applySuppressions, SUPPRESSIONS_FILE } from './suppressions.js';
@@ -48,6 +55,7 @@ import { playMascotGreeting, bubbleFitsWidth } from './speech-bubble.js';
 import { loadConfigFile, loadConfigFromPath, type LoadedConfigFile } from './config-file.js';
 import { playScoreAnimation, scoreAnimationEnabled } from './pulse-animation.js';
 import { resolveRuleSelection } from './rule-selection.js';
+import { RETIRED_ACTION, isRetiredActionCaller, workspaceLocationMapper } from './github-actions.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -95,6 +103,8 @@ export interface RunOptions {
   outFile?: string;
   /** Injected file writer for --reporter html (defaults to node:fs writeFileSync). Mainly for tests. */
   writeFile?: (path: string, content: string) => void;
+  /** Injected appender for the GitHub Actions job summary (defaults to node:fs appendFileSync). Mainly for tests. */
+  appendFile?: (path: string, content: string) => void;
   /** Report only findings in files changed vs the merge-base with this ref ('HEAD' = uncommitted). Undefined = no gating. */
   diffBase?: string;
   /** Report only findings in files staged for commit. Takes precedence over `diffBase`. */
@@ -375,8 +385,7 @@ export interface ApplyScopeOptions {
   /**
    * Resolved config, needed to decide which findings count as "penalized" when
    * applying svelte-vitals-suppressions.json (`isPenalized`). Suppression
-   * application is skipped entirely when omitted, keeping such callers'
-   * behavior unchanged (the CLI and @svelte-vitals/action both pass it).
+   * application is skipped entirely when omitted.
    */
   config?: Config;
   /** Disable applying svelte-vitals-suppressions.json for this run. */
@@ -395,9 +404,7 @@ export interface ApplyScopeOptions {
  * Narrow `results` to what a PR gate cares about: `--staged`/`--diff` restrict to
  * changed files, `--baseline` drops findings that already existed at that ref,
  * and (last) svelte-vitals-suppressions.json drops findings that were explicitly
- * accepted via `--update-suppressions`. Shared by `run()` and
- * `@svelte-vitals/action` (issue #154) so the git-diff/baseline orchestration
- * lives in exactly one place.
+ * accepted via `--update-suppressions`.
  */
 export async function applyScope(results: Result[], opts: ApplyScopeOptions): Promise<Result[]> {
   const rawErrorLog = opts.errorLog ?? ((line: string) => console.error(line));
@@ -588,6 +595,13 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   spinner.stop();
 
   for (const w of analysis.warnings) errorLog(`svelte-vitals: ${w}`);
+  // The retired action turns the stderr of its `--reporter md` run into warning annotations.
+  const retiredAction = isRetiredActionCaller(env);
+  if (retiredAction) {
+    errorLog(
+      `svelte-vitals: ${RETIRED_ACTION} is retired. Run \`npx svelte-vitals@latest ci install --force\` to switch this workflow to the CLI.`
+    );
+  }
 
   try {
     const { config, version } = analysis;
@@ -649,10 +663,27 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       } else if (reporter === 'sarif') {
         log(formatSarifReport(results, config, { version }));
       } else if (reporter === 'github') {
+        // The retired action writes its own summary and path prefix on top of this output.
+        const inActions = isGithubActionsEnv(env) && !retiredAction;
+        if (inActions) for (const w of analysis.warnings) log(formatGithubWarning(`svelte-vitals: ${w}`));
+        const output = formatGithubReport(
+          results,
+          config,
+          inActions ? { mapLocation: workspaceLocationMapper(env, resolve(cwd)) } : {}
+        );
         // The github reporter returns '' when there are no findings; skip logging so
         // a clean run emits no stray blank line into the Actions log.
-        const output = formatGithubReport(results, config);
         if (output) log(output);
+        const summaryPath = env.GITHUB_STEP_SUMMARY;
+        if (inActions && summaryPath) {
+          try {
+            (opts.appendFile ?? appendFileSync)(summaryPath, formatMarkdownReport(results, config, { version }) + '\n');
+          } catch (err) {
+            errorLog(
+              `svelte-vitals: could not write the job summary: ${err instanceof Error ? err.message : String(err)}`
+            );
+          }
+        }
       } else if (reporter === 'html') {
         const html = formatHtmlReport(results, config, { version, coreVersion: readCoreVersion() });
         if (opts.outFile === '-') {
