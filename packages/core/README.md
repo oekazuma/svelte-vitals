@@ -13,10 +13,10 @@ This package is **mode-independent** and contains no I/O. It operates on a norma
 
 ## Entry points
 
-| Entry                          | Contents                                                                                                                                                                                              | Stability                                                                                                                        |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `@svelte-vitals/core`          | `defineConfig` and the config types; the `JsonReport` types for reading a report; `summarize`, `hasFailureAtOrAbove`, `formatGithubReport`, `formatMarkdownReport` for rendering one and gating on it | Follows semver. For the renderers, that covers the function, not the text it returns, which stays human-readable and may change. |
-| `@svelte-vitals/core/internal` | The engine, rules, fact collection, reporters, and scoring, which is what the CLI and the Vite plugin share                                                                                           | **No guarantee. Anything here may change in any release, including a patch.**                                                    |
+| Entry                          | Contents                                                                                                    | Stability                                                                     |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `@svelte-vitals/core`          | `defineConfig` and the config types; the `JsonReport` types for reading a report                            | Follows semver.                                                               |
+| `@svelte-vitals/core/internal` | The engine, rules, fact collection, reporters, and scoring, which is what the CLI and the Vite plugin share | **No guarantee. Anything here may change in any release, including a patch.** |
 
 Reach for `/internal` only if you accept pinning an exact version. If something there is what you
 actually need, open an issue. The point of the split is that promoting a name into the stable

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { defineConfig, type Result } from '../src/index.js';
-import { formatGithubReport } from '../src/internal.js';
+import { formatGithubReport, formatGithubWarning } from '../src/internal.js';
 
 const config = defineConfig({});
 
@@ -96,9 +96,35 @@ describe('formatGithubReport', () => {
         message: '<title>'
       }
     ];
-    // Frozen with the signature, not merely current behaviour: a caller may guard on the result's
-    // truthiness to decide whether to emit anything (the GitHub Action does).
     expect(formatGithubReport(passing, config)).toBe('');
     expect(formatGithubReport([], config)).toBe('');
+  });
+
+  it('applies mapLocation to file= and leaves the title and message alone', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/title-presence',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/none',
+        location: 'src/routes/+page.svelte',
+        line: 3,
+        message: 'Missing <title>'
+      }
+    ];
+    const out = formatGithubReport(results, config, { mapLocation: (l) => `apps/web/${l}` });
+    expect(out).toMatch(/^::\w+ file=apps\/web\/src\/routes\/\+page\.svelte,line=3,title=/);
+    expect(out).toContain('title=seo/title-presence%3A Title presence::Missing <title>');
+  });
+
+  it('formatGithubWarning escapes % CR LF so the warning stays one command', () => {
+    expect(formatGithubWarning('a%b\r\nc')).toBe('::warning::a%25b%0D%0Ac');
+  });
+
+  it("keeps the rendering helpers out of the package's stable entry", async () => {
+    const keys = Object.keys(await import('../src/index.js'));
+    for (const name of ['formatGithubReport', 'formatMarkdownReport', 'summarize', 'hasFailureAtOrAbove']) {
+      expect(keys).not.toContain(name);
+    }
   });
 });

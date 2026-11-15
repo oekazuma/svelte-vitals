@@ -109,7 +109,7 @@ export type { Palette } from './reporter/palette.js';
 export { buildJsonReport, formatJsonReport, formatJsonReportChunks } from './reporter/json.js';
 export { formatAgentReport } from './reporter/agent.js';
 export { formatSarifReport } from './reporter/sarif.js';
-export { formatGithubReport } from './reporter/github.js';
+export { formatGithubReport, formatGithubWarning } from './reporter/github.js';
 export { formatMarkdownReport } from './reporter/markdown.js';
 export {
   buildHtmlDocument,

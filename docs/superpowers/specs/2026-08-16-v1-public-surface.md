@@ -54,6 +54,9 @@ additive, so nothing is lost by starting closed.
 > `formatMarkdownReport`, `summarize` and `hasFailureAtOrAbove` are now in `.` — see the dated entry
 > under the `.` entry list below for who asked and what exactly the promotion freezes. The sentence
 > above stands for everything else it names.
+>
+> **Reverted 2026-11-15.** Those four moved back to `./internal` once the action, their only
+> outside consumer, was retired; the CLI renders and gates in-process now.
 
 ## Frozen at 1.0
 
@@ -168,6 +171,9 @@ is exactly this case.
   without parsing — the Action guards its `core.info` on exactly that — so it is a contract rather
   than an accident. It already holds and is pinned by a test; stating it costs nothing and removes
   a place where a caller would otherwise be relying on undefined behaviour.
+
+  **Removed 2026-11-15**: all four are back in `./internal`. The action was their only outside
+  consumer and is retired, so nothing outside the repository needs them frozen.
 
 Nothing else — and specifically **not** `Project`, `KitAlias`, or `Scope`: no frozen type reaches
 them, `Project` grows a field per project-scoped rule, and `Scope` belongs to `Rule`. They are
