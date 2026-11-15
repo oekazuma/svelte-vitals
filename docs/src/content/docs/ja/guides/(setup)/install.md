@@ -41,7 +41,7 @@ npx svelte-vitals@latest install
 
 `config-file` はオプション（`treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights`）をすべてコメントアウトした `svelte-vitals.config.{js,ts}` の雛形を生成します。拡張子は環境に合わせて自動で選びます。詳細は [設定ファイル](/ja/guides/configuration) を参照してください。`cursor-rules` と同様に毎回全文を再生成するため、**`--force` が適用されます**（上書きするのは既に存在するファイルで、再生成しても拡張子は変わりません）。
 
-`ci-workflow` は `.github/workflows/svelte-vitals.yml` を生成します。これは単体の [`svelte-vitals ci install`](/ja/guides/ci) コマンドが書き出すのと同じファイルです。別コマンドを覚えておく代わりに、他のターゲットと同じ実行でCIもセットアップできます。毎回全文を再生成するため、**`--force` が適用されます**。既存ワークフローのピン留めされたアクションバージョンだけを更新したい場合は、これまで通り `svelte-vitals ci upgrade`（このウィザードには含まれません）を使います。
+`ci-workflow` は `.github/workflows/svelte-vitals.yml` を生成します。これは単体の [`svelte-vitals ci install`](/ja/guides/ci) コマンドが書き出すファイルで、この実行でアプリが分かっている場合は、ワークフローの svelte-vitals のステップにそのアプリも書き込みます（[`--app`](#モノレポでの---app-app) を参照）。別コマンドを覚えておく代わりに、他のターゲットと同じ実行でCIもセットアップできます。毎回全文を再生成するため、**`--force` が適用されます**。
 
 ## モノレポでの `--app <app>`
 
@@ -53,9 +53,12 @@ npx svelte-vitals@latest install
 
 それ以外のターゲット（`cursor-rules`、`ci-workflow`）は常にカレントディレクトリ基準で書き込みます。モノレポではリポジトリルートがそれらの正しい置き場所だからです。
 
+`--app` は、CI ワークフローの svelte-vitals のステップが解析するアプリも指定します。`ci-workflow` はそのアプリのパスをステップに書き込み、同じ実行で `vite-plugin`、`vite-hooks`、`config-file` のために解決したアプリも同じように書き込みます。`ci-workflow` だけを選んだ場合は明示的な `--app` のときだけ書き込み、そのディレクトリが SvelteKit アプリでなければ終了コード `2` で失敗します。指定がなければ、どのアプリを解析するかはステップの実行時に svelte-vitals が決めます（CI 連携ガイドの[モノレポ](/ja/guides/ci#モノレポ)を参照）。
+
 ```bash
 cd my-monorepo
 npx svelte-vitals@latest install --client vite-plugin,config-file --app apps/web --yes
+npx svelte-vitals@latest install --client ci-workflow --app apps/web --yes
 ```
 
 ## `--yes`, `-y`

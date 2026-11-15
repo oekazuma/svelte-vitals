@@ -1,13 +1,13 @@
 ---
 title: Choosing a package
-description: Which svelte-vitals package to use, and when to combine them. CLI, Vite plugin, GitHub Action, or Agent Skills.
+description: Which svelte-vitals package to use, and when to combine them. CLI, Vite plugin, or Agent Skills.
 sidebar:
   order: 2
 ---
 
-There are two npm packages: `svelte-vitals`, the CLI, and `@svelte-vitals/vite`, the plugin plus live dashboard. Two more pieces don't come from npm. `@svelte-vitals/action` is consumed straight from its repo, and Agent Skills are `SKILL.md` files installed from [skills.sh](https://www.skills.sh/) with `npx skills add`.
+There are two npm packages: `svelte-vitals`, the CLI, and `@svelte-vitals/vite`, the plugin plus live dashboard. Agent Skills don't come from npm. They are `SKILL.md` files installed from [skills.sh](https://www.skills.sh/) with `npx skills add`.
 
-The CLI, the plugin and the Action share one rule engine and scoring but read different input. Agent Skills analyze nothing themselves. They carry the rule knowledge and tell the agent when to run the scanner. Most projects use more than one.
+The CLI and the plugin share one rule engine and scoring but read different input. Agent Skills analyze nothing themselves. They carry the rule knowledge and tell the agent when to run the scanner. Most projects use more than one.
 
 Each package is versioned independently and depends on `@svelte-vitals/core` (the shared rule engine) as its own semver range, so two packages installed at the "same time" can still resolve to different core versions. If the CLI and the Vite plugin ever disagree on findings for the same project, see [live dashboard: Version drift](/guides/dev-dashboard#version-drift).
 
@@ -17,7 +17,7 @@ Each package is versioned independently and depends on `@svelte-vitals/core` (th
 | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | Gate CI / PRs against SEO, Performance, and code-health issues, across the whole project                               | CLI: `npx svelte-vitals@latest`                                           |
 | Check only the files you're about to commit                                                                            | CLI with `--staged` or `--diff`                                           |
-| Gate GitHub PRs with inline annotations, a job summary, and a sticky comment, no YAML                                  | GitHub Action: `npx svelte-vitals@latest ci install`                      |
+| Gate GitHub PRs with inline annotations and a job summary, no YAML                                                     | CLI in a generated workflow: `npx svelte-vitals@latest ci install`        |
 | Verify the exact HTML your prerendered pages will ship, whatever generated it                                          | Vite plugin, build mode                                                   |
 | See live findings while developing, whole project, from the moment `vite dev` starts                                   | Vite plugin, live dashboard                                               |
 | Let an AI coding agent (Claude Code, Cursor, Codex) check its own changes                                              | CLI with `--diff --reporter agent`                                        |
@@ -34,7 +34,7 @@ Each package is versioned independently and depends on `@svelte-vitals/core` (th
 | Needs a build  | No                                                                                   | Yes                                                                                  | No                                                                                                         |
 | Typical home   | CI, pre-commit hooks, one-off audits, agent tool loops                               | Build pipeline gate                                                                  | Local dev feedback (on by default)                                                                         |
 
-Two pieces are deliberately absent from this table. The GitHub Action runs the CLI, the one installed in the project or its own bundled copy, so its coverage is the CLI column; what it adds is the PR experience rather than different analysis, meaning inline annotations, a job summary and a sticky comment. Agent Skills run no analysis of their own at all. They give the agent the rule knowledge and tell it when to run the scanner.
+Two things are deliberately absent from this table. The workflow `ci install` generates runs the CLI installed in the project, so its coverage is the CLI column; what it adds is the PR experience rather than different analysis, meaning inline annotations and a job summary. Agent Skills run no analysis of their own at all. They give the agent the rule knowledge and tell it when to run the scanner.
 
 ### Why build-mode coverage is close to the CLI's
 
@@ -56,11 +56,11 @@ The trade-off is route scope. Only prerendered routes get the HTML check; compon
 
 The same package also serves a live dashboard at `/__svelte-vitals/` during `vite dev`, on by default, with no build step. It gives you whole-project coverage from startup, refined to real rendered results as you browse. It's feedback, not a gate: nothing here fails a build or a CI run. See [Live dashboard](/guides/dev-dashboard).
 
-### GitHub Action: PR gating with zero YAML
+### GitHub Actions workflow: PR gating with zero YAML
 
-Runs the CLI's engine on every pull request and turns findings into GitHub-native feedback: inline annotations, a job summary, and one sticky PR comment that updates in place.
+`npx svelte-vitals@latest ci install` (or the `ci-workflow` install target) scaffolds a workflow that runs the CLI installed in your project on every pull request and turns findings into GitHub-native feedback: inline annotations and a job summary.
 
-`npx svelte-vitals@latest ci install` (or the `ci-workflow` install target) scaffolds a workflow calling it pinned to a SHA; `svelte-vitals ci upgrade` bumps that pin. The workflow scopes findings to the PR's own changes, so pre-existing issues don't fail other people's PRs. See [CI integration](/guides/ci).
+The workflow scopes findings to the PR's own changes, so pre-existing issues don't fail other people's PRs. See [CI integration](/guides/ci).
 
 ### Agent Skills: rule knowledge for your agent, up front
 
@@ -73,7 +73,7 @@ They pair with the CLI rather than replace it: knowledge up front, analysis on d
 ## Recommended setups
 
 - **Just starting out.** Run `npx svelte-vitals@latest` locally, then add it to CI with `npx svelte-vitals@latest --fail-on critical`. This alone covers all categories and every route.
-- **Hosting on GitHub.** Run `npx svelte-vitals@latest ci install` instead of hand-writing that CI step. Same engine, plus inline PR annotations and the sticky comment, scoped to each PR's own changes.
+- **Hosting on GitHub.** Run `npx svelte-vitals@latest ci install` instead of hand-writing that CI step. Same CLI, plus inline PR annotations and a job summary, scoped to each PR's own changes.
 - **Coding with an AI agent.** Install the Agent Skills with `npx skills add oekazuma/svelte-vitals`. They give the agent the rules before it writes code, and tell it to verify each edit afterward with the CLI's `--diff --reporter agent`.
 - **Polishing prerendered or marketing pages.** Add the Vite plugin's build mode for an exact, build-time gate on shipped HTML. Its live dashboard, on by default, gives you feedback while you write, with no extra setup.
 - **All of the above together** is the common end state. They check different things at different times and don't conflict.

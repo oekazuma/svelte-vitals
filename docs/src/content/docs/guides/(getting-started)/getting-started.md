@@ -82,7 +82,7 @@ These codes are stable and suitable for CI gates.
 
 ## Next steps
 
-- Not sure which package to reach for? See [Choosing a package](/guides/choosing-a-package) for a comparison of the CLI, the Vite plugin, the GitHub Action, and Agent Skills.
+- Not sure which package to reach for? See [Choosing a package](/guides/choosing-a-package) for a comparison of the CLI, the Vite plugin, and Agent Skills.
 - See [CLI reference](/guides/cli) for all flags.
 - Use [Plugin mode](/guides/plugin-mode) to integrate with `vite build`.
 - Install [Agent Skills](/guides/agent-skills) to let AI agents apply the rules and run the analysis themselves. `npx skills add oekazuma/svelte-vitals` installs them for Claude Code / Codex / Cursor in one step.

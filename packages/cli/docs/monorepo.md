@@ -37,7 +37,8 @@ hanging or guessing. Re-run with the path it printed. Cancelling the interactive
 - `vite-plugin`, `vite-hooks`, `config-file` write into the **app** directory; they resolve it
   the same way the analyzer does, and `--app <app>` names it explicitly.
 - `cursor-rules` and `ci-workflow` always write at the **current** directory, because the repo
-  root is their correct home.
+  root is their correct home. The workflow's svelte-vitals step names the app `--app` gives, or
+  the one resolved for the app targets in the same run.
 
 ```bash
 npx svelte-vitals@latest install --client vite-plugin,config-file --app apps/web --yes

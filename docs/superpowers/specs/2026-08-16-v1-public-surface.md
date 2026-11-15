@@ -81,6 +81,9 @@ additive, so nothing is lost by starting closed.
   commands are re-runnable.
 - **`docs show <topic>`**: the topic names are frozen (they appear in agent instructions); the
   prose is not.
+- **Not frozen (2026-11-15)**: the retired-action guard (the CLI keeping its old `github` output
+  under `GITHUB_ACTION_REPOSITORY=oekazuma/svelte-vitals-action`) is not part of the 1.0 surface
+  and is removed in the 1.0 release.
 
 The rest of `packages/cli/src/index.ts`'s exports (`run`, `analyzeProject`, `applyScope`,
 `routeMatcher`, `loadConfigFile`, `findUnknownRuleIds`, …) are **internal**: no doc teaches them,

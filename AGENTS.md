@@ -25,11 +25,10 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
 ## Package map
 
 - `packages/core` — runtime-agnostic rule engine, scorer, and reporter (types + logic only). Two
-  entry points: `.` (`src/index.ts`) is the semver-stable surface — config authoring, reading a
-  JSON report, and rendering results and gating on their summary for the GitHub Action — and it
-  must stay **type-closed** (no export may reference a type only `./internal` exports). `./internal`
-  (`src/internal.ts`) is everything cli and vite share and
-  carries no semver guarantee. New cross-package exports go in `internal.ts`; adding to `index.ts`
+  entry points: `.` (`src/index.ts`) is the semver-stable surface — config authoring and reading a
+  JSON report — and it must stay **type-closed** (no export may reference a type only `./internal`
+  exports). `./internal` (`src/internal.ts`) is everything cli and vite share and carries no
+  semver guarantee. New cross-package exports go in `internal.ts`; adding to `index.ts`
   is a decision, not a default. See `docs/superpowers/specs/2026-08-16-v1-public-surface.md`.
 - `packages/cli` — the `svelte-vitals` CLI.
 - `packages/vite` — Vite/SvelteKit plugin + live dashboard; analyzes prerendered HTML during `vite build`.
@@ -48,17 +47,6 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
   `<!-- cli-reference:start/end -->` markers) are generated from the gunshi arg declarations: after
   changing any flag or its description, run `pnpm --filter svelte-vitals run gen:cli-reference && pnpm format`;
   `packages/cli/test/cli-reference.test.ts` fails the build on drift. Never edit inside the markers by hand.
-
-The first-party GitHub Action is **not** part of this monorepo — it lives in its own repository,
-[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action), depending on
-the published `svelte-vitals`/`@svelte-vitals/core` npm packages like any other consumer (regular
-semver ranges, not workspace links). See `docs/superpowers/specs/2026-07-22-action-dist-post-merge-only.md`
-for why it was split out. `packages/cli/scripts/gen-action-pin.js` (run manually via
-`pnpm --filter svelte-vitals run update-action-pin`, not on every build) fetches that repo's
-latest release into the committed `packages/cli/src/ci/action-pin.generated.ts`, which `ci
-install`/`ci upgrade` bundle into scaffolded workflows. Renovate bumps that same file through the
-regex `customManagers` entry in `renovate.json` (version + commit digest from the action repo's tags);
-its PR is deliberately not automerged because the bump is user-facing and needs a changeset.
 
 ## Hard rules
 
@@ -126,11 +114,13 @@ its PR is deliberately not automerged because the bump is user-facing and needs 
 - **Setup-action pins move in lockstep.** The workflow `ci install` scaffolds pins `actions/checkout`
   and `pnpm/setup` at the SHA and version this repository's own workflows use (`CHECKOUT_*` and
   `PNPM_SETUP_*` in `packages/cli/src/ci/workflow.ts`). `packages/cli/test/ci/lockstep.test.ts`
-  fails when a workflow under `.github/workflows/` moves one of them, and
+  fails when a workflow under `.github/workflows/` moves one of them. It also pins
+  `actions/setup-node` (`SETUP_NODE_*`), which this repository's workflows do not use, so no
+  lockstep test covers it; its regex manager in `renovate.json` keeps it fresh.
   `packages/cli/test/ci/guide.test.ts` fails when the "Writing it by hand" YAML in the CI guide
-  (English and Japanese) differs from the generator. So a bump of either action means updating the
-  constants and both guide pages, re-stamping the English page, and adding a changeset, because the
-  scaffolded output changes.
+  (English and Japanese) differs from the generator. So a bump of any of the three means updating
+  the constants and both guide pages, re-stamping the English page, and adding a changeset,
+  because the scaffolded output changes.
 - **User-facing levers ship with two guards.** A lever is anything a user sets to change what the
   run does — a CLI flag, a config key, an inline directive, a suppressions entry, an override. Each
   needs (1) a case in the kitchen-sink e2e suite asserting an **observable effect** on the real

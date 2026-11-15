@@ -162,7 +162,11 @@ svelte-vitals --reporter sarif
 
 GitHub Actions の [ワークフローコマンド](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) 形式。プルリクエストにインラインで表示される `::error`（critical）、`::warning`（warning）、`::notice`（info）アノテーションを出力します。
 
-`github` レポーターは `GITHUB_ACTIONS=true` が設定されている場合（GitHub Actions が自動的に設定）に自動選択されます。
+`github` レポーターは `GITHUB_ACTIONS=true` が設定されている場合（GitHub Actions が自動的に設定）に自動選択されます。GitHub Actions 上では、さらに次のことも行います。
+
+- [`md`](#md) レポートをジョブサマリー（`GITHUB_STEP_SUMMARY`）に追記します。
+- アノテーションのパスをリポジトリのルート（`GITHUB_WORKSPACE`）からの相対パスで書き出します。解析したアプリがサブディレクトリにあっても、アノテーションが diff 上に付きます。
+- クラッシュしたルールなど、自身の警告を `::warning` アノテーションとして出力します。
 
 ```bash
 svelte-vitals --reporter github
@@ -170,7 +174,7 @@ svelte-vitals --reporter github
 
 ### `md`
 
-コンパクトな Markdown サマリーです。Health スコア、カテゴリ別スコア表、重大度別件数、各ルールのドキュメントページへのリンク付き検出結果テーブルを含みます。GitHub Actions のジョブサマリーや PR コメント向けに設計されており、GitHub のコメントサイズ制限内に収まるよう検出結果の行数は 50 件に制限されます。このレポーターを自動的にワークフローへ組み込む `svelte-vitals ci install` については [CI 連携ガイド](/ja/guides/ci) を参照してください。
+コンパクトな Markdown サマリーです。Health スコア、カテゴリ別スコア表、重大度別件数、各ルールのドキュメントページへのリンク付き検出結果テーブルを含みます。GitHub Actions のジョブサマリーや PR コメント向けに設計されており、GitHub のコメントサイズ制限内に収まるよう検出結果の行数は 50 件に制限されます。GitHub Actions 上では [`github`](#github) レポーターがこのレポートをジョブサマリーに追記します。`svelte-vitals ci install` が生成するワークフローのジョブサマリーもこの仕組みで作られます。詳しくは [CI 連携ガイド](/ja/guides/ci) を参照してください。
 
 ```bash
 svelte-vitals --reporter md

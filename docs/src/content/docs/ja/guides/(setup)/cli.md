@@ -199,7 +199,7 @@ svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 sta
 
 **`--baseline <ref>` との違い:** `--baseline` は実行のたびに git の ref を再解析して「何が既存か」を導出します。コミットは不要ですが、常に 1 つの ref としか比較できません。抑制ファイルは、一度作って（あるいは意図したときにだけ更新して）コミットする永続的な記録で、どの ref 上にいても適用され続けます。
 
-> `--baseline` と同様、エントリは行番号なしで照合されます。受け入れ済みのルールの 2 件目の違反が同じファイルの下の方に追加されても「新規」としては表示されません。`@svelte-vitals/vite` はソース走査のエントリを適用し、ルート単位のエントリはスキップします（[プラグインモード](/ja/guides/plugin-mode#設定ファイル) を参照）。GitHub Action は CLI と同じエンジンを実行するため、ファイル全体を適用します。
+> `--baseline` と同様、エントリは行番号なしで照合されます。受け入れ済みのルールの 2 件目の違反が同じファイルの下の方に追加されても「新規」としては表示されません。`@svelte-vitals/vite` はソース走査のエントリを適用し、ルート単位のエントリはスキップします（[プラグインモード](/ja/guides/plugin-mode#設定ファイル) を参照）。
 
 ### `--by-route`
 
@@ -367,7 +367,7 @@ svelte-vitals complete <bash|zsh|fish|powershell>
 ```
 
 指定したシェル向けの補完スクリプトを出力します。サブコマンド名（`docs`、`explain`、`install`、
-`ci install`/`ci upgrade`）、それぞれのフラグ、そして列挙型のフラグ（`--reporter`、`--fail-on`、
+`ci install`）、それぞれのフラグ、そして列挙型のフラグ（`--reporter`、`--fail-on`、
 `--category`、`--treat-dynamic-as`）の値まで補完します。パースと `--help` を駆動しているのと同じ
 引数定義から生成されるため、補完は常に CLI と一致します。
 

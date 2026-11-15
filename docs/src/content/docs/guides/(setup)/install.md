@@ -42,7 +42,7 @@ Both use a `magicast` codemod that only touches a file whose shape it confidentl
 
 `config-file` scaffolds `svelte-vitals.config.{js,ts}` with its basic options (`treatDynamicAs`, `metaComponents`, `rules`, `failOn`, `weights`) commented out, auto-picking the best extension for the environment; see [Config file](/guides/configuration). Like `cursor-rules`, it's fully regenerated, so **`--force` does apply**, to whichever file already exists. Regenerating never switches that file's extension.
 
-`ci-workflow` scaffolds `.github/workflows/svelte-vitals.yml`, the same file the standalone [`svelte-vitals ci install`](/guides/ci) command writes. Pick it here to set up CI in the same pass as everything else, instead of a separate command. It's fully regenerated, so **`--force` does apply**; `svelte-vitals ci upgrade` (not part of this wizard) remains the way to bump an existing workflow's pinned action version without touching anything else in the file.
+`ci-workflow` scaffolds `.github/workflows/svelte-vitals.yml`, the file the standalone [`svelte-vitals ci install`](/guides/ci) command writes; when this run knows the app, the workflow's svelte-vitals step also names it (see [`--app`](#--app-app-in-monorepos)). Pick it here to set up CI in the same pass as everything else, instead of a separate command. It's fully regenerated, so **`--force` does apply**.
 
 ## `--app <app>` in monorepos
 
@@ -54,9 +54,12 @@ The `vite-plugin`, `vite-hooks`, and `config-file` targets must land in the Svel
 
 Everything else, `cursor-rules` and `ci-workflow`, always writes relative to the current directory, since the repo root is those files' correct home in a monorepo.
 
+`--app` also names the app the CI workflow's svelte-vitals step analyzes: `ci-workflow` writes that app's path into the step, and an app resolved for `vite-plugin`, `vite-hooks` or `config-file` in the same run is written the same way. With `ci-workflow` alone, only an explicit `--app` sets it, and it exits `2` when that directory is not a SvelteKit app. Without one, the step leaves the choice to svelte-vitals when it runs (see [Monorepos](/guides/ci#monorepos) in the CI guide).
+
 ```bash
 cd my-monorepo
 npx svelte-vitals@latest install --client vite-plugin,config-file --app apps/web --yes
+npx svelte-vitals@latest install --client ci-workflow --app apps/web --yes
 ```
 
 ## `--yes`, `-y`

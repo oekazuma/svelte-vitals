@@ -1,0 +1,11 @@
+---
+'svelte-vitals': minor
+---
+
+`svelte-vitals ci install` and `svelte-vitals install --client ci-workflow` scaffold a workflow that runs the `svelte-vitals` installed in the project instead of `oekazuma/svelte-vitals-action`: checkout, a Node.js setup (`actions/setup-node` for npm, `pnpm/setup` with `runtime: node` for pnpm 11 or newer), the install, and one `./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"` step. The workflow requests only `contents: read` and posts no PR comment; the job summary carries the report. The step never downloads a CLI, so the project must declare `svelte-vitals` and install it in the workflow, or the step fails. For Yarn, Bun, older or undeclared pnpm, or a project without a lockfile, the setup and install stay commented out, and the step fails until you complete them. `install --app <dir>` writes the app's path into the step.
+
+Under GitHub Actions (`GITHUB_ACTIONS=true`), `--reporter github` now also appends the `--reporter md` report to the job summary (`GITHUB_STEP_SUMMARY`), writes `file=` paths relative to the repository root (`GITHUB_WORKSPACE`), so annotations attach to the diff when the app is in a subdirectory, and prints analysis warnings, such as a crashed rule, as `::warning` annotations. Outside GitHub Actions its output is unchanged.
+
+`svelte-vitals ci upgrade` is removed and fails with the usage error (exit `2`). Re-run `svelte-vitals ci install --force` to regenerate the workflow; it discards your edits to the file. Without `--force`, `ci install` leaves an existing workflow alone and says so when it still calls the action. It also prints a note at a workspace root whose `package.json` does not declare `svelte-vitals`, and when the installed `svelte-vitals` is older than 0.57.0, which runs the step without the job summary or the repository-relative paths.
+
+A workflow still on the action keeps its output when the project upgrades `svelte-vitals`: run by the action, the CLI writes no job summary or path prefix of its own, and prints one line saying the action is retired, which the action shows as a warning annotation. This lasts until 1.0.
