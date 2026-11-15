@@ -1,6 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { cpSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { run, type RunOptions } from '../src/index.js';
 import { runCli } from '../src/cli.js';
 import { workspaceLocationMapper } from '../src/github-actions.js';
@@ -80,6 +82,20 @@ describe('github reporter under GitHub Actions', () => {
     const warnings = out.split('\n').filter((line) => line.startsWith('::warning::'));
     expect(warnings).toContainEqual(expect.stringMatching(/^::warning::svelte-vitals: .*unknown config key/));
     expect(err).toContainEqual(expect.stringMatching(/^svelte-vitals: .*unknown config key/));
+  });
+
+  it('strips control characters from the ::warning lines', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'sv-github-warning-'));
+    try {
+      cpSync(warningsFixtureDir, dir, { recursive: true });
+      writeFileSync(join(dir, 'svelte-vitals.config.js'), "export default { '\\u001b[31mevil': true };\n");
+      const { out } = await runCaptured({ cwd: dir, reporter: 'github', env: { GITHUB_ACTIONS: 'true' } });
+      expect(out).toContain('::warning::svelte-vitals: ');
+      expect(out).toContain("unknown config key 'evil' ignored.");
+      expect(out).not.toContain('\u001b');
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   it('summary write failure keeps the exit code', async () => {

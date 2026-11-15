@@ -665,7 +665,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       } else if (reporter === 'github') {
         // The retired action writes its own summary and path prefix on top of this output.
         const inActions = isGithubActionsEnv(env) && !retiredAction;
-        if (inActions) for (const w of analysis.warnings) log(formatGithubWarning(`svelte-vitals: ${w}`));
+        if (inActions) for (const w of analysis.warnings) log(formatGithubWarning(terminalSafe(`svelte-vitals: ${w}`)));
         const output = formatGithubReport(
           results,
           config,
