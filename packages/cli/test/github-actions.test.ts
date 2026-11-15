@@ -59,7 +59,7 @@ describe('github reporter under GitHub Actions', () => {
     for (const file of files) expect(file).toMatch(/^basic-project\//);
   });
 
-  it('prefixes from the auto-picked app', async () => {
+  it('prefixes from the picked app', async () => {
     const { out } = await runCaptured({
       cwd: monorepoFixture,
       reporter: 'github',

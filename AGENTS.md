@@ -114,7 +114,7 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
 - **Setup-action pins move in lockstep.** The workflow `ci install` scaffolds pins `actions/checkout`
   and `pnpm/setup` at the SHA and version this repository's own workflows use (`CHECKOUT_*` and
   `PNPM_SETUP_*` in `packages/cli/src/ci/workflow.ts`). `packages/cli/test/ci/lockstep.test.ts`
-  fails when a workflow under `.github/workflows/` moves one of them. It also pins
+  fails when a workflow under `.github/workflows/` moves one of them. The scaffold also pins
   `actions/setup-node` (`SETUP_NODE_*`), which this repository's workflows do not use, so no
   lockstep test covers it; its regex manager in `renovate.json` keeps it fresh.
   `packages/cli/test/ci/guide.test.ts` fails when the "Writing it by hand" YAML in the CI guide

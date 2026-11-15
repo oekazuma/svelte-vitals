@@ -93,7 +93,10 @@ export interface RunOptions {
   weights?: Partial<Record<Category, number>>;
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
   categories?: Category[];
-  /** Override process.env for reporter auto-detection (mainly useful in tests). */
+  /**
+   * Override process.env for reporter auto-detection and the GitHub Actions summary, annotation
+   * paths and retired-action check (mainly useful in tests).
+   */
   env?: NodeJS.ProcessEnv;
   /** Fail (exit 1) when the combined Health score is below this value (0–100). */
   minHealth?: number;

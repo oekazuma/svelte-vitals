@@ -13,7 +13,7 @@
   "platformAutomerge": true,
   "customManagers": [
     {
-      "description": "The checkout, setup-node and pnpm/setup pins `ci install` scaffolds must equal this repo's workflow pins (test/ci/lockstep.test.ts), which only the built-in github-actions manager sees — extract them under the same depName and datasource so one bump moves both.",
+      "description": "The checkout and pnpm/setup pins `ci install` scaffolds must equal this repo's workflow pins (test/ci/lockstep.test.ts), which only the built-in github-actions manager sees — extract them under the same depName and datasource so one bump moves both.",
       "customType": "regex",
       "managerFilePatterns": ["/^packages/cli/src/ci/workflow\\.ts$/"],
       "matchStrings": [
