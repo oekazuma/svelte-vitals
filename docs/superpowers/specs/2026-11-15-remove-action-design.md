@@ -1,7 +1,7 @@
 # Retire the GitHub Action: the scaffolded workflow runs the CLI
 
 **Date:** 2026-11-15
-**Status:** Draft, awaiting review
+**Status:** Approved (owner, 2026-11-15)
 **Repositories:** `oekazuma/svelte-vitals` (CLI, core, scaffold, docs), `oekazuma/svelte-vitals-action` (final release, then archived)
 **Supersedes:** the Phase 2 plan in `2026-11-11-action-runs-project-cli-design.md` (issue #981)
 
