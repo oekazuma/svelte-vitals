@@ -28,12 +28,14 @@ if (!existsSync(cliBin)) {
  * `execFileSync` only surfaces stdout on a zero exit (its return value) and both streams on a
  * non-zero one (via the thrown error), so a check needing stderr content from a *successful*
  * run (e.g. the auto-selected-reporter hint, which prints on exit 0) can't use it. `spawnSync`
- * captures both streams uniformly regardless of exit code.
+ * captures both streams uniformly regardless of exit code. The env defaults to `cleanEnv()`: an
+ * inherited GITHUB_STEP_SUMMARY would append each report to the real CI job summary.
  */
 function runCli(args, opts = {}) {
   const result = spawnSync(process.execPath, [cliBin, ...args], {
     stdio: ['ignore', 'pipe', 'pipe'],
     encoding: 'utf8',
+    env: cleanEnv(),
     ...opts
   });
   return {
