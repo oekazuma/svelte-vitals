@@ -76,9 +76,11 @@ additive, so nothing is lost by starting closed.
 - **`defineConfig`** re-exported from `svelte-vitals` (the package users install). This is the only
   programmatic export the docs teach.
 - **Scaffolding outputs**: the file paths `install` and `ci install` write (agent skill file,
-  config file, workflow file) and the fact that the scaffolded workflow pins the Action by a
-  generated version. Their _contents_ are not frozen — they are generated guidance, and both
-  commands are re-runnable.
+  config file, workflow file). Their _contents_ are not frozen — they are generated guidance, and
+  both commands are re-runnable.
+  **Changed 2026-11-15**: this entry also froze the scaffolded workflow pinning the Action by a
+  generated version. The Action is retired and the workflow runs the installed CLI, so only the
+  workflow file path is frozen.
 - **`docs show <topic>`**: the topic names are frozen (they appear in agent instructions); the
   prose is not.
 - **Not frozen (2026-11-15)**: the retired-action guard (the CLI keeping its old `github` output
