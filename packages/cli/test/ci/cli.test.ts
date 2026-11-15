@@ -255,9 +255,12 @@ describe('runCiCliGunshi migration notes', () => {
     expect(notes(out)).toEqual([oldCliNote('0.56.1')]);
   });
 
-  it.each(['0.57.0', '0.57.0-next.1', '1.0.0'])('says nothing about an installed svelte-vitals %s', async (v) => {
-    const { io, out } = fakeIO({ files: { ...LOCK, '/proj/package.json': DECLARED, ...installed(v) } });
-    expect(await runCiCliGunshi(['install'], io)).toBe(0);
-    expect(notes(out)).toEqual([]);
-  });
+  it.each(['0.57.0', '0.57.0-next.1', '0.57.0+build.1', '1.0.0'])(
+    'says nothing about an installed svelte-vitals %s',
+    async (v) => {
+      const { io, out } = fakeIO({ files: { ...LOCK, '/proj/package.json': DECLARED, ...installed(v) } });
+      expect(await runCiCliGunshi(['install'], io)).toBe(0);
+      expect(notes(out)).toEqual([]);
+    }
+  );
 });

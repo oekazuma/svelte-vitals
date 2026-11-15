@@ -20,9 +20,9 @@ export function isWorkspaceRoot(io: ReadIO, pkg: WorkspacePkg): boolean {
   return pkg?.workspaces !== undefined || io.readFile(join(io.cwd, 'pnpm-workspace.yaml')) !== undefined;
 }
 
-// Same rule as the retired action's minimum-version check, so a prerelease of the minimum passes.
+// Compares the release triple only, so a prerelease or build of the minimum passes.
 function isAtLeast(version: string, min: string): boolean {
-  const parse = (v: string) => (v.split('-')[0] ?? '').split('.').map(Number);
+  const parse = (v: string) => (v.split(/[-+]/)[0] ?? '').split('.').map(Number);
   const a = parse(version);
   const b = parse(min);
   for (let i = 0; i < 3; i++) {
