@@ -573,12 +573,24 @@ describe('runInstall — ci-workflow target', () => {
     '/proj/package.json': JSON.stringify({ workspaces: ['apps/*'] })
   };
   const WORKSPACE_NOTE = '! This is a workspace root.';
+  const APP_WORKSPACE_NOTE =
+    '! This is a workspace root and its package.json does not declare svelte-vitals. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is installed only in apps/web, set working-directory: apps/web on that step and drop the path argument.';
 
   it('install --app apps/web --client ci-workflow writes the app path into the run step', async () => {
     const { io, writes, out } = fakeIO({ files: { ...WORKSPACE, '/proj/apps/web/svelte.config.js': 'x' } });
     expect(await runInstall({ client: ['ci-workflow'], app: 'apps/web', yes: true }, io, noPrompts)).toBe(0);
     expect(writes[WF]).toContain("      - run: ./node_modules/.bin/svelte-vitals 'apps/web' --reporter github");
-    expect(out.join('\n')).not.toContain(WORKSPACE_NOTE);
+    expect(out.filter((l) => l.startsWith('!'))).toEqual([APP_WORKSPACE_NOTE]);
+  });
+
+  it('a workspace root that declares svelte-vitals gets no workspace note, with or without --app', async () => {
+    const pkg = JSON.stringify({ workspaces: ['apps/*'], devDependencies: { 'svelte-vitals': '^0.57.0' } });
+    const files = { ...WORKSPACE, '/proj/package.json': pkg, '/proj/apps/web/svelte.config.js': 'x' };
+    for (const app of [undefined, 'apps/web']) {
+      const { io, out } = fakeIO({ files });
+      expect(await runInstall({ client: ['ci-workflow'], app, yes: true }, io, noPrompts)).toBe(0);
+      expect(out.join('\n')).not.toContain('! This is a workspace root');
+    }
   });
 
   it('ci-workflow without --app at a workspace root runs the step at the root and says so', async () => {

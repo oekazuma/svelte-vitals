@@ -216,6 +216,13 @@ describe('runCiCliGunshi migration notes', () => {
     }
   });
 
+  it('a workflow on the pre-split action path gets the same --force note', async () => {
+    const old = `      - uses: oekazuma/svelte-vitals/packages/action@${'1'.repeat(40)} # action-v1.2.3\n`;
+    const { io, out } = fakeIO({ files: { [PATH]: old, ...LOCK, '/proj/package.json': DECLARED } });
+    expect(await runCiCliGunshi(['install'], io)).toBe(0);
+    expect(notes(out)).toEqual([RETIRED_NOTE]);
+  });
+
   it('--force replaces a workflow that calls the retired action without the note', async () => {
     const { io, out, writes } = fakeIO({ files: { [PATH]: ACTION_WORKFLOW, ...LOCK, '/proj/package.json': DECLARED } });
     expect(await runCiCliGunshi(['install', '--force'], io)).toBe(0);

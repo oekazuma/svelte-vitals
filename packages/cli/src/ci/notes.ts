@@ -6,6 +6,9 @@ import { WORKFLOW_PATH } from './workflow.js';
 /** The first release whose github reporter writes the job summary and repository-relative paths itself. */
 export const WORKFLOW_MIN_CLI_VERSION = '0.57.0';
 
+// The second spelling is how workflows referenced the action before it moved to its own repository.
+const RETIRED_ACTION_REFS = [`${RETIRED_ACTION}@`, 'oekazuma/svelte-vitals/packages/action@'];
+
 interface ReadIO {
   cwd: string;
   readFile(path: string): string | undefined;
@@ -36,7 +39,7 @@ function isAtLeast(version: string, min: string): boolean {
  */
 export function workflowNotes(io: ReadIO, existing: string | undefined, appPath?: string): string[] {
   if (existing !== undefined) {
-    return existing.includes(RETIRED_ACTION)
+    return RETIRED_ACTION_REFS.some((ref) => existing.includes(ref))
       ? [
           `! ${WORKFLOW_PATH} still calls ${RETIRED_ACTION}, which is retired. Re-run with --force to replace it with the CLI step.`
         ]
@@ -44,9 +47,11 @@ export function workflowNotes(io: ReadIO, existing: string | undefined, appPath?
   }
   const notes: string[] = [];
   const pkg = parsePkg(io.readFile(join(io.cwd, 'package.json'))) as WorkspacePkg;
-  if (appPath === undefined && isWorkspaceRoot(io, pkg) && !hasDep(pkg, 'svelte-vitals')) {
+  if (isWorkspaceRoot(io, pkg) && !hasDep(pkg, 'svelte-vitals')) {
     notes.push(
-      '! This is a workspace root. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is declared in an app instead, add working-directory: <app> to that step.'
+      appPath === undefined
+        ? '! This is a workspace root. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is declared in an app instead, add working-directory: <app> to that step.'
+        : `! This is a workspace root and its package.json does not declare svelte-vitals. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is installed only in ${appPath}, set working-directory: ${appPath} on that step and drop the path argument.`
     );
   }
   const installed = (
