@@ -103,9 +103,11 @@ retired action (§2):
   a warning on stderr, not an exit `2`: the gate and the annotations still stand.
 - **Repository-relative paths.** If `GITHUB_WORKSPACE` is set and the analyzed project directory is
   inside it, `file=` values are prefixed with the project's path relative to the workspace. A
-  project at the workspace root gets no prefix. A file outside the workspace (a sibling package
-  reported as `../ui/...`) is left as is, as the action's `repoRelativeAnnotations` does today.
-  `formatGithubReport` takes the prefix as an option; the CLI computes it.
+  project at the workspace root gets no prefix. As in the action's `repoRelativeAnnotations`, a
+  location is joined to the prefix POSIX-style, so a sibling package reported as `../ui/B.svelte`
+  from `apps/web` becomes `apps/ui/B.svelte`; it is left unchanged only when it is absolute or the
+  join escapes the workspace. `formatGithubReport` takes a location mapper as an option; the CLI
+  builds it.
 - **Analysis warnings.** Each entry of `analysis.warnings` (crashed rules, config warnings) is also
   emitted as a `::warning::` workflow command, so it shows on a passing job. Other stderr lines
   (hints such as "github reporter auto-selected") stay plain stderr.
@@ -145,12 +147,14 @@ The rejected alternative was no guard, with the breakage stated in the changeset
     `pnpm install --frozen-lockfile --ignore-scripts`.
   - The manual shape (Yarn, Bun, pnpm below 11, no lockfile) keeps the setup and install lines
     commented out, as today, and `ci install` keeps printing why. The run step is live, so the
-    first run fails loudly until the user fills them in; there is no fallback any more. For Yarn the
-    run step uses `yarn svelte-vitals`. Yarn Plug'n'Play stays unsupported, as the CI guide says
-    today (`nodeLinker: node-modules`). (Author's call.)
-- The run step executes the installed CLI with `--reporter github`, `--diff` and `--baseline` at
-  `origin/${{ github.base_ref }}`, through a form that cannot fetch (`npx --no` for npm, `pnpm exec`
-  for pnpm; the builder picks the exact form per shape).
+    first run fails loudly until the user fills them in; there is no fallback any more. Yarn
+    Plug'n'Play stays unsupported, as the CI guide says today (`nodeLinker: node-modules`).
+    (Author's call.)
+- The run step executes `./node_modules/.bin/svelte-vitals` with `--reporter github`, `--diff` and
+  `--baseline` at `origin/$BASE_REF`, the base ref passed through `env:` rather than a `${{ }}`
+  expression inside the shell line. One form for every shape: it never fetches, a missing install
+  fails with exit 127 rather than the gate's `1`, and Yarn's supported layout has the same bin.
+  (Author's call, refined while planning.)
 
 **Recurring cost, stated:** the npm shape adds a third pinned action. Each `actions/setup-node`
 release becomes a Renovate PR that needs a human changeset and a re-stamp of the English CI guide,

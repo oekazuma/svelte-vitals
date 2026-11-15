@@ -35,9 +35,10 @@ This plan covers the main-repository PR (spec §1–§6, plus the real-run check
 
 ## Rulings made while planning
 
-- Run step is `./node_modules/.bin/svelte-vitals` for every shape, not `npx --no`/`pnpm exec`/`yarn svelte-vitals`: one form, never fetches, fails with exit 127 (distinct from the gate's `1`), and Yarn's supported layout (`nodeLinker: node-modules`) has the same bin. Cost if wrong: one scaffold line per shape.
-- Sibling-package paths follow the action's actual `repoRelativeAnnotations` (`posix.join`, unchanged only when the result escapes the workspace); the spec's parenthetical misdescribes it, and its stated intent is parity. Cost if wrong: one condition.
+- Run step is `./node_modules/.bin/svelte-vitals` for every shape (spec §3 amended to match): one form, never fetches, fails with exit 127 (distinct from the gate's `1`), and Yarn's supported layout (`nodeLinker: node-modules`) has the same bin. Cost if wrong: one scaffold line per shape.
+- Sibling-package paths follow the action's actual `repoRelativeAnnotations` (`posix.join`, unchanged only when the result escapes the workspace); spec §1 amended to match. Cost if wrong: one condition.
 - The base ref goes through `env: BASE_REF` because `run:` is shell; the action passed it as an input. Cost if wrong: two YAML lines.
+- This repository's own CI sets `GITHUB_ACTIONS`, `GITHUB_WORKSPACE` and `GITHUB_STEP_SUMMARY`, so every new test passes a fully explicit `env` (never a spread of `process.env`), and Task 7 runs the suite with those variables set. Cost if wrong: tests that pass locally and fail, or write into the real job summary, in CI.
 - `WORKFLOW_MIN_CLI_VERSION = '0.57.0'` (the minor this PR's changeset produces from 0.56.1); Task 8 rechecks it before the PR is opened.
 
 ---
@@ -47,7 +48,7 @@ This plan covers the main-repository PR (spec §1–§6, plus the real-run check
 **Files:**
 
 - Modify: `packages/core/src/reporter/github.ts`, `packages/core/src/index.ts`, `packages/core/src/internal.ts`
-- Modify: `docs/superpowers/specs/2026-08-16-v1-public-surface.md` (dated entry)
+- Modify: `docs/superpowers/specs/2026-08-16-v1-public-surface.md` (dated entry), `packages/core/README.md` (its package table lists the four names)
 - Test: `packages/core/test/github-report.test.ts` (extend)
 
 **Interfaces:**
@@ -74,7 +75,7 @@ Plus a test asserting `Object.keys(await import('../src/index.js'))` contains no
 
 - [ ] **Step 2: Run** `pnpm --filter @svelte-vitals/core test -- github-report` — Expected: FAIL (`mapLocation` ignored, `formatGithubWarning` not exported, removed names still present).
 - [ ] **Step 3: Implement** the option and `formatGithubWarning` in `github.ts`; export the latter from `internal.ts`; delete the four exports and their JSDoc block from `index.ts`. Add a dated entry (2026-11-15) to the public-surface spec: the four names return to `./internal` because their only outside consumer, the action, is retired.
-- [ ] **Step 4: Run** `pnpm --filter @svelte-vitals/core test && pnpm --filter @svelte-vitals/core typecheck` — Expected: PASS. Then `pnpm build && pnpm typecheck` — Expected: exit 0 (nothing else imports these from `.`).
+- [ ] **Step 4: Run** `pnpm --filter @svelte-vitals/core test && pnpm --filter @svelte-vitals/core typecheck` — Expected: PASS. Then `pnpm build && pnpm typecheck` — Expected: exit 0. Then `git grep -nE "formatGithubReport|formatMarkdownReport|hasFailureAtOrAbove|summarize" -- docs/src README.md 'packages/*/README.md' examples` — Expected: only `packages/core/README.md`, which this task rewrites to drop the four names.
 - [ ] **Step 5: Commit** `feat(core)!: move action-only rendering exports back to internal`
 
 ### Task 2: CLI — github reporter under GitHub Actions, and the retired-action guard
@@ -102,7 +103,7 @@ Behaviour in `run()`, all after analysis:
 
 The mapper reproduces the action's `repoRelativeAnnotations`: `joined = posix.join(prefix, location)`; return `location` unchanged when it is absolute or `joined` is `..` or starts with `../`.
 
-- [ ] **Step 1: Write the failing tests** (drive `run()` on the existing CLI fixtures with injected `env`, `log`, `errorLog`, `appendFile`):
+- [ ] **Step 1: Write the failing tests** (drive `run()` on the existing CLI fixtures with injected `log`, `errorLog`, `appendFile` and a fully explicit `env` object, never `{ ...process.env }`):
   - `appends the md report to GITHUB_STEP_SUMMARY` — `appendFile` called once with the summary path and content starting with the md report's first line.
   - `prefixes file= with the project path inside the workspace` — workspace = fixture's parent → every `file=` starts with `<fixture-dir-name>/`.
   - `prefixes from the auto-picked app` — run at a monorepo fixture root with no path; `file=` starts with the app's workspace-relative path.
@@ -111,7 +112,7 @@ The mapper reproduces the action's `repoRelativeAnnotations`: `joined = posix.jo
   - `summary write failure keeps the exit code` — `appendFile` throws → stderr line above, exit code equals the run without the throw.
   - `does nothing extra outside GitHub Actions` — `GITHUB_ACTIONS` unset, `--reporter github` → no `appendFile` call, no prefix.
   - `keeps the old output under the retired action` — env adds `GITHUB_ACTION_REPOSITORY=oekazuma/svelte-vitals-action` → stdout equals the no-`GITHUB_ACTIONS` output, no `appendFile`, the retirement line on stderr; with `--reporter md` the retirement line is still printed.
-- [ ] **Step 2: Run** `pnpm --filter svelte-vitals test -- github-actions` — Expected: FAIL (module missing).
+- [ ] **Step 2: Run** `pnpm --filter svelte-vitals test -- github-actions` — Expected: FAIL (module missing). Also `git grep -nE "reporter.*github|'github'" -- packages/cli/test examples/kitchen-sink/test` and give every existing github-reporter run that inherits the environment an explicit `env` without `GITHUB_*`.
 - [ ] **Step 3: Implement** `github-actions.ts` and wire it into `run()`.
 - [ ] **Step 4: Run** `pnpm build && pnpm --filter svelte-vitals test` — Expected: PASS.
 - [ ] **Step 5: Commit** `feat(cli): write the job summary and repository-relative annotations under GitHub Actions`
@@ -196,7 +197,7 @@ jobs:
 Notes `workflowNotes` returns, in this order:
 
 1. Existing file mentions `oekazuma/svelte-vitals-action` and is not being overwritten: `! .github/workflows/svelte-vitals.yml still calls oekazuma/svelte-vitals-action, which is retired. Re-run with --force to replace it with the CLI step.`
-2. Workspace root (`workspaces` in `package.json` or `pnpm-workspace.yaml`) and no `appPath`: `! This is a workspace root. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is declared in an app instead, add working-directory: <app> to that step.`
+2. Workspace root (`workspaces` in `package.json` or `pnpm-workspace.yaml`), no `appPath`, and the root `package.json` does not declare `svelte-vitals` (the root-declared layout the setup skill recommends needs no note): `! This is a workspace root. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is declared in an app instead, add working-directory: <app> to that step.`
 3. `node_modules/svelte-vitals/package.json` version below `WORKFLOW_MIN_CLI_VERSION` (prerelease suffix ignored, as the action's `isAtLeast`): `! node_modules has svelte-vitals <v>. The workflow needs ${WORKFLOW_MIN_CLI_VERSION} or newer for the job summary and repository-relative annotations; update the devDependency.`
 
 The existing install-step note and the "not in package.json" note stay.
@@ -213,7 +214,7 @@ The existing install-step note and the "not in package.json" note stay.
 
 - Test: `examples/kitchen-sink/test/e2e-github-actions.test.ts` (create; follow `e2e-static.test.ts`'s use of the built CLI)
 
-- [ ] **Step 1: Write the tests** running the built CLI on the gallery with `GITHUB_ACTIONS=true`, `GITHUB_WORKSPACE=<repo root>`, `GITHUB_STEP_SUMMARY=<temp file>`, `--reporter github`:
+- [ ] **Step 1: Write the tests** running the built CLI on the gallery with a fully explicit env (`PATH` plus `GITHUB_ACTIONS=true`, `GITHUB_WORKSPACE=<repo root>`, `GITHUB_STEP_SUMMARY=<temp file>`) and `--reporter github`; the "plain run" it compares against gets `PATH` only:
   - the summary file contains the md report's header row;
   - every `file=` on stdout starts with `examples/kitchen-sink/`;
   - the exit code equals the plain `--reporter github` run's;
@@ -245,12 +246,14 @@ Content to land (the snapshot of current behaviour, no history):
 ### Task 7: full verification
 
 - [ ] **Step 1: Run** each and record the exit code: `pnpm build`, `pnpm typecheck`, `pnpm test`, `pnpm lint`, `pnpm check:publish`, `pnpm smoke`, `pnpm --filter docs exec blume translate --check` (or the docs job's exact command from `.github/workflows/ci.yml`) — Expected: all exit 0.
-- [ ] **Step 2:** Detection is unchanged, so no corpus re-measurement; the PR's corpus job must report an empty finding diff. Note this in the PR body as "to be confirmed by the corpus job", not as run.
+- [ ] **Step 2: Run** `GITHUB_ACTIONS=true GITHUB_WORKSPACE="$PWD" GITHUB_STEP_SUMMARY="$(mktemp)" pnpm test`, then check that summary file is still empty — Expected: exit 0 and an empty file (no test leaks into a real job summary).
+- [ ] **Step 3:** Detection is unchanged, so no corpus re-measurement; the PR's corpus job must report an empty finding diff. Note this in the PR body as "to be confirmed by the corpus job", not as run.
 
 ### Task 8: real GitHub runs (needs the owner's OK to create the repository)
 
 - [ ] **Step 1:** Ask the owner for OK to create a private throwaway repository (they delete it afterwards). Do not create it before that.
-- [ ] **Step 2:** `pnpm pack` the built `svelte-vitals` and `@svelte-vitals/core`, and commit the tarballs into fixtures there: npm at the root, pnpm at the root, a pnpm workspace with the app in `apps/web` (CLI declared at the root), and one workflow still on `oekazuma/svelte-vitals-action@<v0.15.3 sha>`.
-- [ ] **Step 3:** Open one PR per fixture with a planted finding and check: annotations on the diff, the summary table, the gate result, the subdirectory paths, the retirement line on the old-action run, and a failing step (exit 127) when the install step is removed.
-- [ ] **Step 4:** Recheck `WORKFLOW_MIN_CLI_VERSION` against the version the Version Packages PR would produce from the pending changesets; fix it if another minor has shipped.
-- [ ] **Step 5:** Record what was run, with run URLs, for the PR body. Ask the owner before pushing the branch or opening the PR.
+- [ ] **Step 2:** `pnpm pack` the built `svelte-vitals` and `@svelte-vitals/core`. The packed CLI names `@svelte-vitals/core` by plain version, so each fixture adds an override pointing it at the core tarball (`overrides` for npm, `pnpm.overrides` for pnpm); check the installed `node_modules/@svelte-vitals/core` is the tarball before trusting a run.
+- [ ] **Step 3:** Run the old-action fixture first (a workflow on `oekazuma/svelte-vitals-action@<v0.15.3 sha>` with the new CLI installed). It is the only measurement that `GITHUB_ACTION_REPOSITORY` reaches the CLI with that exact value; if it does not, stop and bring it to the owner, because the guard's design depends on it.
+- [ ] **Step 4:** Then the other fixtures: npm at the root; pnpm at the root; a pnpm workspace with the app in `apps/web` and the CLI declared at the root; the same workspace with the CLI declared only in `apps/web` and `working-directory: apps/web` on the step. Open one PR per fixture with a planted finding and check: annotations on the diff, the summary table, the gate result, the subdirectory paths, and a failing step (exit 127) when the install step is removed.
+- [ ] **Step 5:** Recheck `WORKFLOW_MIN_CLI_VERSION` against the version the Version Packages PR would produce from the pending changesets; fix it if another minor has shipped.
+- [ ] **Step 6:** Record what was run, with run URLs, for the PR body. Ask the owner before pushing the branch or opening the PR.
