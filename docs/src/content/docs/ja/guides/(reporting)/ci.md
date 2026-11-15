@@ -116,7 +116,7 @@ pnpm のバージョンは、セットアップ Action と同じ方法で読み�
 
 svelte-vitals はアノテーションのパスをリポジトリのルートからの相対パスで書き出すため、どちらの場合もアノテーションは diff 上に付きます。
 
-ステップはリポジトリのルートで `./node_modules/.bin/svelte-vitals` を実行します。ルートの `package.json` が `svelte-vitals` を宣言している場合や、npm のワークスペースのようにパッケージマネージャーがアプリのバイナリをルートの `node_modules/.bin` にリンクする場合は、そのまま動きます。pnpm のように、アプリだけで宣言した `svelte-vitals` のバイナリがアプリ側に残る場合は、ステップをアプリで実行してください。`working-directory:` を追加し、パスの引数を外します。
+ステップはリポジトリのルートで `./node_modules/.bin/svelte-vitals` を実行します。ルートの `package.json` が `svelte-vitals` を宣言している場合や、インストールでそのバイナリがルートの `node_modules/.bin` に置かれる場合は、そのまま動きます。`./node_modules/.bin/svelte-vitals` がアプリのディレクトリにしかない場合は、ステップをそこで実行してください。`working-directory:` を追加し、パスの引数を外します。
 
 ```yaml
 - run: ./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"

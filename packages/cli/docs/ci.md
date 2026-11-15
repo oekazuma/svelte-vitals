@@ -47,9 +47,8 @@ older than 0.57.0, which writes no summary and no repository-relative paths.
 
 In a monorepo the step runs at the repository root. `install --client ci-workflow --app apps/web`
 puts the app's path in the step; without one, svelte-vitals picks the app as a local run does
-(`svelte-vitals docs show monorepo`). When `svelte-vitals` is declared only in the app and its binary is not in
-the root `node_modules/.bin` (pnpm), add `working-directory: apps/web` to the step and drop the
-path.
+(`svelte-vitals docs show monorepo`). If `./node_modules/.bin/svelte-vitals` exists only in the
+app's directory, add `working-directory: apps/web` to the step and drop the path.
 
 Whichever way it runs, svelte-vitals reads your committed `svelte-vitals.config.*` and
 `svelte-vitals-suppressions.json`, so rule policy stays in those files.

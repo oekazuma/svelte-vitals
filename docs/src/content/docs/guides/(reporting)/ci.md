@@ -182,10 +182,9 @@ Annotations land on the diff either way, because svelte-vitals writes their path
 repository root.
 
 The step runs `./node_modules/.bin/svelte-vitals` from the repository root. That works when the
-root `package.json` declares `svelte-vitals`, or when the package manager links the app's binaries
-into the root `node_modules/.bin`, as npm workspaces do. When `svelte-vitals` is declared only in
-the app and its binary stays there, as with pnpm, run the step in the app: add `working-directory:`
-and drop the path argument.
+root `package.json` declares `svelte-vitals`, or when the install puts its binary in the root
+`node_modules/.bin`. If `./node_modules/.bin/svelte-vitals` exists only in the app's directory, run
+the step there: add `working-directory:` and drop the path argument.
 
 ```yaml
 - run: ./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
