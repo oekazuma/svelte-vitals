@@ -21,9 +21,7 @@ function handWrittenBlocks(page: string, heading: string): string[] {
 }
 
 describe('the CI guide shows the workflow ci install generates', () => {
-  const expected = (['npm', 'pnpm'] as const).map((kind) =>
-    buildWorkflowYaml({ actionSha: '<sha>', actionVersion: '<version>', installStep: { kind } })
-  );
+  const expected = (['npm', 'pnpm'] as const).map((kind) => buildWorkflowYaml({ installStep: { kind } }));
 
   it.each(PAGES)('$page', ({ page, heading }) => {
     expect(handWrittenBlocks(readFileSync(join(docsRoot, page), 'utf-8'), heading)).toEqual(expected);

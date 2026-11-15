@@ -154,7 +154,7 @@ async function runCiInstall(
         io.log(`= already installed (${WORKFLOW_PATH}) — use --force to regenerate.`);
       } else {
         try {
-          io.writeFile(path, buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION, installStep }));
+          io.writeFile(path, buildWorkflowYaml({ installStep }));
           io.log(`✓ ${plan.status} ${WORKFLOW_PATH}`);
         } catch (err) {
           io.errorLog(

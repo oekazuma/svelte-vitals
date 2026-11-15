@@ -194,7 +194,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   svelte-vitals:
@@ -204,11 +203,13 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - run: npm ci --ignore-scripts
-      - uses: oekazuma/svelte-vitals-action@<sha> # v<version>
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          diff: origin/${{ github.base_ref }}
-          baseline: origin/${{ github.base_ref }}
+          node-version: 24
+      - run: npm ci --ignore-scripts
+      - run: ./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+        env:
+          BASE_REF: ${{ github.base_ref }}
 ```
 
 pnpm 11 以降を宣言している pnpm のプロジェクトでは、次の内容を生成します。
@@ -223,7 +224,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   svelte-vitals:
@@ -236,11 +236,11 @@ jobs:
       - uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
         with:
           install: false
+          runtime: node
       - run: pnpm install --frozen-lockfile --ignore-scripts
-      - uses: oekazuma/svelte-vitals-action@<sha> # v<version>
-        with:
-          diff: origin/${{ github.base_ref }}
-          baseline: origin/${{ github.base_ref }}
+      - run: ./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+        env:
+          BASE_REF: ${{ github.base_ref }}
 ```
 
 ほかのパッケージマネージャーでは、同じ位置（チェックアウトと Action の間）でそのパッケージマネージャーをセットアップし、ライフサイクルスクリプトを無効にして依存関係をインストールしてください。

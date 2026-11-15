@@ -186,7 +186,9 @@ describe('runCiCliGunshi install step', () => {
 
 describe('runCiCliGunshi upgrade', () => {
   const OLD_SHA = '1'.repeat(40);
-  const oldWorkflow = buildWorkflowYaml({ actionSha: OLD_SHA, actionVersion: '0.1.0', installStep: { kind: 'npm' } });
+  const withAction = (sha: string, version: string) =>
+    `${buildWorkflowYaml({ installStep: { kind: 'npm' } })}      - uses: oekazuma/svelte-vitals-action@${sha} # v${version}\n`;
+  const oldWorkflow = withAction(OLD_SHA, '0.1.0');
 
   it('with no workflow file, exits 2 with an install hint', async () => {
     const { io, err } = fakeIO();
@@ -201,11 +203,7 @@ describe('runCiCliGunshi upgrade', () => {
   });
 
   it('when already pinned to the bundled sha, says so without claiming to be up to date, and writes nothing', async () => {
-    const current = buildWorkflowYaml({
-      actionSha: ACTION_SHA,
-      actionVersion: ACTION_VERSION,
-      installStep: { kind: 'npm' }
-    });
+    const current = withAction(ACTION_SHA, ACTION_VERSION);
     const { io, writes, out } = fakeIO({ files: { [PATH]: current } });
     expect(await runCiCliGunshi(['upgrade'], io)).toBe(0);
     expect(writes).toEqual({});

@@ -476,13 +476,13 @@ describe('runInstall — ci-workflow target', () => {
     expect(writes['/proj/.github/workflows/svelte-vitals.yml']).toContain('npm ci --ignore-scripts');
   });
 
-  it('ci-workflow: not present → created, content calls @svelte-vitals/action', async () => {
+  it('ci-workflow: not present → created, content runs the installed CLI', async () => {
     const { io, writes } = fakeIO();
     const code = await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts);
     expect(code).toBe(0);
     const content = writes['/proj/.github/workflows/svelte-vitals.yml'];
     expect(content).toContain('name: svelte-vitals');
-    expect(content).toContain('oekazuma/svelte-vitals-action@');
+    expect(content).toContain('./node_modules/.bin/svelte-vitals --reporter github');
   });
 
   it('a second run without --force reports exists and writes nothing', async () => {
