@@ -5,59 +5,43 @@ import { generate } from 'gunshi/generator';
 import type { InstallIO } from '../install/index.js';
 import { realIO } from '../install/cli.js';
 import { WORKFLOW_PATH, buildWorkflowYaml, planWorkflowWrite } from '../ci/workflow.js';
-import { upgradeActionPin } from '../ci/upgrade.js';
-import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
 import { installStepNote, planInstallStep, type InstallStepPlan } from '../ci/install-step.js';
+import { isWorkspaceRoot, workflowNotes, type WorkspacePkg } from '../ci/notes.js';
 import { detectPackageManager } from '../install/package-manager.js';
-import { hasDep, readPkg, type PkgJson } from '../pkg-json.js';
+import { hasDep, readPkg } from '../pkg-json.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
 import { localizedOptionsSection, type Locale } from './locale.js';
 
 /**
- * Frozen error-path text: printed verbatim on `ci`'s non-help exit-2 paths (bare `ci`, an unknown
- * sub-subcommand) — see the changeset for the one declared movement on this text's OWN dispatch:
- * those paths now write it to stderr, not stdout (Phase-0 discovery, design doc invariants).
- * `ci --help`/`ci install --help`/`ci upgrade --help` print a separate, generated OPTIONS block
+ * Printed verbatim to stderr on `ci`'s non-help exit-2 paths (bare `ci`, an unknown
+ * sub-subcommand). `ci --help`/`ci install --help` print a separate, generated OPTIONS block
  * around this same prose instead — see `buildCiHelpText`.
  */
 const CI_HELP = `svelte-vitals ci — scaffold CI integration
 
 Usage:
   svelte-vitals ci install [options]
-  svelte-vitals ci upgrade [--dry-run]
 
-Adds a GitHub Actions workflow (${WORKFLOW_PATH}) that calls the \`@svelte-vitals/action\`
-GitHub Action on pull requests: inline annotations, a job summary, and a sticky PR
-comment with the findings.
-
-\`ci upgrade\` rewrites only the pinned \`@svelte-vitals/action\` reference in an existing
-workflow to the pin bundled with this CLI, leaving the rest of the file (and any other
-pins, like actions/checkout) untouched. To pick up the latest pin, run
-\`npx svelte-vitals@latest ci upgrade\`.
+Adds a GitHub Actions workflow (${WORKFLOW_PATH}) that runs the svelte-vitals
+installed in the project on pull requests: inline annotations and a job summary for
+the findings the pull request introduces, and a failing check when they fail the gate.
 
 Options:
-  --force       Overwrite an existing workflow file (install only)
+  --force       Overwrite an existing workflow file
   --dry-run     Print the plan and exit without writing
   -h, --help    Show this help`;
 
-/** Shared by both `ci install` and `ci upgrade` — `ci upgrade` doesn't read `force` itself, but
- * this is also the generator source for the one combined `--help` text every entry point shares
- * (matching CI_HELP's own merged options list), so it declares the full family. Exported for
- * gunshi/complete.ts — the completion tree's ci args mirror these, never a second copy. */
+/** Exported for gunshi/complete.ts — the completion tree's ci args mirror these, never a second copy. */
 export const CI_ARGS = {
-  force: { type: 'boolean', description: 'Overwrite an existing workflow file (install only)' },
+  force: { type: 'boolean', description: 'Overwrite an existing workflow file' },
   'dry-run': { type: 'boolean', description: 'Print the plan and exit without writing' },
   help: { type: 'boolean', short: 'h', description: 'Show this help' }
 } as const;
-/** `ci upgrade` only ever reads a subset of CI_ARGS (it has no `--force` to strip) — this is that
- * subset's single source, shared by `runCiUpgrade`'s real dispatch and the completion tree. */
-export const CI_UPGRADE_ARGS = { 'dry-run': CI_ARGS['dry-run'], help: CI_ARGS.help } as const;
 const KNOWN_LONG_FLAGS = new Set(['force', 'dry-run', 'help']);
 const KNOWN_SHORT_FLAGS = new Set(['h']);
 
 /**
- * Hybrid `--help` text shared by `ci --help`, `ci install --help`, and `ci upgrade --help` (the
- * legacy dispatcher printed the identical `CI_HELP` for all three) — same technique as
+ * Hybrid `--help` text shared by `ci --help` and `ci install --help` — same technique as
  * `gunshi/docs.ts`'s `buildDocsHelpText`. ja-localized when `locale` is 'ja'
  * (`docs/superpowers/specs/2026-08-11-cli-ja-help-design.md`).
  */
@@ -75,16 +59,10 @@ async function buildCiHelpText(ciArgsCommand: Parameters<typeof generate>[1], lo
 
 Usage:
   svelte-vitals ci install [options]
-  svelte-vitals ci upgrade [--dry-run]
 
-Adds a GitHub Actions workflow (${WORKFLOW_PATH}) that calls the \`@svelte-vitals/action\`
-GitHub Action on pull requests: inline annotations, a job summary, and a sticky PR
-comment with the findings.
-
-\`ci upgrade\` rewrites only the pinned \`@svelte-vitals/action\` reference in an existing
-workflow to the pin bundled with this CLI, leaving the rest of the file (and any other
-pins, like actions/checkout) untouched. To pick up the latest pin, run
-\`npx svelte-vitals@latest ci upgrade\`.
+Adds a GitHub Actions workflow (${WORKFLOW_PATH}) that runs the svelte-vitals
+installed in the project on pull requests: inline annotations and a job summary for
+the findings the pull request introduces, and a failing check when they fail the gate.
 
 ${optionsSection}`;
 }
@@ -93,11 +71,10 @@ function installNotes(io: InstallIO, installStep: InstallStepPlan): string[] {
   const notes: string[] = [];
   const stepNote = installStepNote(installStep);
   if (stepNote) notes.push(stepNote);
-  const pkg = readPkg((p) => io.readFile(p), io.cwd) as (PkgJson & { workspaces?: unknown }) | undefined;
+  const pkg = readPkg((p) => io.readFile(p), io.cwd) as WorkspacePkg;
   // At a workspace root the app's own package.json declares svelte-vitals, and adding it here would
   // need a workspace flag (or, with no package.json, would create one).
-  const workspaceRoot = pkg?.workspaces !== undefined || io.readFile(join(io.cwd, 'pnpm-workspace.yaml')) !== undefined;
-  if (pkg && !workspaceRoot && !hasDep(pkg, 'svelte-vitals')) {
+  if (pkg && !isWorkspaceRoot(io, pkg) && !hasDep(pkg, 'svelte-vitals')) {
     const pm = detectPackageManager(io);
     notes.push(
       `! svelte-vitals is not in package.json. Add it so CI analyzes with the version you choose: ${pm} ${pm === 'npm' ? 'install' : 'add'} -D svelte-vitals`
@@ -138,7 +115,10 @@ async function runCiInstall(
       const plan = planWorkflowWrite(existing, Boolean(ctx.values.force));
 
       const installStep = plan.status === 'exists' ? undefined : planInstallStep(io);
-      const notes = installStep ? installNotes(io, installStep) : [];
+      const notes = [
+        ...(installStep ? installNotes(io, installStep) : []),
+        ...workflowNotes(io, plan.status === 'exists' ? existing : undefined)
+      ];
 
       io.log('Plan:');
       io.log(`  ${WORKFLOW_PATH}  [${plan.status}]`);
@@ -163,8 +143,8 @@ async function runCiInstall(
           exitCode = 2;
           return;
         }
-        for (const note of notes) io.log(note);
       }
+      for (const note of notes) io.log(note);
 
       io.log('Done. Commit the workflow file and open a PR to see it in action.');
       exitCode = 0;
@@ -176,101 +156,19 @@ async function runCiInstall(
 }
 
 /**
- * `ci upgrade` — rewrite only the pinned `@svelte-vitals/action` reference line(s) in an existing
- * workflow to the pin bundled with this CLI build. Never touches other lines (other `uses:` pins,
- * like `actions/checkout`) — see upgrade.ts for the replacement logic.
- */
-async function runCiUpgrade(
-  args: string[],
-  io: InstallIO,
-  helpSource: Parameters<typeof generate>[1],
-  locale: Locale
-): Promise<number> {
-  const { head } = splitAtTerminator(args);
-  // `errors` is only ever populated by a value-carrying flag (guard.ts's own doc comment) — `ci
-  // upgrade` has none, so only `.argv` (the `--flag=false` normalization) is used here.
-  const argvForGunshi = stripUnknownFlags(
-    guardArgs(head, [], ['dry-run', 'help']).argv,
-    new Set(['dry-run', 'help']),
-    KNOWN_SHORT_FLAGS
-  );
-
-  let exitCode = 0;
-  const upgradeCommand = define({
-    name: 'upgrade',
-    args: CI_UPGRADE_ARGS,
-    run: async (ctx) => {
-      if (ctx.values.help) {
-        io.log(await buildCiHelpText(helpSource, locale));
-        exitCode = 0;
-        return;
-      }
-
-      const path = join(io.cwd, WORKFLOW_PATH);
-      const existing = io.readFile(path);
-      if (existing === undefined) {
-        io.errorLog(`svelte-vitals: no ${WORKFLOW_PATH} found — run \`svelte-vitals ci install\` first.`);
-        exitCode = 2;
-        return;
-      }
-
-      const outcome = upgradeActionPin(existing, ACTION_SHA, ACTION_VERSION);
-
-      if (outcome.status === 'no-reference') {
-        io.errorLog(`svelte-vitals: no @svelte-vitals/action reference found in ${WORKFLOW_PATH}.`);
-        exitCode = 2;
-        return;
-      }
-
-      if (outcome.status === 'up-to-date') {
-        // Not "up to date": the bundled pin can trail the action's latest release.
-        io.log(`= already on the pin bundled with this CLI (@svelte-vitals/action@${ACTION_VERSION}).`);
-        exitCode = 0;
-        return;
-      }
-
-      if (ctx.values['dry-run']) {
-        io.log(
-          `Would upgrade @svelte-vitals/action: ${outcome.from} → ${ACTION_VERSION} (${outcome.replaced} line(s)).`
-        );
-        io.log('Dry run — no files written.');
-        exitCode = 0;
-        return;
-      }
-
-      try {
-        io.writeFile(path, outcome.content ?? existing);
-      } catch (err) {
-        io.errorLog(
-          `svelte-vitals: failed to write ${WORKFLOW_PATH}: ${err instanceof Error ? err.message : String(err)}`
-        );
-        exitCode = 2;
-        return;
-      }
-
-      io.log(`✓ upgraded @svelte-vitals/action: ${outcome.from} → ${ACTION_VERSION} (${outcome.replaced} line(s)).`);
-      exitCode = 0;
-    }
-  });
-
-  await cli(argvForGunshi, upgradeCommand, { name: 'svelte-vitals ci upgrade', usageSilent: true });
-  return exitCode;
-}
-
-/**
  * gunshi/bone port of `ci/cli.ts`'s dispatch (design doc: Phase 3). Unlike `docs`/`explain`/
- * `install`, the outer `ci`/`ci install`/`ci upgrade` split is NOT run through gunshi/guard at
+ * `install`, the outer `ci`/`ci install` split is NOT run through gunshi/guard at
  * all — it's a literal `args[0]` string compare, exactly like the legacy dispatcher. That's
  * deliberate, not a shortcut: `guardArgs`/`stripUnknownFlags` don't understand positions, only
  * flag shapes, so promoting/stripping before this split would dispatch argv shapes the legacy
  * runner never did (`ci -- install` would actually run install instead of erroring; `ci --bogus
  * install` would drop `--bogus` and run install — writing a workflow file where legacy printed
- * help and exited 2 without touching disk). gunshi only takes over *inside* the matched `install`/
- * `upgrade` arms, where the family's own guard/strip class from `guard.ts` applies exactly as
- * every other ported surface.
+ * help and exited 2 without touching disk). gunshi only takes over *inside* the matched `install`
+ * arm, where the family's own guard/strip class from `guard.ts` applies exactly as every other
+ * ported surface.
  *
  * `io` defaults to `realIO()` (unlike the read-only `docs`/`explain`/root ports, which default to
- * `consoleIO`) because `ci install`/`ci upgrade` need disk access for the workflow file — matching
+ * `consoleIO`) because `ci install` needs disk access for the workflow file — matching
  * `runCiCli`'s own historical default.
  */
 export async function runCiCliGunshi(args: string[], io: InstallIO = realIO(), locale: Locale = 'en'): Promise<number> {
@@ -285,14 +183,11 @@ export async function runCiCliGunshi(args: string[], io: InstallIO = realIO(), l
     io.log(await buildCiHelpText(helpSource, locale));
     return 0;
   }
-  if (sub === 'upgrade') {
-    return runCiUpgrade(args.slice(1), io, helpSource, locale);
-  }
   if (sub !== 'install') {
     // A bare `ci` (sub undefined) has no typed token to match against — only a wrong sub-subcommand
     // name gets a suggestion.
     if (sub !== undefined) {
-      const hint = suggestClosest(sub, ['install', 'upgrade']);
+      const hint = suggestClosest(sub, ['install']);
       if (hint) io.errorLog(`svelte-vitals: did you mean \`svelte-vitals ci ${hint}\`?`);
     }
     // Declared movement (design doc invariants / this PR's changeset): stderr, not stdout — the

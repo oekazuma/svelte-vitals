@@ -46,8 +46,7 @@ export const INSTALL_ARGS = {
       "that's already there (its extension never changes on --force).\n" +
       'ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file\n' +
       '`svelte-vitals ci install` writes standalone — pick it here to set it up in\n' +
-      'the same pass as everything else; supports --force to regenerate. `svelte-vitals\n' +
-      "ci upgrade` remains the way to bump an existing workflow's pinned action version."
+      'the same pass as everything else; supports --force to regenerate.'
   },
   app: {
     type: 'string',
@@ -58,7 +57,8 @@ export const INSTALL_ARGS = {
       'automatically (with a notice), several prompt a picker on a TTY, and\n' +
       'non-interactive runs exit 2 asking for --app. All other targets\n' +
       '(cursor-rules, ci-workflow) always write at the current directory —\n' +
-      'the repo root is their correct home.'
+      'the repo root is their correct home. The ci-workflow step analyzes the\n' +
+      'app given here, or the one detected for vite-plugin/vite-hooks/config-file.'
   },
   // Hidden: the flag is obsolete (see resolveInstallArgs), kept parseable only so it doesn't
   // fall through as an unrecognized flag and swallow a following positional — auto-usage.md

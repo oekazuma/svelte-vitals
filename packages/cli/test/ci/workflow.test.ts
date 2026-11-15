@@ -89,7 +89,11 @@ describe('buildWorkflowYaml', () => {
   });
 
   it('passes appPath as the first argument', () => {
-    expect(build({ kind: 'npm' }, 'apps/web')).toContain('svelte-vitals apps/web --reporter github');
+    expect(build({ kind: 'npm' }, 'apps/web')).toContain("svelte-vitals 'apps/web' --reporter github");
+  });
+
+  it('quotes an appPath with a space or a single quote as one shell word', () => {
+    expect(build({ kind: 'npm' }, "apps/Bob's app")).toContain("svelte-vitals 'apps/Bob'\\''s app' --reporter github");
   });
 
   it('contains no tab characters (YAML indentation must be spaces)', () => {

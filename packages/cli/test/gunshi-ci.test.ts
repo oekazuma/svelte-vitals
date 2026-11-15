@@ -1,11 +1,11 @@
 // Phase 3 of the gunshi migration (docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md):
-// `ci` (gunshi/ci.ts) ported directly to gunshi/bone — the CRUD-level behavior (install/upgrade
+// `ci` (gunshi/ci.ts) ported directly to gunshi/bone — the CRUD-level behavior (install
 // writing the workflow file) is exercised in test/ci/cli.test.ts against a fake `InstallIO`; this
 // file pins the argv-shape matrix at the dispatch layer, the same technique gunshi-docs-parity.ts/
 // gunshi-explain-parity.ts use, but without a surviving legacy oracle to diff against (there was
 // no Phase-2a comparison period for `ci` — it went straight from legacy to gunshi in this phase).
 //
-// The key discriminator this file exists to pin: the outer `ci`/`install`/`upgrade` split is a
+// The key discriminator this file exists to pin: the outer `ci`/`install` split is a
 // literal `args[0]` string compare, exactly like the legacy dispatcher — NOT run through
 // `guardArgs`/`stripUnknownFlags` first. Those don't understand argv *position*, only flag shapes,
 // so promoting/stripping ahead of the split would dispatch shapes the legacy runner never did:
@@ -59,10 +59,7 @@ describe('gunshi/bone ci — pinned behavior across the argv-shape matrix', () =
 
 // help-golden.test.ts pins the help text; this only pins that the sub-subcommands resolve to it.
 describe('help aliases', () => {
-  for (const args of [
-    ['install', '--help'],
-    ['upgrade', '--help']
-  ]) {
+  for (const args of [['install', '--help']]) {
     it(`${args.join(' ')} is byte-identical to --help`, async () => {
       expect(await ci(args)).toEqual(await ci(['--help']));
     });
@@ -79,7 +76,7 @@ describe('did-you-mean: ci <bogus sub-subcommand>', () => {
     expect(err).toContain('Usage:'); // CI_HELP still prints in full — additive, not a replacement.
   });
 
-  it('"bogus" is far enough from install/upgrade that no hint is added', async () => {
+  it('"bogus" is far enough from install that no hint is added', async () => {
     const { err } = await ci(['bogus']);
     expect(err).not.toContain('did you mean');
   });

@@ -556,6 +556,45 @@ describe('runInstall — ci-workflow target', () => {
     expect(out.join('\n')).not.toContain('! Add an install step');
   });
 
+  it('ci-workflow: an existing workflow that calls the retired action gets the --force note, on --dry-run too', async () => {
+    const files = { [WF]: `      - uses: oekazuma/svelte-vitals-action@${'1'.repeat(40)} # v0.15.2\n` };
+    const note =
+      '! .github/workflows/svelte-vitals.yml still calls oekazuma/svelte-vitals-action, which is retired. Re-run with --force to replace it with the CLI step.';
+    for (const flags of [{ yes: true }, { dryRun: true }]) {
+      const { io, out, writes } = fakeIO({ files });
+      expect(await runInstall({ client: ['ci-workflow'], ...flags }, io, noPrompts)).toBe(0);
+      expect(writes).toEqual({});
+      expect(out).toContain(note);
+    }
+  });
+
+  const WORKSPACE = {
+    '/proj/package-lock.json': '{}',
+    '/proj/package.json': JSON.stringify({ workspaces: ['apps/*'] })
+  };
+  const WORKSPACE_NOTE = '! This is a workspace root.';
+
+  it('install --app apps/web --client ci-workflow writes the app path into the run step', async () => {
+    const { io, writes, out } = fakeIO({ files: { ...WORKSPACE, '/proj/apps/web/svelte.config.js': 'x' } });
+    expect(await runInstall({ client: ['ci-workflow'], app: 'apps/web', yes: true }, io, noPrompts)).toBe(0);
+    expect(writes[WF]).toContain("      - run: ./node_modules/.bin/svelte-vitals 'apps/web' --reporter github");
+    expect(out.join('\n')).not.toContain(WORKSPACE_NOTE);
+  });
+
+  it('ci-workflow without --app at a workspace root runs the step at the root and says so', async () => {
+    const { io, writes, out } = fakeIO({ files: WORKSPACE });
+    expect(await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts)).toBe(0);
+    expect(writes[WF]).toContain('      - run: ./node_modules/.bin/svelte-vitals --reporter github');
+    expect(out.join('\n')).toContain(WORKSPACE_NOTE);
+  });
+
+  it('install --app with ci-workflow refuses a directory that is not a SvelteKit app', async () => {
+    const { io, writes, err } = fakeIO({ files: WORKSPACE });
+    expect(await runInstall({ client: ['ci-workflow'], app: 'packages/lib', yes: true }, io, noPrompts)).toBe(2);
+    expect(writes).toEqual({});
+    expect(err.join('\n')).toContain("--app 'packages/lib' is not a SvelteKit app");
+  });
+
   it('a read failure (e.g. EACCES) while planning the ci-workflow target is reported and exits 2', async () => {
     const { io, writes, err } = fakeIO({ throwOnRead: '/proj/.github/workflows/svelte-vitals.yml' });
     const code = await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts);

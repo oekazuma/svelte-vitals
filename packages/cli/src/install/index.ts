@@ -1,4 +1,4 @@
-import { join } from 'node:path';
+import { join, relative, sep } from 'node:path';
 import { isKind, targetById, targetsOfKind, type AgentTargetId, type InstallTarget, type TargetId } from './targets.js';
 import { buildCursorRules, installHeader } from './skill-content.js';
 import { buildConfigFileTemplate } from './config-content.js';
@@ -15,6 +15,7 @@ import {
 import type { WriteStatus } from './codemod-types.js';
 import { planWorkflowWrite, buildWorkflowYaml } from '../ci/workflow.js';
 import { installStepNote, planInstallStep } from '../ci/install-step.js';
+import { workflowNotes } from '../ci/notes.js';
 import { discoverApps } from '../discover-apps.js';
 import { hasDep, readPkg } from '../pkg-json.js';
 
@@ -74,8 +75,8 @@ interface PlanRow {
   status: WriteStatus;
   content?: string;
   snippet?: string;
-  /** Printed after the row is written, and on --dry-run. */
-  note?: string;
+  /** Printed after the row is written or left in place, and on --dry-run. */
+  notes?: string[];
 }
 
 /**
@@ -191,15 +192,20 @@ function planForConfigTarget(io: InstallIO, force: boolean, appDir: string): Pla
  * (planWorkflowWrite/buildWorkflowYaml), exposed as one more selectable target so it
  * doesn't require a separate command in the common case.
  */
-function planForCiTarget(io: InstallIO, force: boolean): PlanRow {
+function planForCiTarget(io: InstallIO, force: boolean, appPath: string | undefined): PlanRow {
   const target = targetById('ci-workflow')!;
   const path = join(io.cwd, target.relPaths[0]!);
   const existing = io.readFile(path);
   const plan = planWorkflowWrite(existing, force);
-  if (plan.status === 'exists') return { id: target.id, label: target.label, path, status: plan.status };
+  const row = { id: target.id, label: target.label, path, status: plan.status };
+  if (plan.status === 'exists') return { ...row, notes: workflowNotes(io, existing) };
   const installStep = planInstallStep(io);
-  const content = buildWorkflowYaml({ installStep });
-  return { id: target.id, label: target.label, path, status: plan.status, content, note: installStepNote(installStep) };
+  const stepNote = installStepNote(installStep);
+  return {
+    ...row,
+    content: buildWorkflowYaml({ installStep, appPath }),
+    notes: [...(stepNote ? [stepNote] : []), ...workflowNotes(io, undefined, appPath)]
+  };
 }
 
 function indent(text: string): string {
@@ -358,7 +364,9 @@ export async function runInstall(
   // vite-plugin/vite-hooks/config-file must land in the SvelteKit app itself (that's
   // where vite.config/hooks.server live, and the config file is only loaded from the
   // analyzed directory) — everything else (skills, the CI workflow) belongs at the
-  // repo root and ignores this. Mirrors the analyzer's own
+  // repo root, though the workflow's step analyzes the resolved app. A CI-only run
+  // resolves one only from --app: discovery would make it exit 2 in a monorepo, where
+  // the step's own app resolution applies instead. Mirrors the analyzer's own
   // app picker (design doc 2026-07-08-monorepo-app-picker-design.md): cwd-is-an-app
   // short-circuits, a single detected app is used with a notice, several prompt on a
   // TTY, and non-interactive runs get told to pass --app.
@@ -382,7 +390,7 @@ export async function runInstall(
       return false;
     }
   };
-  const needsApp = viteIds.length > 0 || configIds.length > 0;
+  const needsApp = viteIds.length > 0 || configIds.length > 0 || (ciIds.length > 0 && Boolean(flags.app));
   let appDir = io.cwd;
   if (needsApp) {
     if (flags.app) {
@@ -456,7 +464,8 @@ export async function runInstall(
   }
   if (ciIds.length > 0) {
     try {
-      rows.push(planForCiTarget(io, flags.force ?? false));
+      const appPath = relative(io.cwd, appDir).split(sep).join('/');
+      rows.push(planForCiTarget(io, flags.force ?? false, appPath === '' ? undefined : appPath));
     } catch (err) {
       io.errorLog(
         `svelte-vitals: could not check existing workflow at ${join(io.cwd, targetById('ci-workflow')!.relPaths[0]!)}: ${err instanceof Error ? err.message : String(err)}`
@@ -472,7 +481,7 @@ export async function runInstall(
 
   // 5. Dry-run / confirm.
   if (flags.dryRun) {
-    for (const r of rows) if (r.note) io.log(r.note);
+    for (const r of rows) for (const note of r.notes ?? []) io.log(note);
     io.log('Dry run — no files written.');
     return 0;
   }
@@ -493,6 +502,7 @@ export async function runInstall(
       // "use --force" hint would be misleading for them.
       const hint = isKind(r.id, 'vite') ? '' : ' — use --force to overwrite';
       io.log(`= ${r.label}: already configured (${r.path})${hint}.`);
+      for (const note of r.notes ?? []) io.log(note);
       continue;
     }
     if (r.status === 'manual') {
@@ -502,7 +512,7 @@ export async function runInstall(
     try {
       io.writeFile(r.path, r.content ?? '');
       io.log(`✓ ${r.label}: ${r.status} ${r.path}`);
-      if (r.note) io.log(r.note);
+      for (const note of r.notes ?? []) io.log(note);
       if (isKind(r.id, 'vite')) viteWasWritten = true;
     } catch (err) {
       hadFailure = true;

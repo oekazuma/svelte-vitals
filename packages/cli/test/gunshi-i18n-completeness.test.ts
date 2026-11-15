@@ -3,8 +3,8 @@
 // LIVE arg declarations (never a second hand-maintained inventory) — one map per surface that
 // actually feeds a `generate()` call for `--help` (see `locales/ja.ts`'s own doc comment for why
 // that's `ROOT_ARGS`/`DOCS_ROOT_ARGS`/`EXPLAIN_ARGS`/`INSTALL_ARGS`/`CI_ARGS`, not every exported
-// `*_ARGS` const — `DOCS_LIST_ARGS`/`DOCS_SHOW_ARGS`/`CI_UPGRADE_ARGS` are never passed to
-// `generate()`, so they have nothing to translate for this feature).
+// `*_ARGS` const — `DOCS_LIST_ARGS`/`DOCS_SHOW_ARGS` are never passed to `generate()`, so they
+// have nothing to translate for this feature).
 import { describe, it, expect } from 'vitest';
 import { ROOT_ARGS } from '../src/gunshi/analyze.js';
 import { DOCS_ROOT_ARGS } from '../src/gunshi/docs.js';

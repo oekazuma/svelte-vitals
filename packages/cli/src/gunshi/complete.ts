@@ -9,7 +9,7 @@ import { ROOT_ARGS } from './analyze.js';
 import { DOCS_ROOT_ARGS, DOCS_LIST_ARGS, DOCS_SHOW_ARGS } from './docs.js';
 import { EXPLAIN_ARGS } from './explain.js';
 import { INSTALL_ARGS } from './install.js';
-import { CI_ARGS, CI_UPGRADE_ARGS } from './ci.js';
+import { CI_ARGS } from './ci.js';
 
 const SUPPORTED_SHELLS = ['bash', 'zsh', 'fish', 'powershell'] as const;
 
@@ -58,7 +58,7 @@ function valueList(list: readonly string[], describe: Record<string, string> = {
 
 /**
  * Builds the completion-only command tree — mirrors the five real gunshi surfaces' `subCommands`
- * shape (`docs list`/`show`, `ci install`/`upgrade`) using ONLY their exported `*_ARGS` consts, so
+ * shape (`docs list`/`show`, `ci install`) using ONLY their exported `*_ARGS` consts, so
  * a flag added to a real surface is visible here automatically and a flag never gets a second,
  * drifting declaration. Every `run` is a no-op: `@gunshi/plugin-completion` never executes these
  * commands — it only reads `.args`/`.subCommands` during its `onExtension` hook. The command
@@ -82,11 +82,10 @@ function buildCompletionTree() {
   const explainCommand = define({ name: 'explain', args: forCompletion(EXPLAIN_ARGS), run: () => {} });
   const installCommand = define({ name: 'install', args: forCompletion(INSTALL_ARGS), run: () => {} });
   const ciInstallCommand = define({ name: 'install', args: forCompletion(CI_ARGS), run: () => {} });
-  const ciUpgradeCommand = define({ name: 'upgrade', args: forCompletion(CI_UPGRADE_ARGS), run: () => {} });
   const ciCommand = define({
     name: 'ci',
     args: {},
-    subCommands: { install: ciInstallCommand, upgrade: ciUpgradeCommand },
+    subCommands: { install: ciInstallCommand },
     run: () => {}
   });
   const rootCommand = define({ name: 'svelte-vitals', args: forCompletion(ROOT_ARGS), run: () => {} });
