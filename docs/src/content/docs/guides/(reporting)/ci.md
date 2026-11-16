@@ -141,13 +141,13 @@ published release when none is installed, which is not the version your lockfile
 installation the step fails instead. The path needs a `node_modules` directory, so Yarn Plug'n'Play
 is not supported; set `nodeLinker: node-modules` in `.yarnrc.yml`.
 
-When `ci install` writes the workflow and the directory has a `package.json` that does not
-declare `svelte-vitals` and is not a workspace root (it has no `workspaces` field, and there is no
+When `ci install` or `install --client ci-workflow` writes the workflow and the directory has a
+`package.json` that does not declare `svelte-vitals` and is not a workspace root (it has no `workspaces` field, and there is no
 `pnpm-workspace.yaml` beside it), it also prints the command that adds it for your package manager,
 such as `pnpm add -D svelte-vitals`. At a workspace root it prints a different note; see
 [Monorepos](#monorepos).
 
-When `ci install` writes the workflow and `node_modules` holds a `svelte-vitals` older than
+When either command writes the workflow and `node_modules` holds a `svelte-vitals` older than
 0.57.0, it prints a note naming that version. An older CLI runs the step, but it writes no job
 summary, and its annotation paths are relative to the app rather than the repository root. Update
 the devDependency.
@@ -201,8 +201,8 @@ declare `svelte-vitals`, it prints a note saying this.
 ## Excluding routes or rules
 
 Adopting in CI, most people hit this: SEO rules flag routes that are intentionally not public,
-behind auth or in admin areas. Exclusions live in files svelte-vitals reads wherever it runs, so
-they apply identically to this workflow, a local run, and the Vite plugin. Pick by intent:
+behind auth or in admin areas. Exclusions live in files svelte-vitals reads wherever it runs: this
+workflow, a local run, and the Vite plugin all read them. Pick by intent:
 
 - Never want a rule at all? Turn it off globally in
   [`svelte-vitals.config.*`](/guides/configuration):
@@ -228,7 +228,8 @@ they apply identically to this workflow, a local run, and the Vite plugin. Pick 
   shot with `svelte-vitals --update-suppressions` and commit the file; see
   [Adopting on an existing project](#adopting-on-an-existing-project) above. Unlike `overrides`,
   this is a snapshot: a _new_ route with the same problem fails again, which is exactly what you
-  want for a backlog.
+  want for a backlog. The Vite plugin skips the file's route-level entries; see
+  [Plugin mode](/guides/plugin-mode#config-file).
 
 All three are committed files. The workflow needs no change, and a change to them goes through
 review like any other PR.
