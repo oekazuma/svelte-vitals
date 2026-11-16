@@ -1,4 +1,5 @@
 import { join } from 'node:path';
+import { discoverApps, isSvelteKitApp } from '../discover-apps.js';
 import { RETIRED_ACTION } from '../github-actions.js';
 import { detectPackageManager } from '../install/package-manager.js';
 import { hasDep, parsePkg, type PkgJson } from '../pkg-json.js';
@@ -70,4 +71,15 @@ export function workflowNotes(io: ReadIO, existing: string | undefined, appPath?
     );
   }
   return notes;
+}
+
+/** Without an app path the step resolves the app itself, and several apps make it exit 2. */
+export async function appChoiceNote(
+  io: ReadIO & { discoverApps?(cwd: string): Promise<string[]> },
+  appPath: string | undefined
+): Promise<string | undefined> {
+  if (appPath !== undefined || isSvelteKitApp(io.readFile, io.cwd)) return undefined;
+  const apps = await (io.discoverApps ?? discoverApps)(io.cwd).catch(() => []);
+  if (apps.length < 2) return undefined;
+  return `! Several SvelteKit apps were found (${apps.join(', ')}), and with no app path the svelte-vitals step exits 2. Add the app's path after ./node_modules/.bin/svelte-vitals in the step, or re-run svelte-vitals install --client ci-workflow --app <dir> --force.`;
 }

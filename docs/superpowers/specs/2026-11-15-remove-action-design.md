@@ -177,7 +177,7 @@ is larger and more frequent.
   §1 computes the prefix from the resolved app directory, so annotations land either way.
   `--app` pointing at a directory that is not a SvelteKit app exits `2`, also when `ci-workflow` is
   the only target. `ci install` itself takes no `--app`.
-- Three notes describe the generated step, so they print only when the workflow is written
+- Four notes describe the generated step, so they print only when the workflow is written
   (or, under `--dry-run`, would be), by `ci install` and `install --client ci-workflow` alike:
   - When the current directory has a `package.json` that does not declare `svelte-vitals` and is not
     a workspace root, a note gives the command that adds it: the step runs
@@ -191,6 +191,8 @@ is larger and more frequent.
     release that ships §1), a note names the installed version: an older CLI runs the step but writes
     no summary and no prefix, which would otherwise go unnoticed. Only the release part of the
     version is compared; a prerelease or build suffix is ignored. (Author's call.)
+  - When the step gets no app path, the current directory is not a SvelteKit app, and app discovery
+    finds several, a note lists them and says the step exits `2`; app resolution itself is unchanged.
 
 ### 5. Removals in this repository
 

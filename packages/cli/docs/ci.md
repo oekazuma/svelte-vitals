@@ -49,7 +49,8 @@ repository-relative paths.
 
 In a monorepo the step runs at the repository root. `install --client ci-workflow --app apps/web`
 puts the app's path in the step; without one, svelte-vitals picks the app as a local run does
-(`svelte-vitals docs show monorepo`). If `./node_modules/.bin/svelte-vitals` exists only in the
+(`svelte-vitals docs show monorepo`), and several apps make it exit 2, which the scaffolding
+commands print a note about. If `./node_modules/.bin/svelte-vitals` exists only in the
 app's directory, add `working-directory: apps/web` to the step and drop the path.
 
 Whichever way it runs, svelte-vitals reads your committed `svelte-vitals.config.*` and

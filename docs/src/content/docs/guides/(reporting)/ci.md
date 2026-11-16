@@ -177,7 +177,8 @@ app the step analyzes depends on how the file was written:
 - `ci install`, and an `install` run with no app, write no path, so svelte-vitals picks the app the
   way a local run does: a single SvelteKit app is analyzed automatically, and several make the step
   exit `2` with their list (see [Monorepos](/guides/cli#monorepos)). Add the path after
-  `./node_modules/.bin/svelte-vitals` to choose one.
+  `./node_modules/.bin/svelte-vitals` to choose one. When the command that writes the workflow finds
+  several apps, it prints a note saying so.
 
 Annotations land on the diff either way, because svelte-vitals writes their paths relative to the
 repository root.

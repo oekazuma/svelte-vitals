@@ -112,7 +112,7 @@ pnpm のバージョンは、セットアップ Action と同じ方法で読み�
   - run: ./node_modules/.bin/svelte-vitals 'apps/web' --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
   ```
 
-- `ci install` と、アプリを解決しなかった `install` の実行は、パスを書き込みません。svelte-vitals はローカルで実行したときと同じ方法でアプリを選びます。SvelteKit アプリが1つなら自動で解析し、複数あればその一覧を示してステップを終了コード `2` で失敗させます（[モノレポ](/ja/guides/cli#モノレポ)を参照）。1つを選ぶには、`./node_modules/.bin/svelte-vitals` の後ろにパスを追加してください。
+- `ci install` と、アプリを解決しなかった `install` の実行は、パスを書き込みません。svelte-vitals はローカルで実行したときと同じ方法でアプリを選びます。SvelteKit アプリが1つなら自動で解析し、複数あればその一覧を示してステップを終了コード `2` で失敗させます（[モノレポ](/ja/guides/cli#モノレポ)を参照）。1つを選ぶには、`./node_modules/.bin/svelte-vitals` の後ろにパスを追加してください。ワークフローを書き出すコマンドは、アプリが複数見つかるとその旨を案内します。
 
 svelte-vitals はアノテーションのパスをリポジトリのルートからの相対パスで書き出すため、どちらの場合もアノテーションは diff 上に付きます。
 

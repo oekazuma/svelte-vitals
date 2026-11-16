@@ -3,7 +3,14 @@ import { runCiCliGunshi } from '../../src/gunshi/ci.js';
 import { WORKFLOW_PATH, buildWorkflowYaml } from '../../src/ci/workflow.js';
 import type { InstallIO } from '../../src/install/index.js';
 
-function fakeIO(over: { files?: Record<string, string>; failWritePath?: string; throwOnRead?: string } = {}) {
+function fakeIO(
+  over: {
+    files?: Record<string, string>;
+    failWritePath?: string;
+    throwOnRead?: string;
+    discoverApps?: (cwd: string) => Promise<string[]>;
+  } = {}
+) {
   const files = over.files ?? {};
   const writes: Record<string, string> = {};
   const out: string[] = [];
@@ -24,7 +31,8 @@ function fakeIO(over: { files?: Record<string, string>; failWritePath?: string; 
     cwd: '/proj',
     isTTY: false,
     log: (l) => out.push(l),
-    errorLog: (l) => err.push(l)
+    errorLog: (l) => err.push(l),
+    discoverApps: over.discoverApps ?? (async () => [])
   };
   return { io, writes, out, err };
 }
@@ -150,6 +158,18 @@ describe('runCiCliGunshi install step', () => {
     const { io, out } = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': DECLARED } });
     expect(await runCiCliGunshi(['install'], io)).toBe(0);
     expect(notes(out)).toEqual([]);
+  });
+
+  it('notes that several SvelteKit apps make the step exit 2 without an app path', async () => {
+    const files = { '/proj/package-lock.json': '{}', '/proj/package.json': DECLARED };
+    const many = fakeIO({ files, discoverApps: async () => ['apps/admin', 'apps/web'] });
+    expect(await runCiCliGunshi(['install'], many.io)).toBe(0);
+    expect(many.out).toContain(
+      "! Several SvelteKit apps were found (apps/admin, apps/web), and with no app path the svelte-vitals step exits 2. Add the app's path after ./node_modules/.bin/svelte-vitals in the step, or re-run svelte-vitals install --client ci-workflow --app <dir> --force."
+    );
+    const one = fakeIO({ files, discoverApps: async () => ['apps/web'] });
+    expect(await runCiCliGunshi(['install'], one.io)).toBe(0);
+    expect(notes(one.out)).toEqual([]);
   });
 
   it('shows the same notes on --dry-run and writes nothing', async () => {

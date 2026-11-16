@@ -601,6 +601,18 @@ describe('runInstall — ci-workflow target', () => {
     );
   });
 
+  it('ci-workflow without --app notes that several SvelteKit apps make the step exit 2', async () => {
+    const apps = async () => ['apps/admin', 'apps/web'];
+    const NOTE =
+      "! Several SvelteKit apps were found (apps/admin, apps/web), and with no app path the svelte-vitals step exits 2. Add the app's path after ./node_modules/.bin/svelte-vitals in the step, or re-run svelte-vitals install --client ci-workflow --app <dir> --force.";
+    const bare = fakeIO({ files: WORKSPACE, discoverApps: apps });
+    expect(await runInstall({ client: ['ci-workflow'], yes: true }, bare.io, noPrompts)).toBe(0);
+    expect(bare.out).toContain(NOTE);
+    const named = fakeIO({ files: { ...WORKSPACE, '/proj/apps/web/svelte.config.js': 'x' }, discoverApps: apps });
+    expect(await runInstall({ client: ['ci-workflow'], app: 'apps/web', yes: true }, named.io, noPrompts)).toBe(0);
+    expect(named.out).not.toContain(NOTE);
+  });
+
   it('ci-workflow without --app at a workspace root runs the step at the root and says so', async () => {
     const { io, writes, out } = fakeIO({ files: WORKSPACE });
     expect(await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts)).toBe(0);
@@ -805,16 +817,21 @@ describe('runInstall — monorepo app resolution (vite/config targets)', () => {
     expect(writes['/proj/svelte-vitals.config.js']).toBeDefined();
   });
 
-  it('targets without app scope never trigger discovery', async () => {
+  it('targets without app scope never resolve an app', async () => {
     let discoveryCalls = 0;
-    const { io } = fakeIO({
+    const { io, writes, err } = fakeIO({
       discoverApps: async () => {
         discoveryCalls++;
         return ['apps/web'];
       }
     });
-    await runInstall({ client: ['cursor-rules', 'ci-workflow'], yes: true }, io, noPrompts);
+    expect(await runInstall({ client: ['cursor-rules'], yes: true }, io, noPrompts)).toBe(0);
     expect(discoveryCalls).toBe(0);
+    expect(await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts)).toBe(0);
+    expect(writes['/proj/.github/workflows/svelte-vitals.yml']).toContain(
+      '      - run: ./node_modules/.bin/svelte-vitals --reporter github'
+    );
+    expect(err.join('\n')).not.toContain('detected SvelteKit app');
   });
 
   it('the vite auto-install runs in the app dir and detects the PM from the root lockfile', async () => {

@@ -15,9 +15,8 @@ import {
 import type { WriteStatus } from './codemod-types.js';
 import { planWorkflowWrite, buildWorkflowYaml } from '../ci/workflow.js';
 import { installStepNote, planInstallStep } from '../ci/install-step.js';
-import { workflowNotes } from '../ci/notes.js';
-import { discoverApps } from '../discover-apps.js';
-import { hasDep, readPkg } from '../pkg-json.js';
+import { appChoiceNote, workflowNotes } from '../ci/notes.js';
+import { discoverApps, isSvelteKitApp } from '../discover-apps.js';
 
 export type { TargetId } from './targets.js';
 
@@ -374,18 +373,9 @@ export async function runInstall(
   // package.json declaring @sveltejs/kit — mirrors the analyzer's own detectProject
   // (design §17). The package.json signal matters because current `sv create` output
   // folds SvelteKit config into vite.config.ts and emits no separate svelte.config file.
-  const isSvelteKitApp = (dir: string): boolean => {
+  const isApp = (dir: string): boolean => {
     try {
-      if (
-        io.readFile(join(dir, 'svelte.config.js')) !== undefined ||
-        io.readFile(join(dir, 'svelte.config.ts')) !== undefined
-      ) {
-        return true;
-      }
-      return hasDep(
-        readPkg((p) => io.readFile(p), dir),
-        '@sveltejs/kit'
-      );
+      return isSvelteKitApp(io.readFile, dir);
     } catch {
       return false;
     }
@@ -395,14 +385,14 @@ export async function runInstall(
   if (needsApp) {
     if (flags.app) {
       const candidate = join(io.cwd, flags.app);
-      if (!isSvelteKitApp(candidate)) {
+      if (!isApp(candidate)) {
         io.errorLog(
           `svelte-vitals: --app '${flags.app}' is not a SvelteKit app (no svelte.config.{js,ts} or @sveltejs/kit dependency there).`
         );
         return 2;
       }
       appDir = candidate;
-    } else if (!isSvelteKitApp(io.cwd)) {
+    } else if (!isApp(io.cwd)) {
       const apps = await (io.discoverApps ?? discoverApps)(io.cwd);
       if (apps.length === 1) {
         io.errorLog(`svelte-vitals: detected SvelteKit app at ${apps[0]}; targeting it for the Vite/config targets.`);
@@ -464,8 +454,11 @@ export async function runInstall(
   }
   if (ciIds.length > 0) {
     try {
-      const appPath = relative(io.cwd, appDir).split(sep).join('/');
-      rows.push(planForCiTarget(io, flags.force ?? false, appPath === '' ? undefined : appPath));
+      const rel = relative(io.cwd, appDir).split(sep).join('/');
+      const appPath = rel === '' ? undefined : rel;
+      const row = planForCiTarget(io, flags.force ?? false, appPath);
+      const note = row.status === 'exists' ? undefined : await appChoiceNote(io, appPath);
+      rows.push(note ? { ...row, notes: [...(row.notes ?? []), note] } : row);
     } catch (err) {
       io.errorLog(
         `svelte-vitals: could not check existing workflow at ${join(io.cwd, targetById('ci-workflow')!.relPaths[0]!)}: ${err instanceof Error ? err.message : String(err)}`

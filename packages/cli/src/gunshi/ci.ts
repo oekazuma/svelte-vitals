@@ -6,7 +6,7 @@ import type { InstallIO } from '../install/index.js';
 import { realIO } from '../install/cli.js';
 import { WORKFLOW_PATH, buildWorkflowYaml, planWorkflowWrite } from '../ci/workflow.js';
 import { installStepNote, planInstallStep } from '../ci/install-step.js';
-import { workflowNotes } from '../ci/notes.js';
+import { appChoiceNote, workflowNotes } from '../ci/notes.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
 import { localizedOptionsSection, type Locale } from './locale.js';
 
@@ -98,9 +98,11 @@ async function runCiInstall(
 
       const installStep = plan.status === 'exists' ? undefined : planInstallStep(io);
       const stepNote = installStep && installStepNote(installStep);
+      const appNote = installStep && (await appChoiceNote(io, undefined));
       const notes = [
         ...(stepNote ? [stepNote] : []),
-        ...workflowNotes(io, plan.status === 'exists' ? existing : undefined)
+        ...workflowNotes(io, plan.status === 'exists' ? existing : undefined),
+        ...(appNote ? [appNote] : [])
       ];
 
       io.log('Plan:');
