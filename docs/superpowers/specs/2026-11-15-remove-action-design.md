@@ -169,7 +169,7 @@ is larger and more frequent.
   references `oekazuma/svelte-vitals-action@` or the older `oekazuma/svelte-vitals/packages/action@`,
   a note says the action is retired and tells the user to re-run with `--force`.
 - The run step stays at the repository root. In a monorepo the CLI may be declared at the workspace
-  root (what the setup skill tells agents) or in the app (what the CI guide says). `--app <dir>`
+  root or in the app. `--app <dir>`
   (`install --client ci-workflow`) names the app and an app that `install` resolves on its own for
   the Vite and config targets in the same run is used the same way: either way its path, relative
   to the current directory, is the positional argument of the step. Otherwise the CLI's own app
@@ -177,7 +177,8 @@ is larger and more frequent.
   §1 computes the prefix from the resolved app directory, so annotations land either way.
   `--app` pointing at a directory that is not a SvelteKit app exits `2`, also when `ci-workflow` is
   the only target. `ci install` itself takes no `--app`.
-- Two notes describe the generated step, so they print only when the workflow is written:
+- Two notes describe the generated step, so they print only when the workflow is written
+  (or, under `--dry-run`, would be):
   - When the current directory is a workspace root (`workspaces` in `package.json` or a
     `pnpm-workspace.yaml`) whose `package.json` does not declare `svelte-vitals`, a note says the step
     runs `./node_modules/.bin/svelte-vitals` there. When the CLI is declared only in the app and the
