@@ -47,7 +47,9 @@ export function planWorkflowWrite(existing: string | undefined, force: boolean):
  */
 export function buildWorkflowYaml(opts: { installStep: InstallStepPlan; appPath?: string }): string {
   const { installStep, appPath } = opts;
-  const target = appPath === undefined ? '' : ` '${appPath.replaceAll("'", "'\\''")}'`;
+  // A one-segment path can equal a subcommand name (`docs`, `ci`, ...), which the CLI dispatches on.
+  const arg = appPath === undefined || appPath.includes('/') || appPath.startsWith('.') ? appPath : `./${appPath}`;
+  const target = arg === undefined ? '' : ` '${arg.replaceAll("'", "'\\''")}'`;
   const run = `./node_modules/.bin/svelte-vitals${target} --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"`;
   // In a plain YAML scalar `: ` is invalid and ` #` starts a comment, so any other path is quoted.
   const safe = appPath === undefined || /^[\w ./@+'-]*$/.test(appPath);

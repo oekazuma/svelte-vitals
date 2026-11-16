@@ -92,6 +92,10 @@ describe('buildWorkflowYaml', () => {
     expect(build({ kind: 'npm' }, 'apps/web')).toContain("svelte-vitals 'apps/web' --reporter github");
   });
 
+  it('writes a one-segment appPath as ./<dir>, so a dir named like a subcommand is analyzed', () => {
+    expect(build({ kind: 'npm' }, 'docs')).toContain("svelte-vitals './docs' --reporter github");
+  });
+
   it('quotes an appPath with a space or a single quote as one shell word', () => {
     expect(build({ kind: 'npm' }, "apps/Bob's app")).toContain("svelte-vitals 'apps/Bob'\\''s app' --reporter github");
   });
