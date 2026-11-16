@@ -98,7 +98,7 @@ npx svelte-vitals@latest explain performance/heavy-import
 
 ### CI integration
 
-`svelte-vitals ci install` scaffolds a GitHub Actions workflow around `@svelte-vitals/action`: inline PR annotations, a job summary, and a sticky PR comment, with no YAML to hand-write. The same workflow is also a selectable `ci-workflow` target inside `svelte-vitals install`, so it can be set up in the same pass as everything else. See [CI integration](https://oekazuma.github.io/svelte-vitals/guides/ci/).
+`svelte-vitals ci install` scaffolds a GitHub Actions workflow that runs the svelte-vitals installed in your project on every pull request: inline PR annotations and a job summary from one step, with no YAML to hand-write. The same workflow is also a selectable `ci-workflow` target inside `svelte-vitals install`, so it can be set up in the same pass as everything else. See [CI integration](https://oekazuma.github.io/svelte-vitals/guides/ci/).
 
 ### Agent-native output
 

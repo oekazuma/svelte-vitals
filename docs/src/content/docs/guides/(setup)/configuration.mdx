@@ -323,7 +323,7 @@ For each field, the first of these that is set wins: **CLI flag > config file > 
 
 One exception: `--rules` and `--ignore` are selection, not configuration. Each decides which rules run, not how the ones left enabled are set up. `--rules` narrows the run to the rule ids it names and overrides an `'off'` in the config file's top-level `rules` for those ids, since turning a rule off is itself selection; the severity and options the file declared for a named rule are otherwise inherited unchanged. `--ignore` differs only in direction. It adds `off` entries for the rule ids it names, layered on top of whatever `rules` already resolved to, either the config file or `--rules`'s narrowed selection. A rule it doesn't name is untouched, keeping whatever that previous layer resolved to: the config file's configuration, or `'off'` if `--rules` excluded it. `--ignore` beats `--rules` when both name the same rule. An explicit `rules` value passed programmatically or as a Vite plugin option still replaces the config file's `rules` map as a whole.
 
-`overrides` has no CLI flag; route policy belongs in a committed file. The config file is its only source for the CLI and the action; the Vite plugin additionally accepts it as a plugin option (option > file, as usual).
+`overrides` has no CLI flag; route policy belongs in a committed file. The config file is its only source for the CLI; the Vite plugin additionally accepts it as a plugin option (option > file, as usual).
 
 ## Validation
 

@@ -54,6 +54,9 @@ additive, so nothing is lost by starting closed.
 > `formatMarkdownReport`, `summarize` and `hasFailureAtOrAbove` are now in `.` — see the dated entry
 > under the `.` entry list below for who asked and what exactly the promotion freezes. The sentence
 > above stands for everything else it names.
+>
+> **Reverted 2026-11-15.** Those four moved back to `./internal` once the action, their only
+> outside consumer, was retired; the CLI renders and gates in-process now.
 
 ## Frozen at 1.0
 
@@ -73,11 +76,16 @@ additive, so nothing is lost by starting closed.
 - **`defineConfig`** re-exported from `svelte-vitals` (the package users install). This is the only
   programmatic export the docs teach.
 - **Scaffolding outputs**: the file paths `install` and `ci install` write (agent skill file,
-  config file, workflow file) and the fact that the scaffolded workflow pins the Action by a
-  generated version. Their _contents_ are not frozen — they are generated guidance, and both
-  commands are re-runnable.
+  config file, workflow file). Their _contents_ are not frozen — they are generated guidance, and
+  both commands are re-runnable.
+  **Changed 2026-11-15**: this entry also froze the scaffolded workflow pinning the Action by a
+  generated version. The Action is retired and the workflow runs the installed CLI, so only the
+  workflow file path is frozen.
 - **`docs show <topic>`**: the topic names are frozen (they appear in agent instructions); the
   prose is not.
+- **Not frozen (2026-11-15)**: the retired-action guard (the CLI keeping its old `github` output
+  under `GITHUB_ACTION_REPOSITORY=oekazuma/svelte-vitals-action`) is not part of the 1.0 surface
+  and is removed in the 1.0 release.
 
 The rest of `packages/cli/src/index.ts`'s exports (`run`, `analyzeProject`, `applyScope`,
 `routeMatcher`, `loadConfigFile`, `findUnknownRuleIds`, …) are **internal**: no doc teaches them,
@@ -168,6 +176,9 @@ is exactly this case.
   without parsing — the Action guards its `core.info` on exactly that — so it is a contract rather
   than an accident. It already holds and is pinned by a test; stating it costs nothing and removes
   a place where a caller would otherwise be relying on undefined behaviour.
+
+  **Removed 2026-11-15**: all four are back in `./internal`. The action was their only outside
+  consumer and is retired, so nothing outside the repository needs them frozen.
 
 Nothing else — and specifically **not** `Project`, `KitAlias`, or `Scope`: no frozen type reaches
 them, `Project` grows a field per project-scoped rule, and `Scope` belongs to `Rule`. They are

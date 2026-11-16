@@ -77,8 +77,8 @@ function categoryRows(categories: Partial<Record<Category, { score: number }>>):
 
 /**
  * Render a compact Markdown summary — Health score, per-category table, severity counts, and
- * a findings table — suitable for a GitHub Actions job summary or a sticky PR comment
- * (`svelte-vitals ci install`). Delegates all aggregation to `buildJsonReport` so the numbers
+ * a findings table — suitable for a GitHub Actions job summary (the CLI's github reporter appends it
+ * there) or a PR comment. Delegates all aggregation to `buildJsonReport` so the numbers
  * never drift from the JSON/console reporters.
  */
 export function formatMarkdownReport(results: Result[], config: Config, meta: { version: string }): string {

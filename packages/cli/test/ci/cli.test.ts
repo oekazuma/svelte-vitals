@@ -1,10 +1,16 @@
 import { describe, it, expect } from 'vitest';
 import { runCiCliGunshi } from '../../src/gunshi/ci.js';
-import { WORKFLOW_PATH, buildWorkflowYaml, CHECKOUT_SHA, CHECKOUT_VERSION } from '../../src/ci/workflow.js';
-import { ACTION_SHA, ACTION_VERSION } from '../../src/ci/action-pin.generated.js';
+import { WORKFLOW_PATH, buildWorkflowYaml } from '../../src/ci/workflow.js';
 import type { InstallIO } from '../../src/install/index.js';
 
-function fakeIO(over: { files?: Record<string, string>; failWritePath?: string; throwOnRead?: string } = {}) {
+function fakeIO(
+  over: {
+    files?: Record<string, string>;
+    failWritePath?: string;
+    throwOnRead?: string;
+    discoverApps?: (cwd: string) => Promise<string[]>;
+  } = {}
+) {
   const files = over.files ?? {};
   const writes: Record<string, string> = {};
   const out: string[] = [];
@@ -25,7 +31,8 @@ function fakeIO(over: { files?: Record<string, string>; failWritePath?: string; 
     cwd: '/proj',
     isTTY: false,
     log: (l) => out.push(l),
-    errorLog: (l) => err.push(l)
+    errorLog: (l) => err.push(l),
+    discoverApps: over.discoverApps ?? (async () => [])
   };
   return { io, writes, out, err };
 }
@@ -130,7 +137,7 @@ describe('runCiCliGunshi install step', () => {
     const pnpm = fakeIO({ files: { '/proj/pnpm-lock.yaml': '', '/proj/package.json': '{}' } });
     expect(await runCiCliGunshi(['install'], pnpm.io)).toBe(0);
     expect(pnpm.out).toContain(
-      '! svelte-vitals is not in package.json. Add it so CI analyzes with the version you choose: pnpm add -D svelte-vitals'
+      '! package.json does not declare svelte-vitals, and the svelte-vitals step runs ./node_modules/.bin/svelte-vitals. Add it: pnpm add -D svelte-vitals'
     );
     const npm = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': '{}' } });
     expect(await runCiCliGunshi(['install'], npm.io)).toBe(0);
@@ -151,6 +158,18 @@ describe('runCiCliGunshi install step', () => {
     const { io, out } = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': DECLARED } });
     expect(await runCiCliGunshi(['install'], io)).toBe(0);
     expect(notes(out)).toEqual([]);
+  });
+
+  it('notes that several SvelteKit apps make the step exit 2 without an app path', async () => {
+    const files = { '/proj/package-lock.json': '{}', '/proj/package.json': DECLARED };
+    const many = fakeIO({ files, discoverApps: async () => ['apps/admin', 'apps/web'] });
+    expect(await runCiCliGunshi(['install'], many.io)).toBe(0);
+    expect(many.out).toContain(
+      "! Several SvelteKit apps were found (apps/admin, apps/web), and with no app path the svelte-vitals step exits 2. Add the app's path after ./node_modules/.bin/svelte-vitals in the step, or re-run svelte-vitals install --client ci-workflow --app <dir> --force."
+    );
+    const one = fakeIO({ files, discoverApps: async () => ['apps/web'] });
+    expect(await runCiCliGunshi(['install'], one.io)).toBe(0);
+    expect(notes(one.out)).toEqual([]);
   });
 
   it('shows the same notes on --dry-run and writes nothing', async () => {
@@ -184,64 +203,84 @@ describe('runCiCliGunshi install step', () => {
   });
 });
 
-describe('runCiCliGunshi upgrade', () => {
-  const OLD_SHA = '1'.repeat(40);
-  const oldWorkflow = buildWorkflowYaml({ actionSha: OLD_SHA, actionVersion: '0.1.0', installStep: { kind: 'npm' } });
+describe('runCiCliGunshi migration notes', () => {
+  const ACTION_WORKFLOW = `${buildWorkflowYaml({ installStep: { kind: 'npm' } })}      - uses: oekazuma/svelte-vitals-action@${'1'.repeat(40)} # v0.15.2\n`;
+  const RETIRED_NOTE = `! ${WORKFLOW_PATH} still calls oekazuma/svelte-vitals-action, which is retired. Re-run with --force to replace it with the CLI step.`;
+  const WORKSPACE_NOTE =
+    '! This is a workspace root. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is declared in an app instead, add working-directory: <app> to that step.';
+  const oldCliNote = (v: string) =>
+    `! node_modules has svelte-vitals ${v}. The workflow needs 0.57.0 or newer for the job summary and repository-relative annotations; update the devDependency.`;
+  const notes = (out: string[]) => out.filter((l) => l.startsWith('!'));
+  const LOCK = { '/proj/package-lock.json': '{}' };
+  const DECLARED = JSON.stringify({ devDependencies: { 'svelte-vitals': '^0.57.0' } });
+  const installed = (version: string) => ({
+    '/proj/node_modules/svelte-vitals/package.json': JSON.stringify({ name: 'svelte-vitals', version })
+  });
 
-  it('with no workflow file, exits 2 with an install hint', async () => {
-    const { io, err } = fakeIO();
+  it('ci upgrade exits 2 with the usage error', async () => {
+    const { io, out, err, writes } = fakeIO({ files: { [PATH]: ACTION_WORKFLOW } });
     expect(await runCiCliGunshi(['upgrade'], io)).toBe(2);
-    expect(err.join('\n')).toContain('run `svelte-vitals ci install` first');
-  });
-
-  it('with a workflow that has no action reference, exits 2', async () => {
-    const { io, err } = fakeIO({ files: { [PATH]: 'name: no-action-here\n' } });
-    expect(await runCiCliGunshi(['upgrade'], io)).toBe(2);
-    expect(err.join('\n')).toContain('no @svelte-vitals/action reference found');
-  });
-
-  it('when already pinned to the bundled sha, says so without claiming to be up to date, and writes nothing', async () => {
-    const current = buildWorkflowYaml({
-      actionSha: ACTION_SHA,
-      actionVersion: ACTION_VERSION,
-      installStep: { kind: 'npm' }
-    });
-    const { io, writes, out } = fakeIO({ files: { [PATH]: current } });
-    expect(await runCiCliGunshi(['upgrade'], io)).toBe(0);
-    expect(writes).toEqual({});
-    expect(out.join('\n')).toContain(
-      `already on the pin bundled with this CLI (@svelte-vitals/action@${ACTION_VERSION})`
-    );
-    expect(out.join('\n')).not.toContain('up to date');
-  });
-
-  it('upgrades a stale pin, rewriting only the action line', async () => {
-    const { io, writes, out } = fakeIO({ files: { [PATH]: oldWorkflow } });
-    expect(await runCiCliGunshi(['upgrade'], io)).toBe(0);
-    expect(writes[PATH]).toContain(`uses: oekazuma/svelte-vitals-action@${ACTION_SHA} # v${ACTION_VERSION}`);
-    // The other pinned action (actions/checkout) is untouched.
-    expect(writes[PATH]).toContain(`uses: actions/checkout@${CHECKOUT_SHA} # ${CHECKOUT_VERSION}`);
-    expect(out.join('\n')).toContain('upgraded @svelte-vitals/action');
-  });
-
-  it('--dry-run previews the upgrade and writes nothing', async () => {
-    const { io, writes, out } = fakeIO({ files: { [PATH]: oldWorkflow } });
-    expect(await runCiCliGunshi(['upgrade', '--dry-run'], io)).toBe(0);
-    expect(writes).toEqual({});
-    expect(out.join('\n')).toContain('Dry run — no files written.');
-    expect(out.join('\n')).toContain('Would upgrade');
-  });
-
-  it('`ci upgrade --help` prints help and exits 0 without writing', async () => {
-    const { io, out, writes } = fakeIO({ files: { [PATH]: oldWorkflow } });
-    expect(await runCiCliGunshi(['upgrade', '--help'], io)).toBe(0);
-    expect(out.join('\n')).toContain('svelte-vitals ci upgrade');
+    expect(out).toEqual([]);
+    expect(err.join('\n')).toContain('Usage:');
     expect(writes).toEqual({});
   });
 
-  it('returns exit 2 and logs an error when writing fails', async () => {
-    const { io, err } = fakeIO({ files: { [PATH]: oldWorkflow }, failWritePath: PATH });
-    expect(await runCiCliGunshi(['upgrade'], io)).toBe(2);
-    expect(err.join('\n')).toContain('failed to write');
+  it('an existing workflow that calls the retired action gets the --force note, on --dry-run too', async () => {
+    for (const args of [['install'], ['install', '--dry-run']]) {
+      const { io, out, writes } = fakeIO({
+        files: { [PATH]: ACTION_WORKFLOW, ...LOCK, '/proj/package.json': DECLARED }
+      });
+      expect(await runCiCliGunshi(args, io)).toBe(0);
+      expect(writes).toEqual({});
+      expect(notes(out)).toEqual([RETIRED_NOTE]);
+    }
   });
+
+  it('a workflow on the pre-split action path gets the same --force note', async () => {
+    const old = `      - uses: oekazuma/svelte-vitals/packages/action@${'1'.repeat(40)} # action-v1.2.3\n`;
+    const { io, out } = fakeIO({ files: { [PATH]: old, ...LOCK, '/proj/package.json': DECLARED } });
+    expect(await runCiCliGunshi(['install'], io)).toBe(0);
+    expect(notes(out)).toEqual([RETIRED_NOTE]);
+  });
+
+  it('--force replaces a workflow that calls the retired action without the note', async () => {
+    const { io, out, writes } = fakeIO({ files: { [PATH]: ACTION_WORKFLOW, ...LOCK, '/proj/package.json': DECLARED } });
+    expect(await runCiCliGunshi(['install', '--force'], io)).toBe(0);
+    expect(writes[PATH]).not.toContain('svelte-vitals-action');
+    expect(notes(out)).toEqual([]);
+  });
+
+  it('at a workspace root that does not declare svelte-vitals, says where the step runs', async () => {
+    const roots: Record<string, string>[] = [
+      { '/proj/pnpm-workspace.yaml': 'packages:\n  - apps/*\n', '/proj/package.json': '{}' },
+      { '/proj/package.json': JSON.stringify({ workspaces: ['apps/*'] }) }
+    ];
+    for (const files of roots) {
+      const { io, out } = fakeIO({ files: { ...LOCK, ...files } });
+      expect(await runCiCliGunshi(['install'], io)).toBe(0);
+      expect(notes(out)).toEqual([WORKSPACE_NOTE]);
+    }
+  });
+
+  it('a workspace root that declares svelte-vitals gets no workspace note', async () => {
+    const pkg = JSON.stringify({ workspaces: ['apps/*'], devDependencies: { 'svelte-vitals': '^0.57.0' } });
+    const { io, out } = fakeIO({ files: { ...LOCK, '/proj/package.json': pkg } });
+    expect(await runCiCliGunshi(['install'], io)).toBe(0);
+    expect(notes(out)).toEqual([]);
+  });
+
+  it('names an installed svelte-vitals older than the workflow needs', async () => {
+    const { io, out } = fakeIO({ files: { ...LOCK, '/proj/package.json': DECLARED, ...installed('0.56.1') } });
+    expect(await runCiCliGunshi(['install'], io)).toBe(0);
+    expect(notes(out)).toEqual([oldCliNote('0.56.1')]);
+  });
+
+  it.each(['0.57.0', '0.57.0-next.1', '0.57.0+build.1', '1.0.0'])(
+    'says nothing about an installed svelte-vitals %s',
+    async (v) => {
+      const { io, out } = fakeIO({ files: { ...LOCK, '/proj/package.json': DECLARED, ...installed(v) } });
+      expect(await runCiCliGunshi(['install'], io)).toBe(0);
+      expect(notes(out)).toEqual([]);
+    }
+  );
 });

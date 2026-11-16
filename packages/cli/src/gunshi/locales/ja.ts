@@ -5,9 +5,8 @@
  * - `JA_ARG_DESCRIPTIONS`: one map per surface that actually feeds a `generate()` call for
  *   `--help` — not one per every exported `*_ARGS` const. `docs list --help`/`docs show --help`
  *   render from `DOCS_ROOT_ARGS`, same as bare `docs --help` (docs.ts's own `buildDocsHelpText`
- *   doc comment), and `ci`/`ci install --help`/`ci upgrade --help` all render from the full
- *   `CI_ARGS` (ci.ts's own doc comment) — so `DOCS_LIST_ARGS`/`DOCS_SHOW_ARGS`/`CI_UPGRADE_ARGS`
- *   are never passed to `generate()` and have nothing here to translate. Keyed by the SAME raw
+ *   doc comment) — so `DOCS_LIST_ARGS`/`DOCS_SHOW_ARGS` are never passed to `generate()` and
+ *   have nothing here to translate. Keyed by the SAME raw
  *   `ArgSchema` object key `--help` itself reads (see `locale.ts`'s `localizedOptionsSection` doc
  *   comment) — `noColor`/`noAnimation`/`noSuppressions`, never their kebab-cased `--no-*` form.
  *   `packages/cli/test/gunshi-i18n-completeness.test.ts` fails the build if a key here doesn't
@@ -82,14 +81,15 @@ export const JA_ARG_DESCRIPTIONS = {
       '変わらない）。\n' +
       'ci-workflow は .github/workflows/svelte-vitals.yml を生成する。これは `svelte-vitals ci install`\n' +
       'が単体で書き出すのと同じファイルで、他のすべてと同じ実行でセットアップしたい場合に選ぶ。\n' +
-      '--force で再生成できる。既存ワークフローのピン留めされたアクションバージョンだけを更新したい\n' +
-      '場合は、引き続き `svelte-vitals ci upgrade` を使う。',
+      '--force で再生成できる。',
     app:
       'モノレポ: vite-plugin/vite-hooks/config-file の書き込み先となる SvelteKit アプリのディレクトリ\n' +
       '（例: --app apps/web）。省略した場合、カレントディレクトリ自体が SvelteKit アプリでなければ、\n' +
       '検出したアプリが1件ならそれを自動的に使用し（通知あり）、複数件なら TTY では選択プロンプトを、\n' +
       '非対話実行では終了コード 2 で --app を求める。他のターゲット（cursor-rules、ci-workflow）は常に\n' +
-      'カレントディレクトリに書き込む — モノレポではリポジトリルートがそれらの正しい置き場所のため。',
+      'カレントディレクトリに書き込む — モノレポではリポジトリルートがそれらの正しい置き場所のため。\n' +
+      'ci-workflow のステップは、ここで指定したアプリ、または vite-plugin/vite-hooks/config-file 用に\n' +
+      '検出したアプリを解析する。',
     yes: '確認プロンプトをスキップ',
     'dry-run': '変更計画を表示し、何も書き込まずに終了',
     force: '既存の svelte-vitals エントリを上書き',
@@ -99,7 +99,7 @@ export const JA_ARG_DESCRIPTIONS = {
     help: 'このヘルプを表示'
   },
   ci: {
-    force: '既存のワークフローファイルを上書き（install のみ）',
+    force: '既存のワークフローファイルを上書き',
     'dry-run': '計画を表示し、何も書き込まずに終了',
     help: 'このヘルプを表示'
   }
@@ -113,8 +113,7 @@ export function rootHelpJa(optionsSection: string): string {
   svelte-vitals docs list        同梱ガイドを一覧表示（docs show <name> で1件表示）
   svelte-vitals explain --list   全ルールを一覧表示（explain <rule-id> で1件説明）
   svelte-vitals install          Vite 連携・Cursor rules・設定ファイル・CI をセットアップ
-  svelte-vitals ci install       GitHub Actions の PR ゲートを追加（アノテーション + サマリーコメント）
-  svelte-vitals ci upgrade       既存ワークフローのピン留めされた @svelte-vitals/action を更新
+  svelte-vitals ci install       GitHub Actions の PR ゲートを追加（アノテーション + ジョブサマリー）
   svelte-vitals complete <shell> シェル補完スクリプトを出力（bash, zsh, fish, powershell）
 
 ${optionsSection}
@@ -187,15 +186,10 @@ export function ciHelpJa(optionsSection: string, workflowPath: string): string {
 
 使用方法:
   svelte-vitals ci install [options]
-  svelte-vitals ci upgrade [--dry-run]
 
-GitHub Actions ワークフロー（${workflowPath}）を追加し、プルリクエストで \`@svelte-vitals/action\`
-GitHub Action を呼び出します: インラインアノテーション、ジョブサマリー、検出結果を記載した sticky な
-PR コメントです。
-
-\`ci upgrade\` は既存ワークフロー内のピン留めされた \`@svelte-vitals/action\` の参照だけを、この CLI に
-同梱されたピンへ書き換えます。それ以外の行（actions/checkout など他のピンを含む）はそのままです。
-最新のピンを取り込むには \`npx svelte-vitals@latest ci upgrade\` を実行してください。
+GitHub Actions ワークフロー（${workflowPath}）を追加し、プルリクエストでプロジェクトにインストール
+された svelte-vitals を実行します: プルリクエストで新たに生じた検出結果をインラインアノテーションと
+ジョブサマリーに出し、それらがゲートを通過しなければチェックを失敗させます。
 
 ${optionsSection}`;
 }

@@ -13,11 +13,22 @@ function escapeProp(s: string): string {
   return escapeData(s).replace(/:/g, '%3A').replace(/,/g, '%2C');
 }
 
+/** A workflow command that prints `message` as a run-level warning annotation. */
+export function formatGithubWarning(message: string): string {
+  return `::warning::${escapeData(message)}`;
+}
+
 /**
  * Render penalized findings as GitHub Actions workflow commands (issue #18, design slice 5).
  * GitHub turns these into inline PR annotations and run-annotation entries. Returns '' when clean.
+ * `mapLocation` rewrites `file=` only; annotations resolve paths against the repo root, which is
+ * not the project root in a monorepo.
  */
-export function formatGithubReport(results: Result[], config: Config): string {
+export function formatGithubReport(
+  results: Result[],
+  config: Config,
+  opts: { mapLocation?: (location: string) => string } = {}
+): string {
   const penalized = results.filter((r) => isPenalized(r.detection, config.treatDynamicAs));
   const lines = penalized.map((r) => {
     const level = severityToGithubLevel(effectiveSeverity(r, config));
@@ -25,7 +36,7 @@ export function formatGithubReport(results: Result[], config: Config): string {
     const title = meta ? `${r.id}: ${meta.title}` : r.id;
     const props: string[] = [];
     if (r.location) {
-      props.push(`file=${escapeProp(r.location)}`);
+      props.push(`file=${escapeProp(opts.mapLocation ? opts.mapLocation(r.location) : r.location)}`);
       if (r.line !== undefined) props.push(`line=${r.line}`);
     }
     props.push(`title=${escapeProp(title)}`);

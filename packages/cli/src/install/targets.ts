@@ -57,7 +57,7 @@ export const INSTALL_TARGETS: InstallTarget[] = [
     id: 'ci-workflow',
     kind: 'ci',
     label: 'GitHub Actions CI',
-    hint: 'Scaffolds a workflow that runs @svelte-vitals/action on pull requests — inline annotations, job summary, sticky PR comment',
+    hint: 'Scaffolds a workflow that runs svelte-vitals on pull requests — inline annotations and a job summary',
     relPaths: [WORKFLOW_PATH]
   }
 ];

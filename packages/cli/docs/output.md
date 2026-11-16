@@ -16,7 +16,8 @@ description: Which reporter to use, how one is auto-selected, what goes to stdou
 - `console`: for a human. Grouped and capped; `--verbose` for everything.
 - `md`: a compact summary table for a PR comment or job summary (capped at 50 rows).
 - `sarif`: SARIF v2.1, for GitHub Code Scanning and other SAST tooling.
-- `github`: `::error` / `::warning` workflow annotations.
+- `github`: `::error` / `::warning` workflow annotations. Under GitHub Actions it also appends the
+  `md` report to the job summary and writes paths relative to the repository root.
 - `html`: a self-contained report file; `--out-file <path>`, or `--out-file -` for stdout.
 
 ## Auto-selection

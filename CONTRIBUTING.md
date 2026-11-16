@@ -36,8 +36,6 @@ pnpm bench          # manual timing benchmark, never run in CI
 
 Each package also exposes its own `build`, `test`, and `typecheck` scripts, runnable via `pnpm --filter <package> <script>`.
 
-The first-party GitHub Action lives in its own repository, [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) — not a subdirectory of this monorepo (see `docs/superpowers/specs/2026-07-22-action-dist-post-merge-only.md` for why).
-
 ## Documentation site
 
 The docs site lives in [`docs/`](./docs) (Blume).

@@ -1,7 +1,6 @@
 // Pure functions for generating schema-vocabulary.generated.ts from schema-dts's type declarations.
 // Split from gen-schema-vocab.js (the thin I/O main) so test/schema-vocabulary.test.ts can import
-// the extraction logic directly and re-run it against the installed schema-dts, mirroring
-// resolve-action-pin.js / gen-action-pin.js in packages/cli/scripts.
+// the extraction logic directly and re-run it against the installed schema-dts.
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';

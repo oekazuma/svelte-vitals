@@ -127,12 +127,12 @@ describe('complete -- <words>: candidate protocol the generated scripts call bac
     expect(list).not.toContain('--scope');
   });
 
-  it('ci install: force/dry-run/help', async () => {
-    expect(await candidates(['ci', 'install', '--'])).toEqual(['--force', '--dry-run', '--help']);
+  it('ci: install is the only sub-command', async () => {
+    expect(await candidates(['ci', ''])).toEqual(['install']);
   });
 
-  it("ci upgrade: only its real subset (no --force — it doesn't strip one, matches gunshi/ci.ts's CI_UPGRADE_ARGS)", async () => {
-    expect(await candidates(['ci', 'upgrade', '--'])).toEqual(['--dry-run', '--help']);
+  it('ci install: force/dry-run/help', async () => {
+    expect(await candidates(['ci', 'install', '--'])).toEqual(['--force', '--dry-run', '--help']);
   });
 
   /** Like `candidates()` but keeps the full `value\tdescription` line — needed to inspect description text and to catch a multi-line description's continuation lines leaking in as their own bogus, tab-less "candidates". */

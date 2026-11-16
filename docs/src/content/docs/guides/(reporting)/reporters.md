@@ -203,7 +203,12 @@ svelte-vitals --reporter sarif
 
 GitHub Actions [workflow command](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) format. Outputs `::error` (critical), `::warning` (warning) and `::notice` (info) annotations that appear inline in pull requests.
 
-The `github` reporter is auto-selected when `GITHUB_ACTIONS=true` is set (which GitHub Actions sets automatically).
+The `github` reporter is auto-selected when `GITHUB_ACTIONS=true` is set (which GitHub Actions sets automatically). Under GitHub Actions it also:
+
+- appends the [`md`](#md) report to the job summary (`GITHUB_STEP_SUMMARY`),
+- writes annotation paths relative to the repository root (`GITHUB_WORKSPACE`), so they attach to
+  the diff when the analyzed app is in a subdirectory,
+- prints its own warnings, such as a rule that crashed, as `::warning` annotations.
 
 ```bash
 svelte-vitals --reporter github
@@ -213,9 +218,10 @@ svelte-vitals --reporter github
 
 A compact Markdown summary: Health score, per-category score table, severity counts, and a
 findings table with links to each rule's docs page. Designed for a GitHub Actions job summary or
-a PR comment; capped at 50 finding rows to stay within GitHub's comment size limits. See the
-[CI integration guide](/guides/ci) for `svelte-vitals ci install`, which wires
-this reporter into a generated workflow automatically.
+a PR comment; capped at 50 finding rows to stay within GitHub's comment size limits. Under GitHub
+Actions the [`github`](#github) reporter appends this report to the job summary, which is how the
+workflow `svelte-vitals ci install` generates gets one; see the
+[CI integration guide](/guides/ci).
 
 ```bash
 svelte-vitals --reporter md

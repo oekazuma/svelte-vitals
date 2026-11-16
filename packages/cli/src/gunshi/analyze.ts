@@ -193,8 +193,7 @@ Usage:
   svelte-vitals docs list        List the bundled guides (docs show <name> prints one)
   svelte-vitals explain --list   List every rule (explain <rule-id> explains one)
   svelte-vitals install          Set up the Vite integration, Cursor rules, config file, or CI
-  svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + summary comment)
-  svelte-vitals ci upgrade       Refresh the pinned @svelte-vitals/action in an existing workflow
+  svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + job summary)
   svelte-vitals complete <shell> Print a shell completion script (bash, zsh, fish, powershell)
 
 ${optionsSection}
@@ -278,7 +277,8 @@ function toCliArgv(values: Record<string, unknown>, positionals: string[], rawAr
 export async function runAnalyzeCliGunshi(
   args: string[],
   io: CliIO = consoleIO,
-  locale: Locale = 'en'
+  locale: Locale = 'en',
+  env: NodeJS.ProcessEnv = process.env
 ): Promise<CliResult> {
   // `--` must be split off before any of guard/neutralize/strip run: none of them understands the
   // terminator, so a post-`--` token that merely looks like a flag (`<path> -- --score`) would
@@ -364,6 +364,7 @@ export async function runAnalyzeCliGunshi(
         ...options,
         minHealth,
         selectApp,
+        env,
         log: io.log,
         errorLog: io.errorLog
       });

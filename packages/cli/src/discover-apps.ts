@@ -22,6 +22,15 @@ async function hasKitDependency(pkgJsonPath: string): Promise<boolean> {
   return hasDep(parsePkg(raw), '@sveltejs/kit');
 }
 
+/** Whether `dir` itself is a SvelteKit app, by the same two signals `discoverApps` matches. */
+export function isSvelteKitApp(readFile: (path: string) => string | undefined, dir: string): boolean {
+  return (
+    readFile(join(dir, 'svelte.config.js')) !== undefined ||
+    readFile(join(dir, 'svelte.config.ts')) !== undefined ||
+    hasDep(parsePkg(readFile(join(dir, 'package.json'))), '@sveltejs/kit')
+  );
+}
+
 /**
  * Find SvelteKit apps under `cwd` for the monorepo picker (design doc
  * 2026-07-08-monorepo-app-picker-design.md): directories containing
