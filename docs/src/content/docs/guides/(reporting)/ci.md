@@ -55,7 +55,8 @@ On every `pull_request` event, the generated workflow:
 2. Sets up Node.js and installs the project's dependencies with lifecycle scripts off. For some
    projects the install is written commented out, with a comment telling you to set up Node.js
    24.16.0 or newer and your package manager first; see [The install step](#the-install-step).
-3. Runs the installed CLI scoped to the PR: `--diff "origin/$BASE_REF"` limits findings to files
+3. Runs the installed CLI through your package manager (`npx --no -- svelte-vitals` for npm,
+   `pnpm exec svelte-vitals` for pnpm), scoped to the PR: `--diff "origin/$BASE_REF"` limits findings to files
    the PR touched, and [`--baseline "origin/$BASE_REF"`](/guides/cli) further narrows to findings
    **newly introduced** by the PR. Pre-existing issues in touched files don't block it. `BASE_REF`
    is set from `github.base_ref` through `env:`, so no `${{ }}` expression is expanded inside the
@@ -133,13 +134,16 @@ pins no setup step for Yarn or Bun, the pinned `pnpm/setup` needs pnpm 11 or new
 `package.json`, and without a lockfile the package manager is unknown. `ci install` (and
 `install --client ci-workflow`) then prints a line beginning `! Add an install step` that gives the
 reason. In that place, set up Node.js 24.16.0 or newer and your package manager, and uncomment the
-install command. Until you do, the svelte-vitals step fails, because there is no
-`./node_modules/.bin/svelte-vitals` to run.
+install command. For these projects the svelte-vitals step runs `./node_modules/.bin/svelte-vitals`,
+so until you do, it fails because that file does not exist.
 
-The step runs that path rather than `npx svelte-vitals`: in CI, `npx` downloads and runs the latest
-published release when none is installed, which is not the version your lockfile pins. Without an
-installation the step fails instead. The path needs a `node_modules` directory, so Yarn Plug'n'Play
-is not supported; set `nodeLinker: node-modules` in `.yarnrc.yml`.
+The step never runs a bare `npx svelte-vitals`: in CI, `npx` downloads and runs the latest
+published release when none is installed, which is not the version your lockfile pins. With npm
+the step runs `npx --no -- svelte-vitals`, which refuses to download, so without an installation the
+step fails with `npx canceled due to missing packages`. With pnpm it runs `pnpm exec svelte-vitals`;
+pnpm 12 first checks `node_modules` against the lockfile and installs from the lockfile when they
+differ, which after the install step changes nothing. The step needs a `node_modules` directory, so
+Yarn Plug'n'Play is not supported; set `nodeLinker: node-modules` in `.yarnrc.yml`.
 
 When `ci install` or `install --client ci-workflow` writes the workflow and the directory has a
 `package.json` that does not declare `svelte-vitals` and is not a workspace root (it has no `workspaces` field, and there is no
@@ -168,28 +172,29 @@ app the step analyzes depends on how the file was written:
 
 - `svelte-vitals install --client ci-workflow --app apps/web` writes the app's path into the step.
   So does an `install` run that resolves an app for its `vite-plugin`, `vite-hooks` or
-  `config-file` targets (see [`--app`](/guides/install#--app-app-in-monorepos)):
+  `config-file` targets (see [`--app`](/guides/install#--app-app-in-monorepos)). For a pnpm
+  workspace:
 
   ```yaml
-  - run: ./node_modules/.bin/svelte-vitals 'apps/web' --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+  - run: pnpm exec svelte-vitals 'apps/web' --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
   ```
 
 - `ci install`, and an `install` run with no app, write no path, so svelte-vitals picks the app the
   way a local run does: a single SvelteKit app is analyzed automatically, and several make the step
-  exit `2` with their list (see [Monorepos](/guides/cli#monorepos)). Add the path after
-  `./node_modules/.bin/svelte-vitals` to choose one. When the command that writes the workflow finds
+  exit `2` with their list (see [Monorepos](/guides/cli#monorepos)). Add the path right
+  after `svelte-vitals` in the step's command to choose one. When the command that writes the workflow finds
   several apps, it prints a note saying so.
 
 Annotations land on the diff either way, because svelte-vitals writes their paths relative to the
 repository root.
 
-The step runs `./node_modules/.bin/svelte-vitals` from the repository root. That works when the
-root `package.json` declares `svelte-vitals`, or when the install puts its binary in the root
-`node_modules/.bin`. If `./node_modules/.bin/svelte-vitals` exists only in the app's directory, run
-the step there: add `working-directory:` and drop the path argument.
+The step runs svelte-vitals from the repository root. That works when the root `package.json`
+declares `svelte-vitals`, or when the install puts its binary in the root `node_modules/.bin`. If it
+is installed only in the app's directory, run the step there: add `working-directory:` and drop the
+path argument.
 
 ```yaml
-- run: ./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+- run: pnpm exec svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
   working-directory: apps/web
   env:
     BASE_REF: ${{ github.base_ref }}
@@ -277,7 +282,7 @@ jobs:
         with:
           node-version: 24
       - run: npm ci --ignore-scripts
-      - run: ./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+      - run: npx --no -- svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
         env:
           BASE_REF: ${{ github.base_ref }}
 ```
@@ -308,7 +313,7 @@ jobs:
           install: false
           runtime: node
       - run: pnpm install --frozen-lockfile --ignore-scripts
-      - run: ./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+      - run: pnpm exec svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
         env:
           BASE_REF: ${{ github.base_ref }}
 ```

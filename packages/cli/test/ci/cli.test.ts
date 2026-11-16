@@ -137,7 +137,7 @@ describe('runCiCliGunshi install step', () => {
     const pnpm = fakeIO({ files: { '/proj/pnpm-lock.yaml': '', '/proj/package.json': '{}' } });
     expect(await runCiCliGunshi(['install'], pnpm.io)).toBe(0);
     expect(pnpm.out).toContain(
-      '! package.json does not declare svelte-vitals, and the svelte-vitals step runs ./node_modules/.bin/svelte-vitals. Add it: pnpm add -D svelte-vitals'
+      '! package.json does not declare svelte-vitals, and the svelte-vitals step runs the one installed in the project. Add it: pnpm add -D svelte-vitals'
     );
     const npm = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': '{}' } });
     expect(await runCiCliGunshi(['install'], npm.io)).toBe(0);
@@ -165,7 +165,7 @@ describe('runCiCliGunshi install step', () => {
     const many = fakeIO({ files, discoverApps: async () => ['apps/admin', 'apps/web'] });
     expect(await runCiCliGunshi(['install'], many.io)).toBe(0);
     expect(many.out).toContain(
-      "! Several SvelteKit apps were found (apps/admin, apps/web), and with no app path the svelte-vitals step exits 2. Add the app's path after ./node_modules/.bin/svelte-vitals in the step, or re-run svelte-vitals install --client ci-workflow --app <dir> --force."
+      "! Several SvelteKit apps were found (apps/admin, apps/web), and with no app path the svelte-vitals step exits 2. Add the app's path right after svelte-vitals in the step's command, or re-run svelte-vitals install --client ci-workflow --app <dir> --force."
     );
     const one = fakeIO({ files, discoverApps: async () => ['apps/web'] });
     expect(await runCiCliGunshi(['install'], one.io)).toBe(0);
@@ -207,7 +207,7 @@ describe('runCiCliGunshi migration notes', () => {
   const ACTION_WORKFLOW = `${buildWorkflowYaml({ installStep: { kind: 'npm' } })}      - uses: oekazuma/svelte-vitals-action@${'1'.repeat(40)} # v0.15.2\n`;
   const RETIRED_NOTE = `! ${WORKFLOW_PATH} still calls oekazuma/svelte-vitals-action, which is retired. Re-run with --force to replace it with the CLI step.`;
   const WORKSPACE_NOTE =
-    '! This is a workspace root. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is declared in an app instead, add working-directory: <app> to that step.';
+    '! This is a workspace root. The svelte-vitals step runs the svelte-vitals installed here; if svelte-vitals is declared in an app instead, add working-directory: <app> to that step.';
   const oldCliNote = (v: string) =>
     `! node_modules has svelte-vitals ${v}. The workflow needs 0.57.0 or newer for the job summary and repository-relative annotations; update the devDependency.`;
   const notes = (out: string[]) => out.filter((l) => l.startsWith('!'));

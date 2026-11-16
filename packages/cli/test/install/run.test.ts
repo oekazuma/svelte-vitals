@@ -574,12 +574,12 @@ describe('runInstall — ci-workflow target', () => {
   };
   const WORKSPACE_NOTE = '! This is a workspace root.';
   const APP_WORKSPACE_NOTE =
-    '! This is a workspace root and its package.json does not declare svelte-vitals. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is installed only in apps/web, set working-directory: apps/web on that step and drop the path argument.';
+    '! This is a workspace root and its package.json does not declare svelte-vitals. The svelte-vitals step runs the svelte-vitals installed here; if svelte-vitals is installed only in apps/web, set working-directory: apps/web on that step and drop the path argument.';
 
   it('install --app apps/web --client ci-workflow writes the app path into the run step', async () => {
     const { io, writes, out } = fakeIO({ files: { ...WORKSPACE, '/proj/apps/web/svelte.config.js': 'x' } });
     expect(await runInstall({ client: ['ci-workflow'], app: 'apps/web', yes: true }, io, noPrompts)).toBe(0);
-    expect(writes[WF]).toContain("      - run: ./node_modules/.bin/svelte-vitals 'apps/web' --reporter github");
+    expect(writes[WF]).toContain("      - run: npx --no -- svelte-vitals 'apps/web' --reporter github");
     expect(out.filter((l) => l.startsWith('!'))).toEqual([APP_WORKSPACE_NOTE]);
   });
 
@@ -597,14 +597,14 @@ describe('runInstall — ci-workflow target', () => {
     const { io, out } = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': '{}' } });
     expect(await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts)).toBe(0);
     expect(out).toContain(
-      '! package.json does not declare svelte-vitals, and the svelte-vitals step runs ./node_modules/.bin/svelte-vitals. Add it: npm install -D svelte-vitals'
+      '! package.json does not declare svelte-vitals, and the svelte-vitals step runs the one installed in the project. Add it: npm install -D svelte-vitals'
     );
   });
 
   it('ci-workflow without --app notes that several SvelteKit apps make the step exit 2', async () => {
     const apps = async () => ['apps/admin', 'apps/web'];
     const NOTE =
-      "! Several SvelteKit apps were found (apps/admin, apps/web), and with no app path the svelte-vitals step exits 2. Add the app's path after ./node_modules/.bin/svelte-vitals in the step, or re-run svelte-vitals install --client ci-workflow --app <dir> --force.";
+      "! Several SvelteKit apps were found (apps/admin, apps/web), and with no app path the svelte-vitals step exits 2. Add the app's path right after svelte-vitals in the step's command, or re-run svelte-vitals install --client ci-workflow --app <dir> --force.";
     const bare = fakeIO({ files: WORKSPACE, discoverApps: apps });
     expect(await runInstall({ client: ['ci-workflow'], yes: true }, bare.io, noPrompts)).toBe(0);
     expect(bare.out).toContain(NOTE);
@@ -616,7 +616,7 @@ describe('runInstall — ci-workflow target', () => {
   it('ci-workflow without --app at a workspace root runs the step at the root and says so', async () => {
     const { io, writes, out } = fakeIO({ files: WORKSPACE });
     expect(await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts)).toBe(0);
-    expect(writes[WF]).toContain('      - run: ./node_modules/.bin/svelte-vitals --reporter github');
+    expect(writes[WF]).toContain('      - run: npx --no -- svelte-vitals --reporter github');
     expect(out.join('\n')).toContain(WORKSPACE_NOTE);
   });
 

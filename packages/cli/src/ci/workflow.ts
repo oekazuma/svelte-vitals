@@ -33,10 +33,18 @@ export function planWorkflowWrite(existing: string | undefined, force: boolean):
   return { status: 'updated' };
 }
 
+// `--no` makes npx refuse rather than download when the package is missing, and `--` stops npm 11
+// from reading the step's flags as its own config (`--diff` is one). The manual shapes have no
+// measured runner form, so they call the bin directly.
+const RUNNERS = {
+  npm: 'npx --no -- svelte-vitals',
+  pnpm: 'pnpm exec svelte-vitals',
+  manual: './node_modules/.bin/svelte-vitals'
+};
+
 /**
- * The workflow runs the svelte-vitals installed in the project (`./node_modules/.bin`, so a pull
- * request cannot make it fetch anything from a registry) with the github reporter, which writes the
- * annotations and the job summary itself. Every action is pinned to a commit SHA with a same-line
+ * The workflow runs the svelte-vitals the project installed, with the github reporter, which writes
+ * the annotations and the job summary itself. Every action is pinned to a commit SHA with a same-line
  * `# vX.Y.Z` comment, the convention this repo's own workflows follow.
  *
  * The install step is live only for the shapes known to work on a first run (npm, and pnpm 11+
@@ -50,7 +58,7 @@ export function buildWorkflowYaml(opts: { installStep: InstallStepPlan; appPath?
   // A one-segment path can equal a subcommand name (`docs`, `ci`, ...), which the CLI dispatches on.
   const arg = appPath === undefined || appPath.includes('/') || appPath.startsWith('.') ? appPath : `./${appPath}`;
   const target = arg === undefined ? '' : ` '${arg.replaceAll("'", "'\\''")}'`;
-  const run = `./node_modules/.bin/svelte-vitals${target} --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"`;
+  const run = `${RUNNERS[installStep.kind]}${target} --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"`;
   // In a plain YAML scalar `: ` is invalid and ` #` starts a comment, so any other path is quoted.
   const safe = appPath === undefined || /^[\w ./@+'-]*$/.test(appPath);
   return [
