@@ -177,8 +177,11 @@ is larger and more frequent.
   §1 computes the prefix from the resolved app directory, so annotations land either way.
   `--app` pointing at a directory that is not a SvelteKit app exits `2`, also when `ci-workflow` is
   the only target. `ci install` itself takes no `--app`.
-- Two notes describe the generated step, so they print only when the workflow is written
-  (or, under `--dry-run`, would be):
+- Three notes describe the generated step, so they print only when the workflow is written
+  (or, under `--dry-run`, would be), by `ci install` and `install --client ci-workflow` alike:
+  - When the current directory has a `package.json` that does not declare `svelte-vitals` and is not
+    a workspace root, a note gives the command that adds it: the step runs
+    `./node_modules/.bin/svelte-vitals`, so without it the step fails.
   - When the current directory is a workspace root (`workspaces` in `package.json` or a
     `pnpm-workspace.yaml`) whose `package.json` does not declare `svelte-vitals`, a note says the step
     runs `./node_modules/.bin/svelte-vitals` there. When the CLI is declared only in the app and the

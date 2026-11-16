@@ -41,8 +41,9 @@ Node.js 24.16.0 or newer and your package manager first, and prints why.
 
 The step runs `./node_modules/.bin/svelte-vitals`, never `npx`, so without an install it fails
 instead of downloading a CLI. Under Yarn Plug'n'Play set `nodeLinker: node-modules` in
-`.yarnrc.yml`. When it writes the workflow, `ci install` also prints the command to add
-`svelte-vitals` if `package.json` does not declare it and is not a workspace root, and a note if
+`.yarnrc.yml`. When they write the workflow, `ci install` and `install --client ci-workflow` also
+print the command to add `svelte-vitals` if `package.json` does not declare it and is not a
+workspace root, and a note if
 `node_modules` holds a version older than 0.57.0, which writes no summary and no
 repository-relative paths.
 

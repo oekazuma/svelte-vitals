@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 import { RETIRED_ACTION } from '../github-actions.js';
+import { detectPackageManager } from '../install/package-manager.js';
 import { hasDep, parsePkg, type PkgJson } from '../pkg-json.js';
 import { WORKFLOW_PATH } from './workflow.js';
 
@@ -14,9 +15,9 @@ interface ReadIO {
   readFile(path: string): string | undefined;
 }
 
-export type WorkspacePkg = (PkgJson & { workspaces?: unknown }) | undefined;
+type WorkspacePkg = (PkgJson & { workspaces?: unknown }) | undefined;
 
-export function isWorkspaceRoot(io: ReadIO, pkg: WorkspacePkg): boolean {
+function isWorkspaceRoot(io: ReadIO, pkg: WorkspacePkg): boolean {
   return pkg?.workspaces !== undefined || io.readFile(join(io.cwd, 'pnpm-workspace.yaml')) !== undefined;
 }
 
@@ -52,6 +53,12 @@ export function workflowNotes(io: ReadIO, existing: string | undefined, appPath?
       appPath === undefined
         ? '! This is a workspace root. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is declared in an app instead, add working-directory: <app> to that step.'
         : `! This is a workspace root and its package.json does not declare svelte-vitals. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is installed only in ${appPath}, set working-directory: ${appPath} on that step and drop the path argument.`
+    );
+  } else if (pkg && !hasDep(pkg, 'svelte-vitals')) {
+    // Without a package.json, `-D` would create one.
+    const pm = detectPackageManager(io);
+    notes.push(
+      `! package.json does not declare svelte-vitals, and the svelte-vitals step runs ./node_modules/.bin/svelte-vitals. Add it: ${pm} ${pm === 'npm' ? 'install' : 'add'} -D svelte-vitals`
     );
   }
   const installed = (

@@ -593,6 +593,14 @@ describe('runInstall — ci-workflow target', () => {
     }
   });
 
+  it('ci-workflow tells the user to add svelte-vitals when package.json does not declare it', async () => {
+    const { io, out } = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': '{}' } });
+    expect(await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts)).toBe(0);
+    expect(out).toContain(
+      '! package.json does not declare svelte-vitals, and the svelte-vitals step runs ./node_modules/.bin/svelte-vitals. Add it: npm install -D svelte-vitals'
+    );
+  });
+
   it('ci-workflow without --app at a workspace root runs the step at the root and says so', async () => {
     const { io, writes, out } = fakeIO({ files: WORKSPACE });
     expect(await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts)).toBe(0);

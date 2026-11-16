@@ -129,7 +129,7 @@ describe('runCiCliGunshi install step', () => {
     const pnpm = fakeIO({ files: { '/proj/pnpm-lock.yaml': '', '/proj/package.json': '{}' } });
     expect(await runCiCliGunshi(['install'], pnpm.io)).toBe(0);
     expect(pnpm.out).toContain(
-      '! svelte-vitals is not in package.json. Add it so CI analyzes with the version you choose: pnpm add -D svelte-vitals'
+      '! package.json does not declare svelte-vitals, and the svelte-vitals step runs ./node_modules/.bin/svelte-vitals. Add it: pnpm add -D svelte-vitals'
     );
     const npm = fakeIO({ files: { '/proj/package-lock.json': '{}', '/proj/package.json': '{}' } });
     expect(await runCiCliGunshi(['install'], npm.io)).toBe(0);

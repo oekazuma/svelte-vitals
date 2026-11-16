@@ -5,10 +5,8 @@ import { generate } from 'gunshi/generator';
 import type { InstallIO } from '../install/index.js';
 import { realIO } from '../install/cli.js';
 import { WORKFLOW_PATH, buildWorkflowYaml, planWorkflowWrite } from '../ci/workflow.js';
-import { installStepNote, planInstallStep, type InstallStepPlan } from '../ci/install-step.js';
-import { isWorkspaceRoot, workflowNotes, type WorkspacePkg } from '../ci/notes.js';
-import { detectPackageManager } from '../install/package-manager.js';
-import { hasDep, readPkg } from '../pkg-json.js';
+import { installStepNote, planInstallStep } from '../ci/install-step.js';
+import { workflowNotes } from '../ci/notes.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
 import { localizedOptionsSection, type Locale } from './locale.js';
 
@@ -67,22 +65,6 @@ the findings the pull request introduces, and a failing check when they fail the
 ${optionsSection}`;
 }
 
-function installNotes(io: InstallIO, installStep: InstallStepPlan): string[] {
-  const notes: string[] = [];
-  const stepNote = installStepNote(installStep);
-  if (stepNote) notes.push(stepNote);
-  const pkg = readPkg((p) => io.readFile(p), io.cwd) as WorkspacePkg;
-  // At a workspace root the app's own package.json declares svelte-vitals, and adding it here would
-  // need a workspace flag (or, with no package.json, would create one).
-  if (pkg && !isWorkspaceRoot(io, pkg) && !hasDep(pkg, 'svelte-vitals')) {
-    const pm = detectPackageManager(io);
-    notes.push(
-      `! svelte-vitals is not in package.json. Add it so CI analyzes with the version you choose: ${pm} ${pm === 'npm' ? 'install' : 'add'} -D svelte-vitals`
-    );
-  }
-  return notes;
-}
-
 /** `ci install`'s own gunshi dispatch: guard/strip on `args.slice(1)`, then bone `cli()`. */
 async function runCiInstall(
   args: string[],
@@ -115,8 +97,9 @@ async function runCiInstall(
       const plan = planWorkflowWrite(existing, Boolean(ctx.values.force));
 
       const installStep = plan.status === 'exists' ? undefined : planInstallStep(io);
+      const stepNote = installStep && installStepNote(installStep);
       const notes = [
-        ...(installStep ? installNotes(io, installStep) : []),
+        ...(stepNote ? [stepNote] : []),
         ...workflowNotes(io, plan.status === 'exists' ? existing : undefined)
       ];
 
