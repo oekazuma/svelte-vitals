@@ -1,7 +1,7 @@
 # Run the scaffolded step through the package manager
 
-**Status:** approved by the owner on 2026-11-17. Refines the run step of
-`2026-11-15-remove-action-design.md` §3.
+**Status:** approved by the owner on 2026-11-17, including the `--` in the npm form that the runner
+check below called for. Refines the run step of `2026-11-15-remove-action-design.md` §3.
 
 ## Intent
 
@@ -49,14 +49,16 @@ What changes:
 
 ## Runner check (2026-11-17, private throwaway repository, svelte-vitals 0.57.0 from npm)
 
-Workflows written by this branch's `ci install` / `install --client ci-workflow --app apps/web`,
-each run on a pull request that adds one route:
+Workflows written by this branch's `ci install` / `install --client ci-workflow --app apps/web`, each
+run on a pull request that adds one route. The last three rows were edited by hand as stated.
 
-| Shape                                                | Runner                    | Step exit                                 | Annotations on the new route | Job summary                                 |
-| ---------------------------------------------------- | ------------------------- | ----------------------------------------- | ---------------------------- | ------------------------------------------- |
-| npm, `npx --no -- svelte-vitals`                     | Node 24.22.2, npm 11.19.1 | 1 (gate)                                  | 13                           | one report, 1 critical · 7 warning · 5 info |
-| pnpm, `pnpm exec svelte-vitals`                      | pnpm 12.20.0              | 1 (gate)                                  | 13                           | same                                        |
-| pnpm workspace, `pnpm exec svelte-vitals 'apps/web'` | pnpm 12.20.0              | 1 (gate)                                  | 13, under `apps/web/`        | same                                        |
-| npm, setup and install removed                       | npm 11.19.1               | 1, `npx canceled due to missing packages` | none                         | none                                        |
+| Shape                                                                                        | Runner                    | Step exit                                                           | Annotations on the new route | Job summary                                 |
+| -------------------------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------- | ---------------------------- | ------------------------------------------- |
+| npm, `npx --no -- svelte-vitals`                                                             | Node 24.22.2, npm 11.19.1 | 1 (gate)                                                            | 13                           | one report, 1 critical · 7 warning · 5 info |
+| pnpm, `pnpm exec svelte-vitals`                                                              | pnpm 12.20.0              | 1 (gate)                                                            | 13                           | same                                        |
+| pnpm workspace, `pnpm exec svelte-vitals 'apps/web'`                                         | pnpm 12.20.0              | 1 (gate)                                                            | 13, under `apps/web/`        | same                                        |
+| npm, setup and install removed                                                               | npm 11.19.1               | 1, `npx canceled due to missing packages`                           | none                         | none                                        |
+| pnpm, install line removed                                                                   | pnpm 12.20.0              | 1 (gate), after `pnpm exec` installed 69 packages from the lockfile | 13                           | not read                                    |
+| pnpm workspace, CLI only in `apps/web`, `working-directory: apps/web` added as the note says | pnpm 12.20.0              | 1 (gate)                                                            | 13, under `apps/web/`        | not read                                    |
 
 The first npm run, without `--`, exited 2: npm read the step's flags as its own config.
