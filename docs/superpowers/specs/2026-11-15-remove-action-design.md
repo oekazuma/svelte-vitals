@@ -163,24 +163,30 @@ is larger and more frequent.
 
 ### 4. `ci install` on an existing workflow, and `ci upgrade`
 
-- `ci upgrade` exists only to move the action pin. It is removed. Running it then fails with the
-  standard unknown-subcommand usage error (exit `2`).
-- `ci install` without `--force` on an existing `.github/workflows/svelte-vitals.yml` still leaves
-  the file alone, but if the file references `oekazuma/svelte-vitals-action` it says so and tells the
-  user to re-run with `--force`. Today it reports `exists` and nothing else, which would hide the
-  migration.
-- In a monorepo the CLI may be declared at the workspace root (what the setup skill tells agents)
-  or in the app (what today's CI guide says). The run step stays at the repository root. When the
-  app is known (`install --app <dir>`), its path is the positional argument; otherwise the CLI's own
-  app resolution applies (one app is analyzed, several exit `2` naming them, per the monorepo
-  topic). §1 computes the prefix from the resolved app directory, so annotations land either way.
-  When the CLI is declared only in the app and the package manager puts no bin at the root, the user
-  adds `working-directory:` to the step; `ci install` at a workspace root (`workspaces` in
-  `package.json` or a `pnpm-workspace.yaml`) prints that, replacing today's advice to set the
-  action's `path` input. The real runs cover both layouts. (Author's call.)
-- If `node_modules/svelte-vitals` is installed at a version older than the release that ships §1,
-  `ci install` prints a note naming that version: the older CLI runs the step but writes no summary
-  and no prefix, which would otherwise go unnoticed. (Author's call.)
+- `ci upgrade` does not exist. Running it fails with the standard unknown-subcommand usage error
+  (exit `2`).
+- Without `--force`, an existing `.github/workflows/svelte-vitals.yml` is left alone. When it
+  references `oekazuma/svelte-vitals-action@` or the older `oekazuma/svelte-vitals/packages/action@`,
+  a note says the action is retired and tells the user to re-run with `--force`.
+- The run step stays at the repository root. In a monorepo the CLI may be declared at the workspace
+  root (what the setup skill tells agents) or in the app (what the CI guide says). `--app <dir>`
+  (`install --client ci-workflow`) names the app and an app that `install` resolves on its own for
+  the Vite and config targets in the same run is used the same way: either way its path, relative
+  to the current directory, is the positional argument of the step. Otherwise the CLI's own app
+  resolution applies (one app is analyzed, several exit `2` naming them, per the monorepo topic).
+  §1 computes the prefix from the resolved app directory, so annotations land either way.
+  `--app` pointing at a directory that is not a SvelteKit app exits `2`, also when `ci-workflow` is
+  the only target. `ci install` itself takes no `--app`.
+- Two notes describe the generated step, so they print only when the workflow is written:
+  - When the current directory is a workspace root (`workspaces` in `package.json` or a
+    `pnpm-workspace.yaml`) whose `package.json` does not declare `svelte-vitals`, a note says the step
+    runs `./node_modules/.bin/svelte-vitals` there. When the CLI is declared only in the app and the
+    package manager puts no bin at the root, the user adds `working-directory:` to the step; with an
+    app path the note names that directory and says to drop the path argument. (Author's call.)
+  - When `node_modules/svelte-vitals` is installed below `WORKFLOW_MIN_CLI_VERSION` (the first
+    release that ships §1), a note names the installed version: an older CLI runs the step but writes
+    no summary and no prefix, which would otherwise go unnoticed. Only the release part of the
+    version is compared; a prerelease or build suffix is ignored. (Author's call.)
 
 ### 5. Removals in this repository
 
