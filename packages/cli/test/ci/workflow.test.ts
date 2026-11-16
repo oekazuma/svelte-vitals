@@ -96,6 +96,18 @@ describe('buildWorkflowYaml', () => {
     expect(build({ kind: 'npm' }, "apps/Bob's app")).toContain("svelte-vitals 'apps/Bob'\\''s app' --reporter github");
   });
 
+  it.each(['apps/site: web', 'apps/a #b'])(
+    'keeps the whole run command as one YAML string for appPath %j',
+    (appPath) => {
+      const line = build({ kind: 'npm' }, appPath)
+        .split('\n')
+        .find((l) => l.startsWith('      - run: ') && l.includes('node_modules/.bin/svelte-vitals'))!;
+      expect(JSON.parse(line.slice('      - run: '.length))).toBe(
+        `./node_modules/.bin/svelte-vitals '${appPath}' --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"`
+      );
+    }
+  );
+
   it('contains no tab characters (YAML indentation must be spaces)', () => {
     expect(yaml).not.toContain('\t');
   });
