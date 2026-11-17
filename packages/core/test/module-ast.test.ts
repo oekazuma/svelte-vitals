@@ -1,9 +1,14 @@
 import { describe, it, expect } from 'vitest';
+import { parse } from 'svelte/compiler';
 import {
   browserOnlyRanges,
   collectDerivedGuardBindings,
+  collectNamedImportAliases,
   collectProgramBindings,
-  parseModuleProgram
+  collectSvelteLifecycleImports,
+  matchLifecycleCall,
+  parseModuleProgram,
+  scopeIntroducedNames
 } from '../src/module-ast.js';
 import { parseKitModuleFacts } from '../src/kit-module-parse.js';
 
@@ -42,6 +47,12 @@ describe('collectProgramBindings', () => {
       'named',
       'ns'
     ]);
+  });
+});
+
+describe('collectProgramBindings — default exports', () => {
+  it('binds the name of a default-exported class', () => {
+    expect([...collectProgramBindings(program('export default class K {}'))]).toEqual(['K']);
   });
 });
 
@@ -285,5 +296,122 @@ describe('browser-global scan — read positions', () => {
       'export function load() {}'
     ].join('\n');
     expect(parseKitModuleFacts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+  });
+});
+
+type AnyNode = { type: string; [key: string]: unknown };
+const nodesOf = (root: unknown, type: string): AnyNode[] => {
+  const out: AnyNode[] = [];
+  const walk = (n: unknown): void => {
+    if (Array.isArray(n)) return n.forEach(walk);
+    if (!n || typeof n !== 'object') return;
+    if ((n as AnyNode).type === type) out.push(n as AnyNode);
+    for (const [k, v] of Object.entries(n)) if (k !== 'loc' && k !== 'metadata') walk(v);
+  };
+  walk(root);
+  return out;
+};
+const introduced = (root: unknown, type: string) => nodesOf(root, type).map((n) => [...scopeIntroducedNames(n)].sort());
+
+describe('scopeIntroducedNames', () => {
+  it('binds parameters, catch params, block declarations and loop variables', () => {
+    const src = [
+      'function f(a, { b, c: [d] }, ...e) {}',
+      'const g = function (h = 1) {};',
+      'const i = ({ j, ...k }) => {};',
+      'try {',
+      '} catch ({ message: m }) {}',
+      'for (let r = 0; ; ) {}',
+      'for (const s of []) {}',
+      'for (const t in {}) {}',
+      'for (u of []) {}',
+      'if (x) {',
+      '  let l;',
+      '  const [n] = [];',
+      '  function o() {}',
+      '  class P {}',
+      '  var q;',
+      '  x = 1;',
+      '}'
+    ].join('\n');
+    const p = program(src);
+    expect(introduced(p, 'FunctionDeclaration')).toEqual([['a', 'b', 'd', 'e'], []]);
+    expect(introduced(p, 'FunctionExpression')).toEqual([['h']]);
+    expect(introduced(p, 'ArrowFunctionExpression')).toEqual([['j', 'k']]);
+    expect(introduced(p, 'CatchClause')).toEqual([['m']]);
+    expect(introduced(p, 'ForStatement')).toEqual([['r']]);
+    expect(introduced(p, 'ForOfStatement')).toEqual([['s'], []]);
+    expect(introduced(p, 'ForInStatement')).toEqual([['t']]);
+    expect(introduced(p, 'BlockStatement').filter((names) => names.length > 0)).toEqual([['P', 'l', 'n', 'o', 'q']]);
+  });
+
+  it('binds the template constructs that introduce names', () => {
+    const ast = parse(
+      [
+        '{#each items as { id, label }, i}{/each}',
+        '{#each rows as row}{/each}',
+        '{#snippet line(a, { b })}{/snippet}',
+        '{#await p then value}{:catch error}{/await}',
+        '<Comp title="t" let:item let:pair={{ x }} let:tuple={[y, z]} let:entry={alias}>{@const c = 1}</Comp>'
+      ].join('\n'),
+      { modern: true }
+    );
+    expect(introduced(ast, 'EachBlock')).toEqual([['i', 'id', 'label'], ['row']]);
+    expect(introduced(ast, 'SnippetBlock')).toEqual([['a', 'b']]);
+    expect(introduced(ast, 'AwaitBlock')).toEqual([['error', 'value']]);
+    expect(introduced(ast, 'Component')).toEqual([['alias', 'item', 'x', 'y', 'z']]);
+    expect(introduced(ast, 'Fragment').filter((names) => names.length > 0)).toEqual([['c']]);
+  });
+});
+
+describe('svelte lifecycle imports and calls', () => {
+  it('tracks value imports of lifecycle names from svelte, by alias, and namespace member calls', () => {
+    const src = [
+      "import { onMount, getContext as ctx, tick, type hasContext } from 'svelte';",
+      "import type { setContext } from 'svelte';",
+      "import * as svelte from 'svelte';",
+      "import { onDestroy } from 'not-svelte';",
+      'onMount();',
+      'ctx();',
+      'tick();',
+      'hasContext();',
+      'setContext();',
+      'svelte.onDestroy();',
+      "svelte['onMount']();",
+      'svelte.tick();',
+      'other.onMount();',
+      'onDestroy();'
+    ].join('\n');
+    const p = program(src);
+    const imports = collectSvelteLifecycleImports(p);
+    expect([...imports.locals]).toEqual([
+      ['onMount', 'onMount'],
+      ['ctx', 'getContext']
+    ]);
+    expect([...imports.namespaces]).toEqual(['svelte']);
+    expect(nodesOf(p, 'CallExpression').map((c) => matchLifecycleCall(c, imports))).toEqual([
+      { canonical: 'onMount', local: 'onMount' },
+      { canonical: 'getContext', local: 'ctx' },
+      undefined,
+      undefined,
+      undefined,
+      { canonical: 'onDestroy', local: 'svelte' },
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    ]);
+  });
+
+  it('collects value-imported aliases of the named exports from one module only', () => {
+    const src = [
+      "import { goto as go, invalidate } from '$app/navigation';",
+      "import { goto } from 'other';",
+      "import type { goto as typed } from '$app/navigation';",
+      "import { type goto as typed2 } from '$app/navigation';",
+      "import * as nav from '$app/navigation';",
+      "import goto2 from '$app/navigation';"
+    ].join('\n');
+    expect([...collectNamedImportAliases(program(src), '$app/navigation', new Set(['goto']))]).toEqual(['go']);
   });
 });
