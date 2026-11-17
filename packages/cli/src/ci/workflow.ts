@@ -9,8 +9,8 @@ export const CHECKOUT_SHA = '3d3c42e5aac5ba805825da76410c181273ba90b1';
 export const CHECKOUT_VERSION = 'v7.0.1';
 
 // Same lockstep, against .github/workflows/setup-node/action.yml (test/ci/lockstep.test.ts).
-export const PNPM_SETUP_SHA = 'fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e';
-export const PNPM_SETUP_VERSION = 'v3.1.2';
+export const PNPM_SETUP_SHA = '731dfb6463bbd11c11fd0ee11fe00ed0e36d48a1';
+export const PNPM_SETUP_VERSION = 'v3.2.0';
 
 // No counterpart in this repo's own workflows, so no lockstep test; Renovate's workflow.ts manager keeps it fresh.
 export const SETUP_NODE_SHA = '949feb2413d6458794dcd2491c4babbbce0c15c1';
