@@ -1317,3 +1317,56 @@ describe('parseKitModuleFacts — collection edges', () => {
     expect(at('({ a: local } = obj);')).toEqual([]);
   });
 });
+
+describe('parseKitModuleFacts — pendingFlagGuard (a load guarded by an imported flag)', () => {
+  const guard = (imports: string, body: string, params = '') =>
+    facts(
+      `import { redirect, error } from '@sveltejs/kit';\n${imports}\nexport async function load(${params}) {\n${body}\n}`,
+      'src/routes/+page.server.ts'
+    ).pendingFlagGuard;
+  const named = "import { ENABLED } from '$lib/flags';";
+  const hit = { resolved: 'src/lib/flags', name: 'ENABLED' };
+
+  it('reads a leading if (!FLAG) whose branch exits first, in every exit form', () => {
+    expect(guard(named, "  if (!ENABLED) redirect(307, '/');")).toEqual(hit);
+    expect(guard(named, "  if (!ENABLED) throw redirect(307, '/');")).toEqual(hit);
+    expect(guard(named, '  if (!ENABLED) return error(404);')).toEqual(hit);
+    expect(guard(named, "  const n = 1;\n  if (!ENABLED) { console.log('off'); error(404); }")).toEqual(hit);
+  });
+
+  it('names the export an aliased import reads, and the member a guard tests', () => {
+    expect(guard("import { ENABLED as on } from '$lib/flags';", '  if (!on) error(404);')).toEqual(hit);
+    expect(guard("import { flags } from '$lib/flags';", '  if (!flags.beta) error(404);')).toEqual({
+      resolved: 'src/lib/flags',
+      name: 'flags',
+      member: 'beta'
+    });
+  });
+
+  it('is absent for a namespace import, a branch that may not exit, or a guard after a return', () => {
+    expect(guard("import * as flags from '$lib/flags';", '  if (!flags.BETA) error(404);')).toBeUndefined();
+    expect(guard(named, "  if (!ENABLED) console.log('off');")).toBeUndefined();
+    expect(guard(named, "  if (!ENABLED) { console.log('off'); }")).toBeUndefined();
+    expect(guard(named, "  if (!ENABLED) { if (Math.random() > 0.5) return {}; error(404); }")).toBeUndefined();
+    expect(guard(named, '  while (!ENABLED) await tick();')).toBeUndefined();
+    expect(guard(named, '  if (Math.random() > 0.5) return {};\n  if (!ENABLED) error(404);')).toBeUndefined();
+  });
+
+  it("is absent when the flag or the exit is one of the load's own bindings", () => {
+    expect(guard(named, '  if (!ENABLED) error(404);', '{ ENABLED }')).toBeUndefined();
+    expect(guard(named, '  function ENABLED() {}\n  if (!ENABLED) error(404);')).toBeUndefined();
+    expect(guard("import { Flag } from '$lib/flags';", '  class Flag {}\n  if (!Flag) error(404);')).toBeUndefined();
+    expect(guard(named, '  function error() {}\n  if (!ENABLED) error(404);')).toBeUndefined();
+  });
+});
+
+describe('parseKitModuleFacts — pendingLoadFactory', () => {
+  it('reads the imported function the load export calls, not another export', () => {
+    const src = [
+      "import { makeLoad, makeOther } from '$lib/load';",
+      'export const prerender = makeOther();',
+      "export const load = makeLoad('/x');"
+    ].join('\n');
+    expect(facts(src).pendingLoadFactory).toEqual({ resolved: 'src/lib/load', name: 'makeLoad' });
+  });
+});
