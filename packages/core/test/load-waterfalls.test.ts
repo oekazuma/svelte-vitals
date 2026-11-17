@@ -499,3 +499,120 @@ describe('collectLoadWaterfalls — exclusions and scope', () => {
     expect(parseKitModuleFacts(src, 'src/routes/+page.ts').csrDisabled).toEqual({ line: 1 });
   });
 });
+
+describe('collectLoadWaterfalls — taint through containers, regions and anchors', () => {
+  it('reads a constructed object as made by the load', () => {
+    const src = [
+      'export async function load() {',
+      '  const client = new Client();',
+      '  await client.connect();',
+      '  await db.count(client);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
+  });
+
+  it('taints a container only through an in-place add that takes tainted data', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const ids = [];',
+      '  const seen = [];',
+      '  ids.push(0, user.id);',
+      '  seen.push(0);',
+      '  seen.includes(user.id);',
+      '  const posts = await getPosts(ids);',
+      '  const tags = await getTags(seen);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [8], independentLines: [9] });
+  });
+
+  it('taints a container a callback over tainted data fills, and nothing the callback only reads or defers', () => {
+    const src = [
+      'export async function load() {',
+      '  const rows = await getRows();',
+      '  const ids = new Set();',
+      '  const seen = new Set();',
+      '  const pending = new Set();',
+      '  rows.forEach((r) => {',
+      '    if (!r) return;',
+      '    ids.add(r.id);',
+      '    seen.has(r.id);',
+      '    later(() => pending.add(r.id));',
+      '  });',
+      '  [1, 2].forEach((n) => seen.add(n));',
+      '  const a = await getA(ids);',
+      '  const b = await getB(seen);',
+      '  const c = await getC(pending);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [13], independentLines: [14, 15] });
+  });
+
+  it('propagates taint through declarations, fills and for…in loops inside an unclassified region', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const viaDecl = [];',
+      '  const viaFill = [];',
+      '  const viaForIn = [];',
+      '  const viaMap = [];',
+      '  let key;',
+      '  let later;',
+      '  if (user.ok) {',
+      '    const tmp = user.id;',
+      '    viaDecl.push(tmp);',
+      '    user.items.forEach((i) => viaFill.push(i));',
+      '    for (key in user.groups) viaForIn.push(key);',
+      '    const mapped = user.tags.map((t) => viaMap.push(t));',
+      '    setTimeout(async () => {',
+      '      later = await getLater();',
+      '    });',
+      '  }',
+      '  const a = await getA(viaDecl);',
+      '  const b = await getB(viaFill);',
+      '  const c = await getC(viaForIn);',
+      '  const e = await getE(viaMap);',
+      '  const d = await getD(later);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [19, 20, 21, 22], independentLines: [23] });
+  });
+
+  it("taints what a try's catch and finally blocks assign", () => {
+    const src = [
+      'export async function load() {',
+      '  let fallback;',
+      '  let done;',
+      '  try {',
+      '    await ping();',
+      '  } catch (e) {',
+      '    fallback = await getFallback();',
+      '  } finally {',
+      '    done = await markDone();',
+      '  }',
+      '  const a = await getA(fallback);',
+      '  const b = await getB(done);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [11, 12], independentLines: [] });
+  });
+
+  it('anchors a statement with several awaits at its first one', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const both = [',
+      '    await getB(user.id),',
+      '    await getC(user.id)',
+      '  ];',
+      '  const pair = [',
+      '    await getD(),',
+      '    await getE()',
+      '  ];',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [8] });
+  });
+});
