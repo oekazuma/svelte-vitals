@@ -23,7 +23,7 @@ Tests that exist only to kill a mutant whose change no user sees.
 
 - Tool: a Vitest 5 mutation runner, at its latest release. That release is younger than the 3-day `minimumReleaseAge` in `pnpm-workspace.yaml`, so the throwaway worktree exempts the tool's own packages from the check. The committed setting is unchanged.
 - The tool is installed only in that throwaway worktree off `origin/main`, and nothing is committed from it. The PR comes from a separate clean worktree.
-- Scope: `packages/core/src/**`, except the generated `html-spec/generated.ts` and `rules/seo/schema-vocabulary.generated.ts`. It runs in three passes: the rules, then the fact extraction under `src/*.ts`, then `reporter/` and `scoring/`. The cli tests import core from its built `dist`, so a mutant in core source is judged by core's own suite only.
+- Scope: `packages/core/src/**`, except the generated `html-spec/generated.ts` and `rules/seo/schema-vocabulary.generated.ts`. It runs in three passes: the rules, then the fact extraction under `src/*.ts`, then `reporter/`, `scoring/` and the hand-written `html-spec/` modules. The cli tests import core from its built `dist`, so a mutant in core source is judged by core's own suite only.
 
 ## Approaches
 
