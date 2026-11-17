@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { collectDerivedGuardBindings, collectProgramBindings, parseModuleProgram } from '../src/module-ast.js';
+import {
+  browserOnlyRanges,
+  collectDerivedGuardBindings,
+  collectProgramBindings,
+  parseModuleProgram
+} from '../src/module-ast.js';
 import { parseKitModuleFacts } from '../src/kit-module-parse.js';
 
 const program = (src: string) => parseModuleProgram(src, 'src/lib/x.ts').program;
@@ -143,5 +148,142 @@ describe('browser-global scan — typeof G === undefined || …', () => {
       { name: 'document', line: 9, inHandler: true },
       { name: 'document', line: 10, inHandler: true }
     ]);
+  });
+});
+
+describe('browserOnlyRanges', () => {
+  const ranges = (src: string) => {
+    const { program, wrapped } = parseModuleProgram(src, 'src/lib/x.ts');
+    return browserOnlyRanges(program, new Set(['browser'])).map(([a, b]) => wrapped.slice(a, b));
+  };
+
+  it('selects the arm each guard form proves browser-only, through derived consts, typeof tests and && / ||', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'const onClient = browser;',
+      'const onServer = !browser;',
+      'const both = browser && ready;',
+      'const either = browser || ready;',
+      'let mutable = browser;',
+      'const { destructured } = browser;',
+      'const notGuard = compute();',
+      'if (browser) a1();',
+      'else s1();',
+      'if (!browser) s2();',
+      'else a2();',
+      'if (onClient) a3();',
+      'if (onServer) s3();',
+      'else a4();',
+      'if (both) a5();',
+      'if (either) s4();',
+      'if (mutable) s5();',
+      'x = browser ? a6() : s6();',
+      'y = browser && a7();',
+      'z = !browser || a8();',
+      'w = browser || s7();',
+      'v = !browser && s8();',
+      "if (typeof window !== 'undefined') a9();",
+      "if (typeof window === 'undefined') s9();",
+      'else a10();',
+      "if (typeof window == 'undefined') s10();",
+      'else a11();',
+      "if (typeof window != 'undefined') a12();",
+      "if (typeof window === 'object') a13();",
+      "if (typeof window !== 'object') s11();",
+      'else a14();',
+      "if (typeof localStorage !== 'undefined') s12();",
+      'if (typeof window === kind) s13();',
+      'if (browser && ready) a15();',
+      'if (ready && browser) a16();',
+      'if (browser || !browser) s14();',
+      'if (!browser || !ready) s15();',
+      'else a17();',
+      'if (browser || onClient) a20();',
+      '{',
+      "  if (!browser) throw new Error('client only');",
+      '  a18();',
+      '  a19();',
+      '}',
+      'function f(browser) {',
+      '  if (browser) s16();',
+      '}'
+    ].join('\n');
+    expect(ranges(src)).toEqual([
+      'ready',
+      'a1();',
+      'a2();',
+      'a3();',
+      'a4();',
+      'a5();',
+      'a6()',
+      'a7()',
+      'a8()',
+      'a9();',
+      'a10();',
+      'a11();',
+      'a12();',
+      'a13();',
+      'a14();',
+      'a15();',
+      'ready',
+      'a16();',
+      'a17();',
+      '!ready',
+      'a20();',
+      'a18();\n  a19();'
+    ]);
+  });
+
+  it('covers the rest of the program after a top-level guard that throws on the server', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      "if (!browser) throw new Error('client only');",
+      'a();',
+      'b();'
+    ].join('\n');
+    expect(ranges(src)).toEqual(['a();\nb();']);
+  });
+});
+
+describe('browser-global scan — read positions', () => {
+  it('reports reads in every expression position, and not labels or bare re-exports', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      "export { confirm } from './dialogs';",
+      'export function GET() {',
+      '  const n1 = !navigator.onLine;',
+      '  const n2 = cache[location.href];',
+      '  const n3 = { [screen.width]: 1 };',
+      '  const n4 = (document satisfies object).title;',
+      '  const n5 = history!.length;',
+      '  const n6 = alert<string>;',
+      '  const n7 = typeof window.x;',
+      '  const n8 = !sessionStorage;',
+      '  prompt: for (const x of [1]) {',
+      '    if (x) break prompt;',
+      '    continue prompt;',
+      '  }',
+      '}'
+    ].join('\n');
+    expect(parseKitModuleFacts(src, 'src/routes/api/+server.ts').browserGlobalRefs).toEqual([
+      { name: 'navigator', line: 4, inHandler: true },
+      { name: 'location', line: 5, inHandler: true },
+      { name: 'screen', line: 6, inHandler: true },
+      { name: 'document', line: 7, inHandler: true },
+      { name: 'history', line: 8, inHandler: true },
+      { name: 'alert', line: 9, inHandler: true },
+      { name: 'window', line: 10, inHandler: true },
+      { name: 'sessionStorage', line: 11, inHandler: true }
+    ]);
+  });
+
+  it('stops the top-level scan after a guard that throws on the server', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      "if (!browser) throw new Error('client only');",
+      'const w = window.innerWidth;',
+      'export function load() {}'
+    ].join('\n');
+    expect(parseKitModuleFacts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
   });
 });
