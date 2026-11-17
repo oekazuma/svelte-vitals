@@ -1538,7 +1538,10 @@ describe('parseInMemoryExports', () => {
       'export const facadeWithNested = { ...clients, inner: { x: 1 } };',
       'export const map = new Map();',
       'export const custom = new Custom();',
-      'export const viaGlobal = new globalThis.Map();'
+      'export const viaGlobal = new globalThis.Map();',
+      'class Klass {}',
+      'export const reg = { Klass };',
+      'export const { de } = { de: [] };'
     ].join('\n');
     expect([...parseInMemoryExports(src, 'src/lib/state.ts')].sort()).toEqual([
       'empty',
@@ -1548,7 +1551,8 @@ describe('parseInMemoryExports', () => {
       'map',
       'mixed',
       'obj',
-      'refs'
+      'refs',
+      'reg'
     ]);
   });
 });
@@ -1601,5 +1605,44 @@ describe('parseKitModuleFacts — export forms', () => {
     expect(prerendered('const a = 1;\nexport { a };')).toBeUndefined();
     expect(prerendered('type prerender = boolean;\nexport type { prerender };')).toBeUndefined();
     expect(prerendered('type prerender = boolean;\nexport { type prerender };')).toBeUndefined();
+  });
+});
+
+describe('resolveRepoLocalPath — path edges', () => {
+  it('resolves a bare . or .. against the importer, and refuses a path that climbs out of the project', () => {
+    expect(resolve('.')).toBe('src/routes/a');
+    expect(resolve('..')).toBe('src/routes');
+    expect(resolveRepoLocalPath('../..', 'src/x.ts')).toBeUndefined();
+  });
+  it('drops the empty segment a trailing-slash replacement leaves', () => {
+    expect(resolve('$lib/x', [prefix('$lib', 'src/lib/')])).toBe('src/lib/x');
+  });
+  it('resolves the bare key of an alias that names a directory above the project root', () => {
+    expect(resolve('$out', [LIB, prefix('$out', '../../plugins')])).toBe('../../plugins');
+  });
+});
+
+describe('parseKitModuleFacts — updaters, helpers and ssrTrue', () => {
+  it('reads a function expression as an updater, and an argument-free update as no write', () => {
+    const src = [
+      "import { count } from '$lib/stores';",
+      'export function load() {',
+      '  count.update(function (n) {',
+      '    return n + 1;',
+      '  });',
+      '  count.update();',
+      '}'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([{ name: 'count', line: 3, via: 'set-call' }]);
+  });
+  it('takes a function inside an exported object other than actions for a helper', () => {
+    const src = 'let n = 0;\nexport const config = {\n  onInit: () => {\n    n = 1;\n  }\n};';
+    expect(facts(src).moduleStateReassignments).toEqual([{ name: 'n', line: 4, inHandler: false }]);
+  });
+  it('marks ssrTrue only when the ssr export itself is the literal true', () => {
+    expect(
+      facts('export const prerender = true;\nexport const ssr = flag;', 'src/routes/+page.ts').ssrTrue
+    ).toBeUndefined();
+    expect(facts("export const ssr = 'yes';", 'src/routes/+page.ts').ssrTrue).toBeUndefined();
   });
 });

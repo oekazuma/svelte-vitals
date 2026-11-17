@@ -632,3 +632,39 @@ describe('collectLoadWaterfalls — what counts as a reference', () => {
     expect(wf(src)).toEqual({ dependentLines: [4, 6, 7], independentLines: [3, 5] });
   });
 });
+
+describe('collectLoadWaterfalls — exempt awaits, guards and work in flight', () => {
+  it('exempts parent() in either form and body reads, and only those', () => {
+    const src = [
+      'export async function load(event) {',
+      "  const res = await fetch('/a');",
+      '  const p = await event.parent();',
+      '  const [x] = await batch.all([res.json()]);',
+      '  const all = await Promise.all(reqs);',
+      '  const none = await Promise.all([]);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [5, 6] });
+  });
+
+  it('does not take an await beside a tainted operand of a non-logical operator for guarded', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const b = user.id + (await getB());',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [], independentLines: [3] });
+  });
+
+  it('reads work started inside an array literal as a request in flight', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const ps = [fetch(user.a), user.b];',
+      '  const first = await ps[0];',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
+  });
+});
