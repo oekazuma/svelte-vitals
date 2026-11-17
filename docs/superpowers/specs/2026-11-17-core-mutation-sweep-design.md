@@ -38,12 +38,14 @@ Tests that exist only to kill a mutant whose change no user sees.
    - **Equivalent:** no observable change. Skipped.
    - **Covered elsewhere:** a kitchen-sink e2e or cli test asserts the behaviour, but no core unit test does. Counted separately. Adding unit tests for this class is the owner's call.
    - **Gap:** the mutant changes whether a finding is reported, or its severity, location, or the values interpolated into its message. A test is added.
+   - **Unreached fallback:** a defensive default, such as `?? []`, that no input reaches. Counted separately, not as equivalent.
    - **Dead code or bug candidate:** listed only.
 4. Each new test fails with its mutant applied and passes without it.
 5. Re-run on the touched files and report only those numbers.
+6. The fact-extraction and output passes survive at several times the rules' volume, and the e2e suites catch few of their survivors. There, survivors are grouped by enclosing function, and the largest groups are closed with fixtures that assert the whole collected result. The rest are listed by function, not classified one by one.
 
 Builder's call: message wording is not user-visible output for this sweep. Asserting exact prose would make tests brittle without guarding detection.
 
 ## Deliverable
 
-A tests-only PR with this document and no changeset. Test names state behaviour and do not mention mutants or the tool.
+One tests-only PR per pass, none with a changeset; the first carries this document. Test names state behaviour and do not mention mutants or the tool.
