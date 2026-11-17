@@ -385,3 +385,46 @@ describe('isMentionedAnywhere', () => {
     );
   });
 });
+
+describe('validateRuleOptions — bounds and the cross-field range', () => {
+  const ranged: RuleOptionsSpec = {
+    min: { kind: 'integer', default: 10, min: 1 },
+    max: { kind: 'integer', default: 20, max: 100 },
+    tags: { kind: 'string-list', default: [] },
+    map: { kind: 'string-map', default: {} }
+  };
+  const errorsOf = (options: Record<string, unknown>) => validateRuleOptions('r', ranged, options);
+
+  it('checks a declared max bound, and skips the range check for a side already reported bad', () => {
+    expect(errorsOf({ max: 101, min: 150 })).toEqual(['r.max must be <= 100.']);
+    expect(errorsOf({ max: 100 })).toEqual([]);
+    expect(errorsOf({ min: 0, max: -1 })).toEqual(['r.min must be >= 1.']);
+    expect(errorsOf({ min: 1.5, max: 1 })).toEqual(['r.min must be an integer.']);
+  });
+
+  it('accepts an equal min and max, and reports an inverted pair', () => {
+    expect(errorsOf({ min: 15, max: 15 })).toEqual([]);
+    expect(errorsOf({ max: -5 })).toEqual(['r: min (10) must be <= max (-5).']);
+  });
+
+  it('rejects a list or map with any empty string', () => {
+    expect(errorsOf({ tags: ['a', ''] })).toEqual(['r.tags must be an array of non-empty strings.']);
+    expect(errorsOf({ map: { a: 'x', b: '' } })).toEqual(['r.map must be an object of string → non-empty string.']);
+  });
+});
+
+describe('range-check skipping and mention lookup — edges', () => {
+  it('skips the range check for an entry setting only max when another entry sets min', () => {
+    const overrides = [{ rules: { r: { options: { max: 5 } } } }, { rules: { r: { options: { min: 1 } } } }];
+    expect(shouldSkipRangeCheck(overrides, 0, 'r', overrides[0]!.rules.r)).toBe(true);
+  });
+
+  it('passes over an override entry without rules', () => {
+    const config = defineConfig({
+      rules: {},
+      overrides: [{ files: ['src/a/**'] } as never, { files: ['b'], rules: { r: 'off' } }]
+    });
+    expect(isMentionedAnywhere(config, 'r')).toBe(true);
+    expect(isMentionedAnywhere(config, 'q')).toBe(false);
+  });
+});
