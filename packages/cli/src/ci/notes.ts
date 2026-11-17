@@ -52,14 +52,14 @@ export function workflowNotes(io: ReadIO, existing: string | undefined, appPath?
   if (isWorkspaceRoot(io, pkg) && !hasDep(pkg, 'svelte-vitals')) {
     notes.push(
       appPath === undefined
-        ? '! This is a workspace root. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is declared in an app instead, add working-directory: <app> to that step.'
-        : `! This is a workspace root and its package.json does not declare svelte-vitals. The svelte-vitals step runs ./node_modules/.bin/svelte-vitals here; if svelte-vitals is installed only in ${appPath}, set working-directory: ${appPath} on that step and drop the path argument.`
+        ? '! This is a workspace root. The svelte-vitals step runs the svelte-vitals installed here; if svelte-vitals is declared in an app instead, add working-directory: <app> to that step.'
+        : `! This is a workspace root and its package.json does not declare svelte-vitals. The svelte-vitals step runs the svelte-vitals installed here; if svelte-vitals is installed only in ${appPath}, set working-directory: ${appPath} on that step and drop the path argument.`
     );
   } else if (pkg && !hasDep(pkg, 'svelte-vitals')) {
     // Without a package.json, `-D` would create one.
     const pm = detectPackageManager(io);
     notes.push(
-      `! package.json does not declare svelte-vitals, and the svelte-vitals step runs ./node_modules/.bin/svelte-vitals. Add it: ${pm} ${pm === 'npm' ? 'install' : 'add'} -D svelte-vitals`
+      `! package.json does not declare svelte-vitals, and the svelte-vitals step runs the one installed in the project. Add it: ${pm} ${pm === 'npm' ? 'install' : 'add'} -D svelte-vitals`
     );
   }
   const installed = (
@@ -81,5 +81,5 @@ export async function appChoiceNote(
   if (appPath !== undefined || isSvelteKitApp(io.readFile, io.cwd)) return undefined;
   const apps = await (io.discoverApps ?? discoverApps)(io.cwd).catch(() => []);
   if (apps.length < 2) return undefined;
-  return `! Several SvelteKit apps were found (${apps.join(', ')}), and with no app path the svelte-vitals step exits 2. Add the app's path after ./node_modules/.bin/svelte-vitals in the step, or re-run svelte-vitals install --client ci-workflow --app <dir> --force.`;
+  return `! Several SvelteKit apps were found (${apps.join(', ')}), and with no app path the svelte-vitals step exits 2. Add the app's path right after svelte-vitals in the step's command, or re-run svelte-vitals install --client ci-workflow --app <dir> --force.`;
 }

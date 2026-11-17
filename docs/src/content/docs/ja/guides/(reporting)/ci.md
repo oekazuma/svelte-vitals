@@ -36,7 +36,7 @@ npx svelte-vitals@latest ci install --force     # 既存のワークフローフ
 
 1. `fetch-depth: 0` でリポジトリをフル履歴でチェックアウトし、svelte-vitals が `--diff`/`--baseline` のために PR のベース ref を解決できるようにします。
 2. Node.js をセットアップし、ライフサイクルスクリプトを無効にしてプロジェクトの依存関係をインストールします。プロジェクトによってはインストールコマンドがコメントアウトされた状態で書き出され、先に Node.js 24.16.0 以降とパッケージマネージャーをセットアップするよう求めるコメントが付きます。詳しくは[インストールステップ](#インストールステップ)を参照してください。
-3. インストールされた CLI を、PR にスコープを絞って実行します。`--diff "origin/$BASE_REF"` は PR が変更したファイルに検出結果を限定し、[`--baseline "origin/$BASE_REF"`](/ja/guides/cli) はさらに PR が**新たに導入した**検出結果だけに絞り込みます。変更したファイルに元からあった問題が PR をブロックすることはありません。`BASE_REF` は `env:` を通して `github.base_ref` から設定されるため、シェルのコマンド内で `${{ }}` 式が展開されることはありません。
+3. インストールされた CLI を、パッケージマネージャー経由（npm なら `npx --no -- svelte-vitals`、pnpm なら `pnpm exec svelte-vitals`）で、PR にスコープを絞って実行します。`--diff "origin/$BASE_REF"` は PR が変更したファイルに検出結果を限定し、[`--baseline "origin/$BASE_REF"`](/ja/guides/cli) はさらに PR が**新たに導入した**検出結果だけに絞り込みます。変更したファイルに元からあった問題が PR をブロックすることはありません。`BASE_REF` は `env:` を通して `github.base_ref` から設定されるため、シェルのコマンド内で `${{ }}` 式が展開されることはありません。
 4. GitHub Actions 上の `--reporter github` は、この1回の実行で次のものを書き出します。
    - diff 上のインラインアノテーション。パスはリポジトリのルートからの相対パスなので、アプリがサブディレクトリにあっても正しいファイルに付きます。
    - ジョブサマリー。[`md` レポート](/ja/guides/reporters#md)をジョブのサマリーページに追記したものです。
@@ -90,9 +90,9 @@ svelte-vitals には Node.js 24.16.0 以降が必要です。そのため、ワ�
 
 pnpm のバージョンは、セットアップ Action と同じ方法で読み取ります。`name: "pnpm"` を持つ単一のオブジェクトとして `devEngines.packageManager` があればそれを使い、なければ `packageManager` を使います。配列形式の `devEngines.packageManager` は読み取りません。
 
-コメントアウトされるのは、`ci install` が初回の実行から動くステップを書けない場合です。この CLI は Yarn と Bun のセットアップステップをピン留めしていません。ピン留めした `pnpm/setup` は `package.json` で pnpm 11 以降が宣言されている必要があります。ロックファイルがなければパッケージマネージャーを判別できません。このとき `ci install`（および `install --client ci-workflow`）は `! Add an install step` で始まる行に理由を添えて出力します。その位置で Node.js 24.16.0 以降とパッケージマネージャーをセットアップし、インストールコマンドのコメントを外してください。それまでは、実行する `./node_modules/.bin/svelte-vitals` がないため、svelte-vitals のステップは失敗します。
+コメントアウトされるのは、`ci install` が初回の実行から動くステップを書けない場合です。この CLI は Yarn と Bun のセットアップステップをピン留めしていません。ピン留めした `pnpm/setup` は `package.json` で pnpm 11 以降が宣言されている必要があります。ロックファイルがなければパッケージマネージャーを判別できません。このとき `ci install`（および `install --client ci-workflow`）は `! Add an install step` で始まる行に理由を添えて出力します。その位置で Node.js 24.16.0 以降とパッケージマネージャーをセットアップし、インストールコマンドのコメントを外してください。これらのプロジェクトでは svelte-vitals のステップが `./node_modules/.bin/svelte-vitals` を実行するため、それまではそのファイルがなく失敗します。
 
-ステップが `npx svelte-vitals` ではなくこのパスを実行するのは、CI の `npx` が、インストールされていない場合に公開済みの最新リリースをダウンロードして実行するからです。それはロックファイルが固定したバージョンではありません。インストールがなければ、ステップはダウンロードせずに失敗します。このパスには `node_modules` ディレクトリが必要なので、Yarn の Plug'n'Play には対応していません。`.yarnrc.yml` で `nodeLinker: node-modules` を設定してください。
+ステップは素の `npx svelte-vitals` を実行しません。CI の `npx` は、インストールされていない場合に公開済みの最新リリースをダウンロードして実行するからです。それはロックファイルが固定したバージョンではありません。npm ではステップが `npx --no -- svelte-vitals` を実行します。`--no` はダウンロードを拒否するので、インストールがなければステップは `npx canceled due to missing packages` で失敗します。pnpm では `pnpm exec svelte-vitals` を実行し、ステップの `env:` で `pnpm_config_verify_deps_before_run: error` を設定します。pnpm は `exec` の前に `node_modules` をロックファイルと照合し、既定では食い違っていればロックファイルどおりにインストールします。このインストールはプロジェクト自身のライフサイクルスクリプトを実行します。`error` を設定すると、インストールせずに失敗します。何もインストールされていなければ `Cannot check whether dependencies are outdated` で失敗します。ステップには `node_modules` ディレクトリが必要なので、Yarn の Plug'n'Play には対応していません。`.yarnrc.yml` で `nodeLinker: node-modules` を設定してください。
 
 `ci install` または `install --client ci-workflow` がワークフローを書き出すとき、そのディレクトリの `package.json` が `svelte-vitals` を宣言しておらず、ワークスペースのルートでもなければ（`workspaces` フィールドも隣の `pnpm-workspace.yaml` もなければ）、パッケージマネージャーに合わせて追加用のコマンド（`pnpm add -D svelte-vitals` など）も出力します。ワークスペースのルートでは別の案内を出力します。[モノレポ](#モノレポ)を参照してください。
 
@@ -106,23 +106,24 @@ pnpm のバージョンは、セットアップ Action と同じ方法で読み�
 
 ワークフローファイルはリポジトリのルートに書き出され、その svelte-vitals のステップもルートで実行されます。ステップがどのアプリを解析するかは、ファイルの書き出し方で決まります。
 
-- `svelte-vitals install --client ci-workflow --app apps/web` は、アプリのパスをステップに書き込みます。`vite-plugin`、`vite-hooks`、`config-file` のターゲットのためにアプリを解決した `install` の実行も同じです（[`--app`](/ja/guides/install#モノレポでの---app-app) を参照）。
+- `svelte-vitals install --client ci-workflow --app apps/web` は、アプリのパスをステップに書き込みます。`vite-plugin`、`vite-hooks`、`config-file` のターゲットのためにアプリを解決した `install` の実行も同じです（[`--app`](/ja/guides/install#モノレポでの---app-app) を参照）。pnpm のワークスペースなら次のとおりです。
 
   ```yaml
-  - run: ./node_modules/.bin/svelte-vitals 'apps/web' --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+  - run: pnpm exec svelte-vitals 'apps/web' --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
   ```
 
-- `ci install` と、アプリを解決しなかった `install` の実行は、パスを書き込みません。svelte-vitals はローカルで実行したときと同じ方法でアプリを選びます。SvelteKit アプリが1つなら自動で解析し、複数あればその一覧を示してステップを終了コード `2` で失敗させます（[モノレポ](/ja/guides/cli#モノレポ)を参照）。1つを選ぶには、`./node_modules/.bin/svelte-vitals` の後ろにパスを追加してください。ワークフローを書き出すコマンドは、アプリが複数見つかるとその旨を案内します。
+- `ci install` と、アプリを解決しなかった `install` の実行は、パスを書き込みません。svelte-vitals はローカルで実行したときと同じ方法でアプリを選びます。SvelteKit アプリが1つなら自動で解析し、複数あればその一覧を示してステップを終了コード `2` で失敗させます（[モノレポ](/ja/guides/cli#モノレポ)を参照）。1つを選ぶには、ステップのコマンドの `svelte-vitals` の直後にパスを追加してください。ワークフローを書き出すコマンドは、アプリが複数見つかるとその旨を案内します。
 
 svelte-vitals はアノテーションのパスをリポジトリのルートからの相対パスで書き出すため、どちらの場合もアノテーションは diff 上に付きます。
 
-ステップはリポジトリのルートで `./node_modules/.bin/svelte-vitals` を実行します。ルートの `package.json` が `svelte-vitals` を宣言している場合や、インストールでそのバイナリがルートの `node_modules/.bin` に置かれる場合は、そのまま動きます。`./node_modules/.bin/svelte-vitals` がアプリのディレクトリにしかない場合は、ステップをそこで実行してください。`working-directory:` を追加し、パスの引数を外します。
+ステップはリポジトリのルートで svelte-vitals を実行します。ルートの `package.json` が `svelte-vitals` を宣言している場合や、インストールでそのバイナリがルートの `node_modules/.bin` に置かれる場合は、そのまま動きます。アプリのディレクトリにしかインストールされていない場合は、ステップをそこで実行してください。`working-directory:` を追加し、パスの引数を外します。
 
 ```yaml
-- run: ./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+- run: pnpm exec svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
   working-directory: apps/web
   env:
     BASE_REF: ${{ github.base_ref }}
+    pnpm_config_verify_deps_before_run: error
 ```
 
 `package.json` が `svelte-vitals` を宣言していないワークスペースのルート（`package.json` に `workspaces` フィールドがあるか、`pnpm-workspace.yaml` がある）でワークフローを書き出すとき、`ci install` と `install --client ci-workflow` はこのことを案内します。
@@ -190,7 +191,7 @@ jobs:
         with:
           node-version: 24
       - run: npm ci --ignore-scripts
-      - run: ./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+      - run: npx --no -- svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
         env:
           BASE_REF: ${{ github.base_ref }}
 ```
@@ -221,9 +222,10 @@ jobs:
           install: false
           runtime: node
       - run: pnpm install --frozen-lockfile --ignore-scripts
-      - run: ./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+      - run: pnpm exec svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
         env:
           BASE_REF: ${{ github.base_ref }}
+          pnpm_config_verify_deps_before_run: error
 ```
 
 ほかのパッケージマネージャーでは、同じ位置（チェックアウトと svelte-vitals のステップの間）で Node.js 24.16.0 以降とそのパッケージマネージャーをセットアップし、ライフサイクルスクリプトを無効にして依存関係をインストールしてください。

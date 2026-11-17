@@ -72,12 +72,15 @@ describe('buildWorkflowYaml', () => {
     expect(out).not.toContain('setup-node');
   });
 
-  it('runs the installed bin, never a registry fetch', () => {
-    for (const kind of ['npm', 'pnpm'] as const) {
-      const out = build({ kind });
-      expect(out).toContain('./node_modules/.bin/svelte-vitals --reporter github');
-      for (const fetcher of ['npx', 'pnpm exec', 'dlx']) expect(out).not.toContain(fetcher);
-    }
+  it.each([
+    ['npm', '      - run: npx --no -- svelte-vitals --reporter github'],
+    ['pnpm', '      - run: pnpm exec svelte-vitals --reporter github'],
+    ['manual', '      - run: ./node_modules/.bin/svelte-vitals --reporter github']
+  ] as const)('runs the installed CLI through the %s shape command', (kind, line) => {
+    const out = build(kind === 'manual' ? manual : { kind });
+    expect(out).toContain(line);
+    expect(out).not.toContain('dlx');
+    expect(out.replaceAll('npx --no -- ', '')).not.toContain('npx');
   });
 
   it('passes the base ref through env, with no expression in any run step', () => {
@@ -88,8 +91,19 @@ describe('buildWorkflowYaml', () => {
     for (const l of runs) expect(l).not.toContain('${{');
   });
 
+  it('makes pnpm exec refuse instead of installing, and sets it on no other shape', () => {
+    const env = ['        env:', '          BASE_REF: ${{ github.base_ref }}'];
+    expect(build({ kind: 'pnpm' })).toContain(
+      [...env, '          pnpm_config_verify_deps_before_run: error'].join('\n')
+    );
+    for (const plan of [{ kind: 'npm' }, manual] as const) {
+      expect(build(plan)).toContain(`${env.join('\n')}\n`);
+      expect(build(plan)).not.toContain('verify_deps');
+    }
+  });
+
   it('passes appPath as the first argument', () => {
-    expect(build({ kind: 'npm' }, 'apps/web')).toContain("svelte-vitals 'apps/web' --reporter github");
+    expect(build({ kind: 'npm' }, 'apps/web')).toContain("npx --no -- svelte-vitals 'apps/web' --reporter github");
   });
 
   it('writes a one-segment appPath as ./<dir>, so a dir named like a subcommand is analyzed', () => {
@@ -105,9 +119,9 @@ describe('buildWorkflowYaml', () => {
     (appPath) => {
       const line = build({ kind: 'npm' }, appPath)
         .split('\n')
-        .find((l) => l.startsWith('      - run: ') && l.includes('node_modules/.bin/svelte-vitals'))!;
+        .find((l) => l.startsWith('      - run: ') && l.includes('svelte-vitals'))!;
       expect(JSON.parse(line.slice('      - run: '.length))).toBe(
-        `./node_modules/.bin/svelte-vitals '${appPath}' --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"`
+        `npx --no -- svelte-vitals '${appPath}' --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"`
       );
     }
   );
@@ -149,7 +163,7 @@ describe('buildWorkflowYaml', () => {
     const out = build(kind === 'manual' ? manual : { kind });
     const step = out.indexOf(marker);
     expect(out.indexOf('actions/checkout@')).toBeLessThan(step);
-    expect(step).toBeLessThan(out.indexOf('./node_modules/.bin/svelte-vitals'));
+    expect(step).toBeLessThan(out.indexOf('svelte-vitals --reporter github'));
   });
 
   it('never marks the install step continue-on-error', () => {

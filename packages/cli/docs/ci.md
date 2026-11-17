@@ -17,10 +17,12 @@ set up in the same pass as everything else. Both support `--dry-run` and `--forc
 ## What the generated workflow does
 
 On every `pull_request` it checks out with `fetch-depth: 0`, sets up Node.js, installs
-dependencies with lifecycle scripts off, then runs the installed CLI scoped to the PR:
+dependencies with lifecycle scripts off, then runs the installed CLI scoped to the PR (this is the
+npm form; pnpm gets `pnpm exec svelte-vitals`, with `pnpm_config_verify_deps_before_run: error` in
+the step's `env:`):
 
 ```bash
-./node_modules/.bin/svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
+npx --no -- svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
 ```
 
 Under GitHub Actions that one run writes:
@@ -39,19 +41,17 @@ There is no PR comment, and the only permission is `contents: read`.
 For anything else it writes the install commented out, with a comment telling you to set up
 Node.js 24.16.0 or newer and your package manager first, and prints why.
 
-The step runs `./node_modules/.bin/svelte-vitals`, never `npx`, so without an install it fails
-instead of downloading a CLI. Under Yarn Plug'n'Play set `nodeLinker: node-modules` in
-`.yarnrc.yml`. When they write the workflow, `ci install` and `install --client ci-workflow` also
-print the command to add `svelte-vitals` if `package.json` does not declare it and is not a
-workspace root, and a note if
-`node_modules` holds a version older than 0.57.0, which writes no summary and no
-repository-relative paths.
+`npx --no` refuses to download, and that setting stops pnpm installing (and running the project's
+lifecycle scripts) before `exec`, so without an install the step fails instead; the commented-out shapes run `./node_modules/.bin/svelte-vitals`. Under Yarn Plug'n'Play set
+`nodeLinker: node-modules` in `.yarnrc.yml`. When they write the workflow, `ci install` and
+`install --client ci-workflow` also print the command to add `svelte-vitals` if `package.json` does
+not declare it and is not a workspace root, and a note if `node_modules` holds a version older than
+0.57.0, which writes no summary and no repository-relative paths.
 
 In a monorepo the step runs at the repository root. `install --client ci-workflow --app apps/web`
 puts the app's path in the step; without one, svelte-vitals picks the app as a local run does
 (`svelte-vitals docs show monorepo`), and several apps make it exit 2, which the scaffolding
-commands print a note about. If `./node_modules/.bin/svelte-vitals` exists only in the
-app's directory, add `working-directory: apps/web` to the step and drop the path.
+commands print a note about. If svelte-vitals is installed only in the app's directory, add `working-directory: apps/web` to the step and drop the path.
 
 Whichever way it runs, svelte-vitals reads your committed `svelte-vitals.config.*` and
 `svelte-vitals-suppressions.json`, so rule policy stays in those files.
