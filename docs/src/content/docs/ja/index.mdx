@@ -9,42 +9,4 @@ SvelteKit アプリのコードヘルスを、リリース前に。静的解析�
   svelte-vitals をSvelteKitプロジェクトにインストールして、すぐに実行できます。
 </Card>
 
-<div class="demo">
-  <video
-    controls
-    muted
-    playsinline
-    preload="metadata"
-    aria-label="svelte-vitals の紹介動画。コマンドひとつで SvelteKit アプリを6カテゴリで採点し、ライブダッシュボード、CI ゲート、エージェント向けレポーターを紹介します。"
-  >
-    <source src={`${import.meta.env.BASE_URL}/demo-ja.mp4#t=0.1`.replace(/\/{2,}/g, '/')} type="video/mp4" />
-  </video>
-</div>
-
-<style>
-  {`
-  .demo {
-    max-width: 44rem;
-    margin: 1rem auto 2.5rem;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    border: 1px solid var(--blume-border);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-  }
-  .demo video {
-    display: block;
-    width: 100%;
-    margin: 0;
-  }
-  @media (max-width: 50rem) {
-    .demo {
-      max-width: 100vw;
-      margin-inline: calc(50% - 50vw);
-      border-radius: 0;
-      border-inline: none;
-    }
-  }
-  `}
-</style>
-
 svelte-vitals はソースコードを読みます。レイアウトチェーンをたどって各ルートの実効的な `<head>` を解決し、コンポーネント本体からは runes、`{@html}`、画像、ARIA を解析します。そのうえで SEO、Performance、Correctness、Security、Architecture、Accessibility の6カテゴリを、ルート単位でもサイト全体でもスコアリングし、基準を下回ればCIで止められます。[Vite プラグイン](/ja/guides/plugin-mode)を入れれば、同じルールが、動的な値まで解決済みの「実際にビルドされた HTML」に対して走ります。

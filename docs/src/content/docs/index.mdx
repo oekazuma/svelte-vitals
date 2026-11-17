@@ -9,42 +9,4 @@ Your SvelteKit app's code health, checked before it ships. Statically, no browse
   Install and run svelte-vitals against your SvelteKit project in a minute.
 </Card>
 
-<div class="demo">
-  <video
-    controls
-    muted
-    playsinline
-    preload="metadata"
-    aria-label="Video of svelte-vitals: one command scores a SvelteKit app across six categories, then the live dashboard, the CI gate, and the agent reporter."
-  >
-    <source src={`${import.meta.env.BASE_URL}/demo-en.mp4#t=0.1`.replace(/\/{2,}/g, '/')} type="video/mp4" />
-  </video>
-</div>
-
-<style>
-  {`
-  .demo {
-    max-width: 44rem;
-    margin: 1rem auto 2.5rem;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    border: 1px solid var(--blume-border);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-  }
-  .demo video {
-    display: block;
-    width: 100%;
-    margin: 0;
-  }
-  @media (max-width: 50rem) {
-    .demo {
-      max-width: 100vw;
-      margin-inline: calc(50% - 50vw);
-      border-radius: 0;
-      border-inline: none;
-    }
-  }
-  `}
-</style>
-
 svelte-vitals reads your source. It walks the layout chain to resolve each route's effective `<head>`, and parses component bodies for runes, `{@html}`, images and ARIA. It scores your app per route and site-wide across six categories: SEO, Performance, Correctness, Security, Architecture, and Accessibility. When a score falls below your threshold, it gates CI. Add the [Vite plugin](/guides/plugin-mode) and the same rules run against the real HTML your build ships, where every dynamic value is already resolved.
