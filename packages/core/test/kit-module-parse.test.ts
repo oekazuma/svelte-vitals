@@ -648,6 +648,55 @@ describe('parseKitModuleFacts — answeredPaths (paths the hooks handle answers 
       answered("  if (event.url.pathname === '/') return new Response();", 'src/routes/+page.server.ts')
     ).toBeUndefined();
   });
+  it('reads exactly the path tests whose branch always exits, through every alias and exit form', () => {
+    const src = [
+      "import { redirect, error } from '@sveltejs/kit';",
+      'export function preview({ event, resolve }) {',
+      "  if (event.url.pathname === '/decoy') return new Response();",
+      '  return resolve(event);',
+      '}',
+      'export async function handle({ event, resolve }) {',
+      "  const req = { url: new URL('http://x/y') };",
+      '  const path = event.url.pathname;',
+      '  const { pathname: p } = event.url;',
+      '  const { search } = event.url;',
+      '  const { pathname: q } = req.url;',
+      '  let moving = event.url.pathname;',
+      '  const query = event.url.search;',
+      "  if (event.url.pathname == '/loose') return new Response();",
+      "  if (path === '/alias') return new Response();",
+      "  if (p === '/renamed') return new Response();",
+      "  if (event.url.pathname === '/old') redirect(308, '/new');",
+      "  if (event.url.pathname === '/gone') { error(410); }",
+      "  if (event.url.pathname === '/log') console.log('/log');",
+      "  if (event.url.pathname === '/m') req.redirect('/m');",
+      "  if (event.url.pathname === '/n') req.count = 1;",
+      "  if (event.url.pathname === '/block') { console.log('block'); }",
+      "  if (event.url.pathname !== '/ne') return new Response();",
+      "  if (event.url.pathname.startsWith('/api') && event.url.pathname === '/api/x') return new Response();",
+      "  if (event.url.pathname.endsWith('.map')) return new Response();",
+      "  if (event.url['pathname'] === '/computed') return new Response();",
+      "  if (event['url'].pathname === '/computed-url') return new Response();",
+      "  if (new URL(event.request.url).pathname === '/request') return new Response();",
+      "  if (event.locals.pathname === '/locals') return new Response();",
+      "  if (req.url.pathname === '/req') return new Response();",
+      "  if (event.url.search === '?debug') return new Response();",
+      "  if ('/left' === event.url.search) return new Response();",
+      "  if (search === '?q') return new Response();",
+      "  if (q === '/q') return new Response();",
+      "  if (moving === '/let') return new Response();",
+      "  if (query === '?query') return new Response();",
+      '  return resolve(event);',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/hooks.server.ts').answeredPaths).toEqual([
+      { op: 'eq', v: '/loose' },
+      { op: 'eq', v: '/alias' },
+      { op: 'eq', v: '/renamed' },
+      { op: 'eq', v: '/old' },
+      { op: 'eq', v: '/gone' }
+    ]);
+  });
 });
 
 describe('parseKitModuleFacts — pageChunkTokens (what a transformPageChunk replaces)', () => {
