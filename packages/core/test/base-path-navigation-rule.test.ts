@@ -120,7 +120,9 @@ describe('correctness/base-path-navigation', () => {
             { kind: 'href', path: '/about', line: 6 },
             { kind: 'href', path: '/docs/../about', line: 8 },
             { kind: 'goto', path: '/docs/%2E%2E/about', line: 9 },
-            { kind: 'href', path: '/docs/./intro', line: 10 }
+            { kind: 'href', path: '/docs/./intro', line: 10 },
+            { kind: 'href', path: '/docs/compare/v1..', line: 11 },
+            { kind: 'href', path: '/docs/compare/..v2', line: 12 }
           ])
         ],
         [kit('src/routes/+page.server.ts', [{ kind: 'redirect', path: '/docs/login', line: 7 }])]

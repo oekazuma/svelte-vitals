@@ -167,6 +167,7 @@ describe('correctness/prop-mutation mutated non-bindable prop', () => {
     expect(rs[0]!.category).toBe('correctness');
     expect(rs[0]!.line).toBe(4);
     expect(rs[0]!.message).toContain('user');
+    expect(rs[0]!.message).toContain('$bindable');
   });
   it('reports one finding per distinct mutation occurrence', async () => {
     const rs = await correctnessPropMutation.check(
@@ -207,6 +208,7 @@ describe('correctness/orphan-effect orphan $effect', () => {
     expect(rs[0]!.route).toBe('src/lib/store.svelte.ts');
     expect(rs[0]!.line).toBe(2);
     expect(rs[0]!.message).toContain('effect_orphan');
+    expect(rs[0]!.message).not.toContain('constructor');
   });
   it('names the class in the constructor-instantiated message', async () => {
     const rs = await correctnessOrphanEffect.check(
@@ -254,6 +256,7 @@ describe('correctness/orphan-lifecycle lifecycle call outside component initiali
     expect(rs[0]!.line).toBe(2);
     expect(rs[0]!.message).toContain('onMount()');
     expect(rs[0]!.message).toContain('lifecycle_outside_component');
+    expect(rs[0]!.message).not.toContain('constructor');
   });
   it('names the class in the constructor-instantiated message', async () => {
     const rs = await correctnessOrphanLifecycle.check(
@@ -300,6 +303,7 @@ describe('correctness/orphan-lifecycle lifecycle call outside component initiali
     const [contextMsg, onMountMsg, onDestroyMsg] = fails(rs).map((r) => r.message);
     expect(contextMsg).toContain('lifecycle_outside_component');
     expect(onMountMsg).toContain('silent no-op');
+    expect(onMountMsg).toContain('load/handler');
     expect(onDestroyMsg).toContain('TypeError');
   });
   it('leaves the universal-kind kit-module message unchanged for the same names', async () => {
@@ -316,6 +320,8 @@ describe('correctness/orphan-lifecycle lifecycle call outside component initiali
     });
     for (const msg of fails(rs).map((r) => r.message)) {
       expect(msg).toContain('lifecycle_outside_component');
+      expect(msg).toContain('module evaluation');
+      expect(msg).not.toContain('on the server');
     }
   });
   it('reads both channels in one run and honours suppressions on each', async () => {
@@ -338,6 +344,7 @@ describe('correctness/orphan-lifecycle lifecycle call outside component initiali
   });
   it('emits nothing without signal or in rendered mode', async () => {
     expect(await correctnessOrphanLifecycle.check(ctx([comp({})]))).toHaveLength(0);
+    expect(await correctnessOrphanLifecycle.check({ ...ctx([]), kitModules: [kitFacts({})] })).toHaveLength(0);
     expect(await correctnessOrphanLifecycle.check(base as RuleContext)).toHaveLength(0);
   });
 });
@@ -362,6 +369,7 @@ describe('correctness/server-browser-global browser global in server module code
       ...ctx([comp({ browserGlobalRefs: [{ name: 'window', line: 3, context: 'instance' }] })]),
       kitModules: [kitFacts({ browserGlobalRefs: [{ name: 'localStorage', line: 3, inHandler: true }] })]
     });
+    expect(rs).toHaveLength(1);
     expect(fails(rs)).toHaveLength(1);
     expect(fails(rs)[0]!.route).toBe('src/routes/+page.ts');
     expect(fails(rs)[0]!.message).toContain('load/handler');
@@ -376,6 +384,7 @@ describe('correctness/server-browser-global browser global in server module code
       ])
     );
     expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1); // one PASS unit: signal present, every finding suppressed
     expect(await correctnessServerBrowserGlobal.check(base as RuleContext)).toHaveLength(0);
   });
   it('skips universal files under a root-layout ssr = false, but not server files or runes modules', async () => {
@@ -400,7 +409,7 @@ describe('correctness/server-browser-global browser global in server module code
         kitFacts({ file: 'src/routes/+page.ts', browserGlobalRefs: [{ name: 'window', line: 12, inHandler: true }] })
       ]
     });
-    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(0);
   });
   it('still flags module scope of a universal file under a root-layout ssr = false', async () => {
     const rs = await correctnessServerBrowserGlobal.check({
@@ -417,6 +426,7 @@ describe('correctness/server-browser-global browser global in server module code
       ]
     });
     expect(fails(rs).map((r) => r.line)).toEqual([2]);
+    expect(fails(rs)[0]!.message).not.toContain('load/handler');
   });
 });
 
@@ -437,13 +447,24 @@ describe('correctness/instance-browser-global browser global during component in
   });
   it('ignores module-context refs and files without instance refs', async () => {
     expect(
-      fails(
-        await correctnessInstanceBrowserGlobal.check(
-          ctx([comp({ browserGlobalRefs: [{ name: 'window', line: 1, context: 'module' }] })])
-        )
+      await correctnessInstanceBrowserGlobal.check(
+        ctx([comp({ browserGlobalRefs: [{ name: 'window', line: 1, context: 'module' }] })])
       )
     ).toHaveLength(0);
     expect(await correctnessInstanceBrowserGlobal.check(ctx([comp({})]))).toHaveLength(0);
+  });
+  it('reports only the instance-context refs of a component that also reads a global at module scope', async () => {
+    const rs = await correctnessInstanceBrowserGlobal.check(
+      ctx([
+        comp({
+          browserGlobalRefs: [
+            { name: 'window', line: 1, context: 'module' },
+            { name: 'localStorage', line: 4, context: 'instance' }
+          ]
+        })
+      ])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([4]);
   });
   it('is silent when a root-layout ssr = false makes every component client-only', async () => {
     const components = [comp({ browserGlobalRefs: [{ name: 'navigator', line: 2, context: 'instance' }] })];
