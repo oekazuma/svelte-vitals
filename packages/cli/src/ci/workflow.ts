@@ -84,6 +84,9 @@ export function buildWorkflowYaml(opts: { installStep: InstallStepPlan; appPath?
     `      - run: ${safe ? run : JSON.stringify(run)}`,
     '        env:',
     '          BASE_REF: ${{ github.base_ref }}',
+    // pnpm 11+ otherwise installs before `exec` when node_modules is missing or stale, and that
+    // install runs the project's own lifecycle scripts.
+    ...(installStep.kind === 'pnpm' ? ['          pnpm_config_verify_deps_before_run: error'] : []),
     ''
   ].join('\n');
 }

@@ -140,9 +140,11 @@ so until you do, it fails because that file does not exist.
 The step never runs a bare `npx svelte-vitals`: in CI, `npx` downloads and runs the latest
 published release when none is installed, which is not the version your lockfile pins. With npm
 the step runs `npx --no -- svelte-vitals`, which refuses to download, so without an installation the
-step fails with `npx canceled due to missing packages`. With pnpm it runs `pnpm exec svelte-vitals`;
-pnpm 12 first checks `node_modules` against the lockfile and installs from the lockfile when they
-differ, which after the install step changes nothing. The step needs a `node_modules` directory, so
+step fails with `npx canceled due to missing packages`. With pnpm it runs `pnpm exec svelte-vitals`
+with `pnpm_config_verify_deps_before_run: error` in the step's `env:`. pnpm checks `node_modules`
+against the lockfile before `exec`, and by default installs from the lockfile when they differ,
+which runs the project's own lifecycle scripts; with `error` it fails instead, with `Cannot check
+whether dependencies are outdated` when nothing is installed. The step needs a `node_modules` directory, so
 Yarn Plug'n'Play is not supported; set `nodeLinker: node-modules` in `.yarnrc.yml`.
 
 When `ci install` or `install --client ci-workflow` writes the workflow and the directory has a
@@ -198,6 +200,7 @@ path argument.
   working-directory: apps/web
   env:
     BASE_REF: ${{ github.base_ref }}
+    pnpm_config_verify_deps_before_run: error
 ```
 
 When `ci install` or `install --client ci-workflow` writes the workflow at a workspace root (a
@@ -316,6 +319,7 @@ jobs:
       - run: pnpm exec svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
         env:
           BASE_REF: ${{ github.base_ref }}
+          pnpm_config_verify_deps_before_run: error
 ```
 
 With another package manager, set up Node.js 24.16.0 or newer and the package manager, and install

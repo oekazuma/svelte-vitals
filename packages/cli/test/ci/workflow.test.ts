@@ -91,6 +91,17 @@ describe('buildWorkflowYaml', () => {
     for (const l of runs) expect(l).not.toContain('${{');
   });
 
+  it('makes pnpm exec refuse instead of installing, and sets it on no other shape', () => {
+    const env = ['        env:', '          BASE_REF: ${{ github.base_ref }}'];
+    expect(build({ kind: 'pnpm' })).toContain(
+      [...env, '          pnpm_config_verify_deps_before_run: error'].join('\n')
+    );
+    for (const plan of [{ kind: 'npm' }, manual] as const) {
+      expect(build(plan)).toContain(`${env.join('\n')}\n`);
+      expect(build(plan)).not.toContain('verify_deps');
+    }
+  });
+
   it('passes appPath as the first argument', () => {
     expect(build({ kind: 'npm' }, 'apps/web')).toContain("npx --no -- svelte-vitals 'apps/web' --reporter github");
   });

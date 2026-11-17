@@ -14,7 +14,12 @@ would write by hand.
 - npm shape: `npx --no -- svelte-vitals …`. `--no` makes npx refuse instead of downloading when the
   package is missing. `--` is required: without it, npm 11.19.1 on the GitHub runner read `--diff`,
   `--reporter` and `--baseline` as its own config and the CLI exited 2 (npm 12.0.2 locally did not).
-- pnpm shape (pnpm 11 or newer, set up by `pnpm/setup`): `pnpm exec svelte-vitals …`.
+- pnpm shape (pnpm 11 or newer, set up by `pnpm/setup`): `pnpm exec svelte-vitals …`, with
+  `pnpm_config_verify_deps_before_run: error` in the step's `env:`. Without it, `pnpm exec` installs
+  when `node_modules` is missing or stale, and that install runs the project's lifecycle scripts,
+  which the install step turns off. `error` refuses, as `npx --no` does;
+  `pnpm_config_ignore_scripts: true` would also stop the scripts but keep the install. The env form
+  leaves the run line as it is, and is the form measured on both pnpm majors.
 - Manual shapes (Yarn, Bun, older or undeclared pnpm, no lockfile) keep `./node_modules/.bin/svelte-vitals`:
   their install is commented out, and no runner form was measured for them.
 - The path argument, its quoting and the `env:` base ref are unchanged.
@@ -35,9 +40,16 @@ What changes:
   the cause; the exit code alone no longer separates it from the gate.
 - npm 12.0.2 locally wrote two `npm notice run …` lines to stderr on every run; npm 11.19.1 on the
   runner wrote none.
-- pnpm 12 checks that `node_modules` matches the lockfile before `exec`, and installs from the
-  lockfile when it does not (measured with `node_modules` deleted, and with a dependency added to
+- pnpm checks that `node_modules` matches the lockfile before `exec`, and by default installs from
+  the lockfile when it does not (measured with `node_modules` deleted, and with a dependency added to
   `package.json`). After the step's frozen install, pnpm 12.20.0 on the runner printed nothing extra.
+- That install ran the root project's `postinstall` and `prepare` (pnpm 12.20.0 and 11.28.12 on
+  macOS, `node_modules` deleted); dependency build scripts stayed blocked by pnpm's build approval.
+  With `pnpm_config_verify_deps_before_run: error` both versions exited 1 without installing:
+  `Cannot check whether dependencies are outdated` with nothing installed, and on 12.20.0
+  `a modified manifest is no longer satisfied by the lockfile` with a dependency added. After a
+  frozen install it ran the CLI unchanged: a single package on both versions, and on 12.20.0 a
+  workspace root with `'apps/web'` and the same workspace from `apps/web`.
 
 ## Approaches considered
 
@@ -61,4 +73,5 @@ run on a pull request that adds one route. The last three rows were edited by ha
 | pnpm, install line removed                                                                   | pnpm 12.20.0              | 1 (gate), after `pnpm exec` installed 69 packages from the lockfile | 13                           | not read                                    |
 | pnpm workspace, CLI only in `apps/web`, `working-directory: apps/web` added as the note says | pnpm 12.20.0              | 1 (gate)                                                            | 13, under `apps/web/`        | not read                                    |
 
-The first npm run, without `--`, exited 2: npm read the step's flags as its own config.
+The first npm run, without `--`, exited 2: npm read the step's flags as its own config. The pnpm
+rows ran without `pnpm_config_verify_deps_before_run`; that setting was measured locally only.

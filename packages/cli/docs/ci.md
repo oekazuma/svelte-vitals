@@ -18,7 +18,8 @@ set up in the same pass as everything else. Both support `--dry-run` and `--forc
 
 On every `pull_request` it checks out with `fetch-depth: 0`, sets up Node.js, installs
 dependencies with lifecycle scripts off, then runs the installed CLI scoped to the PR (this is the
-npm form; pnpm gets `pnpm exec svelte-vitals`):
+npm form; pnpm gets `pnpm exec svelte-vitals`, with `pnpm_config_verify_deps_before_run: error` in
+the step's `env:`):
 
 ```bash
 npx --no -- svelte-vitals --reporter github --diff "origin/$BASE_REF" --baseline "origin/$BASE_REF"
@@ -40,8 +41,8 @@ There is no PR comment, and the only permission is `contents: read`.
 For anything else it writes the install commented out, with a comment telling you to set up
 Node.js 24.16.0 or newer and your package manager first, and prints why.
 
-`npx --no` refuses to download, so without an install the npm step fails instead of fetching a
-CLI; the commented-out shapes run `./node_modules/.bin/svelte-vitals`. Under Yarn Plug'n'Play set
+`npx --no` refuses to download, and that setting stops pnpm installing (and running the project's
+lifecycle scripts) before `exec`, so without an install the step fails instead; the commented-out shapes run `./node_modules/.bin/svelte-vitals`. Under Yarn Plug'n'Play set
 `nodeLinker: node-modules` in `.yarnrc.yml`. When they write the workflow, `ci install` and
 `install --client ci-workflow` also print the command to add `svelte-vitals` if `package.json` does
 not declare it and is not a workspace root, and a note if `node_modules` holds a version older than
