@@ -219,6 +219,27 @@ describe('security/shared-state-import shared runes-state import on the server',
     );
     expect(fails(rs)).toHaveLength(1);
   });
+  it('matches the .svelte.js sibling of a .ts-resolved import', async () => {
+    const tsImp = { ...imp, resolved: 'src/lib/quiz.svelte.ts' };
+    const rs = await securitySharedStateImport.check(
+      ctx([kit({ runesModuleImports: [tsImp] })], { components: [stateModule('src/lib/quiz.svelte.js')] })
+    );
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('uses the mutation message when any one of several imported bindings is written', async () => {
+    const rs = await securitySharedStateImport.check(
+      ctx(
+        [
+          kit({
+            runesModuleImports: [{ ...imp, names: ['quizState', 'settings'] }],
+            importedStateWritesOutsideHandlers: [{ name: 'settings', line: 5 }]
+          })
+        ],
+        { components: [stateModule('src/lib/quiz.svelte.js')] }
+      )
+    );
+    expect(fails(rs)[0]!.message).toContain('mutates');
+  });
   it('does not double-report a binding already flagged by security/handler-state-write, and skips non-state modules', async () => {
     const covered = await securitySharedStateImport.check(
       ctx(

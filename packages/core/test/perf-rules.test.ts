@@ -40,6 +40,7 @@ describe('performance/image-dimensions image dimensions', () => {
     expect(r!.location).toBe('src/routes/+page.svelte');
     expect(r!.line).toBe(7);
     expect(r!.detection).toEqual({ presence: 'none', value: 'absent' });
+    expect(r!.fix).toEqual(performanceImageDimensions.fix);
   });
 
   it('emits nothing for a route with no images (no Performance signal)', async () => {

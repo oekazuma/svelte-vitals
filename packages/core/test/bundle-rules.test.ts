@@ -182,6 +182,27 @@ describe('performance/namespace-import namespace import', () => {
     );
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.line).toBe(2);
+    const later = await performanceNamespaceImport.check(
+      ctx([
+        withNs([
+          { source: 'lodash', line: 2 },
+          { source: 'lodash', line: 5 }
+        ])
+      ])
+    );
+    expect(later[0]!.line).toBe(2);
+  });
+  it('orders the findings by line', async () => {
+    const rs = await performanceNamespaceImport.check(
+      ctx([
+        withNs([
+          { source: 'three', line: 9 },
+          { source: 'd3', line: 6 },
+          { source: 'lodash', line: 2 }
+        ])
+      ])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([2, 6, 9]);
   });
   it('reports one finding per distinct package', async () => {
     const rs = await performanceNamespaceImport.check(

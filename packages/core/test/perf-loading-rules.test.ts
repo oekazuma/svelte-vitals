@@ -54,6 +54,11 @@ describe('performance/lcp-image LCP image eager loading', () => {
   it('emits nothing for a route with no images', async () => {
     expect(await performanceLcpImage.check(imagesCtx([{ route: '/a', images: [] }]))).toHaveLength(0);
   });
+  it('reports under its rule id on both outcomes', async () => {
+    const lazy = await performanceLcpImage.check(imagesCtx([{ route: '/a', images: [img({ lazy: true })] }]));
+    const eager = await performanceLcpImage.check(imagesCtx([{ route: '/a', images: [img({ lazy: false })] }]));
+    expect([...lazy, ...eager].map((r) => r.id)).toEqual(['performance/lcp-image', 'performance/lcp-image']);
+  });
 });
 
 describe('performance/responsive-image responsive image', () => {
@@ -141,6 +146,19 @@ describe('performance/render-blocking-script render-blocking script', () => {
     );
     expect(fails(rs)).toHaveLength(1);
   });
+  it('locates a finding at the script’s own file, and reports under its rule id on both outcomes', async () => {
+    const bad = await performanceRenderBlockingScript.check(
+      headsCtx(head('rendered', [{ kind: 'script', href: '/a.js', blocking: true, file: 'src/routes/+layout.svelte' }]))
+    );
+    expect(bad[0]!.location).toBe('src/routes/+layout.svelte');
+    const ok = await performanceRenderBlockingScript.check(
+      headsCtx(head('rendered', [{ kind: 'script', href: '/a.js' }]))
+    );
+    expect([...bad, ...ok].map((r) => r.id)).toEqual([
+      'performance/render-blocking-script',
+      'performance/render-blocking-script'
+    ]);
+  });
   it('emits nothing for a head with no <script> at all', async () => {
     expect(await performanceRenderBlockingScript.check(headsCtx(head('rendered', [{ kind: 'title' }])))).toHaveLength(
       0
@@ -191,6 +209,40 @@ describe('performance/preconnect preconnect third-party origin', () => {
       )
     );
     expect(rs[0]!.location).toBe('x'); // head('rendered', ...)'s head.file
+  });
+  it('reads the origin of http:, protocol-relative and script references, only at the start of the href', async () => {
+    for (const tag of [
+      link('stylesheet', 'http://fonts.googleapis.com/css'),
+      link('stylesheet', '//fonts.googleapis.com/css'),
+      { kind: 'script' as const, href: 'https://fonts.googleapis.com/x.js' }
+    ]) {
+      expect(
+        fails(await performancePreconnect.check(headsCtx(head('rendered', [tag])))),
+        String(tag.href)
+      ).toHaveLength(1);
+    }
+    const proxied = link('stylesheet', '/proxy?u=//fonts.googleapis.com/css');
+    expect(await performancePreconnect.check(headsCtx(head('rendered', [proxied])))).toEqual([]);
+  });
+  it('accepts a dns-prefetch hint on its own', async () => {
+    const rs = await performancePreconnect.check(
+      headsCtx(
+        head('rendered', [
+          link('dns-prefetch', 'https://fonts.googleapis.com'),
+          link('stylesheet', 'https://fonts.googleapis.com/css2?x')
+        ])
+      )
+    );
+    expect(fails(rs)).toEqual([]);
+  });
+  it('locates an unhinted origin at the first file that references it', async () => {
+    const ref = (file: string): Partial<HeadTag> => ({ ...link('stylesheet', 'https://fonts.googleapis.com/a'), file });
+    const rs = await performancePreconnect.check(
+      headsCtx(head('rendered', [ref('src/routes/+layout.svelte'), ref('src/routes/+page.svelte')]))
+    );
+    expect(rs.filter((r) => r.detection.presence === 'none').map((r) => r.location)).toEqual([
+      'src/routes/+layout.svelte'
+    ]);
   });
   it('emits nothing when no third-party origin is referenced', async () => {
     const rs = await performancePreconnect.check(
