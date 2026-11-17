@@ -36,6 +36,12 @@ describe('explainRule', () => {
     ]);
   });
 
+  it('reports the grammar a declared string-list option accepts', () => {
+    const [elements] = explainRule('a11y/required-element')!.options!;
+    expect(elements).toMatchObject({ name: 'elements', kind: 'string-list' });
+    expect(elements!.pattern).toContain('bare tag name');
+  });
+
   it('every declared option is reported for every rule that declares one', () => {
     for (const rule of allRules) {
       const reported = explainRule(rule.id)!.options?.map((o) => o.name) ?? [];
