@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import {
   parseKitModuleFacts,
   parseClientExports,
+  parseFalseExports,
+  parseInMemoryExports,
   resolveRunesModuleSpecifier,
   resolveRepoLocalPath
 } from '../src/kit-module-parse.js';
@@ -1168,7 +1170,10 @@ describe('parseKitModuleFacts — loadGated (loads that send a request without a
     ];
     for (const src of none) expect(gated(src), src).toBeUndefined();
     expect(
-      gated(load('{ locals }', '  if (!locals.user) return fail(401);'), "import { redirect, error, fail } from '@sveltejs/kit';\n")
+      gated(
+        load('{ locals }', '  if (!locals.user) return fail(401);'),
+        "import { redirect, error, fail } from '@sveltejs/kit';\n"
+      )
     ).toBeUndefined();
   });
   it('leaves the other facts intact when load reads its event directly', () => {
@@ -1510,5 +1515,91 @@ describe('parseKitModuleFacts — loadNeverRenders edges', () => {
     const f = never("  while (building) return {};\n  redirect(307, '/a');");
     expect(f.loadNeverRenders).toBeUndefined();
     expect(f.loadNeverRendersOutsideBuild).toBeUndefined();
+  });
+});
+
+describe('parseInMemoryExports', () => {
+  it('names exports initialised to a container, and not to functions, facades or other values', () => {
+    const src = [
+      'function get() {}',
+      'function set() {}',
+      'export let pending;',
+      'export const count = 0;',
+      'export const list = [];',
+      'export const obj = { a: 1 };',
+      'export const empty = {};',
+      'export const refs = { count, list };',
+      'export const methods = { get() {}, set };',
+      'export const fnExprs = { a: function () {}, b: () => 1 };',
+      'export const mixed = { a: function () {}, b: 1 };',
+      'export const facade = { ...clients };',
+      "export const facadeWithName = { ...clients, name: 'db' };",
+      'export const facadeWithMap = { ...clients, cache: new Map() };',
+      'export const facadeWithNested = { ...clients, inner: { x: 1 } };',
+      'export const map = new Map();',
+      'export const custom = new Custom();',
+      'export const viaGlobal = new globalThis.Map();'
+    ].join('\n');
+    expect([...parseInMemoryExports(src, 'src/lib/state.ts')].sort()).toEqual([
+      'empty',
+      'facadeWithMap',
+      'facadeWithNested',
+      'list',
+      'map',
+      'mixed',
+      'obj',
+      'refs'
+    ]);
+  });
+});
+
+describe('parseFalseExports', () => {
+  it('names const exports that are false, and the false own properties after the last unreadable one', () => {
+    const src = [
+      'const dyn = "x";',
+      'let C = false;',
+      'export const A = false;',
+      'export const B = true;',
+      'export let D = false;',
+      'export const { E } = { E: false };',
+      'export { C };',
+      'export const flags = { on: true, off: false, [dyn]: false, kept: false, other: true };',
+      "export const quoted = { early: false, 'str': false, late: false };",
+      'export const spread = { early: false, ...rest, late: false };'
+    ].join('\n');
+    expect([...parseFalseExports(src, 'src/lib/flags.ts')].sort()).toEqual([
+      'A',
+      'flags.kept',
+      'quoted.late',
+      'spread.late'
+    ]);
+  });
+});
+
+describe('parseKitModuleFacts — export forms', () => {
+  it('reads transformPageChunk tokens from exported consts only when const, and nothing outside the option', () => {
+    const src = [
+      "export const LANG = '%lang%';",
+      "let MUTABLE = '%mut%';",
+      "const outside = 'x'.replace('%outside%', '');",
+      'export const handle = ({ event, resolve }) =>',
+      '  resolve(event, {',
+      "    filterSerializedResponseHeaders: (n) => n.replace('%hdr%', '') !== '',",
+      "    transformPageChunk: ({ html }) => html.replace(LANG, 'en').replace(MUTABLE, '').includes('%inc%') ? html : html",
+      '  });'
+    ].join('\n');
+    expect(facts(src, 'src/hooks.server.ts').pageChunkTokens).toEqual(['%lang%']);
+  });
+
+  it('reads a page-option export in every value form, but not a type-only one or a differently named one', () => {
+    const prerendered = (src: string) => facts(src, 'src/routes/+page.ts').prerenderExported;
+    expect(prerendered('export const a = 1, prerender = true;')).toBe(true);
+    expect(prerendered('export function prerender() {}')).toBe(true);
+    expect(prerendered('const a = 1;\nconst prerender = true;\nexport { a, prerender };')).toBe(true);
+    expect(prerendered("const p = true;\nexport { p as 'prerender' };")).toBe(true);
+    expect(prerendered('export function load() {}')).toBeUndefined();
+    expect(prerendered('const a = 1;\nexport { a };')).toBeUndefined();
+    expect(prerendered('type prerender = boolean;\nexport type { prerender };')).toBeUndefined();
+    expect(prerendered('type prerender = boolean;\nexport { type prerender };')).toBeUndefined();
   });
 });

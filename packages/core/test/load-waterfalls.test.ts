@@ -616,3 +616,19 @@ describe('collectLoadWaterfalls — taint through containers, regions and anchor
     expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [8] });
   });
 });
+
+describe('collectLoadWaterfalls — what counts as a reference', () => {
+  it('counts computed members and keys, and property values, but not plain member names or keys', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const a = await getA(other.user);',
+      '  const b = await getB(other[user]);',
+      '  const c = await getC({ user: 1 });',
+      '  const d = await getD({ [user]: 1 });',
+      '  const e = await getE({ id: user.id });',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4, 6, 7], independentLines: [3, 5] });
+  });
+});
