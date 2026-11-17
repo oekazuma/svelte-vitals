@@ -31,6 +31,23 @@ describe('seo/indexability indexability', () => {
     const rs = await seoIndexability.check(ctx(headWith([{ kind: 'meta', name: 'robots', noindex: true }])));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.severity).toBe('info');
+    expect(rs[0]).toMatchObject({
+      id: 'seo/indexability',
+      docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo/indexability'
+    });
+  });
+  it('finds the noindex robots meta among other tags, and ignores noindex on another meta', async () => {
+    const among = await seoIndexability.check(
+      ctx(
+        headWith([
+          { kind: 'meta', name: 'description' },
+          { kind: 'meta', name: 'robots', noindex: true }
+        ])
+      )
+    );
+    expect(fails(among)).toHaveLength(1);
+    const other = await seoIndexability.check(ctx(headWith([{ kind: 'meta', name: 'googlebot', noindex: true }])));
+    expect(other).toEqual([]);
   });
   it('does not flag when robots meta is not noindex', async () => {
     const rs = await seoIndexability.check(ctx(headWith([{ kind: 'meta', name: 'robots' }])));
@@ -80,6 +97,19 @@ describe('seo/sitemap-in-robots sitemap-in-robots', () => {
       ctx(headWith([]), proj({ hasRobotsTxt: true, hasSitemap: true, robotsReferencesSitemap: false }))
     );
     expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]).toMatchObject({
+      id: 'seo/sitemap-in-robots',
+      docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo/sitemap-in-robots'
+    });
+  });
+  it('emits nothing unless both robots.txt and a sitemap exist', async () => {
+    for (const p of [
+      { hasRobotsTxt: false, hasSitemap: true },
+      { hasRobotsTxt: true, hasSitemap: false }
+    ]) {
+      const rs = await seoSitemapInRobots.check(ctx(headWith([]), proj({ ...p, robotsReferencesSitemap: false })));
+      expect(rs).toEqual([]);
+    }
   });
   it('passes when robots references the sitemap', async () => {
     const rs = await seoSitemapInRobots.check(

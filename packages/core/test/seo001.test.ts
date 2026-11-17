@@ -61,6 +61,24 @@ describe('seo/title-presence title detection', () => {
     expect(result!.detection).toEqual({ presence: 'inherited', value: 'static' });
     expect(classify(result!, config)).toBe('pass');
   });
+
+  it('says Empty for an empty title and neither Missing nor Empty for a present one, under its rule id', async () => {
+    const emptyHead = head('/empty', 'src/routes/empty/+page.svelte', {
+      kind: 'title',
+      presence: 'own',
+      value: 'absent'
+    });
+    const [empty] = await seoTitlePresence.check({ heads: [emptyHead], project: defaultProject, config });
+    const [present] = await seoTitlePresence.check({ heads: [staticHead], project: defaultProject, config });
+    expect(empty!.message).toContain('Empty');
+    expect(present!.message).not.toMatch(/Missing|Empty/);
+    for (const r of [empty!, present!]) {
+      expect(r).toMatchObject({
+        id: 'seo/title-presence',
+        docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence'
+      });
+    }
+  });
 });
 
 describe('summarize', () => {

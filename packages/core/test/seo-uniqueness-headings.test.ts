@@ -70,6 +70,19 @@ describe('seo/duplicate-description duplicate description', () => {
     const rs = await seoDuplicateDescription.check(ctx([descHead('/a', 'Desc A'), descHead('/b', 'Desc B')]));
     expect(fails(rs)).toHaveLength(0);
   });
+  it('ignores texts that are empty once whitespace is collapsed', async () => {
+    expect(await seoDuplicateDescription.check(ctx([descHead('/a', '  '), descHead('/b', ' ')]))).toEqual([]);
+  });
+  it('compares only the tag each rule names', async () => {
+    const decoy = (route: string): ResolvedHead => ({
+      route,
+      source: 'rendered',
+      file: route,
+      tags: [{ kind: 'meta', name: 'robots', presence: 'own', value: 'static', text: 'index' } as HeadTag]
+    });
+    expect(await seoDuplicateTitle.check(ctx([decoy('/a'), decoy('/b')]))).toEqual([]);
+    expect(await seoDuplicateDescription.check(ctx([decoy('/a'), decoy('/b')]))).toEqual([]);
+  });
 });
 
 const headings = (levels: number[]): ResolvedHeadings => ({
@@ -203,5 +216,71 @@ describe('seo/heading-level-skip heading order', () => {
     expect(looped).toEqual([]);
     // An arm marked `always` (every arm has a heading, or the use decides it) closes the gap too.
     expect(fails(await dialog([{ group: 0, branch: 0, always: true }]))).toEqual([]);
+  });
+});
+
+describe('seo/heading-level-skip — arms, loops and undetermined levels', () => {
+  type Step = NonNullable<HeadingInfo['path']>[number];
+  const h = (level: number, order: number, ...path: Step[]): HeadingInfo => ({
+    level,
+    line: order,
+    file: 'page.svelte',
+    order: [order],
+    ...(path.length > 0 ? { path } : {})
+  });
+  const skips = async (headings: HeadingInfo[], componentHeadings?: HeadingInfo[]) =>
+    fails(
+      await seoHeadingLevelSkip.check(
+        headingsCtx([{ route: '/r', headings, ...(componentHeadings ? { componentHeadings } : {}) }])
+      )
+    ).map((r) => r.message);
+  const skipped = (from: number, to: number) => [`Heading level skipped (<h${from}> to <h${to}>)`];
+  const g = (group: number, branch: number): Step => ({ group, branch });
+  const loop: Step = { group: 1, branch: 0, repeat: true };
+
+  it('does not let a component heading in an unrelated block close a gap', async () => {
+    const card = { ...h(2, 20, g(0, 0)), file: 'Card.svelte', order: [20, 5] };
+    expect(await skips([h(1, 10), h(3, 50, g(2, 0))], [card])).toEqual(skipped(1, 3));
+  });
+
+  it('reads a loop’s last pass as decided by data only when the heading is outside the loop', async () => {
+    const looped = (last: HeadingInfo) =>
+      skips([h(1, 10), h(2, 20, loop, g(0, 0)), h(2, 25, loop, g(0, 1)), h(3, 30, loop, g(0, 1)), last]);
+    expect(await looped(h(4, 50, g(2, 0)))).toEqual([]);
+    expect(await looped(h(4, 50, loop, g(2, 0)))).toEqual(skipped(2, 4));
+  });
+
+  it('counts another arm whose heading is the first on the route', async () => {
+    expect(await skips([h(2, 10, g(0, 0)), h(3, 20, g(0, 1)), h(4, 30)])).toEqual(skipped(2, 4));
+  });
+
+  it('counts only the other arms of a block the previous heading sits in', async () => {
+    expect(await skips([h(1, 10), h(2, 15, g(7, 0)), h(3, 20, g(0, 1)), h(4, 50)])).toEqual([]);
+    expect(await skips([h(1, 10), h(2, 15, g(0, 1)), h(3, 20, g(0, 1)), h(4, 50)])).toEqual([]);
+    expect(await skips([h(1, 10), h(2, 15), h(2, 20, g(0, 0)), h(3, 30, g(0, 1), g(5, 0)), h(4, 50)])).toEqual(
+      skipped(2, 4)
+    );
+  });
+
+  it('takes only the last heading of each other arm', async () => {
+    expect(
+      await skips([h(1, 10), h(2, 15), h(2, 20, g(0, 0)), h(3, 22, g(0, 0)), h(3, 30, g(0, 1)), h(4, 50)])
+    ).toEqual([]);
+  });
+
+  it('judges nothing against a previous heading of undetermined level', async () => {
+    expect(await skips([h(1, 10), h(0, 20), h(3, 30)])).toEqual([]);
+    expect(await skips([h(1, 20, g(0, 0)), h(0, 30, g(0, 1)), h(3, 50)])).toEqual([]);
+  });
+
+  it('locates the skip at the skipping heading, with its line', async () => {
+    const [r] = fails(await seoHeadingLevelSkip.check(headingsCtx([{ route: '/r', headings: [h(1, 10), h(3, 30)] }])));
+    expect(r).toMatchObject({ location: 'page.svelte', line: 30 });
+  });
+
+  it('reports under its rule id on both outcomes', async () => {
+    const ok = await seoHeadingLevelSkip.check(headingsCtx([headings([1, 2])]));
+    const bad = await seoHeadingLevelSkip.check(headingsCtx([headings([1, 3])]));
+    expect([...ok, ...bad].map((r) => r.id)).toEqual(['seo/heading-level-skip', 'seo/heading-level-skip']);
   });
 });

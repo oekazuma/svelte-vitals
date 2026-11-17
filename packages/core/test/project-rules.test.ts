@@ -25,4 +25,30 @@ describe('project-scope rules', () => {
     );
     expect(present!.detection).toEqual({ presence: 'own', value: 'static' });
   });
+  it('each result carries its rule id and says which state it found', async () => {
+    const doc = (id: string) => `https://oekazuma.github.io/svelte-vitals/rules/${id}`;
+    const [noRobots] = await seoRobotsTxt.check(ctx(defaultProject));
+    const [robots] = await seoRobotsTxt.check(ctx({ ...defaultProject, hasRobotsTxt: true }));
+    expect(noRobots).toMatchObject({ id: 'seo/robots-txt', docsUrl: doc('seo/robots-txt') });
+    expect(noRobots!.message).toContain('Missing');
+    expect(robots!.message).not.toContain('Missing');
+
+    const [noSitemap] = await seoSitemapXml.check(ctx(defaultProject));
+    const [sitemap] = await seoSitemapXml.check(ctx({ ...defaultProject, hasSitemap: true }));
+    expect(noSitemap).toMatchObject({
+      id: 'seo/sitemap-xml',
+      docsUrl: doc('seo/sitemap-xml'),
+      detection: { presence: 'none', value: 'absent' }
+    });
+    expect(noSitemap!.message).toContain('Missing');
+    expect(sitemap!.message).not.toContain('Missing');
+
+    const lang = async (htmlLang: Project['htmlLang']) =>
+      (await seoHtmlLang.check(ctx({ ...defaultProject, htmlLang })))[0]!;
+    const missing = await lang({ presence: 'none', value: 'absent' });
+    expect(missing).toMatchObject({ id: 'seo/html-lang', docsUrl: doc('seo/html-lang') });
+    expect(missing.message).toContain('Missing');
+    expect((await lang({ presence: 'own', value: 'absent' })).message).toContain('Empty');
+    expect((await lang({ presence: 'own', value: 'static' })).message).not.toMatch(/Missing|Empty/);
+  });
 });

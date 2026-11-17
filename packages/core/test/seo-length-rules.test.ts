@@ -96,6 +96,18 @@ describe('seo length rule options', () => {
     expect(rs[0]!.message).toContain('10–20');
     expect(rs[0]!.recommendation).toContain('10–20');
   });
+  it('quotes the configured description bounds in the recommendation', async () => {
+    const cfg = { rules: { 'seo/description-length': { options: { min: 50, max: 90 } } } };
+    const rs = fails(await seoDescriptionLength.check(cfgCtx(desc('a'.repeat(100)), cfg)));
+    expect(rs[0]!.recommendation).toContain('50–90');
+  });
+  it('measures only the tag the rule names', async () => {
+    expect(await seoTitleLength.check(ctx(headWith({ kind: 'meta', name: 'description', text: 'Home' })))).toEqual([]);
+    expect(await seoDescriptionLength.check(ctx(headWith({ kind: 'meta', name: 'robots', text: 'noindex' })))).toEqual(
+      []
+    );
+    expect(await seoDescriptionLength.check(ctx(headWith({ kind: 'title', text: 'Short' })))).toEqual([]);
+  });
   it('honours a per-route bound', async () => {
     const scoped = { overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 1, max: 5 } } } }] };
     expect(fails(await seoTitleLength.check(cfgCtx(title('a'.repeat(40)), scoped)))).toHaveLength(1);

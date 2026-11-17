@@ -6,6 +6,10 @@ import {
   seoOgImage,
   seoOgTitle,
   seoJsonLd,
+  seoCharset,
+  seoOgDescription,
+  seoOgUrl,
+  seoTitlePresence,
   defaultProject,
   type KitModuleFacts,
   type ResolvedHead
@@ -138,8 +142,72 @@ describe('head-tag rules on routes behind a login', () => {
     const universal = { ...gate('src/routes/(app)/+layout.ts'), kind: 'universal' as const };
     const page = 'src/routes/(app)/y/+page.svelte';
     expect((await run(seoCanonicalUrl, page, [universal], [universal.file, page])).severity).toBe('warning');
-    expect((await run(seoCanonicalUrl, 'src/routes/x/+page.svelte', [], ['src/routes/x/+page.svelte'])).severity).toBe(
-      'warning'
+    const ungated = await run(seoCanonicalUrl, 'src/routes/x/+page.svelte', [], ['src/routes/x/+page.svelte']);
+    expect(ungated.severity).toBe('warning');
+    expect(ungated.recommendation).not.toMatch(/turns away visitors/);
+  });
+});
+
+describe('head-tag rules — only the tag a rule names satisfies it', () => {
+  const decoys: ResolvedHead['tags'] = [
+    { kind: 'meta', name: 'robots', presence: 'own', value: 'static', text: 'index, follow' },
+    { kind: 'meta', property: 'og:type', presence: 'own', value: 'static' },
+    { kind: 'link', rel: 'stylesheet', presence: 'own', value: 'static' },
+    { kind: 'script', presence: 'own', value: 'static' }
+  ];
+  const rules = [
+    seoCanonicalUrl,
+    seoCharset,
+    seoDescriptionPresence,
+    seoOgDescription,
+    seoOgImage,
+    seoOgTitle,
+    seoJsonLd,
+    seoTitlePresence
+  ];
+  it.each(rules.map((r) => [r.id, r] as const))(
+    '%s reports the tag missing when only other tags are present',
+    async (_id, rule) => {
+      // Rendered, so seo/charset (which only judges rendered heads) runs too.
+      const rendered = { ...ctx(decoys), heads: ctx(decoys).heads.map((h) => ({ ...h, source: 'rendered' as const })) };
+      const [r] = await rule.check(rendered);
+      expect(r!.detection.presence).toBe('none');
+    }
+  );
+
+  it('seo/og-title matches an og:title meta', async () => {
+    const [r] = await seoOgTitle.check(ctx([{ kind: 'meta', property: 'og:title', presence: 'own', value: 'static' }]));
+    expect(r!.detection).toEqual({ presence: 'own', value: 'static' });
+  });
+
+  it('reports the first of two equally strong matching tags', async () => {
+    const [r] = await seoCanonicalUrl.check(
+      ctx([
+        { kind: 'link', rel: 'canonical', presence: 'own', value: 'static' },
+        { kind: 'link', rel: 'canonical', presence: 'own', value: 'dynamic' }
+      ])
     );
+    expect(r!.detection).toEqual({ presence: 'own', value: 'static' });
+  });
+
+  it('names a present tag by its bare label, even beside a name= copy', async () => {
+    const [r] = await seoOgUrl.check(
+      ctx([
+        { kind: 'meta', property: 'og:url', presence: 'own', value: 'static' },
+        { kind: 'meta', name: 'og:url', presence: 'own', value: 'static' }
+      ])
+    );
+    expect(r!.message).toBe('<meta property="og:url">');
+  });
+
+  it('calls only a name= copy without a property a misspelling', async () => {
+    const [unrelated] = await seoOgUrl.check(
+      ctx([{ kind: 'meta', name: 'description', presence: 'own', value: 'static' }])
+    );
+    expect(unrelated!.message).toBe('Missing <meta property="og:url">');
+    const [both] = await seoOgUrl.check(
+      ctx([{ kind: 'meta', name: 'og:url', property: 'og:type', presence: 'own', value: 'static' }])
+    );
+    expect(both!.message).toBe('Missing <meta property="og:url">');
   });
 });

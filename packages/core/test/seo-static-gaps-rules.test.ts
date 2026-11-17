@@ -107,6 +107,21 @@ describe('seo/hreflang hreflang', () => {
     const rs = await seoHreflang.check(headsCtx(head('rendered', [alt('en')])));
     expect(fails(rs)).toHaveLength(0);
   });
+  it('reads hreflang only from alternate links that carry one', async () => {
+    const feed = await seoHreflang.check(
+      headsCtx(head('rendered', [{ kind: 'link', rel: 'alternate', href: '/feed.xml' }]))
+    );
+    expect(feed).toEqual([]);
+    const canonical = await seoHreflang.check(
+      headsCtx(head('rendered', [{ kind: 'link', rel: 'canonical', hreflang: 'english' }]))
+    );
+    expect(canonical).toEqual([]);
+  });
+  it('reports under its rule id on both outcomes', async () => {
+    const ok = await seoHreflang.check(headsCtx(head('rendered', [alt('en')])));
+    const bad = await seoHreflang.check(headsCtx(head('rendered', [alt('english')])));
+    expect([...ok, ...bad].map((r) => r.id)).toEqual(['seo/hreflang', 'seo/hreflang']);
+  });
 });
 
 const headingsCtx = (headings: ResolvedHeadings[]): RuleContext => ({ heads: [], headings, ...base });
@@ -136,6 +151,29 @@ describe('seo/single-h1 heading hierarchy', () => {
     // Zero-h1 stays 'warning' — a page genuinely has no primary heading (2026-08-09
     // P2 severity-alignment review, #11).
     expect(rs[0]!.severity).toBe('warning');
+    expect(rs[0]!.location).toBe('x');
+  });
+  it('locates a missing <h1> at the first non-ARIA heading, with its line', async () => {
+    const rs = await seoSingleH1.check(
+      headingsCtx([
+        {
+          route: '/a',
+          headings: [
+            { level: 1, line: 3, file: 'src/routes/+layout.svelte', aria: true },
+            { level: 2, line: 5, file: 'src/routes/a/+page.svelte' }
+          ]
+        }
+      ])
+    );
+    expect(rs[0]).toMatchObject({ location: 'src/routes/a/+page.svelte', line: 5 });
+  });
+  it('skips a route without an <h1> whose heading tag is dynamic', async () => {
+    expect(await seoSingleH1.check(headingsCtx([{ ...hs([2]), dynamicHeading: true }]))).toEqual([]);
+  });
+  it('reports under its rule id on both outcomes', async () => {
+    const ok = await seoSingleH1.check(headingsCtx([hs([1])]));
+    const bad = await seoSingleH1.check(headingsCtx([hs([2])]));
+    expect([...ok, ...bad].map((r) => r.id)).toEqual(['seo/single-h1', 'seo/single-h1']);
   });
   it('flags a page with multiple <h1> at info', async () => {
     const rs = await seoSingleH1.check(headingsCtx([hs([1, 1])]));
