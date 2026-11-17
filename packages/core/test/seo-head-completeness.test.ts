@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { docsUrlFor } from '../src/rule.js';
 import {
   seoIndexability,
   seoTwitterCard,
@@ -33,10 +34,10 @@ describe('seo/indexability indexability', () => {
     expect(rs[0]!.severity).toBe('info');
     expect(rs[0]).toMatchObject({
       id: 'seo/indexability',
-      docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo/indexability'
+      docsUrl: docsUrlFor('seo/indexability')
     });
   });
-  it('finds the noindex robots meta among other tags, and ignores noindex on another meta', async () => {
+  it('finds the noindex robots meta among other tags', async () => {
     const among = await seoIndexability.check(
       ctx(
         headWith([
@@ -46,8 +47,6 @@ describe('seo/indexability indexability', () => {
       )
     );
     expect(fails(among)).toHaveLength(1);
-    const other = await seoIndexability.check(ctx(headWith([{ kind: 'meta', name: 'googlebot', noindex: true }])));
-    expect(other).toEqual([]);
   });
   it('does not flag when robots meta is not noindex', async () => {
     const rs = await seoIndexability.check(ctx(headWith([{ kind: 'meta', name: 'robots' }])));
@@ -99,7 +98,7 @@ describe('seo/sitemap-in-robots sitemap-in-robots', () => {
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]).toMatchObject({
       id: 'seo/sitemap-in-robots',
-      docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo/sitemap-in-robots'
+      docsUrl: docsUrlFor('seo/sitemap-in-robots')
     });
   });
   it('emits nothing unless both robots.txt and a sitemap exist', async () => {

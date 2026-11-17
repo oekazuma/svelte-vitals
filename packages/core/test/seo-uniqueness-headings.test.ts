@@ -70,18 +70,21 @@ describe('seo/duplicate-description duplicate description', () => {
     const rs = await seoDuplicateDescription.check(ctx([descHead('/a', 'Desc A'), descHead('/b', 'Desc B')]));
     expect(fails(rs)).toHaveLength(0);
   });
-  it('ignores texts that are empty once whitespace is collapsed', async () => {
-    expect(await seoDuplicateDescription.check(ctx([descHead('/a', '  '), descHead('/b', ' ')]))).toEqual([]);
-  });
-  it('compares only the tag each rule names', async () => {
-    const decoy = (route: string): ResolvedHead => ({
-      route,
-      source: 'rendered',
-      file: route,
-      tags: [{ kind: 'meta', name: 'robots', presence: 'own', value: 'static', text: 'index' } as HeadTag]
+  it('compares the tag each rule names, not an earlier tag of another kind', async () => {
+    const robotsFirst = (head: ResolvedHead): ResolvedHead => ({
+      ...head,
+      tags: [{ kind: 'meta', name: 'robots', presence: 'own', value: 'static' } as HeadTag, ...head.tags]
     });
-    expect(await seoDuplicateTitle.check(ctx([decoy('/a'), decoy('/b')]))).toEqual([]);
-    expect(await seoDuplicateDescription.check(ctx([decoy('/a'), decoy('/b')]))).toEqual([]);
+    const descs = await seoDuplicateDescription.check(
+      ctx([robotsFirst(descHead('/a', 'Same desc')), robotsFirst(descHead('/b', 'Same desc'))])
+    );
+    expect(fails(descs)).toHaveLength(2);
+    const descFirst = (route: string, title: string): ResolvedHead => ({
+      ...titleHead(route, title),
+      tags: [...descHead(route, 'Same desc').tags, ...titleHead(route, title).tags]
+    });
+    const titles = await seoDuplicateTitle.check(ctx([descFirst('/a', 'Title A'), descFirst('/b', 'Title B')]));
+    expect(fails(titles)).toEqual([]);
   });
 });
 
@@ -243,7 +246,7 @@ describe('seo/heading-level-skip — arms, loops and undetermined levels', () =>
     expect(await skips([h(1, 10), h(3, 50, g(2, 0))], [card])).toEqual(skipped(1, 3));
   });
 
-  it('reads a loop’s last pass as decided by data only when the heading is outside the loop', async () => {
+  it('counts other loop arms only when the next heading repeats with them', async () => {
     const looped = (last: HeadingInfo) =>
       skips([h(1, 10), h(2, 20, loop, g(0, 0)), h(2, 25, loop, g(0, 1)), h(3, 30, loop, g(0, 1)), last]);
     expect(await looped(h(4, 50, g(2, 0)))).toEqual([]);

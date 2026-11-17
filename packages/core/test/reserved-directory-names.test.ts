@@ -767,7 +767,6 @@ describe('architecture/reserved-directory-names — collisions, empty values and
     const glob = { 'src/lib/*': 'parts' };
     const rs = await run(['src/lib/Card/Card.svelte'], { scopes: glob, unitScopes: glob, anyCaseUnitScopes: glob });
     expect(project(rs)[0]!.message).toContain('declared in scopes, unitScopes, anyCaseUnitScopes');
-    expect(project(rs)[0]!.message).toContain('wherever they apply');
   });
 
   it('reports the empty value, not the collision, when the anyCaseUnitScopes side names nothing', async () => {

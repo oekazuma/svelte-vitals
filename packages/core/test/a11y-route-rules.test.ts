@@ -85,7 +85,7 @@ describe('a11y/top-level-landmark', () => {
     );
     expect(rs).toHaveLength(1);
   });
-  it('anchors the PASS at the first landmark kind present', async () => {
+  it('anchors the PASS at a landmark even when the route has no main', async () => {
     const rs = await a11yTopLevelLandmark.check(
       ctxA11y([ra({ landmarks: { banner: [{ file: 'src/routes/+layout.svelte', line: 2 }] } })])
     );

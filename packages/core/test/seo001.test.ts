@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { docsUrlFor } from '../src/rule.js';
 import { type Config } from '../src/index.js';
 import {
   seoTitlePresence,
@@ -75,7 +76,7 @@ describe('seo/title-presence title detection', () => {
     for (const r of [empty!, present!]) {
       expect(r).toMatchObject({
         id: 'seo/title-presence',
-        docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence'
+        docsUrl: docsUrlFor('seo/title-presence')
       });
     }
   });

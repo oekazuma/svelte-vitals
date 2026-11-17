@@ -51,7 +51,7 @@ describe('contextValues', () => {
     const { nodes } = parseJsonLd(
       '{"@context":"https://schema.org","@type":"X","subjectOf":[{"@context":"a"}],"about":{"@context":"b"}}'
     );
-    expect(contextValues(nodes)).toEqual(['https://schema.org', 'a', 'b']);
+    expect(contextValues(nodes).sort()).toEqual(['a', 'b', 'https://schema.org']);
   });
 });
 

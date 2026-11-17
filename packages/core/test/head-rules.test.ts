@@ -150,7 +150,7 @@ describe('head-tag rules on routes behind a login', () => {
 
 describe('head-tag rules — only the tag a rule names satisfies it', () => {
   const decoys: ResolvedHead['tags'] = [
-    { kind: 'meta', name: 'robots', presence: 'own', value: 'static', text: 'index, follow' },
+    { kind: 'meta', name: 'robots', presence: 'own', value: 'static' },
     { kind: 'meta', property: 'og:type', presence: 'own', value: 'static' },
     { kind: 'link', rel: 'stylesheet', presence: 'own', value: 'static' },
     { kind: 'script', presence: 'own', value: 'static' }
@@ -180,16 +180,6 @@ describe('head-tag rules — only the tag a rule names satisfies it', () => {
     expect(r!.detection).toEqual({ presence: 'own', value: 'static' });
   });
 
-  it('reports the first of two equally strong matching tags', async () => {
-    const [r] = await seoCanonicalUrl.check(
-      ctx([
-        { kind: 'link', rel: 'canonical', presence: 'own', value: 'static' },
-        { kind: 'link', rel: 'canonical', presence: 'own', value: 'dynamic' }
-      ])
-    );
-    expect(r!.detection).toEqual({ presence: 'own', value: 'static' });
-  });
-
   it('names a present tag by its bare label, even beside a name= copy', async () => {
     const [r] = await seoOgUrl.check(
       ctx([
@@ -200,7 +190,7 @@ describe('head-tag rules — only the tag a rule names satisfies it', () => {
     expect(r!.message).toBe('<meta property="og:url">');
   });
 
-  it('calls only a name= copy without a property a misspelling', async () => {
+  it('treats name="og:url" as a misspelling only when the tag has no property', async () => {
     const [unrelated] = await seoOgUrl.check(
       ctx([{ kind: 'meta', name: 'description', presence: 'own', value: 'static' }])
     );

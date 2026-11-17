@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { docsUrlFor } from '../src/rule.js';
 import {
   a11yAriaHiddenFocus,
   a11yInteractiveNesting,
@@ -183,7 +184,7 @@ describe('a11y/doctype', () => {
     expect(missing).toMatchObject({
       id: 'a11y/doctype',
       location: 'src/app.html',
-      docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/a11y/doctype'
+      docsUrl: docsUrlFor('a11y/doctype')
     });
     expect(missing!.message).toContain('missing');
     expect(present!.location).toBe('src/app.html');

@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { docsUrlFor } from '../src/rule.js';
 import {
   seoJsonLdValidity,
   seoJsonLdDeprecatedType,
@@ -205,7 +206,7 @@ describe('seo/json-ld-validity: unknown @type vocabulary', () => {
 });
 
 describe('seo/json-ld-validity — outcomes and gates', () => {
-  const doc = 'https://oekazuma.github.io/svelte-vitals/rules/seo/json-ld-validity';
+  const doc = docsUrlFor('seo/json-ld-validity');
   const withFile = (raw: string, file: string): ResolvedHead => {
     const head = headWithJsonLd(raw);
     return { ...head, tags: head.tags.map((t) => ({ ...t, file })) };
