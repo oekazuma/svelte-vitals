@@ -42,6 +42,10 @@ describe('a11y/disallowed-element', () => {
     expect(fails(out)).toEqual(["2:<iframe> is disallowed by this project's configuration"]);
   });
 
+  it('emits nothing for a component with no elements, even with a declaration', async () => {
+    expect(await a11yDisallowedElement.check(ctx('{name}', on(['iframe'])))).toEqual([]);
+  });
+
   it('passes a component with elements and none disallowed, so a clean file stays in the evidence', async () => {
     const out = await a11yDisallowedElement.check(ctx('<div><p>x</p></div>', on(['iframe'])));
     expect(fails(out)).toEqual([]);
@@ -111,6 +115,13 @@ describe('a11y/required-element', () => {
     });
     const out = await a11yRequiredElement.check(ctx([route({})], config));
     expect(fails(out).map((m) => m.split(' ')[0])).toEqual(['0:<nav>']);
+  });
+
+  it('emits nothing on a route that only another route’s override declares for', async () => {
+    const config = defineConfig({
+      overrides: [{ route: '/y', rules: { 'a11y/required-element': { options: { elements: ['nav'] } } } }]
+    });
+    expect(await a11yRequiredElement.check(ctx([route({})], config))).toEqual([]);
   });
 
   it('judges nothing where a provider supplies no presence set', async () => {

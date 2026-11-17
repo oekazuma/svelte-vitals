@@ -52,8 +52,15 @@ describe('a11y/no-accesskey', () => {
     expect(passed).toEqual([]);
   });
 
+  it('flags only the carriers in a component that also has other attributed elements', async () => {
+    const { penalized } = await check(
+      '<a href="/" accesskey="h">home</a>\n<button type="button" class="c">save</button>'
+    );
+    expect(penalized.map((r) => r.line)).toEqual([1]);
+  });
+
   it('emits nothing for a component without accesskey', async () => {
-    const { penalized, passed } = await check('<button>save</button>');
+    const { penalized, passed } = await check('<button type="button" class="c">save</button>');
     expect(penalized).toEqual([]);
     expect(passed).toEqual([]);
   });

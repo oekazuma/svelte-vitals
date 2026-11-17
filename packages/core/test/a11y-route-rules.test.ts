@@ -40,6 +40,7 @@ describe('a11y/duplicate-landmark', () => {
     );
     const f = fails(rs);
     expect(f).toHaveLength(1);
+    expect(rs).toHaveLength(1);
     expect(f[0]).toMatchObject({
       location: 'src/routes/+page.svelte',
       line: 5,
@@ -72,6 +73,28 @@ describe('a11y/top-level-landmark', () => {
     expect(one).toHaveLength(1);
     expect(fails(one)).toHaveLength(0);
     expect(await a11yTopLevelLandmark.check(ctxA11y([ra({})]))).toHaveLength(0);
+  });
+  it('emits no PASS beside a nested-landmark finding', async () => {
+    const rs = await a11yTopLevelLandmark.check(
+      ctxA11y([
+        ra({
+          landmarks: { main: [{ file: 'f', line: 1 }] },
+          nestedLandmarks: [{ kind: 'complementary', within: 'main', file: 'f', line: 9 }]
+        })
+      ])
+    );
+    expect(rs).toHaveLength(1);
+  });
+  it('anchors the PASS at the first landmark kind present', async () => {
+    const rs = await a11yTopLevelLandmark.check(
+      ctxA11y([ra({ landmarks: { banner: [{ file: 'src/routes/+layout.svelte', line: 2 }] } })])
+    );
+    expect(rs).toEqual([
+      expect.objectContaining({
+        detection: { presence: 'own', value: 'static' },
+        location: 'src/routes/+layout.svelte'
+      })
+    ]);
   });
 });
 
@@ -136,6 +159,63 @@ describe('a11y/id-duplication', () => {
       line: 4,
       message: 'Duplicate id "shell-root" — also defined by the src/app.html shell (line 8)'
     });
+    expect(f[0]!.recommendation).toBe('Every id in a route should be unique.');
+  });
+  it('suggests renaming when the duplicates share only a file or only a line number', async () => {
+    const sameFile = fails(
+      await a11yIdDuplication.check(
+        ctxA11y([
+          ra({
+            ids: {
+              x: [
+                { file: 'a', line: 1 },
+                { file: 'a', line: 5 }
+              ]
+            }
+          })
+        ])
+      )
+    );
+    const sameLine = fails(
+      await a11yIdDuplication.check(
+        ctxA11y([
+          ra({
+            ids: {
+              x: [
+                { file: 'a', line: 3 },
+                { file: 'b', line: 3 }
+              ]
+            }
+          })
+        ])
+      )
+    );
+    expect(sameFile).toHaveLength(1);
+    expect(sameLine).toHaveLength(1);
+    for (const r of [...sameFile, ...sameLine]) expect(r.recommendation).toContain('{:else}');
+  });
+  it('orders the ids of one file by line', async () => {
+    const rs = await a11yIdDuplication.check(
+      ctxA11y([
+        ra({
+          ids: {
+            c: [
+              { file: 'a', line: 9 },
+              { file: 'a', line: 19 }
+            ],
+            b: [
+              { file: 'a', line: 5 },
+              { file: 'a', line: 15 }
+            ],
+            a: [
+              { file: 'a', line: 1 },
+              { file: 'a', line: 11 }
+            ]
+          }
+        })
+      ])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([11, 15, 19]);
   });
 });
 
@@ -164,6 +244,7 @@ describe('a11y/no-missing-id-ref', () => {
     const f = fails(rs);
     expect(f).toHaveLength(1);
     expect(f[0]).toMatchObject({ location: 'f', line: 3, message: 'for="ghost" references a missing id' });
+    expect(rs).toHaveLength(1);
   });
   it('PASS when the referenced id is a candidate', async () => {
     const rs = await a11yNoMissingIdRef.check(
@@ -171,6 +252,7 @@ describe('a11y/no-missing-id-ref', () => {
     );
     expect(rs).toHaveLength(1);
     expect(fails(rs)).toHaveLength(0);
+    expect(rs[0]!.location).toBe('f');
   });
   it('emits nothing on a not-fully-resolved route, even with a dangling ref', async () => {
     const rs = await a11yNoMissingIdRef.check(
@@ -202,6 +284,7 @@ describe('a11y/unverified-id-ref', () => {
     const f = fails(rs);
     expect(f).toHaveLength(1);
     expect(f[0]).toMatchObject({ location: 'f', line: 3, severity: 'info' });
+    expect(rs).toHaveLength(1);
     expect(f[0]!.message).toBe(
       'for="ghost" references an id not found in any analyzed source — the route is not fully resolved ' +
         '(unresolved component <A> at src/lib/A.svelte:2); verify the id exists at runtime'
@@ -230,6 +313,7 @@ describe('a11y/unverified-id-ref', () => {
     );
     expect(rs).toHaveLength(1);
     expect(fails(rs)).toHaveLength(0);
+    expect(rs[0]!.location).toBe('f');
     const miss = await a11yUnverifiedIdRef.check(
       ctxA11y([open({ idRefs: [{ id: 'x', attr: 'href', file: 'f', line: 2 }], idCandidates: [] })])
     );

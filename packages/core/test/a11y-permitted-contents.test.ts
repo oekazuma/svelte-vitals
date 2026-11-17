@@ -17,6 +17,10 @@ const failing = async (src: string): Promise<{ line?: number; severity: Severity
   fails(await run(src)).map((r) => ({ line: r.line, severity: r.severity, message: r.message }));
 
 describe('a11y/permitted-contents', () => {
+  it('does not judge SVG-namespace elements by their HTML namesakes', async () => {
+    expect(await failing('<svg><title><div>x</div></title><a><p>y</p></a></svg>')).toEqual([]);
+  });
+
   it('flags a non-li child of <ul> as warning, and a branch child too', async () => {
     const out = await failing('<ul>\n  <div>x</div>\n  <li>ok</li>\n  {#if c}<span>y</span>{/if}\n</ul>');
     expect(out).toEqual([

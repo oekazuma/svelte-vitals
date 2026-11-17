@@ -10,6 +10,12 @@ import {
   a11yDoctype
 } from '../src/internal.js';
 import { defineConfig, defaultProject, type Project, type Result } from '../src/types.js';
+import {
+  isInteractiveContainer,
+  isInteractiveElement,
+  literalTabindexValue,
+  type ElementAttr
+} from '../src/rules/a11y/interactive.js';
 import { parseComponentFacts } from '../src/component-parse.js';
 import { emptyComponentFacts, type ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -81,6 +87,10 @@ describe('a11y/accessible-name — iframe arm', () => {
   });
   it('flags a blank literal title — an empty string computes no name', async () => {
     expect(await check('<iframe src="/embed" title=""></iframe>')).toHaveLength(1);
+    expect(await check('<iframe src="/embed" title="   "></iframe>')).toHaveLength(1);
+  });
+  it('skips aria-hidden="true" written with surrounding whitespace', async () => {
+    expect(await check('<iframe src="/embed" aria-hidden=" true "></iframe>')).toEqual([]);
   });
   it('flags aria-hidden="false" — a literal false does not hide the frame', async () => {
     expect(await check('<iframe src="/embed" aria-hidden="false"></iframe>')).toHaveLength(1);
@@ -166,5 +176,73 @@ describe('a11y/doctype', () => {
     expect(fails(await a11yDoctype.check(projCtx({ appHtmlDoctype: false })))).toHaveLength(1);
     expect(fails(await a11yDoctype.check(projCtx({ appHtmlDoctype: true })))).toHaveLength(0);
     expect(await a11yDoctype.check(projCtx({}))).toHaveLength(0);
+  });
+  it('locates both outcomes at src/app.html and says missing only when it is', async () => {
+    const [missing] = await a11yDoctype.check(projCtx({ appHtmlDoctype: false }));
+    const [present] = await a11yDoctype.check(projCtx({ appHtmlDoctype: true }));
+    expect(missing).toMatchObject({
+      id: 'a11y/doctype',
+      location: 'src/app.html',
+      docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/a11y/doctype'
+    });
+    expect(missing!.message).toContain('missing');
+    expect(present!.location).toBe('src/app.html');
+    expect(present!.message).not.toContain('missing');
+  });
+});
+
+describe('isInteractiveElement', () => {
+  const lit = (name: string, literal: string): ElementAttr => ({ name, literal });
+
+  it('counts the always-interactive tags and every interactive role, but not a structural role', () => {
+    for (const tag of ['button', 'select', 'textarea', 'summary', 'embed', 'iframe']) {
+      expect(isInteractiveElement(tag, []), tag).toBe(true);
+    }
+    const roles = ['button', 'link', 'checkbox', 'radio', 'switch', 'tab', 'menuitem', 'menuitemcheckbox'];
+    roles.push('menuitemradio', 'option', 'slider', 'spinbutton', 'textbox', 'combobox', 'searchbox', 'scrollbar');
+    roles.push('gridcell');
+    for (const role of roles) expect(isInteractiveElement('div', [lit('role', role)]), role).toBe(true);
+    expect(isInteractiveElement('div', [lit('role', 'region')])).toBe(false);
+  });
+
+  it('needs an href on <a>, found by name among other attributes', () => {
+    expect(isInteractiveElement('a', [lit('class', 'x'), lit('href', '/')])).toBe(true);
+    expect(isInteractiveElement('a', [lit('class', 'x')])).toBe(false);
+    expect(isInteractiveElement('div', [lit('href', '/')])).toBe(false);
+  });
+
+  it('excludes a hidden input in any case, and an input whose type is an expression', () => {
+    expect(isInteractiveElement('input', [lit('name', 'q'), lit('type', 'HIDDEN')])).toBe(false);
+    expect(isInteractiveElement('input', [lit('type', 'hidden')])).toBe(false);
+    expect(isInteractiveElement('input', [lit('name', 'q'), lit('type', 'text')])).toBe(true);
+    expect(isInteractiveElement('input', [{ name: 'type', expression: true }])).toBe(false);
+    expect(isInteractiveElement('input', [])).toBe(true);
+  });
+
+  it('counts audio and video only when they carry controls', () => {
+    expect(isInteractiveElement('video', [lit('src', 'a.mp4'), { name: 'controls' }])).toBe(true);
+    expect(isInteractiveElement('audio', [{ name: 'controls' }])).toBe(true);
+    expect(isInteractiveElement('video', [lit('src', 'a.mp4')])).toBe(false);
+    expect(isInteractiveElement('div', [{ name: 'controls' }])).toBe(false);
+  });
+
+  it('counts a literal non-negative tabindex and ignores a blank one', () => {
+    expect(isInteractiveElement('div', [lit('tabindex', '0')])).toBe(true);
+    expect(isInteractiveElement('div', [lit('tabindex', '-1')])).toBe(false);
+    expect(literalTabindexValue('   ')).toBeUndefined();
+    expect(literalTabindexValue(' 2 ')).toBe(2);
+  });
+});
+
+describe('isInteractiveContainer', () => {
+  it('is a button, an <a href>, or a children-presentational role — not gridcell or combobox', () => {
+    expect(isInteractiveContainer('button', [])).toBe(true);
+    expect(isInteractiveContainer('a', [{ name: 'href', literal: '/' }])).toBe(true);
+    expect(isInteractiveContainer('a', [])).toBe(false);
+    const roles = ['button', 'link', 'checkbox', 'radio', 'switch', 'tab', 'menuitemcheckbox', 'menuitemradio'];
+    roles.push('option', 'slider', 'scrollbar');
+    for (const role of roles) expect(isInteractiveContainer('div', [{ name: 'role', literal: role }]), role).toBe(true);
+    expect(isInteractiveContainer('div', [{ name: 'role', literal: 'gridcell' }])).toBe(false);
+    expect(isInteractiveContainer('div', [{ name: 'role', literal: 'combobox' }])).toBe(false);
   });
 });

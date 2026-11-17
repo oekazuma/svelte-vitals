@@ -67,6 +67,9 @@ describe('a11y/deprecated-element', () => {
 });
 
 describe('a11y/deprecated-attr', () => {
+  it('emits nothing for a component whose elements carry no attributes', async () => {
+    expect(await a11yDeprecatedAttr.check(ctx('<div><span>x</span></div>'))).toEqual([]);
+  });
   it('reports an attribute deprecated on this element and not the same name on another', async () => {
     const out = await a11yDeprecatedAttr.check(
       ctx('<table><tr><td width="1">a</td></tr></table>\n<img src="x" width="1" alt="" />')
