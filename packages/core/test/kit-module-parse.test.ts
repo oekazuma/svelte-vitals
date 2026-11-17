@@ -1097,3 +1097,174 @@ describe('parseKitModuleFacts — loadGated (loads that send a request without a
     expect(f.moduleStateReassignments).toHaveLength(1);
   });
 });
+
+describe('parseKitModuleFacts — collection edges', () => {
+  it("takes a store's updater from a function declaration, and nothing else bound by name", () => {
+    const src = [
+      "import { count } from '$lib/stores';",
+      'function bump(n) {',
+      '  return n + 1;',
+      '}',
+      'const table = { name: "posts" };',
+      'export default function () {}',
+      'export const actions = {',
+      '  default: async () => {',
+      '    count.update(bump);',
+      '    count.update(table);',
+      '  }',
+      '};'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([{ name: 'count', line: 9, via: 'set-call' }]);
+  });
+
+  it('records value specifiers only, and no side-effect import, as a runes-module import', () => {
+    const src = [
+      "import { type Quiz, quiz } from '$lib/quiz.svelte.js';",
+      "import '$lib/setup.svelte.js';",
+      'export function load() {}'
+    ].join('\n');
+    expect(facts(src).runesModuleImports).toEqual([
+      { source: '$lib/quiz.svelte.js', resolved: 'src/lib/quiz.svelte.js', names: ['quiz'], line: 1 }
+    ]);
+  });
+
+  it('treats var as module state and const as not', () => {
+    const src = [
+      'var hits = 0;',
+      'const limit = 10;',
+      'export function load() {',
+      '  hits++;',
+      '  limit = 20;',
+      '  return hits;',
+      '}'
+    ].join('\n');
+    expect(facts(src).moduleStateReassignments).toEqual([{ name: 'hits', line: 4, inHandler: true }]);
+  });
+
+  it('flags every module binding a destructuring assignment writes', () => {
+    const src = [
+      'let first;',
+      'let second;',
+      'let unrelated;',
+      'export function load({ pair }) {',
+      '  [first, { second }] = pair;',
+      '  ({ first } = pair);',
+      '}'
+    ].join('\n');
+    expect(facts(src).moduleStateReassignments).toEqual([
+      { name: 'first', line: 5, inHandler: true },
+      { name: 'second', line: 5, inHandler: true },
+      { name: 'first', line: 6, inHandler: true }
+    ]);
+  });
+
+  it('honours a browser guard at the top level, and its own module bindings', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'if (browser) console.log(window.innerWidth);',
+      'const document = { title: "x" };',
+      'console.log(document.title);',
+      'export function load() {}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+  });
+
+  it('counts a write that starts right where a browser-only branch ends', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'let a;',
+      'let b;',
+      'export function load() {',
+      '  if(browser){a=1}b=2;',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').moduleStateReassignments).toEqual([
+      { name: 'b', line: 5, inHandler: true }
+    ]);
+  });
+
+  it('sorts browser-global refs by line across the top-level and handler scans', () => {
+    const src = [
+      'export function load() {',
+      '  return { w: window.innerWidth };',
+      '}',
+      'const t = document.title;',
+      'export const ssrOnly = navigator.language;',
+      'export function GET() {',
+      '  return localStorage.length;',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+server.ts').browserGlobalRefs).toEqual([
+      { name: 'window', line: 2, inHandler: true },
+      { name: 'document', line: 4, inHandler: false },
+      { name: 'navigator', line: 5, inHandler: false },
+      { name: 'localStorage', line: 7, inHandler: true }
+    ]);
+  });
+
+  it('does not take reads of an imported binding for writes', () => {
+    const src = [
+      "import { state } from './shared.js';",
+      'export function load() {',
+      '  if (state.count > 0) return state.value;',
+      '  return { ready: state.ready };',
+      '}'
+    ].join('\n');
+    const f = facts(src);
+    expect(f.importedStateWrites).toEqual([]);
+    expect(f.importedStateWritesOutsideHandlers).toEqual([]);
+  });
+
+  it('does not take a binding the module exports under another name for an import', () => {
+    const src = [
+      'const cache = { hits: 0 };',
+      'export { cache as shared };',
+      'export function load() {',
+      '  cache.hits = 1;',
+      '}'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([]);
+  });
+
+  it("takes a namespace import's own set function for a call, not a store write", () => {
+    const src = [
+      "import * as gist from '$lib/db/gist.js';",
+      'export async function PUT({ params }) {',
+      '  await gist.set(params.id, {});',
+      '}'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([]);
+  });
+
+  it('names the export a deep namespace store write targets', () => {
+    const src = [
+      "import * as stores from '$lib/stores';",
+      'export function load() {',
+      '  stores.user.profile.set(null);',
+      '}'
+    ].join('\n');
+    expect(facts(src).storeWriteTargets).toEqual([
+      { name: 'stores', imported: 'user', resolved: 'src/lib/stores', line: 3 }
+    ]);
+  });
+
+  it('keeps store-write targets to handlers', () => {
+    const src = "import { count } from '$lib/stores';\nfunction reset() {\n  count.set(0);\n}";
+    const f = facts(src);
+    expect(f.importedStateWritesOutsideHandlers).toEqual([{ name: 'count', line: 3 }]);
+    expect(f).not.toHaveProperty('storeWriteTargets');
+  });
+
+  it('flags every target form of a destructuring assignment into an imported binding', () => {
+    const at = (line: string) =>
+      facts(`import { state } from './shared.js';\nexport function load({ obj, arr }) {\n  ${line}\n}`)
+        .importedStateWrites;
+    const hit = [{ name: 'state', line: 3, via: 'assignment' }];
+    expect(at('({ a: state.y } = obj);')).toEqual(hit);
+    expect(at('({ ...state.rest } = obj);')).toEqual(hit);
+    expect(at('[, state.second] = arr;')).toEqual(hit);
+    expect(at('[state.x = 0] = arr;')).toEqual(hit);
+    expect(at('[...state.rest] = arr;')).toEqual(hit);
+    expect(at('({ a: local } = obj);')).toEqual([]);
+  });
+});
