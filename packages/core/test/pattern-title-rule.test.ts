@@ -39,6 +39,16 @@ describe('a11y/pattern-title', () => {
 
   it('flags a blank literal title — it describes nothing', async () => {
     expect(await check('<input pattern="[a-z]+" title="" />')).toHaveLength(1);
+    expect(await check('<input pattern="[a-z]+" title="   " />')).toHaveLength(1);
+  });
+
+  it('reads a literal type with surrounding whitespace as its trimmed value', async () => {
+    expect(await check('<input type=" text " pattern="[a-z]+" />')).toHaveLength(1);
+  });
+
+  it('ignores an input without pattern and a non-input element with one', async () => {
+    expect(await check('<input type="text" name="q" />')).toEqual([]);
+    expect(await check('<textarea pattern="[a-z]+"></textarea>')).toEqual([]);
   });
 
   it('passes a describing title, literal or expression', async () => {

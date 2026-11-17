@@ -32,6 +32,25 @@ describe('a11y/invalid-role', () => {
       ctx([comp({ ariaElements: [el({ role: { literal: 'bogus' } }), el({ role: { literal: 'widget' }, line: 5 })] })])
     );
     expect(fails(rs).map((r) => r.line)).toEqual([3, 5]);
+    expect(fails(rs)[0]!.message).toContain('is not a WAI-ARIA role');
+    expect(fails(rs)[1]!.message).toContain('is an abstract role');
+  });
+  it('skips a blank role and role-less elements beside a flagged one', async () => {
+    const rs = await a11yInvalidRole.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ line: 1 }),
+            el({ line: 2, role: { literal: '  ' } }),
+            el({ line: 4, role: { literal: 'bogus' } })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([4]);
+  });
+  it('emits nothing for a component with no role attribute', async () => {
+    expect(await a11yInvalidRole.check(ctx([comp({ ariaElements: [el({})] })]))).toEqual([]);
   });
   it('accepts a fallback list once a token names a concrete role', async () => {
     // A user agent resolves to the first concrete token, so the later ones are the spec's own
@@ -96,6 +115,15 @@ describe('a11y/unknown-aria-attribute', () => {
     // Anchored at the element's start tag (line 3), not the attribute's line 4, so a directive reaches it.
     expect(fails(rs).map((r) => r.line)).toEqual([3]);
   });
+  it('checks a component in which only some elements carry aria-* attributes', async () => {
+    const rs = await a11yUnknownAriaAttribute.check(
+      ctx([comp({ ariaElements: [el({ line: 1 }), el({ aria: [{ name: 'aria-lable', literal: 'x', line: 3 }] })] })])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([3]);
+  });
+  it('emits nothing for a component with no aria-* attribute', async () => {
+    expect(await a11yUnknownAriaAttribute.check(ctx([comp({ ariaElements: [el({})] })]))).toEqual([]);
+  });
   it('passes known names regardless of value form', async () => {
     const rs = await a11yUnknownAriaAttribute.check(
       ctx([
@@ -143,6 +171,7 @@ describe('a11y/required-aria-props', () => {
       ctx([comp({ ariaElements: [el({ role: { literal: 'checkbox' } })] })])
     );
     expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.message).not.toContain('resolves to');
   });
   it('satisfied by a literal or expression attribute', async () => {
     const rs = await a11yRequiredAriaProps.check(
@@ -188,6 +217,55 @@ describe('a11y/required-aria-props', () => {
       ctx([comp({ ariaElements: [el({ role: { literal: 'checkbox' }, hasSpread: true })] })])
     );
     expect(fails(rs)).toHaveLength(0);
+  });
+  it('satisfied by every native host that supplies the prop', async () => {
+    const rs = await a11yRequiredAriaProps.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ tag: 'input', inputType: 'radio', role: { literal: 'radio' } }),
+            el({ tag: 'h2', role: { literal: 'heading' } }),
+            el({ tag: 'input', inputType: 'range', role: { literal: 'slider' } }),
+            el({ tag: 'progress', role: { literal: 'meter' } }),
+            el({ tag: 'meter', role: { literal: 'meter' } })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+  it('does not take native semantics from an element that only resembles the host', async () => {
+    const rs = await a11yRequiredAriaProps.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ line: 1, tag: 'input', inputType: 'text', role: { literal: 'slider' } }),
+            el({ line: 2, tag: 'x-h2', role: { literal: 'heading' } }),
+            el({ line: 3, tag: 'h2-card', role: { literal: 'heading' } }),
+            el({ line: 4, tag: 'input', inputType: 'text', role: { literal: 'checkbox' } })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([1, 2, 3, 4]);
+  });
+  it('reports only the elements with a resolvable role, beside role-less and unknown-role ones', async () => {
+    const rs = await a11yRequiredAriaProps.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ line: 3, role: { literal: 'checkbox' } }),
+            el({ line: 5 }),
+            el({ line: 7, role: { literal: 'bogus' } })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([3]);
+  });
+  it('emits nothing for a component whose only role is unknown', async () => {
+    const rs = await a11yRequiredAriaProps.check(ctx([comp({ ariaElements: [el({ role: { literal: 'bogus' } })] })]));
+    expect(rs).toEqual([]);
   });
 });
 
@@ -244,5 +322,57 @@ describe('a11y/invalid-aria-value', () => {
       ctx([comp({ ariaElements: [el({ aria: [{ name: 'aria-colcount', literal: 'many', line: 2 }] })] })])
     );
     expect(fails(rs)).toHaveLength(1);
+  });
+  it('judges each value type by its own grammar', async () => {
+    const values: [string, string, boolean][] = [
+      ['aria-hidden', 'false', true],
+      ['aria-checked', 'true', true],
+      ['aria-checked', 'false', true],
+      ['aria-checked', 'mixed', true],
+      ['aria-checked', 'maybe', false],
+      ['aria-level', '12', true],
+      ['aria-level', '-1', true],
+      ['aria-level', '2x', false],
+      ['aria-level', 'x2', false],
+      ['aria-valuenow', '5.5', true],
+      ['aria-valuenow', '  ', false],
+      ['aria-label', 'anything at all', true],
+      ['aria-relevant', 'additions bogus', false],
+      ['aria-live', 'loud', false]
+    ];
+    const rs = await a11yInvalidAriaValue.check(
+      ctx([
+        comp({
+          ariaElements: values.map(([name, literal], i) => el({ line: i + 1, aria: [{ name, literal, line: i + 1 }] }))
+        })
+      ])
+    );
+    const invalid = values.flatMap(([, , ok], i) => (ok ? [] : [i + 1]));
+    expect(fails(rs).map((r) => r.line)).toEqual(invalid);
+  });
+  it('emits nothing when every aria value is an expression', async () => {
+    const rs = await a11yInvalidAriaValue.check(
+      ctx([comp({ ariaElements: [el({ aria: [{ name: 'aria-hidden', expression: true, line: 3 }] })] })])
+    );
+    expect(rs).toEqual([]);
+  });
+  it('checks the literal values of a component that also binds some by expression', async () => {
+    const rs = await a11yInvalidAriaValue.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ line: 1, aria: [{ name: 'aria-modal', expression: true, line: 1 }] }),
+            el({
+              line: 2,
+              aria: [
+                { name: 'aria-hidden', literal: 'yes', line: 2 },
+                { name: 'aria-modal', expression: true, line: 2 }
+              ]
+            })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([2]);
   });
 });

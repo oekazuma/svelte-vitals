@@ -35,6 +35,15 @@ describe('a11y/abbr-title', () => {
     expect(await check('<abbr title>HTML</abbr>')).toHaveLength(1);
   });
 
+  it('flags a whitespace-only title and an <abbr> whose only attribute is not a title', async () => {
+    expect(await check('<abbr title="   ">HTML</abbr>')).toHaveLength(1);
+    expect(await check('<abbr class="x">HTML</abbr>')).toHaveLength(1);
+  });
+
+  it('ignores elements other than <abbr>', async () => {
+    expect(await check('<span>HTML</span>')).toEqual([]);
+  });
+
   it('passes a literal expansion and an expression title', async () => {
     expect(await check('<abbr title="HyperText Markup Language">HTML</abbr>')).toEqual([]);
     expect(await check('<abbr title={expansion}>HTML</abbr>')).toEqual([]);

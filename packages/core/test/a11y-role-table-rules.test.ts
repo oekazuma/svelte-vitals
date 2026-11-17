@@ -160,6 +160,13 @@ describe('a11y/disallowed-aria-props', () => {
     expect(await disallowed('<canvas aria-label="x"></canvas>')).toEqual([]);
   });
 
+  it('emits nothing for a component without aria-* attributes, and checks one that mixes both', async () => {
+    expect(await a11yDisallowedAriaProps.check(ctx('<div role="button">x</div>'))).toEqual([]);
+    expect(await disallowed('<div role="button">x</div>\n<div role="button" aria-checked="true">y</div>')).toEqual([
+      '`aria-checked` is not supported by role `button`'
+    ]);
+  });
+
   it('honours the two exemption lists', async () => {
     expect(await disallowed('<li aria-level="2">x</li>')).toEqual([]);
     expect(await disallowed('<div role="listbox" aria-expanded="true">x</div>')).toEqual([]);
@@ -240,6 +247,23 @@ describe('a11y/deprecated-aria', () => {
     ]);
     expect(await disallowed('<hgroup aria-level="2">x</hgroup>')).toEqual([
       '`aria-level` is not supported by role `group`'
+    ]);
+  });
+
+  it('reports a role deprecation only when every implicit candidate deprecates the attribute', async () => {
+    // <a> may be link or generic; aria-disabled is deprecated on generic only.
+    expect(await deprecated('<a aria-disabled="true">x</a>')).toEqual([]);
+  });
+
+  it('gives no judgment when an implicit candidate has no role, as for <section>', async () => {
+    expect(await deprecated('<section aria-checked="true">x</section>')).toEqual([]);
+    expect(await disallowed('<section aria-checked="true">x</section>')).toEqual([]);
+  });
+
+  it('emits nothing for a component without a literal role or aria-* attribute, and checks one that mixes both', async () => {
+    expect(await a11yDeprecatedAria.check(ctx('<div role={r}>x</div>'))).toEqual([]);
+    expect(await deprecated('<div role={r}>x</div>\n<ul role="directory"><li>x</li></ul>')).toEqual([
+      'role="directory" is deprecated'
     ]);
   });
 });

@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { docsUrlFor } from '../src/rule.js';
 import {
   seoJsonLdValidity,
   seoJsonLdDeprecatedType,
@@ -201,6 +202,77 @@ describe('seo/json-ld-validity: unknown @type vocabulary', () => {
       )
     );
     expect(rs).toHaveLength(1);
+  });
+});
+
+describe('seo/json-ld-validity — outcomes and gates', () => {
+  const doc = docsUrlFor('seo/json-ld-validity');
+  const withFile = (raw: string, file: string): ResolvedHead => {
+    const head = headWithJsonLd(raw);
+    return { ...head, tags: head.tags.map((t) => ({ ...t, file })) };
+  };
+  const run = (raw: string) => seoJsonLdValidity.check(ctx(headWithJsonLd(raw)));
+
+  it('says unparseable JSON is not valid JSON', async () => {
+    const [r] = await run('{bad');
+    expect(r!.message).toContain('not valid JSON');
+  });
+  it('reports every outcome under the rule id', async () => {
+    const results = [
+      ...(await run('{bad')),
+      ...(await run('{"@type":"WebPage"}')),
+      ...(await run('{"@context":"https://schema.org","@type":"WebPage"}')),
+      ...(await run('{"@context":"https://schema.org","@type":"Zebra123"}'))
+    ];
+    expect(results).toHaveLength(4);
+    for (const r of results) expect(r).toMatchObject({ id: 'seo/json-ld-validity', docsUrl: doc });
+  });
+  it('accepts a @graph document with @context on the container and @type on its members', async () => {
+    expect(fails(await run('{"@context":"https://schema.org","@graph":[{"@type":"Article"}]}'))).toEqual([]);
+  });
+  it('locates an unknown type at the JSON-LD tag’s own file', async () => {
+    const rs = fails(
+      await seoJsonLdValidity.check(
+        ctx(withFile('{"@context":"https://schema.org","@type":"Zebra123"}', 'src/lib/Seo.svelte'))
+      )
+    );
+    expect(rs[0]!.location).toBe('src/lib/Seo.svelte');
+  });
+  it('checks the vocabulary under an array context of schema.org strings', async () => {
+    expect(fails(await run('{"@context":["https://schema.org"],"@type":"Zebra123"}'))).toHaveLength(1);
+  });
+  it('exempts a document with a non-schema.org context nested in an entity', async () => {
+    const raw =
+      '{"@context":"https://schema.org","@type":"Zebra123","about":{"@context":"https://other.example/","@type":"Thing"}}';
+    expect(fails(await run(raw))).toEqual([]);
+  });
+  it('suggests a type for a typo two characters shorter than it', async () => {
+    const [r] = fails(await run('{"@context":"https://schema.org","@type":"Organizati"}'));
+    expect(r!.message).toContain("Did you mean 'Organization'?");
+  });
+});
+
+describe('JSON-LD rules — the shared engine', () => {
+  const clean = '{"@context":"https://schema.org","@type":"WebSite","name":"Acme","url":"https://acme.test"}';
+  it('emits a PASS, not a finding, for a document without the problem', async () => {
+    for (const rule of [seoJsonLdDeprecatedType, seoJsonLdPlaceholder, seoJsonLdRequiredProps]) {
+      const rs = await rule.check(ctx(headWithJsonLd(clean)));
+      expect(rs, rule.id).toHaveLength(1);
+      expect(fails(rs), rule.id).toEqual([]);
+    }
+  });
+  it('evaluates a @graph document, and skips one with no @type anywhere', async () => {
+    const graph = `{"@context":"https://schema.org","@graph":[${clean.replace('{"@context":"https://schema.org",', '{')}]}`;
+    expect(await seoJsonLdRequiredProps.check(ctx(headWithJsonLd(graph)))).toHaveLength(1);
+    const untyped = '{"@context":"https://schema.org","name":"Acme"}';
+    expect(await seoJsonLdPlaceholder.check(ctx(headWithJsonLd(untyped)))).toEqual([]);
+  });
+  it('locates a finding at the JSON-LD tag’s own file', async () => {
+    const head = headWithJsonLd('{"@context":"https://schema.org","@type":"WebSite"}');
+    const rs = await seoJsonLdRequiredProps.check(
+      ctx({ ...head, tags: head.tags.map((t) => ({ ...t, file: 'src/lib/Seo.svelte' })) })
+    );
+    expect(fails(rs)[0]!.location).toBe('src/lib/Seo.svelte');
   });
 });
 

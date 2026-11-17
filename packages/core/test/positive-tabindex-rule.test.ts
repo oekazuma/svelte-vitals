@@ -78,8 +78,13 @@ describe('a11y/positive-tabindex', () => {
     expect(quiet.penalized).toEqual([]);
   });
 
+  it('reads tabindex by name and flags only its carriers', async () => {
+    const { penalized } = await check('<div class="x" tabindex="1">a</div>\n<span>b</span>');
+    expect(penalized.map((r) => r.line)).toEqual([1]);
+  });
+
   it('emits nothing for a component without tabindex', async () => {
-    const { penalized, passed } = await check('<div>a</div>');
+    const { penalized, passed } = await check('<div class="a" data-n="2">a</div>\n<span>b</span>');
     expect(penalized).toEqual([]);
     expect(passed).toEqual([]);
   });

@@ -44,7 +44,7 @@ describe('architecture/doc-link-target', () => {
   it('is silent when the target is a directory, which is how every measured reference resolves', async () => {
     // `sourceFiles` lists files only, so a directory exists iff some entry sits under it.
     const rs = await architectureDocLinkTarget.check(
-      ctx([{ url: `${ROOT}src/lib/Card`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
+      ctx([{ url: `${ROOT}src/lib/Card`, line: 1 }], ['src/lib/A/A.svelte', 'src/lib/Card/Card.svelte'], [ROOT])
     );
     expect(fails(rs)).toEqual([]);
     expect(passes(rs)).toHaveLength(1);
@@ -139,6 +139,10 @@ describe('architecture/doc-link-target', () => {
       ctx([{ url: `${noSlash}Other/src/lib/Card`, line: 1 }], ['src/lib/Card/Card.svelte'], [noSlash])
     );
     expect(rs).toEqual([]);
+    const oneCharLonger = await architectureDocLinkTarget.check(
+      ctx([{ url: `${noSlash}Xsrc/lib/Gone`, line: 1 }], ['src/lib/Card/Card.svelte'], [noSlash])
+    );
+    expect(oneCharLonger).toEqual([]);
   });
 
   it('leaves a mailto: link silent for the reason it already is — no declared root matches', async () => {

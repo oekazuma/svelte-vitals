@@ -95,6 +95,11 @@ describe('a11y/no-autofocus', () => {
     expect(passed).toHaveLength(1);
   });
 
+  it('finds the popover attribute among the container’s other attributes', async () => {
+    const { penalized } = await check('<div class="menu" popover><input autofocus /></div>');
+    expect(penalized).toEqual([]);
+  });
+
   it('emits nothing for a component without autofocus', async () => {
     const { penalized, passed } = await check('<input />');
     expect(penalized).toEqual([]);

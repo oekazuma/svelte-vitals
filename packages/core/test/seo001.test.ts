@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { docsUrlFor } from '../src/rule.js';
 import { type Config } from '../src/index.js';
 import {
   seoTitlePresence,
@@ -60,6 +61,24 @@ describe('seo/title-presence title detection', () => {
     const [result] = await seoTitlePresence.check({ heads: [inheritedHead], project: defaultProject, config });
     expect(result!.detection).toEqual({ presence: 'inherited', value: 'static' });
     expect(classify(result!, config)).toBe('pass');
+  });
+
+  it('says Empty for an empty title and neither Missing nor Empty for a present one, under its rule id', async () => {
+    const emptyHead = head('/empty', 'src/routes/empty/+page.svelte', {
+      kind: 'title',
+      presence: 'own',
+      value: 'absent'
+    });
+    const [empty] = await seoTitlePresence.check({ heads: [emptyHead], project: defaultProject, config });
+    const [present] = await seoTitlePresence.check({ heads: [staticHead], project: defaultProject, config });
+    expect(empty!.message).toContain('Empty');
+    expect(present!.message).not.toMatch(/Missing|Empty/);
+    for (const r of [empty!, present!]) {
+      expect(r).toMatchObject({
+        id: 'seo/title-presence',
+        docsUrl: docsUrlFor('seo/title-presence')
+      });
+    }
   });
 });
 

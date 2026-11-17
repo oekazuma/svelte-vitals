@@ -200,6 +200,26 @@ describe('architecture/directory-naming — declarations that do not check what 
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain("'src/elsewhere/*'");
     expect(project(rs)[0]!.message).toContain("'src/nowhere/*'");
+    const msg = project(rs)[0]!.message;
+    expect(msg.indexOf("'src/elsewhere/*'")).toBeLessThan(msg.indexOf("'src/nowhere/*'"));
+  });
+
+  it('reports directories in path order whatever order the files arrive in', async () => {
+    const rs = await architectureDirectoryNaming.check(
+      ctx(['src/lib/Zeta/x.ts', 'src/lib/Alpha/y.ts'], { directories: { 'src/lib/*': 'camelCase' } })
+    );
+    expect(fails(rs).map((r) => r.route)).toEqual(['src/lib/Alpha', 'src/lib/Zeta']);
+  });
+
+  it('resolves each directory’s declaration through the overrides scoped to it', async () => {
+    const rs = await architectureDirectoryNaming.check(
+      ctx(['src/lib/Dialog/a.ts'], { directories: { 'src/lib/*': 'camelCase' } }, {
+        overrides: [
+          { files: 'src/lib/**', rules: { [ID]: { options: { directories: { 'src/lib/*': 'PascalCase' } } } } }
+        ]
+      } as never)
+    );
+    expect(fails(rs)).toEqual([]);
   });
 });
 
@@ -252,6 +272,7 @@ describe('architecture/directory-naming — the casing vocabulary', () => {
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain("'src/lib/api/*'");
     expect(project(rs)[0]!.message).toContain('checks nothing');
+    expect(project(rs)[0]!.message).toContain('names no casing at all');
     // Nothing is checked, so nothing is reported about a directory either.
     expect(fails(rs)).toEqual([]);
   });
@@ -329,6 +350,16 @@ describe('architecture/directory-naming — examined counts', () => {
       } as never)
     );
     expect(Object.hasOwn(examined, ID)).toBe(true);
+    expect(examined[ID]).toEqual({});
+  });
+
+  it('does not count a directory judged by a declaration that exists only in an overrides layer', async () => {
+    const { examined } = await runRules(
+      [architectureDirectoryNaming],
+      ctx(['src/lib/dialog/a.ts'], undefined, {
+        overrides: [{ files: 'src/**', rules: { [ID]: { options: { directories: { 'src/lib/*': 'camelCase' } } } } }]
+      } as never)
+    );
     expect(examined[ID]).toEqual({});
   });
 

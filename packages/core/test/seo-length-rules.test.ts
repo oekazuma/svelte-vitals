@@ -96,6 +96,23 @@ describe('seo length rule options', () => {
     expect(rs[0]!.message).toContain('10–20');
     expect(rs[0]!.recommendation).toContain('10–20');
   });
+  it('quotes the configured description bounds in the recommendation', async () => {
+    const cfg = { rules: { 'seo/description-length': { options: { min: 50, max: 90 } } } };
+    const rs = fails(await seoDescriptionLength.check(cfgCtx(desc('a'.repeat(100)), cfg)));
+    expect(rs[0]!.recommendation).toContain('50–90');
+  });
+  it('measures the tag the rule names, not an earlier tag of another kind', async () => {
+    const withRobotsFirst = (tag: Partial<HeadTag> & Pick<HeadTag, 'kind'>): ResolvedHead => ({
+      ...headWith(tag),
+      tags: [{ kind: 'meta', name: 'robots', presence: 'own', value: 'static' }, ...headWith(tag).tags]
+    });
+    expect(fails(await seoTitleLength.check(ctx(withRobotsFirst({ kind: 'title', text: 'Home' }))))).toHaveLength(1);
+    expect(
+      fails(
+        await seoDescriptionLength.check(ctx(withRobotsFirst({ kind: 'meta', name: 'description', text: 'Short' })))
+      )
+    ).toHaveLength(1);
+  });
   it('honours a per-route bound', async () => {
     const scoped = { overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 1, max: 5 } } } }] };
     expect(fails(await seoTitleLength.check(cfgCtx(title('a'.repeat(40)), scoped)))).toHaveLength(1);

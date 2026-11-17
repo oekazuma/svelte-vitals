@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { docsUrlFor } from '../src/rule.js';
 import { defineConfig } from '../src/index.js';
 import { seoRobotsTxt, seoSitemapXml, seoHtmlLang, defaultProject, type Project } from '../src/internal.js';
 
@@ -24,5 +25,30 @@ describe('project-scope rules', () => {
       ctx({ ...defaultProject, htmlLang: { presence: 'own', value: 'static' } })
     );
     expect(present!.detection).toEqual({ presence: 'own', value: 'static' });
+  });
+  it('each result carries its rule id and says which state it found', async () => {
+    const [noRobots] = await seoRobotsTxt.check(ctx(defaultProject));
+    const [robots] = await seoRobotsTxt.check(ctx({ ...defaultProject, hasRobotsTxt: true }));
+    expect(noRobots).toMatchObject({ id: 'seo/robots-txt', docsUrl: docsUrlFor('seo/robots-txt') });
+    expect(noRobots!.message).toContain('Missing');
+    expect(robots!.message).not.toContain('Missing');
+
+    const [noSitemap] = await seoSitemapXml.check(ctx(defaultProject));
+    const [sitemap] = await seoSitemapXml.check(ctx({ ...defaultProject, hasSitemap: true }));
+    expect(noSitemap).toMatchObject({
+      id: 'seo/sitemap-xml',
+      docsUrl: docsUrlFor('seo/sitemap-xml'),
+      detection: { presence: 'none', value: 'absent' }
+    });
+    expect(noSitemap!.message).toContain('Missing');
+    expect(sitemap!.message).not.toContain('Missing');
+
+    const lang = async (htmlLang: Project['htmlLang']) =>
+      (await seoHtmlLang.check(ctx({ ...defaultProject, htmlLang })))[0]!;
+    const missing = await lang({ presence: 'none', value: 'absent' });
+    expect(missing).toMatchObject({ id: 'seo/html-lang', docsUrl: docsUrlFor('seo/html-lang') });
+    expect(missing.message).toContain('Missing');
+    expect((await lang({ presence: 'own', value: 'absent' })).message).toContain('Empty');
+    expect((await lang({ presence: 'own', value: 'static' })).message).not.toMatch(/Missing|Empty/);
   });
 });

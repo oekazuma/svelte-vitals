@@ -56,6 +56,11 @@ describe('performance/iframe-loading', () => {
     expect(penalized.map((r) => r.line)).toEqual([1, 2]);
   });
 
+  it('flags only the iframe in a component with other unattributed-loading elements', async () => {
+    const { penalized } = await check('<img src="/a.jpg" alt="" />\n<iframe src="/x"></iframe>');
+    expect(penalized.map((r) => r.line)).toEqual([2]);
+  });
+
   it('emits nothing for a component without iframes', async () => {
     const { penalized, passed } = await check('<img src="/a.jpg" alt="" />');
     expect(penalized).toEqual([]);

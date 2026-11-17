@@ -4,6 +4,8 @@ import { applyOverrides } from '../src/config-apply.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import { emptyComponentFacts, type ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
+import { emptyKitModuleFacts } from '../src/kit-module-collect.js';
+import { allRules } from '../src/rules/index.js';
 
 const config = defineConfig({});
 const base = { heads: [], project: defaultProject, config };
@@ -107,4 +109,16 @@ describe("componentRule — a files:-scoped 'off' override also removes a PASS s
     expect(out).toHaveLength(1);
     expect(out[0]!.route).toBe('src/lib/Other.svelte');
   });
+});
+
+describe('file-scoped rules — a file without the rule’s signal', () => {
+  const kit = emptyKitModuleFacts('src/routes/+page.server.ts', 'server');
+  // component-size measures every component, so every file carries its signal.
+  const signalled = allRules.filter((r) => r.scope === 'component' && r.id !== 'architecture/component-size');
+  it.each(signalled.map((r) => [r.id, r] as const))(
+    '%s emits nothing for empty component and Kit-module facts',
+    async (_id, rule) => {
+      expect(await rule.check({ ...base, components: [comp({})], kitModules: [kit] })).toEqual([]);
+    }
+  );
 });
