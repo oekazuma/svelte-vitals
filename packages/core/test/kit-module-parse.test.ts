@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { parseKitModuleFacts, resolveRunesModuleSpecifier, resolveRepoLocalPath } from '../src/kit-module-parse.js';
+import {
+  parseKitModuleFacts,
+  parseClientExports,
+  resolveRunesModuleSpecifier,
+  resolveRepoLocalPath
+} from '../src/kit-module-parse.js';
 import type { KitAlias } from '../src/types.js';
 
 const facts = (src: string, file = 'src/routes/+page.server.ts') => parseKitModuleFacts(src, file);
@@ -1138,6 +1143,34 @@ describe('parseKitModuleFacts — loadGated (loads that send a request without a
     expect(gated(load('fail(401)'), kit('error as fail'))).toBe(true);
     expect(gated(load("error(302, '/login')"), kit('redirect as error'))).toBe(true);
   });
+  it('reads a string-keyed locals destructuring, an optional-chained read, error 403 and a block that exits after a log', () => {
+    const load = (params: string, body: string) => `export async function load(${params}) {\n${body}\n}`;
+    expect(gated(load("{ 'locals': l }", "  if (!l.user) redirect(302, '/login');"))).toBe(true);
+    expect(gated(load('{ locals }', "  if (!locals.session?.user) redirect(302, '/login');"))).toBe(true);
+    expect(gated(load('{ locals }', '  if (!locals.user) error(403);'))).toBe(true);
+    expect(
+      gated(load('{ locals }', "  if (!locals.user) {\n    console.log('anon');\n    redirect(302, '/login');\n  }"))
+    ).toBe(true);
+  });
+  it('is not set for reads of anything but locals, an && of reads, or a branch that does not exit with a redirect or 401/403', () => {
+    const load = (params: string, body: string) => `export async function load(${params}) {\n${body}\n}`;
+    const none = [
+      load('{ url, locals }', "  if (!url.username) redirect(302, '/login');"),
+      load('event', "  const other = getOther();\n  if (!other.locals.user) redirect(302, '/login');"),
+      load('event', '  if (!event) error(401);'),
+      load('event', '  if (!event.platform) error(401);'),
+      load('{ locals }', "  if (!locals.user && !locals.admin) redirect(302, '/login');"),
+      load('{ locals, url }', "  if (!url.searchParams || !locals.user) redirect(302, '/login');"),
+      load('{ locals }', "  if (!locals.user) throw new Error('no');"),
+      load('{ locals }', '  if (!locals.user) return { guest: true };'),
+      load('{ locals }', "  if (!locals.user) {\n    console.log('anon');\n  }"),
+      load('{ locals }', "  const x = 1;\n  if (!x) redirect(302, '/login');")
+    ];
+    for (const src of none) expect(gated(src), src).toBeUndefined();
+    expect(
+      gated(load('{ locals }', '  if (!locals.user) return fail(401);'), "import { redirect, error, fail } from '@sveltejs/kit';\n")
+    ).toBeUndefined();
+  });
   it('leaves the other facts intact when load reads its event directly', () => {
     const f = facts(
       'export function load(event) {\n  const e = event;\n  if (!e) return;\n}\nlet n = 0;\nexport function GET() {\n  n = 1;\n}'
@@ -1347,7 +1380,7 @@ describe('parseKitModuleFacts — pendingFlagGuard (a load guarded by an importe
     expect(guard("import * as flags from '$lib/flags';", '  if (!flags.BETA) error(404);')).toBeUndefined();
     expect(guard(named, "  if (!ENABLED) console.log('off');")).toBeUndefined();
     expect(guard(named, "  if (!ENABLED) { console.log('off'); }")).toBeUndefined();
-    expect(guard(named, "  if (!ENABLED) { if (Math.random() > 0.5) return {}; error(404); }")).toBeUndefined();
+    expect(guard(named, '  if (!ENABLED) { if (Math.random() > 0.5) return {}; error(404); }')).toBeUndefined();
     expect(guard(named, '  while (!ENABLED) await tick();')).toBeUndefined();
     expect(guard(named, '  if (Math.random() > 0.5) return {};\n  if (!ENABLED) error(404);')).toBeUndefined();
   });
@@ -1368,5 +1401,114 @@ describe('parseKitModuleFacts — pendingLoadFactory', () => {
       "export const load = makeLoad('/x');"
     ].join('\n');
     expect(facts(src).pendingLoadFactory).toEqual({ resolved: 'src/lib/load', name: 'makeLoad' });
+  });
+});
+
+describe('parseClientExports', () => {
+  it('names exports built from an installed package or a plain local class, and nothing else', () => {
+    const src = [
+      "import { PrismaClient } from '@prisma/client';",
+      "import { drizzle } from 'drizzle-orm/node-postgres';",
+      "import Redis from 'ioredis';",
+      "import { SvelteKitAuth } from '@auth/sveltekit';",
+      "import { writable } from 'svelte/store';",
+      "import { persisted } from 'svelte-persisted-store';",
+      "import { Local } from './local';",
+      "import { Aliased } from '$lib/aliased';",
+      "import { Scoped } from '@/scoped';",
+      "import { Tilde } from '~/tilde';",
+      "import { Hash } from '#hash';",
+      'class Plain {}',
+      'class Cached {',
+      '  cache = new Map();',
+      '}',
+      'class Built {',
+      '  constructor() {',
+      '    this.seen = new Set();',
+      '  }',
+      '}',
+      'class Busy {',
+      '  constructor() {',
+      '    this.n = 0;',
+      '    this.seen = new Set();',
+      '  }',
+      '}',
+      'class Conn {',
+      '  constructor() {',
+      "    this.url = 'x';",
+      '  }',
+      '}',
+      'class Lazy {',
+      '  reset() {',
+      '    this.cache = new Map();',
+      '  }',
+      '}',
+      'class Derived extends Plain {}',
+      'function Factory() {}',
+      'export { Cached as CachedStore };',
+      'export const prisma = new PrismaClient();',
+      'export const db = drizzle(process.env.DB);',
+      'export const redis = await new Redis();',
+      'export const auth = SvelteKitAuth({});',
+      'export const viaMember = Redis.createClient();',
+      'export const plain = new Plain();',
+      'export const cached = new Cached();',
+      'export const built = new Built();',
+      'export const busy = new Busy();',
+      'export const conn = new Conn();',
+      'export const lazy = new Lazy();',
+      'export const derived = new Derived();',
+      'export const made = new Factory();',
+      'export const store = writable(0);',
+      "export const saved = persisted('k', 0);",
+      'export const local = new Local();',
+      'export const aliased = new Aliased();',
+      'export const scoped = new Scoped();',
+      'export const tilde = new Tilde();',
+      'export const hash = new Hash();',
+      'export const { destructured } = new PrismaClient();'
+    ].join('\n');
+    expect([...parseClientExports(src, 'src/lib/server/db.ts')].sort()).toEqual([
+      'auth',
+      'conn',
+      'db',
+      'lazy',
+      'plain',
+      'prisma',
+      'redis',
+      'viaMember'
+    ]);
+  });
+});
+
+describe('parseKitModuleFacts — loadNeverRenders edges', () => {
+  const kit = "import { redirect } from '@sveltejs/kit';\nimport { building } from '$app/environment';\n";
+  const never = (body: string, before = '') =>
+    facts(`${kit}${before}export async function load() {\n${body}\n}`, 'src/routes/+page.server.ts');
+
+  it('reads an if/else whose braced branches both redirect', () => {
+    expect(
+      never("  if (Math.random() > 0.5) {\n    redirect(307, '/a');\n  } else {\n    redirect(307, '/b');\n  }")
+        .loadNeverRenders
+    ).toBe(true);
+  });
+
+  it('does not take a returned catch parameter or a thrown unawaited async helper for a redirect', () => {
+    expect(
+      never("  try {\n    redirect(307, '/a');\n  } catch (e) {\n    return e;\n  }").loadNeverRenders
+    ).toBeUndefined();
+    expect(
+      never('  throw go();', "async function go() {\n  redirect(307, '/a');\n}\n").loadNeverRenders
+    ).toBeUndefined();
+  });
+
+  it('takes a class the body declares under the import name for a different binding', () => {
+    expect(never("  class redirect {}\n  redirect(307, '/a');").loadNeverRenders).toBeUndefined();
+  });
+
+  it('reads only an if on building as not taken, not a loop', () => {
+    const f = never("  while (building) return {};\n  redirect(307, '/a');");
+    expect(f.loadNeverRenders).toBeUndefined();
+    expect(f.loadNeverRendersOutsideBuild).toBeUndefined();
   });
 });
