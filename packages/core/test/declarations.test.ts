@@ -27,6 +27,7 @@ describe('ancestorDirs', () => {
 describe('baseName', () => {
   it('returns the last segment', () => {
     expect(baseName('src/lib/Card')).toBe('Card');
+    expect(baseName('a/b')).toBe('b');
   });
 
   it('returns the whole string when there is no separator', () => {
@@ -236,6 +237,16 @@ describe('moreSpecificGlob', () => {
     // This is the property the rule's cross-map tie-break relies on: identical globs are the only
     // pair the four steps cannot separate, so the caller decides.
     expect(moreSpecificGlob('src/lib/Card', 'src/lib/Card')).toBe(false);
+  });
+
+  it('ranks by segment count before `**` count', () => {
+    expect(moreSpecificGlob('src/**/x/y', 'src/lib/y')).toBe(true);
+    expect(moreSpecificGlob('src/lib/y', 'src/**/x/y')).toBe(false);
+  });
+
+  it('prefers the longer key when segments and `**` counts tie', () => {
+    expect(moreSpecificGlob('src/lib/abc', 'src/lib/a*')).toBe(true);
+    expect(moreSpecificGlob('src/lib/a*', 'src/lib/abc')).toBe(false);
   });
 });
 

@@ -41,6 +41,12 @@ describe('architecture/route-component-import — the mechanism', () => {
     }
   });
 
+  it('ignores a component under the routes directory whose name only contains an entry name', async () => {
+    for (const name of ['Helper.svelte', 'Foo+page.svelte', '+page.svelte.bak']) {
+      expect(fails(await run([{ source: `../routes/a/${name}`, line: 1 }])), name).toEqual([]);
+    }
+  });
+
   it('ignores a route-entry name outside the routes directory', async () => {
     // Kit gives these names meaning only under src/routes.
     expect(fails(await run([{ source: '../widgets/+page.svelte', line: 1 }]))).toEqual([]);

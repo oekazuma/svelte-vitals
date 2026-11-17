@@ -252,6 +252,16 @@ describe('architecture/reserved-name-placement', () => {
     for (const name of ['e2e', 'stores', 'types']) expect(notes[0]?.message).toContain(name);
   });
 
+  it('lists the bad declarations sorted, whatever order they were declared in', async () => {
+    const results = await run(['src/routes/about/e2e/a.ts'], {
+      placements: { types: '|', stores: 'src/nowhere/**', e2e: '|' }
+    });
+    const message = projectScoped(results)[0]!.message;
+    const at = (name: string) => message.indexOf(name);
+    expect(at('e2e')).toBeLessThan(at('stores'));
+    expect(at('stores')).toBeLessThan(at('types'));
+  });
+
   // Testing item 10
   it('classifies a dead glob per alternative, not per name', async () => {
     const results = await run(['src/routes/about/e2e/a.ts'], {
@@ -276,6 +286,10 @@ describe('architecture/reserved-name-placement', () => {
     expect(notes).toHaveLength(1);
     expect(notes[0]?.message).toContain('reaches no unit');
     expect(notes[0]?.message).not.toContain('matched directories but never a unit');
+    const anyCase = await run(['src/lib/features/checkout/parts/a.svelte', 'src/lib/features/checkout/x.ts'], {
+      anyCaseUnitPlacements: { parts: 'src/lib/features/*' }
+    });
+    expect(projectScoped(anyCase)[0]?.message).toContain('reaches no unit');
   });
 
   it('classifies an alternative whose every match was excluded as excluded, not as unmatched', async () => {

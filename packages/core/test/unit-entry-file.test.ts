@@ -85,6 +85,19 @@ describe('architecture/unit-entry-file — pascalCaseUnits', () => {
     expect(inert[0]!.message).toContain('src/**');
   });
 
+  it('takes A and Z as the PascalCase bounds, and not a digit-led name', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/A/A.svelte', 'src/lib/Z/Z.svelte', 'src/lib/1Card/x.svelte'], PASCAL)
+    );
+    expect(fails(rs).filter((r) => r.route !== undefined)).toEqual([]);
+    expect(passes(rs).map((r) => r.location)).toEqual(['src/lib/A/A.svelte', 'src/lib/Z/Z.svelte']);
+  });
+
+  it('reports directories in path order whatever order the files arrive in', async () => {
+    const rs = await architectureUnitEntryFile.check(ctx(['src/lib/Zeta/x.svelte', 'src/lib/Alpha/y.svelte'], PASCAL));
+    expect(fails(rs).map((r) => r.route)).toEqual(['src/lib/Alpha', 'src/lib/Zeta']);
+  });
+
   it('checks a directory whose only children are directories', async () => {
     // src/lib/Card holds only parts/, so a "parents of files" derivation would miss it.
     const rs = await architectureUnitEntryFile.check(ctx(['src/lib/Card/parts/x.svelte'], PASCAL));
@@ -334,6 +347,7 @@ describe('architecture/unit-entry-file — inert declarations', () => {
     expect(inert).toHaveLength(1);
     expect(inert[0]!.message).toContain('src/elsewhere/*');
     expect(inert[0]!.message).toContain('src/nowhere/*');
+    expect(inert[0]!.message.indexOf('src/elsewhere/*')).toBeLessThan(inert[0]!.message.indexOf('src/nowhere/*'));
   });
 
   it('does not check inertness for a key declared only in an overrides entry', async () => {

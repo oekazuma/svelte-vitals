@@ -78,6 +78,12 @@ describe('decodeSegment', () => {
     expect(decodeSegment('[foo]-[bar]')).toBeUndefined();
     expect(decodeSegment('x[y]z')).toBeUndefined();
     expect(decodeSegment('[]')).toBeUndefined();
+    expect(decodeSegment('[...]')).toBeUndefined();
+  });
+
+  it('unwraps only a segment wrapped at both ends', () => {
+    for (const half of ['ab)', '(ab', 'abc]]', '[[abc', 'ab]', '[ab'])
+      expect(decodeSegment(half), half).toBeUndefined();
     expect(decodeSegment('()')).toBeUndefined();
   });
 });

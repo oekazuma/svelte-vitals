@@ -48,6 +48,13 @@ describe('isUnitDir', () => {
 
   it('is false for a directory whose name does not begin A-Z', () => {
     expect(isUnitDir('src/lib/card', filesIn(['src/lib/card/card.ts']))).toBe(false);
+    expect(isUnitDir('src/lib/1x', filesIn(['src/lib/1x/1x.ts']))).toBe(false);
+  });
+
+  it('takes A and Z as the letter bounds, and counts a one-letter or extensionless entry file', () => {
+    expect(isUnitDir('src/lib/A', filesIn(['src/lib/A/A.svelte']))).toBe(true);
+    expect(isUnitDir('src/lib/Z', filesIn(['src/lib/Z/Z.svelte']))).toBe(true);
+    expect(isUnitDir('src/lib/Card', filesIn(['src/lib/Card/Card']))).toBe(true);
   });
 
   it('is false for a dotted directory name, because only the filename is cut', () => {
@@ -337,6 +344,7 @@ describe('architecture/reserved-directory-names — declarations that check noth
     );
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain('never a unit');
+    expect(project(rs)[0]!.message).not.toContain('either case');
   });
 
   it('does not report a unitScopes key that governed a unit whose children all conform', async () => {
@@ -374,7 +382,7 @@ describe('architecture/reserved-directory-names — declarations that check noth
       ctx(['src/lib/Card/Card.svelte'], { scopes: { 'src/lib/*': 'parts' }, unitScopes: { 'src/lib/*': 'parts' } })
     );
     expect(project(rs)).toHaveLength(1);
-    expect(project(rs)[0]!.message).toContain('declared in both');
+    expect(project(rs)[0]!.message).toContain('declared in both scopes and unitScopes');
   });
 
   it('reports the same glob when the collision is assembled across config layers', async () => {
@@ -748,5 +756,91 @@ describe('architecture/reserved-directory-names — examined counts', () => {
       recordExamined
     });
     expect(seen).toEqual([]);
+  });
+});
+
+describe('architecture/reserved-directory-names — collisions, empty values and ordering', () => {
+  const run = (files: string[], options: Record<string, unknown>, extra: Partial<Config> = {}) =>
+    architectureReservedDirectoryNames.check(ctx(files, options, extra));
+
+  it('names all three maps when one glob is declared in each', async () => {
+    const glob = { 'src/lib/*': 'parts' };
+    const rs = await run(['src/lib/Card/Card.svelte'], { scopes: glob, unitScopes: glob, anyCaseUnitScopes: glob });
+    expect(project(rs)[0]!.message).toContain('declared in scopes, unitScopes, anyCaseUnitScopes');
+    expect(project(rs)[0]!.message).toContain('wherever they apply');
+  });
+
+  it('reports the empty value, not the collision, when the anyCaseUnitScopes side names nothing', async () => {
+    const rs = await run(['src/lib/formatDate/formatDate.ts'], {
+      scopes: { 'src/lib/*': 'parts' },
+      anyCaseUnitScopes: { 'src/lib/*': '|' }
+    });
+    expect(project(rs)[0]!.message).toContain('names no directory name at all');
+    expect(project(rs)[0]!.message).not.toContain('declared in');
+  });
+
+  it('keeps the collision note when a third map holds the same glob with an empty value', async () => {
+    const rs = await run(['src/lib/Card/Card.svelte'], {
+      scopes: { 'src/lib/*': 'parts' },
+      unitScopes: { 'src/lib/*': 'parts' },
+      anyCaseUnitScopes: { 'src/lib/*': '|' }
+    });
+    expect(project(rs)[0]!.message).toContain('declared in both scopes and unitScopes');
+  });
+
+  it('reports a collision even when the tree has no directory at all', async () => {
+    const glob = { 'src/lib/*': 'parts' };
+    const rs = await run([], { scopes: glob, unitScopes: glob });
+    expect(project(rs)[0]!.message).toContain('declared in both');
+  });
+
+  it('lets an empty unit-map value govern nothing, at a unit of either kind', async () => {
+    const pascal = await run(['src/lib/Card/Card.svelte', 'src/lib/Card/other/x.ts'], {
+      unitScopes: { 'src/lib/*': '|' }
+    });
+    expect(fails(pascal)).toEqual([]);
+    const lower = await run(['src/lib/formatDate/formatDate.ts', 'src/lib/formatDate/other/x.ts'], {
+      anyCaseUnitScopes: { 'src/lib/*': '|' }
+    });
+    expect(fails(lower)).toEqual([]);
+  });
+
+  it('does not let a unit-map key ending in /** govern its own bare prefix', async () => {
+    const pascal = await run(['src/lib/Card/Card.svelte', 'src/lib/Card/other/x.ts'], {
+      unitScopes: { 'src/lib/Card/**': 'parts' }
+    });
+    expect(fails(pascal)).toEqual([]);
+    const lower = await run(['src/lib/formatDate/formatDate.ts', 'src/lib/formatDate/other/x.ts'], {
+      anyCaseUnitScopes: { 'src/lib/formatDate/**': 'parts' }
+    });
+    expect(fails(lower)).toEqual([]);
+  });
+
+  it('honours an exclude that an overrides entry scopes to the child alone', async () => {
+    const rs = await run(['src/lib/legacy/x.ts'], { scopes: { 'src/lib': 'parts' } }, {
+      overrides: [{ files: 'src/lib/legacy/**', rules: { [ID]: { options: { exclude: ['src/lib/legacy'] } } } }]
+    } as never);
+    expect(fails(rs)).toEqual([]);
+  });
+
+  it('reports directories in path order whatever order the files arrive in', async () => {
+    const rs = await run(['src/b/x/1.ts', 'src/a/y/2.ts'], { scopes: { 'src/*': 'parts' } });
+    expect(fails(rs).map((r) => r.route)).toEqual(['src/a/y', 'src/b/x']);
+  });
+
+  it('lists the noted declarations sorted, whatever order they were declared in', async () => {
+    const rs = await run(['src/lib/Card/Card.svelte'], { unitScopes: { 'src/z/*': 'parts', 'src/a/*': 'parts' } });
+    const message = project(rs)[0]!.message;
+    expect(message.indexOf("'src/a/*'")).toBeLessThan(message.indexOf("'src/z/*'"));
+  });
+
+  it('does not count a directory judged by a declaration that exists only in an overrides layer', async () => {
+    const { examined } = await runRules(
+      [architectureReservedDirectoryNames],
+      ctx(['src/lib/x/a.ts'], undefined, {
+        overrides: [{ files: 'src/**', rules: { [ID]: { options: { scopes: { 'src/lib': 'parts' } } } } }]
+      } as never)
+    );
+    expect(examined[ID]).toEqual({});
   });
 });
