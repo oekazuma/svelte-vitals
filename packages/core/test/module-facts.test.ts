@@ -72,6 +72,17 @@ describe('runes module facts', () => {
     ]);
   });
 
+  it('takes no class expression for a same-file class, so an imported namesake is not one', () => {
+    const src = [
+      "import { Counter } from './base.svelte.js';",
+      'export const shared = new Counter();',
+      'export default (class Counter {',
+      '  count = $state(0);',
+      '});'
+    ].join('\n');
+    expect(moduleFacts(src).moduleStateDecls).toEqual([]);
+  });
+
   it('records module $state and instances of classes with a $state field, in line order', () => {
     const src = [
       'class Store {',

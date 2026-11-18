@@ -6,7 +6,7 @@ const constable = (script: string) => facts(script).constableStates.map((s) => s
 const rawable = (script: string) => facts(script).rawableStates.map((s) => s.name);
 
 describe('state writes', () => {
-  it('keeps a $state that is only read, called or touched through a shadowing binding', () => {
+  it('keeps a $state that is only read, called, touched through a shadowing binding, or written through a reassigned local', () => {
     const script = [
       'let shown = $state({ flag: true });',
       'const neg = !shown.flag;',
@@ -31,7 +31,7 @@ describe('state writes', () => {
       'for (const key in rows) console.log(key.toUpperCase());',
       'let hours = $state([{ n: 0 }]);',
       'let h = hours[0];',
-      'h++;',
+      'h = hours[1];',
       'h.n = 1;'
     ].join('\n');
     expect(constable(script)).toEqual(['shown', 'fn', 'hidden', 'list', 'rows', 'hours']);
@@ -62,6 +62,18 @@ describe('state writes', () => {
       '}'
     ].join('\n');
     expect(constable(script)).toEqual([]);
+  });
+
+  it('takes a reassigned parameter for itself, not for the top-level $state of that name', () => {
+    const script = [
+      "let value = $state('');",
+      'function createField(value) {',
+      '  value = value.trim();',
+      '  let current = $state(value);',
+      '  return () => current;',
+      '}'
+    ].join('\n');
+    expect(constable(script)).toEqual(['value', 'current']);
   });
 
   it('reads past a bare return, and through a for…of item in a template handler', () => {

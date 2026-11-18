@@ -44,8 +44,11 @@ describe('stale prop derivations', () => {
 });
 
 describe('assign-only effects', () => {
-  it('does not take an empty effect body as assign-only', () => {
+  it('does not take an empty effect body, or one whose computed key reads its target, as assign-only', () => {
     const src = '<script>\n  let n = $state(0);\n  $effect(() => {});\n  $effect(() => {\n    n = 1;\n  });\n</script>';
     expect(facts(src).effects.map((e) => e.assignsOnlyState)).toEqual([false, true]);
+    const keyed =
+      "<script>\n  let name = $state('a');\n  let label = $state('');\n  $effect(() => {\n    label = { [label]: name };\n  });\n</script>";
+    expect(facts(keyed).effects.map((e) => e.assignsOnlyState)).toEqual([false]);
   });
 });

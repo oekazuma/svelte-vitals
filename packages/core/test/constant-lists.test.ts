@@ -109,7 +109,7 @@ describe('collectComponentConstantLists', () => {
 });
 
 describe('collectConstantListExports', () => {
-  it('names the exports only read in their module, through aliases and outside calls', () => {
+  it('names the exports used only in the recognised read forms, through const aliases and outside calls', () => {
     const src = [
       "import { custom } from './c';",
       "export const DAYS = ['mon'];",

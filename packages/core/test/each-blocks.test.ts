@@ -5,12 +5,13 @@ const facts = (markup: string) => parseComponentFacts(markup, 'src/lib/C.svelte'
 const eachLines = (blocks: string[]) => facts(blocks.join('\n')).eachBlocks.map((b) => b.line);
 
 describe('identity-free each blocks', () => {
-  it('skips only lists built from a length', () => {
+  it('skips lists built from a length and blocks with no item, and nothing else', () => {
     const skipped = [
       '{#each Array(n) as _}x{/each}',
       '{#each Array.from({ length: n, x: 1 }) as _}x{/each}',
       "{#each { 'length': 8 } as _}x{/each}",
-      '{#each [a].fill(0) as _}x{/each}'
+      '{#each [a].fill(0) as _}x{/each}',
+      '{#each items}x{/each}'
     ];
     const kept = [
       '{#each Foo(n) as _}x{/each}',
@@ -21,10 +22,9 @@ describe('identity-free each blocks', () => {
       '{#each { [length]: 8 } as _}x{/each}',
       '{#each [...items, x].fill(0) as _}x{/each}',
       '{#each [...Array(3), ...items] as _}x{/each}',
-      '{#each getItems() as x}x{/each}',
-      '{#each items}x{/each}'
+      '{#each getItems() as x}x{/each}'
     ];
-    expect(eachLines([...skipped, ...kept])).toEqual([5, 6, 7, 8, 9, 10, 11, 12, 13]);
+    expect(eachLines([...skipped, ...kept])).toEqual([6, 7, 8, 9, 10, 11, 12, 13, 14]);
   });
 });
 

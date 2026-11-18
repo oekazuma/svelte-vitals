@@ -21,6 +21,10 @@ describe('ARIA elements', () => {
     ]);
   });
 
+  it('takes no class directive for an ARIA attribute', () => {
+    expect(facts('<div class:aria-current={current}>x</div>').ariaElements).toEqual([]);
+  });
+
   it('gives direct children of a dnd zone an action, and not children past a component or special element', () => {
     const src = [
       '<div use:dndzone={{ items }} class="z">',
@@ -64,10 +68,12 @@ describe('element chain', () => {
   });
 
   it('marks only an element below a parent as reached through a block, and gives attributes their own line', () => {
-    const els = facts('{#if x}<div></div>{/if}\n<p\n  title="t"></p>').elements!;
+    const els = facts('{#if x}<div></div>{/if}\n<p\n  title="t"></p>\n<ul>{#if x}<li></li>{/if}</ul>').elements!;
     expect(els.map((e) => [e.tag, e.viaBlock, e.attrs.map((a) => a.line)])).toEqual([
       ['div', undefined, []],
-      ['p', undefined, [3]]
+      ['p', undefined, [3]],
+      ['ul', undefined, []],
+      ['li', true, []]
     ]);
   });
 });

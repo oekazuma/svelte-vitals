@@ -53,7 +53,7 @@ describe('parseComponentFacts wiring', () => {
     ]);
   });
 
-  it('takes a $state placed in a template array as handed on, and names no destructured $state', () => {
+  it('takes a $state named anywhere in a component prop as handed on, and names no destructured $state', () => {
     expect(facts('<script>\n  let list = $state([]);\n</script>\n<Child items={[list]} />').constableStates).toEqual(
       []
     );

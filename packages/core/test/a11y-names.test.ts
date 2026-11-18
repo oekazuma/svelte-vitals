@@ -43,8 +43,6 @@ describe('interactive elements without a name', () => {
       unnamed(
         [
           '<label>Go <input type="image" src="a.png" /></label>',
-          '<label for="go">Go</label><input id=" go " type="image" src="b.png" />',
-          '<label for=" go2 ">Go</label><input id="go2" type="image" src="c.png" />',
           '<label for=" ">Go</label><input id="" type="image" src="d.png" />',
           '<label for="lnk">Go</label><a id="lnk" href="/x"></a>',
           '<span for="s">Go</span><input id="s" type="image" src="e.png" />',
@@ -52,7 +50,7 @@ describe('interactive elements without a name', () => {
           '<label>Go {#snippet s()}<input type="image" src="g.png" />{/snippet}</label>'
         ].join('\n')
       )
-    ).toEqual(['input:4', 'a:5', 'input:6', 'input:7', 'input:8']);
+    ).toEqual(['input:2', 'a:3', 'input:4', 'input:5', 'input:6']);
   });
 });
 

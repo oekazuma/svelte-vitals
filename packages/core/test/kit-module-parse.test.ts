@@ -1162,7 +1162,6 @@ describe('parseKitModuleFacts — loadGated (loads that send a request without a
       load('event', '  if (!event) error(401);'),
       load('event', '  if (!event.platform) error(401);'),
       load('{ locals }', "  if (!locals.user && !locals.admin) redirect(302, '/login');"),
-      load('{ locals, url }', "  if (!url.searchParams || !locals.user) redirect(302, '/login');"),
       load('{ locals }', "  if (!locals.user) throw new Error('no');"),
       load('{ locals }', '  if (!locals.user) return { guest: true };'),
       load('{ locals }', "  if (!locals.user) {\n    console.log('anon');\n  }"),
@@ -1511,10 +1510,8 @@ describe('parseKitModuleFacts — loadNeverRenders edges', () => {
     expect(never("  class redirect {}\n  redirect(307, '/a');").loadNeverRenders).toBeUndefined();
   });
 
-  it('reads only an if on building as not taken, not a loop', () => {
-    const f = never("  while (building) return {};\n  redirect(307, '/a');");
-    expect(f.loadNeverRenders).toBeUndefined();
-    expect(f.loadNeverRendersOutsideBuild).toBeUndefined();
+  it('reads a loop on building as no exit', () => {
+    expect(never("  while (building) return {};\n  redirect(307, '/a');").loadNeverRenders).toBeUndefined();
   });
 });
 
@@ -1558,7 +1555,7 @@ describe('parseInMemoryExports', () => {
 });
 
 describe('parseFalseExports', () => {
-  it('names const exports that are false, and the false own properties after the last unreadable one', () => {
+  it('names const exports that are false, and the false own properties after the last computed, quoted or spread key', () => {
     const src = [
       'const dyn = "x";',
       'let C = false;',

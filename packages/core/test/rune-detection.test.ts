@@ -6,7 +6,7 @@ const facts = (script: string[], lang = '') =>
 const constable = (script: string[], lang = '') => facts(script, lang).constableStates.map((s) => s.name);
 
 describe('rune detection', () => {
-  it('lets a function return a $state holding a primitive without handing it on', () => {
+  it('lets a function return a $state holding a primitive literal without handing it on', () => {
     const states: [string, string][] = [
       ['n', '0'],
       ['absent', ''],
@@ -47,11 +47,12 @@ describe('rune detection', () => {
     const mutated = (script: string[]) => facts(script).mutatedProps.map((m) => m.name);
     expect(
       mutated([
-        'let { items = [], made = make(), loaded } = $props();',
+        'let { items = [], made = make(), loaded, bound = $bindable([]) } = $props();',
         'let { a } = load();',
         'items.push(1);',
         'made.push(1);',
         'loaded.push(1);',
+        'bound.push(1);',
         'a.push(1);'
       ])
     ).toEqual(['items', 'made', 'loaded']);
@@ -62,7 +63,7 @@ describe('rune detection', () => {
     ]);
   });
 
-  it('holds a $state as an object only for an object value or object type', () => {
+  it('holds a $state as an object only when its initial value can be one: not for a missing value or an && guard', () => {
     expect(
       constable(
         [
