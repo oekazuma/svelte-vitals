@@ -101,6 +101,26 @@ describe('agent report', () => {
     expect(formatAgentReport([...results].reverse(), config)).toBe(formatAgentReport(results, config));
   });
 
+  it('orders findings of one file and severity by rule id, whatever the input order', () => {
+    const f = (id: string): Result => ({
+      id,
+      severity: 'info',
+      detection: absent,
+      message: id,
+      route: '/a',
+      location: 'src/routes/a/+page.svelte'
+    });
+    const order = (rs: Result[]) =>
+      formatAgentReport(rs, config)
+        .split('\n')
+        .filter((l) => l.startsWith('### '))
+        .map((l) => l.split(' ')[1]);
+    expect([order([f('seo/b'), f('seo/a')]), order([f('seo/a'), f('seo/b')])]).toEqual([
+      ['seo/a', 'seo/b'],
+      ['seo/a', 'seo/b']
+    ]);
+  });
+
   it('says there is nothing to fix', () => {
     expect(formatAgentReport([], config)).toBe(
       ['# svelte-vitals — fixes', '', 'Health: 100/100', '', 'No issues to fix.', ''].join('\n')

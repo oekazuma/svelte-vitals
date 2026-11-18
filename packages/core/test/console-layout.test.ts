@@ -128,7 +128,12 @@ describe('console report layout', () => {
 
   it('lists every route under verbose', () => {
     const out = formatConsoleReport([...core, ...routes.map(pass)], config, { byRoute: true, verbose: true });
-    expect([out.split('\n').some((l) => l.startsWith('/r10 ')), out.includes('more route')]).toEqual([true, false]);
+    const listed = out
+      .split('\n')
+      .filter((l) => /^\/r\d\d /.test(l))
+      .map((l) => l.split(' ')[0])
+      .sort();
+    expect([listed, out.includes('more route')]).toEqual([routes, false]);
   });
 
   it('counts hidden routes and rules only past the cap', () => {
