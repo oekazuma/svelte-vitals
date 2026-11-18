@@ -599,7 +599,7 @@ describe('collectLoadWaterfalls — taint through containers, regions and anchor
     expect(wf(src)).toEqual({ dependentLines: [11, 12], independentLines: [] });
   });
 
-  it('anchors a statement with several awaits at its first one', () => {
+  it('anchors a statement with several awaits at its first eligible one', () => {
     const src = [
       'export async function load() {',
       '  const user = await getUser();',
@@ -614,6 +614,17 @@ describe('collectLoadWaterfalls — taint through containers, regions and anchor
       '}'
     ].join('\n');
     expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [8] });
+    const started = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const p = getP();',
+      '  const pair = [',
+      '    await p,',
+      '    await getD()',
+      '  ];',
+      '}'
+    ].join('\n');
+    expect(wf(started)).toEqual({ dependentLines: [], independentLines: [6] });
   });
 });
 

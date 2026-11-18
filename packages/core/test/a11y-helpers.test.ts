@@ -6,6 +6,8 @@ describe('foldOccurrences — arm choice', () => {
     const n = (id: string, branch: number) => ({ id, key: 'h1', path: [{ group: 0, branch }], repeatable: false });
     const folded = foldOccurrences([n('b1a', 1), n('b1b', 1), n('b2a', 2), n('b2b', 2), n('b0a', 0)]);
     expect(folded.get('h1')!.map((o) => o.id)).toEqual(['b1a', 'b1b']);
+    const reordered = foldOccurrences([n('b2a', 2), n('b2b', 2), n('b1a', 1), n('b1b', 1), n('b0a', 0)]);
+    expect(reordered.get('h1')!.map((o) => o.id)).toEqual(['b1a', 'b1b']);
   });
 });
 

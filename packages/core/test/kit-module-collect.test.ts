@@ -480,13 +480,14 @@ describe('collectKitModuleFacts — module lookup and write arbitration edges', 
         "import * as clients from '$lib/clients';",
         "import { cache } from '$lib/cache';",
         'export async function POST() {',
-        '  clients.a.set(1); clients.b.set(2);',
+        '  clients.a.set(1); clients.b.set(2); cache.set(5);',
         '  clients.a.count = 1; clients.a.set(3);',
         '  cache.set(4);',
         '}'
       ].join('\n')
     };
     expect(await writesOf(files)).toEqual([
+      { name: 'cache', line: 4, via: 'set-call' },
       { name: 'clients', line: 5, via: 'assignment' },
       { name: 'cache', line: 6, via: 'set-call' }
     ]);

@@ -144,6 +144,18 @@ describe('heading order and exclusivity', () => {
         ])
       )
     ).toBe(true);
+    expect(
+      exclusiveHeadings(
+        h([
+          { group: 0, branch: 0 },
+          { group: 1, branch: 0 }
+        ]),
+        h([
+          { group: 0, branch: 0 },
+          { group: 1, branch: 1 }
+        ])
+      )
+    ).toBe(true);
   });
 });
 

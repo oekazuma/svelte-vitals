@@ -79,5 +79,8 @@ describe('rune detection', () => {
 
   it('takes only a $state() call as a state-raw candidate', () => {
     expect(facts(['let r = make([]);', 'r = [1];']).rawableStates).toEqual([]);
+    expect(
+      facts(['let a = $state([]);', 'a = [1];', 'let b = $state.raw([]);', 'b = [1];']).rawableStates.map((s) => s.name)
+    ).toEqual(['a']);
   });
 });

@@ -56,10 +56,11 @@ describe('element chain', () => {
       { tag: 'foo', parent: 0 },
       { tag: 'li' }
     ]);
-    expect(chain('<ul>{#snippet s()}<li></li>{/snippet}</ul><ol><Foo /></ol>')).toEqual([
+    expect(chain('<ul>{#snippet s()}<li></li>{/snippet}</ul><ol><Foo><li></li></Foo></ol>')).toEqual([
       { tag: 'ul' },
       { tag: 'li' },
-      { tag: 'ol', unknownContent: true }
+      { tag: 'ol', unknownContent: true },
+      { tag: 'li' }
     ]);
   });
 
@@ -84,12 +85,15 @@ describe('interactive nesting', () => {
       '<button role="tab"><a href="/x">x</a></button>',
       '<a href="/y" role="button"><button>y</button></a>',
       '<Foo role="button"><a href="/z">z</a></Foo>',
-      '{#snippet s()}<button><a href="/w">w</a></button>{/snippet}'
+      '{#snippet s()}<button><a href="/w">w</a></button>{/snippet}',
+      '<div role="button"><a href="/v">v</a></div>',
+      '<button>{#snippet t()}<a href="/u">u</a>{/snippet}</button>'
     ].join('\n');
     expect(facts(src).interactiveNestings).toEqual([
       { containerTag: 'button', descendantTag: 'a', line: 1 },
       { containerTag: 'a', descendantTag: 'button', line: 2 },
-      { containerTag: 'button', descendantTag: 'a', line: 4 }
+      { containerTag: 'button', descendantTag: 'a', line: 4 },
+      { containerTag: 'div', containerRole: 'button', descendantTag: 'a', line: 5 }
     ]);
   });
 });

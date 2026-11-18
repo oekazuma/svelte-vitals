@@ -31,7 +31,7 @@ describe('state writes', () => {
       'for (const key in rows) console.log(key.toUpperCase());',
       'let hours = $state([{ n: 0 }]);',
       'let h = hours[0];',
-      'h = hours[1];',
+      'h = { n: 0 };',
       'h.n = 1;'
     ].join('\n');
     expect(constable(script)).toEqual(['shown', 'fn', 'hidden', 'list', 'rows', 'hours']);

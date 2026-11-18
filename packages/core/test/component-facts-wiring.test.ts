@@ -41,8 +41,9 @@ describe('parseComponentFacts wiring', () => {
     const src = [
       '<script>',
       '  let count = $state(0);',
+      '  let source = $state(1);',
       '  $effect(function () {',
-      '    count = 1;',
+      '    count = source;',
       '  });',
       '  $effect(handler);',
       '</script>'

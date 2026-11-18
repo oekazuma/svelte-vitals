@@ -1611,7 +1611,8 @@ describe('resolveRepoLocalPath — path edges', () => {
     expect(resolve('..')).toBe('src/routes');
     expect(resolveRepoLocalPath('../..', 'src/x.ts')).toBeUndefined();
   });
-  it('drops the empty segment a trailing-slash replacement leaves', () => {
+  it('drops empty path segments, from a doubled slash or a trailing-slash replacement', () => {
+    expect(resolve('./nested//x')).toBe('src/routes/a/nested/x');
     expect(resolve('$lib/x', [prefix('$lib', 'src/lib/')])).toBe('src/lib/x');
   });
   it('resolves the bare key of an alias that names a directory above the project root', () => {

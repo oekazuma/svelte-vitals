@@ -203,17 +203,18 @@ describe('each blocks over imported lists', () => {
       '{#each local as l}{l}{/each}',
       '{#each imported as m}{m}{/each}'
     ].join('\n');
-    const blocks = (parseComponentFacts(src, 'src/lib/C.svelte') as { eachBlocks: { importedList?: unknown }[] })
-      .eachBlocks;
-    expect(blocks.map((b) => b.importedList)).toEqual([
-      { source: './names', imported: 'NAMES' },
-      { source: './ns', imported: 'items' },
-      undefined,
-      { source: './r', imported: 'other' },
-      undefined,
-      undefined,
-      { source: './sh', imported: 'items' },
-      { source: './l', imported: 'local' }
+    const blocks = (
+      parseComponentFacts(src, 'src/lib/C.svelte') as { eachBlocks: { line: number; importedList?: unknown }[] }
+    ).eachBlocks;
+    expect(blocks.map((b) => [b.line, b.importedList])).toEqual([
+      [16, { source: './names', imported: 'NAMES' }],
+      [17, { source: './ns', imported: 'items' }],
+      [18, undefined],
+      [19, { source: './r', imported: 'other' }],
+      [20, undefined],
+      [21, undefined],
+      [22, { source: './sh', imported: 'items' }],
+      [24, { source: './l', imported: 'local' }]
     ]);
   });
 });

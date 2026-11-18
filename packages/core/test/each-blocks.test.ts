@@ -71,5 +71,6 @@ describe('dnd zones', () => {
     expect(zoneChild('use:dndzone={{ autoAriaDisabled: true, [k]: false }}')).toEqual([true]);
     expect(zoneChild('use:dndzone={{ autoAriaDisabled: true, items }}')).toEqual([false]);
     expect(zoneChild('dndzone="x"')).toEqual([false]);
+    expect(zoneChild('use:tooltip={opts}')).toEqual([false]);
   });
 });

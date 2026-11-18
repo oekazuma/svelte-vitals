@@ -3,16 +3,18 @@ import { parse } from 'svelte/compiler';
 import { collectComponentConstantLists, parseComponentFacts } from '../src/component-parse.js';
 import { parseKitModuleFacts } from '../src/kit-module-parse.js';
 
-/** An `{#if}` without `{:else}`: its `alternate` is `null`, which every walker meets inside the tag around it. */
+/** An `{#if}` without `{:else}`: its `alternate` is `null`. The component fixture puts one inside each template construct. */
 const empty = '{#if on}x{/if}';
 
 const component = [
   '<script lang="ts">',
+  "  import { goto } from '$app/navigation';",
   '  declare const VERSION: string;',
   '  let { on = false, items = [], p } = $props();',
   '  let state = $state<string | null>(null);',
   '  const pair = [, VERSION];',
   '  function f() {',
+  "    if (on) goto('/x');",
   '    if (on) return;',
   '    for (;;) break;',
   '    try {',
@@ -45,8 +47,9 @@ const component = [
 
 describe('empty branches and null fields', () => {
   it('parses a component with an empty branch inside every construct, null literals and a bodiless declaration', () => {
-    expect(() => parseComponentFacts(component, 'src/lib/C.svelte')).not.toThrow();
-    expect(() => collectComponentConstantLists(parse(component, { modern: true }), { sets: true })).not.toThrow();
+    const links = parseComponentFacts(component, 'src/lib/C.svelte').basePathLinks;
+    expect(links.map((l) => `${l.kind} ${l.path}`)).toContain('goto /x');
+    expect(collectComponentConstantLists(parse(component, { modern: true }), { sets: true }).has('pair')).toBe(true);
   });
 
   it('parses a runes module and a load whose expressions hold null literals', () => {
@@ -86,6 +89,7 @@ describe('empty branches and null fields', () => {
       'export async function load({ fetch, locals, url, parent }) {',
       "  if (!locals.user) redirect(302, '/login');",
       '  if (building) return {};',
+      '  const title = document.title;',
       "  if (url.searchParams.has('x')) {",
       '  }',
       "  const a = await fetch('/a').then((r) => r.json());",
@@ -140,5 +144,17 @@ describe('empty branches and null fields', () => {
         file
       ).not.toThrow();
     }
+    const rendered = src.replace('export const ssr = false;\n', '');
+    for (const file of [
+      'src/routes/+page.ts',
+      'src/routes/+page.server.ts',
+      'src/routes/api/+server.ts',
+      'src/hooks.server.ts'
+    ]) {
+      expect(() => parseKitModuleFacts(rendered, file), file).not.toThrow();
+    }
+    expect(parseKitModuleFacts(rendered, 'src/routes/+page.ts').browserGlobalRefs.map((r) => r.name)).toContain(
+      'document'
+    );
   });
 });

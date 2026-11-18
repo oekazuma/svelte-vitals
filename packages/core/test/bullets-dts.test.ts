@@ -12,7 +12,7 @@ describe('plain-text bullets', () => {
     expect(bullets('<p>\n  <!-- note -->\n  • a\n</p>\n<p>\n  <!-- note -->\n  • b\n</p>')).toEqual(['•', '•']);
   });
 
-  it('ignores bullets in list items, verbatim text, components, snippets and after a leading element', () => {
+  it('ignores bullets in list items, verbatim text, snippets and after a leading element, and does not group them across component bodies', () => {
     expect(bullets('<ul><li>- a<br />- b</li></ul>')).toEqual([]);
     expect(bullets('<ul><li>• a</li><li>• b</li></ul>')).toEqual([]);
     expect(bullets('<ul><li><span>• a</span><span>• b</span></li></ul>')).toEqual([]);
@@ -34,7 +34,7 @@ describe('duplicate <dt> names', () => {
   });
 
   it('compares trimmed, whitespace-collapsed names of the direct <dt> children of an HTML <dl>', () => {
-    expect(dts('<dl><dt> a</dt><dt>a</dt><dt>x y</dt><dt>xy</dt></dl>')).toEqual(['a']);
+    expect(dts('<dl><dt> a</dt><dt>a</dt><dt>x y</dt><dt>x  y</dt><dt>xy</dt></dl>')).toEqual(['a', 'x y']);
     expect(dts('<Dl><dt>a</dt><dt>a</dt></Dl><div><dt>a</dt><dt>a</dt></div>')).toEqual([]);
     expect(
       dts(

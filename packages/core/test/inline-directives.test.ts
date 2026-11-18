@@ -161,15 +161,16 @@ describe('inline directives — edges', () => {
 
   it('leaves a passing result on a directive line as it is', () => {
     const passing = bad({ detection: PASSING, message: 'kept as is' });
-    expect(run([passing], index({ 'src/lib/Card.svelte': [{ line: 3 }] }))).toEqual([passing]);
+    const before = structuredClone(passing);
+    expect(run([passing], index({ 'src/lib/Card.svelte': [{ line: 3 }] }))).toEqual([before]);
   });
 
   it("carries the silenced finding's category into its PASS", () => {
-    const out = run([bad({ category: 'a11y' })], index({ 'src/lib/Card.svelte': [{ line: 3 }] }));
+    const out = run([bad({ category: 'performance' })], index({ 'src/lib/Card.svelte': [{ line: 3 }] }));
     expect(out).toEqual([
       {
         id: 'a11y/id-duplication',
-        category: 'a11y',
+        category: 'performance',
         severity: 'warning',
         detection: PASSING,
         route: '/x',

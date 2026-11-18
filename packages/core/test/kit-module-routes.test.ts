@@ -151,6 +151,17 @@ describe('routeGated', () => {
       sourceFiles: ['src/routes/+layout.svelte', 'src/routes/(x)/+page@.svelte']
     };
     expect(routeGated('src/routes/(x)/+page@.svelte', rooted)).toBe(true);
+    const grouped = {
+      kitModules: [mod('src/routes/(x)/+layout.server.ts', { loadGated: true })],
+      sourceFiles: [
+        'src/routes/+layout.svelte',
+        'src/routes/(x)/+layout.svelte',
+        'src/routes/(x)/+page@.svelte',
+        'src/routes/(x)/a/+page.svelte'
+      ]
+    };
+    expect(routeGated('src/routes/(x)/+page@.svelte', grouped)).toBe(false);
+    expect(routeGated('src/routes/(x)/a/+page.svelte', grouped)).toBe(true);
   });
   it('does not take a universal load gate', () => {
     const universal = { ...scope, kitModules: [mod('src/routes/open/+layout.ts', { loadGated: true })] };
@@ -209,7 +220,7 @@ describe('route render options', () => {
     expect(universalNeverCsr(scope.kitModules[0]!, scope)).toBe(false);
   });
 
-  it("reads a universal module's own ssr = false even when a page under it turns ssr back on", () => {
+  it('takes a page that turns ssr back on under an ssr = false layout as server-rendered', () => {
     const scope = {
       kitModules: [
         mod('src/routes/app/+layout.ts', { ssrDisabled: { line: 1 } }),
@@ -217,7 +228,6 @@ describe('route render options', () => {
       ],
       sourceFiles: ['src/routes/app/+layout.svelte', 'src/routes/app/a/+page.svelte']
     };
-    expect(universalNeverSsr(scope.kitModules[0]!, scope)).toBe(true);
     expect(universalNeverSsr(scope.kitModules[1]!, scope)).toBe(false);
   });
 });

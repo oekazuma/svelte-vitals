@@ -214,12 +214,12 @@ describe('workspace package edges', () => {
       "  - 'apps/*'  # quoted",
       '  - "libs/*"',
       '# a column-0 comment inside the list',
-      '  -tools/*',
+      '  - tools/*',
       "  - ''",
-      '  - \'mixed"',
+      '  - "it\'s/*"',
       'nopackages: [z]'
     ].join('\n');
-    expect(pnpmWorkspaceGlobs(yaml)).toEqual(['apps/*', 'libs/*', 'tools/*', '\'mixed"']);
+    expect(pnpmWorkspaceGlobs(yaml)).toEqual(['apps/*', 'libs/*', 'tools/*', "it's/*"]);
     expect(pnpmWorkspaceGlobs('packages: [\'a\', "b"] # see [docs]')).toEqual(['a', 'b']);
   });
 
@@ -246,6 +246,9 @@ describe('workspace package edges', () => {
     expect(resolve('@repo/ui', { exports: { '.': './../outside.js' } })).toBeUndefined();
     expect(resolve('@repo/ui/xa', { exports: { './x*': './src/*' } })).toBeUndefined();
     expect(resolve('@repo/ui/a.js', { exports: { './*.js': './src/*.js' } })).toBeUndefined();
+    const exactNull = { exports: { './x': null, './*': './src/*' } };
+    expect(resolve('@repo/ui/x', exactNull)).toBeUndefined();
+    expect(resolve('@repo/ui/y', exactNull)).toBe('../../packages/ui/src/y');
   });
 
   it('points a kit.alias at exactly node_modules/<package> to the package directory', () => {
