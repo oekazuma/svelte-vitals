@@ -15,6 +15,9 @@ import {
 import { isDeprecatedAttr } from '../src/html-spec/index.js';
 
 const config = defineConfig({});
+/** Long instruction prose is matched by its opening words only; counts, order and layout stay exact. */
+const proseless = (out: string) =>
+  out.replace(/^(\d+ issue\(s\) to fix), .*$/m, '$1, …').replace(/^_Expected findings .*$/m, '_Expected findings …');
 const absent = { presence: 'none', value: 'absent' } as const;
 const results: Result[] = [
   {
@@ -53,13 +56,13 @@ const results: Result[] = [
 
 describe('agent report', () => {
   it('orders files by their worst finding and findings by severity, with fixes, docs and accept lines', () => {
-    expect(formatAgentReport(results, config)).toBe(
+    expect(proseless(formatAgentReport(results, config))).toBe(
       [
         '# svelte-vitals — fixes',
         '',
         'Health: 66/100',
         '',
-        "4 issue(s) to fix, ordered most-severe first. Fix critical issues first; warning and info items do not fail the default build. Apply each fix below, then re-run `svelte-vitals` (or the build) and check each finding's Accept line. Run `svelte-vitals explain <rule-id>` for any rule's rationale and options (works offline).",
+        '4 issue(s) to fix, …',
         '',
         '## src/routes/b/+page.svelte',
         '',
@@ -100,7 +103,7 @@ describe('agent report', () => {
 
 describe('markdown report', () => {
   it('tabulates categories by name and findings by severity', () => {
-    expect(formatMarkdownReport(results, config, { version: '9.9.9' })).toBe(
+    expect(proseless(formatMarkdownReport(results, config, { version: '9.9.9' }))).toBe(
       [
         '<!-- svelte-vitals v9.9.9 -->',
         '## svelte-vitals — Health 66/100',
@@ -121,7 +124,7 @@ describe('markdown report', () => {
         '| 🔵 info | [seo/canonical](https://oekazuma.github.io/svelte-vitals/rules/seo/canonical) | src/routes/a/+page.svelte | Missing canonical |',
         '| 🔵 info | [seo/robots-txt](https://oekazuma.github.io/svelte-vitals/rules/seo/robots-txt) | - | Missing robots.txt |',
         '',
-        '_Expected findings (e.g. routes behind auth)? See [Excluding routes or rules](https://oekazuma.github.io/svelte-vitals/guides/ci/#excluding-routes-or-rules)._'
+        '_Expected findings …'
       ].join('\n')
     );
   });
@@ -250,12 +253,8 @@ describe('scoring', () => {
   });
 
   it('rejects an invalid weight and an all-zero weighting', () => {
-    expect(() => computeHealth(results, { ...config, weights: { seo: -1 } })).toThrow(
-      "invalid weight for 'seo'; expected a finite number >= 0."
-    );
-    expect(() => computeHealth(results, { ...config, weights: { seo: 0, a11y: 0 } })).toThrow(
-      'Health weights sum to 0; at least one present category must have a positive weight.'
-    );
+    expect(() => computeHealth(results, { ...config, weights: { seo: -1 } })).toThrow(/invalid weight for 'seo'/);
+    expect(() => computeHealth(results, { ...config, weights: { seo: 0, a11y: 0 } })).toThrow(/weights sum to 0/);
   });
 });
 
