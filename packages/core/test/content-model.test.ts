@@ -14,8 +14,7 @@ const ctx = (src: string): RuleContext => ({
 const isFinding = (r: Result) => r.detection.presence === 'none' || r.detection.value === 'absent';
 const findings = async (src: string) =>
   (await a11yPermittedContents.check(ctx(src))).filter(isFinding).map((r) => `${r.line} ${r.severity} ${r.message}`);
-const lines = async (src: string) =>
-  (await a11yPermittedContents.check(ctx(src))).filter(isFinding).map((r) => r.line);
+const lines = async (src: string) => (await a11yPermittedContents.check(ctx(src))).filter(isFinding).map((r) => r.line);
 
 describe('content-model evaluation', () => {
   it('excludes by :not and :has arguments that nest parentheses', async () => {
@@ -78,6 +77,8 @@ describe('content-model evaluation', () => {
   });
 
   it('admits optional entries and anything inside an element whose model is open', async () => {
-    expect(await lines('<fieldset><legend>l</legend><input /></fieldset>\n<template><li>x</li></template>')).toEqual([]);
+    expect(await lines('<fieldset><legend>l</legend><input /></fieldset>\n<template><li>x</li></template>')).toEqual(
+      []
+    );
   });
 });
