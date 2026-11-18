@@ -151,10 +151,10 @@ describe('empty branches and null fields', () => {
       'src/routes/api/+server.ts',
       'src/hooks.server.ts'
     ]) {
-      expect(() => parseKitModuleFacts(rendered, file), file).not.toThrow();
+      expect(
+        parseKitModuleFacts(rendered, file).browserGlobalRefs.map((r) => r.name),
+        file
+      ).toContain('document');
     }
-    expect(parseKitModuleFacts(rendered, 'src/routes/+page.ts').browserGlobalRefs.map((r) => r.name)).toContain(
-      'document'
-    );
   });
 });

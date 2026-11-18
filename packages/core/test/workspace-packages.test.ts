@@ -246,7 +246,7 @@ describe('workspace package edges', () => {
     expect(resolve('@repo/ui', { exports: { '.': './../outside.js' } })).toBeUndefined();
     expect(resolve('@repo/ui/xa', { exports: { './x*': './src/*' } })).toBeUndefined();
     expect(resolve('@repo/ui/a.js', { exports: { './*.js': './src/*.js' } })).toBeUndefined();
-    const exactNull = { exports: { './x': null, './*': './src/*' } };
+    const exactNull = { exports: { './*': './src/*', './x': null } };
     expect(resolve('@repo/ui/x', exactNull)).toBeUndefined();
     expect(resolve('@repo/ui/y', exactNull)).toBe('../../packages/ui/src/y');
   });

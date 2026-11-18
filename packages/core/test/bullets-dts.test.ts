@@ -34,7 +34,7 @@ describe('duplicate <dt> names', () => {
   });
 
   it('compares trimmed, whitespace-collapsed names of the direct <dt> children of an HTML <dl>', () => {
-    expect(dts('<dl><dt> a</dt><dt>a</dt><dt>x y</dt><dt>x  y</dt><dt>xy</dt></dl>')).toEqual(['a', 'x y']);
+    expect(dts('<dl><dt> a</dt><dt>a </dt><dt>x y</dt><dt>x  y</dt><dt>xy</dt></dl>')).toEqual(['a', 'x y']);
     expect(dts('<Dl><dt>a</dt><dt>a</dt></Dl><div><dt>a</dt><dt>a</dt></div>')).toEqual([]);
     expect(
       dts(
