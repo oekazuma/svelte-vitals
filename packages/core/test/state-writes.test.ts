@@ -32,9 +32,13 @@ describe('state writes', () => {
       'let hours = $state([{ n: 0 }]);',
       'let h = hours[0];',
       'h = { n: 0 };',
-      'h.n = 1;'
+      'h.n = 1;',
+      'let cells = $state([]);',
+      'let c = cells;',
+      '[c] = [[]];',
+      'c.push(1);'
     ].join('\n');
-    expect(constable(script)).toEqual(['shown', 'fn', 'hidden', 'list', 'rows', 'hours']);
+    expect(constable(script)).toEqual(['shown', 'fn', 'hidden', 'list', 'rows', 'hours', 'cells']);
   });
 
   it('drops a $state written, handed out or mutated through a local holding part of it', () => {
@@ -70,18 +74,52 @@ describe('state writes', () => {
     expect(constable('let s = $state({ n: 0 });\nlet d = s;\nd = { n: 1 };\nd.n = 2;')).toEqual(['s']);
   });
 
+  const marked = (script: string, markup: string) =>
+    parseComponentFacts(`<script>\n${script}\n</script>\n${markup}`, 'src/lib/C.svelte').constableStates.map(
+      (s) => s.name
+    );
+
   it('follows a script local holding a $state, or part of it, into a template handler', () => {
-    const marked = (script: string, markup: string) =>
-      parseComponentFacts(`<script>\n${script}\n</script>\n${markup}`, 'src/lib/C.svelte').constableStates.map(
-        (s) => s.name
-      );
     expect(marked('let s = $state([]);\nconst d = s;', '<button onclick={() => d.push(1)}>x</button>')).toEqual([]);
     expect(
       marked('let s = $state([{ n: 0 }]);\nconst d = s[0];', '<button onclick={() => (d.n = 1)}>x</button>')
     ).toEqual([]);
-    expect(marked('let s = $state([]);\nlet d = s;', '<button onclick={() => (d = [])}>x</button>{d.push(1)}')).toEqual(
-      ['s']
-    );
+    expect(
+      marked('let s = $state([]);\nconst d = s;', '<button onclick={() => { const e = d; e.push(1); }}>x</button>')
+    ).toEqual([]);
+    expect(
+      marked('let s = $state([]);\nlet d = s;', '<button onclick={() => { d = []; d.push(1); }}>x</button>')
+    ).toEqual(['s']);
+  });
+
+  it('keeps a script local apart from a template binding of the same name', () => {
+    expect(
+      marked(
+        'let s = $state([{ n: 0 }]);\nconst d = s[0];\nd.n = 1;',
+        '<button onclick={() => { let d = []; d = [1]; }}>x</button>'
+      )
+    ).toEqual([]);
+    expect(
+      marked(
+        'let s = $state([{ n: 0 }]);\nconst d = s[0];',
+        '{#each [{ n: 0 }] as d}<button onclick={() => d.n++}>x</button>{/each}'
+      )
+    ).toEqual(['s']);
+    expect(
+      marked(
+        'let s = $state({ n: 0 });\nconst d = s;',
+        '{#each [1] as x}{@const d = { n: x }}<button onclick={() => d.n++}>x</button>{/each}'
+      )
+    ).toEqual(['s']);
+    expect(
+      marked(
+        'let s = $state([{ n: 0 }]);\nlet d = { n: 0 };\nfunction f() {\n  d.n = 1;\n}',
+        '<button onclick={() => { const d = s[0]; }}>x</button>'
+      )
+    ).toEqual(['s']);
+    expect(
+      marked('let s = $state([]);\nfunction f() {\n  const d = s;\n}', '<button onclick={() => d.push(1)}>x</button>')
+    ).toEqual(['s']);
   });
 
   it('takes a reassigned parameter for itself, not for the top-level $state of that name', () => {

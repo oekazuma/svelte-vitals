@@ -601,14 +601,23 @@ function isObjectState(call: Node): boolean {
   return OBJECT_TYPES.has(type?.type);
 }
 
+/** Add the names an assignment or update rebinds (`d = …`, `d++`, `[d] = …`); a member target rebinds none. */
+function addReassigned(n: Node, acc: Set<string>): void {
+  addBoundNames(
+    n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined,
+    acc
+  );
+}
+
 function collectStateWrites(
   root: Node,
   stateNames: Set<string>,
   acc: Set<string>,
   kinds?: Map<string, Set<WriteKind>>,
   localStates = false,
-  aliasRoot: Node = root
-): void {
+  reassigned: Set<string> = new Set(),
+  scriptAliases?: Map<string, string>
+): Map<string, string> {
   const record = (name: string, kind: WriteKind): void => {
     acc.add(name);
     if (kinds) {
@@ -634,17 +643,13 @@ function collectStateWrites(
   // `for (const day of days)`) shares its reference: a member write or method call through it
   // mutates the state. By name, like the writes.
   const aliasOf = new Map<string, string>();
+  // Declared at the top level of the script, so a template handler can reach it.
+  const topAliases = new Map<string, string>();
   // A local the code reassigns may hold something else by the time it is written through.
-  const reassigned = new Set<string>();
-  if (localStates)
-    walkEstree(aliasRoot, (n: Node) => {
-      const target =
-        n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined;
-      if (target?.type === 'Identifier') reassigned.add(target.name);
-    });
+  if (localStates) walkEstree(root, (n: Node) => addReassigned(n, reassigned));
   if (localStates)
     for (let pass = 0; pass < 2; pass++)
-      walkEstree(aliasRoot, (n: Node) => {
+      walkScoped(root, (n: Node, scope: Set<string>) => {
         const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
         const [id, from]: [Node, Node] =
           init?.type === 'MemberExpression' || init?.type === 'Identifier'
@@ -653,15 +658,18 @@ function collectStateWrites(
               ? [n.left.declarations?.[0]?.id, n.right]
               : [undefined, undefined];
         const r = rootObjectName(unwrapTs(from));
-        const owner = r && (stateNames.has(r) ? r : aliasOf.get(r));
-        if (id?.type === 'Identifier' && owner && !stateNames.has(id.name) && !reassigned.has(id.name))
-          aliasOf.set(id.name, owner);
+        const owner =
+          r && (stateNames.has(r) ? r : (aliasOf.get(r) ?? (scope.has(r) ? undefined : scriptAliases?.get(r))));
+        if (id?.type !== 'Identifier' || !owner || stateNames.has(id.name) || reassigned.has(id.name)) return;
+        aliasOf.set(id.name, owner);
+        if (n.type === 'VariableDeclarator' && !scope.has(id.name)) topAliases.set(id.name, owner);
       });
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
     const mutated = (r: string | undefined): void => {
       if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate');
       else if (r && stateNames.has(aliasOf.get(r)!)) record(aliasOf.get(r)!, 'mutate');
+      else if (r && !shadowed(r) && scriptAliases?.has(r)) record(scriptAliases.get(r)!, 'mutate');
     };
     if (n?.type === 'AssignmentExpression') {
       if (n.left?.type === 'Identifier' && stateNames.has(n.left.name) && !shadowed(n.left.name)) {
@@ -720,7 +728,7 @@ function collectStateWrites(
   // that block's statements are walked again with only its own state declarations in play. Writes
   // are recorded by name, so only unmutated-state opts in: for the other callers a same-named
   // local would stand in for the binding they track.
-  if (!localStates) return;
+  if (!localStates) return topAliases;
   walkEstree(root, (n: Node) => {
     if (n.type !== 'BlockStatement') return;
     const own = new Set<string>();
@@ -734,6 +742,7 @@ function collectStateWrites(
     }
     if (own.size > 0) walkScoped(n.body, visit(own));
   });
+  return topAliases;
 }
 
 /** Function-shaped nodes whose bodies defer evaluation — prop reads inside them stay reactive (compiled to call-time reads). */
@@ -3281,11 +3290,25 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       });
     });
     const writtenOrEscaped = new Set<string>();
-    // A local declared in the script is written through from template handlers too.
-    const aliasRoot = ast.fragment ? [program, ast.fragment] : program;
-    collectStateWrites(program, stateNames, writtenOrEscaped, undefined, true, aliasRoot);
+    // A script local is rebound, and written through, from template handlers too, unless a
+    // template binding of that name shadows it there.
+    const reassignedInTemplate = new Set<string>();
+    if (ast.fragment)
+      walkScoped(ast.fragment, (n, scope) => {
+        const names = new Set<string>();
+        addReassigned(n, names);
+        for (const name of names) if (!scope.has(name)) reassignedInTemplate.add(name);
+      });
+    const scriptAliases = collectStateWrites(
+      program,
+      stateNames,
+      writtenOrEscaped,
+      undefined,
+      true,
+      reassignedInTemplate
+    );
     if (ast.fragment) {
-      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true, aliasRoot);
+      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true, new Set(), scriptAliases);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectEachContextTaint(ast.fragment, stateNames, writtenOrEscaped, new Set(), false);
