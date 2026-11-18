@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { parseComponentFacts } from '../src/component-parse.js';
 
 const facts = (markup: string) => parseComponentFacts(markup, 'src/lib/C.svelte');
-const bullets = (markup: string) => facts(markup).bulletTexts.map((b) => b.char);
-const dts = (markup: string) => facts(markup).duplicateDts.map((d) => d.text);
+const bullets = (markup: string) => facts(markup).bulletTexts!.map((b) => b.char);
+const dts = (markup: string) => facts(markup).duplicateDts!.map((d) => d.text);
 
 describe('plain-text bullets', () => {
   it('reports a bullet sequence at the top level once per text, sibling items and nested lines alike', () => {

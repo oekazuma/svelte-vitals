@@ -19,7 +19,7 @@ describe('attribute-level facts', () => {
   });
 
   it('classifies a quoted lone expression as an expression, not literal text', () => {
-    expect(facts('<div role="button" aria-label="{label}"></div>').ariaElements[0]!.aria).toEqual([
+    expect(facts('<div role="button" aria-label="{label}"></div>').ariaElements![0]!.aria).toEqual([
       { name: 'aria-label', line: 1, expression: true }
     ]);
   });
@@ -35,7 +35,7 @@ describe('accessible names', () => {
   it('takes a blank alt as no name and aria-labelledby as a name', () => {
     const src =
       '<button><img alt="" /></button>\n<button><img alt=" " /></button>\n<button aria-labelledby="lbl"></button>';
-    expect(facts(src).unnamedInteractive.map((u) => u.line)).toEqual([1, 2]);
+    expect(facts(src).unnamedInteractive!.map((u) => u.line)).toEqual([1, 2]);
   });
 });
 

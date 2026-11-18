@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { parseComponentFacts } from '../src/component-parse.js';
 
 const facts = (markup: string) => parseComponentFacts(markup, 'src/lib/C.svelte');
-const unnamed = (markup: string) => facts(markup).unnamedInteractive.map((u) => `${u.tag}:${u.line}`);
-const unassociated = (markup: string) => facts(markup).unassociatedLabels.map((l) => l.line);
+const unnamed = (markup: string) => facts(markup).unnamedInteractive!.map((u) => `${u.tag}:${u.line}`);
+const unassociated = (markup: string) => facts(markup).unassociatedLabels!.map((l) => l.line);
 
 describe('interactive elements without a name', () => {
   it('reports a button, a link with href and an image input with no name', () => {

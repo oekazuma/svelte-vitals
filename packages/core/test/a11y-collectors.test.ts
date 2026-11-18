@@ -4,7 +4,7 @@ import { parseComponentFacts } from '../src/component-parse.js';
 const facts = (markup: string) => parseComponentFacts(markup, 'src/lib/C.svelte');
 
 describe('<time> without datetime', () => {
-  const times = (markup: string) => facts(markup).timesMissingDatetime.map((t) => t.text);
+  const times = (markup: string) => facts(markup).timesMissingDatetime!.map((t) => t.text);
 
   it('reports trimmed human-readable text of a plain <time> only', () => {
     expect(times('<time class="d"> Jan 1 </time>\n<span>Jan 2</span>\n<Time>Jan 3</Time>')).toEqual(['Jan 1']);
@@ -18,7 +18,7 @@ describe('<time> without datetime', () => {
 });
 
 describe('required <select> without a placeholder', () => {
-  const selects = (markup: string) => facts(markup).selectsMissingPlaceholder.map((s) => s.line);
+  const selects = (markup: string) => facts(markup).selectsMissingPlaceholder!.map((s) => s.line);
 
   it('reports an empty one and one whose first option has a label', () => {
     expect(
@@ -52,7 +52,7 @@ describe('required <select> without a placeholder', () => {
 });
 
 describe('duplicate <dt> text through markup', () => {
-  const dts = (markup: string) => facts(markup).duplicateDts.map((d) => d.text);
+  const dts = (markup: string) => facts(markup).duplicateDts!.map((d) => d.text);
 
   it('gives up on a <dt> holding a component or an interpolation', () => {
     expect(dts('<dl><dt><Foo>a</Foo></dt><dt><Foo>a</Foo></dt><dt><b>{x}</b></dt><dt><b>{x}</b></dt></dl>')).toEqual(
@@ -62,7 +62,7 @@ describe('duplicate <dt> text through markup', () => {
 });
 
 describe('autoplaying <video> without muted', () => {
-  const videos = (markup: string) => facts(markup).videosAutoplayNoMuted.map((v) => v.line);
+  const videos = (markup: string) => facts(markup).videosAutoplayNoMuted!.map((v) => v.line);
 
   it('reports an HTML <video> only, and takes bind:muted as muted', () => {
     expect(
@@ -81,7 +81,7 @@ describe('autoplaying <video> without muted', () => {
 });
 
 describe('<label> without a control', () => {
-  const labels = (markup: string) => facts(markup).unassociatedLabels.map((l) => l.line);
+  const labels = (markup: string) => facts(markup).unassociatedLabels!.map((l) => l.line);
 
   it('reports a plain <label> only', () => {
     expect(

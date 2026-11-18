@@ -8,7 +8,7 @@ describe('ARIA elements', () => {
     const src =
       '<div type="x" list="l" role="button"></div>\n<div\n  aria-label="x"></div>\n<Foo role="button" aria-label="x" />';
     expect(
-      facts(src).ariaElements.map((e) => ({
+      facts(src).ariaElements!.map((e) => ({
         tag: e.tag,
         line: e.line,
         inputType: e.inputType,
@@ -29,7 +29,7 @@ describe('ARIA elements', () => {
       '  <svelte:self><div role="listitem" aria-label="c"></div></svelte:self>',
       '</div>'
     ].join('\n');
-    expect(facts(src).ariaElements.map((e) => [e.line, e.hasAction ?? false])).toEqual([
+    expect(facts(src).ariaElements!.map((e) => [e.line, e.hasAction ?? false])).toEqual([
       [2, true],
       [3, false],
       [4, false]
@@ -39,7 +39,7 @@ describe('ARIA elements', () => {
 
 describe('element chain', () => {
   const chain = (markup: string) =>
-    facts(markup).elements.map((e) => ({
+    facts(markup).elements!.map((e) => ({
       tag: e.tag,
       parent: e.parent,
       viaBlock: e.viaBlock,
@@ -64,7 +64,7 @@ describe('element chain', () => {
   });
 
   it('marks only an element below a parent as reached through a block, and gives attributes their own line', () => {
-    const els = facts('{#if x}<div></div>{/if}\n<p\n  title="t"></p>').elements;
+    const els = facts('{#if x}<div></div>{/if}\n<p\n  title="t"></p>').elements!;
     expect(els.map((e) => [e.tag, e.viaBlock, e.attrs.map((a) => a.line)])).toEqual([
       ['div', undefined, []],
       ['p', undefined, [3]]

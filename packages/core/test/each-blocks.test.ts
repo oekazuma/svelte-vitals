@@ -62,7 +62,7 @@ describe('index keys', () => {
 
 describe('dnd zones', () => {
   const zoneChild = (zone: string) =>
-    facts(`<div ${zone}>\n  <div role="listitem" aria-label="a"></div>\n</div>`).ariaElements.map(
+    facts(`<div ${zone}>\n  <div role="listitem" aria-label="a"></div>\n</div>`).ariaElements!.map(
       (e) => e.hasAction ?? false
     );
 

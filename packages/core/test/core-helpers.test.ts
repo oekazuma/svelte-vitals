@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { effectiveSeverity, hasFailureAtOrAbove } from '../src/summary.js';
 import { isPenalized } from '../src/rule.js';
 import { findAttr, textFromNodes } from '../src/svelte-ast.js';
-import { parse } from 'svelte/compiler';
+import { parse, type AST } from 'svelte/compiler';
 import { collectComponentFacts, emptyComponentFacts, skippedFileWarnings } from '../src/component.js';
 import { propOf, resolveConfigObject } from '../src/config-object.js';
 import { parseModuleProgram } from '../src/module-ast.js';
@@ -59,10 +59,9 @@ describe('template text', () => {
 
 describe('attribute lookup', () => {
   it('skips a directive that shares the attribute name', () => {
-    const input = parse('<input bind:value={x} />', { modern: true }).fragment.nodes[0] as never as {
-      attributes: never[];
-    };
-    expect(findAttr(input.attributes, 'value')).toBeUndefined();
+    const input = parse('<input bind:value={x} />', { modern: true }).fragment.nodes[0];
+    if (input?.type !== 'RegularElement') throw new Error('expected an element');
+    expect(findAttr(input.attributes as AST.Attribute[], 'value')).toBeUndefined();
   });
 });
 
@@ -82,12 +81,12 @@ describe('skipped-file reporting', () => {
   });
 
   it('reports a component that does not parse with empty facts', async () => {
-    const rt = {
+    const rt: Runtime = {
       glob: async () => ['src/lib/Broken.svelte'],
       readFile: async () => '<div>{</div>',
       exists: async () => true,
-      join: (...p: string[]) => p.filter(Boolean).join('/')
-    } as unknown as Runtime;
+      join: (...p) => p.filter(Boolean).join('/')
+    };
     const facts = await collectComponentFacts(rt, '');
     expect(facts).toEqual([{ ...emptyComponentFacts('src/lib/Broken.svelte'), parseFailed: true }]);
     expect(facts[0]!.imports).toEqual([]);
