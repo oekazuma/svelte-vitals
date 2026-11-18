@@ -606,7 +606,8 @@ function collectStateWrites(
   stateNames: Set<string>,
   acc: Set<string>,
   kinds?: Map<string, Set<WriteKind>>,
-  localStates = false
+  localStates = false,
+  aliasRoot: Node = root
 ): void {
   const record = (name: string, kind: WriteKind): void => {
     acc.add(name);
@@ -636,14 +637,14 @@ function collectStateWrites(
   // A local the code reassigns may hold something else by the time it is written through.
   const reassigned = new Set<string>();
   if (localStates)
-    walkEstree(root, (n: Node) => {
+    walkEstree(aliasRoot, (n: Node) => {
       const target =
         n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined;
       if (target?.type === 'Identifier') reassigned.add(target.name);
     });
   if (localStates)
     for (let pass = 0; pass < 2; pass++)
-      walkEstree(root, (n: Node) => {
+      walkEstree(aliasRoot, (n: Node) => {
         const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
         const [id, from]: [Node, Node] =
           init?.type === 'MemberExpression' || init?.type === 'Identifier'
@@ -3280,9 +3281,11 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       });
     });
     const writtenOrEscaped = new Set<string>();
-    collectStateWrites(program, stateNames, writtenOrEscaped, undefined, true);
+    // A local declared in the script is written through from template handlers too.
+    const aliasRoot = ast.fragment ? [program, ast.fragment] : program;
+    collectStateWrites(program, stateNames, writtenOrEscaped, undefined, true, aliasRoot);
     if (ast.fragment) {
-      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true);
+      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true, aliasRoot);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectEachContextTaint(ast.fragment, stateNames, writtenOrEscaped, new Set(), false);

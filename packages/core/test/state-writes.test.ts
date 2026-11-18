@@ -70,6 +70,20 @@ describe('state writes', () => {
     expect(constable('let s = $state({ n: 0 });\nlet d = s;\nd = { n: 1 };\nd.n = 2;')).toEqual(['s']);
   });
 
+  it('follows a script local holding a $state, or part of it, into a template handler', () => {
+    const marked = (script: string, markup: string) =>
+      parseComponentFacts(`<script>\n${script}\n</script>\n${markup}`, 'src/lib/C.svelte').constableStates.map(
+        (s) => s.name
+      );
+    expect(marked('let s = $state([]);\nconst d = s;', '<button onclick={() => d.push(1)}>x</button>')).toEqual([]);
+    expect(
+      marked('let s = $state([{ n: 0 }]);\nconst d = s[0];', '<button onclick={() => (d.n = 1)}>x</button>')
+    ).toEqual([]);
+    expect(marked('let s = $state([]);\nlet d = s;', '<button onclick={() => (d = [])}>x</button>{d.push(1)}')).toEqual(
+      ['s']
+    );
+  });
+
   it('takes a reassigned parameter for itself, not for the top-level $state of that name', () => {
     const script = [
       "let value = $state('');",
