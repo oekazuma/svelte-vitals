@@ -544,7 +544,7 @@ describe('svelte-config path values', () => {
       `} } };`
     ].join('\n');
     // Joining leaves a doubled slash ('/opt//shared'); this test pins which forms resolve, not the joint.
-    const entries = findKitAliasesInSvelteConfig(src).entries.map((e) => ({
+    const entries = findKitAliasesInSvelteConfig(src).entries!.map((e) => ({
       ...e,
       value: e.value === null ? null : e.value.replace(/\/{2,}/g, '/')
     }));
