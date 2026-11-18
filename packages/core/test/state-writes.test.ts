@@ -64,6 +64,12 @@ describe('state writes', () => {
     expect(constable(script)).toEqual([]);
   });
 
+  it('drops a $state mutated through a local bound to the whole of it, directly or through another such local', () => {
+    expect(constable('let s = $state([]);\nconst d = s;\nd.push(1);')).toEqual([]);
+    expect(constable('let s = $state({ n: 0 });\nlet d = s;\nconst e = d;\ne.n = 1;')).toEqual([]);
+    expect(constable('let s = $state({ n: 0 });\nlet d = s;\nd = { n: 1 };\nd.n = 2;')).toEqual(['s']);
+  });
+
   it('takes a reassigned parameter for itself, not for the top-level $state of that name', () => {
     const script = [
       "let value = $state('');",

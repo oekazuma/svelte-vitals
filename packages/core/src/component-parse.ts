@@ -629,8 +629,9 @@ function collectStateWrites(
     if (localStates && isObjectState(init)) heldObjects.add(n.id.name);
   });
   for (const name of objectStates) primitiveStates.delete(name);
-  // A local holding part of a state (`const day = days[i]`, `for (const day of days)`) shares its
-  // reference: a member write or method call through it mutates the state. By name, like the writes.
+  // A local holding a state or part of it (`const list = days`, `const day = days[i]`,
+  // `for (const day of days)`) shares its reference: a member write or method call through it
+  // mutates the state. By name, like the writes.
   const aliasOf = new Map<string, string>();
   // A local the code reassigns may hold something else by the time it is written through.
   const reassigned = new Set<string>();
@@ -643,9 +644,10 @@ function collectStateWrites(
   if (localStates)
     for (let pass = 0; pass < 2; pass++)
       walkEstree(root, (n: Node) => {
+        const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
         const [id, from]: [Node, Node] =
-          n?.type === 'VariableDeclarator' && unwrapTs(n.init)?.type === 'MemberExpression'
-            ? [n.id, n.init]
+          init?.type === 'MemberExpression' || init?.type === 'Identifier'
+            ? [n.id, init]
             : n?.type === 'ForOfStatement' && n.left?.type === 'VariableDeclaration'
               ? [n.left.declarations?.[0]?.id, n.right]
               : [undefined, undefined];
