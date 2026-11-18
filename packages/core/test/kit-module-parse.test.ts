@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { parseKitModuleFacts, resolveRunesModuleSpecifier, resolveRepoLocalPath } from '../src/kit-module-parse.js';
+import {
+  parseKitModuleFacts,
+  parseClientExports,
+  parseFalseExports,
+  parseInMemoryExports,
+  resolveRunesModuleSpecifier,
+  resolveRepoLocalPath
+} from '../src/kit-module-parse.js';
 import type { KitAlias } from '../src/types.js';
 
 const facts = (src: string, file = 'src/routes/+page.server.ts') => parseKitModuleFacts(src, file);
@@ -648,6 +655,55 @@ describe('parseKitModuleFacts — answeredPaths (paths the hooks handle answers 
       answered("  if (event.url.pathname === '/') return new Response();", 'src/routes/+page.server.ts')
     ).toBeUndefined();
   });
+  it('reads exactly the path tests whose branch always exits, through every alias and exit form', () => {
+    const src = [
+      "import { redirect, error } from '@sveltejs/kit';",
+      'export function preview({ event, resolve }) {',
+      "  if (event.url.pathname === '/decoy') return new Response();",
+      '  return resolve(event);',
+      '}',
+      'export async function handle({ event, resolve }) {',
+      "  const req = { url: new URL('http://x/y') };",
+      '  const path = event.url.pathname;',
+      '  const { pathname: p } = event.url;',
+      '  const { search } = event.url;',
+      '  const { pathname: q } = req.url;',
+      '  let moving = event.url.pathname;',
+      '  const query = event.url.search;',
+      "  if (event.url.pathname == '/loose') return new Response();",
+      "  if (path === '/alias') return new Response();",
+      "  if (p === '/renamed') return new Response();",
+      "  if (event.url.pathname === '/old') redirect(308, '/new');",
+      "  if (event.url.pathname === '/gone') { error(410); }",
+      "  if (event.url.pathname === '/log') console.log('/log');",
+      "  if (event.url.pathname === '/m') req.redirect('/m');",
+      "  if (event.url.pathname === '/n') req.count = 1;",
+      "  if (event.url.pathname === '/block') { console.log('block'); }",
+      "  if (event.url.pathname !== '/ne') return new Response();",
+      "  if (event.url.pathname.startsWith('/api') && event.url.pathname === '/api/x') return new Response();",
+      "  if (event.url.pathname.endsWith('.map')) return new Response();",
+      "  if (event.url['pathname'] === '/computed') return new Response();",
+      "  if (event['url'].pathname === '/computed-url') return new Response();",
+      "  if (new URL(event.request.url).pathname === '/request') return new Response();",
+      "  if (event.locals.pathname === '/locals') return new Response();",
+      "  if (req.url.pathname === '/req') return new Response();",
+      "  if (event.url.search === '?debug') return new Response();",
+      "  if ('/left' === event.url.search) return new Response();",
+      "  if (search === '?q') return new Response();",
+      "  if (q === '/q') return new Response();",
+      "  if (moving === '/let') return new Response();",
+      "  if (query === '?query') return new Response();",
+      '  return resolve(event);',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/hooks.server.ts').answeredPaths).toEqual([
+      { op: 'eq', v: '/loose' },
+      { op: 'eq', v: '/alias' },
+      { op: 'eq', v: '/renamed' },
+      { op: 'eq', v: '/old' },
+      { op: 'eq', v: '/gone' }
+    ]);
+  });
 });
 
 describe('parseKitModuleFacts — pageChunkTokens (what a transformPageChunk replaces)', () => {
@@ -1089,11 +1145,502 @@ describe('parseKitModuleFacts — loadGated (loads that send a request without a
     expect(gated(load('fail(401)'), kit('error as fail'))).toBe(true);
     expect(gated(load("error(302, '/login')"), kit('redirect as error'))).toBe(true);
   });
+  it('reads a string-keyed locals destructuring, an optional-chained read, error 403 and a block that exits after a log', () => {
+    const load = (params: string, body: string) => `export async function load(${params}) {\n${body}\n}`;
+    expect(gated(load("{ 'locals': l }", "  if (!l.user) redirect(302, '/login');"))).toBe(true);
+    expect(gated(load('{ locals }', "  if (!locals.session?.user) redirect(302, '/login');"))).toBe(true);
+    expect(gated(load('{ locals }', '  if (!locals.user) error(403);'))).toBe(true);
+    expect(
+      gated(load('{ locals }', "  if (!locals.user) {\n    console.log('anon');\n    redirect(302, '/login');\n  }"))
+    ).toBe(true);
+  });
+  it('is not set for reads of anything but locals, an && of reads, or a branch that does not exit with a redirect or 401/403', () => {
+    const load = (params: string, body: string) => `export async function load(${params}) {\n${body}\n}`;
+    const none = [
+      load('{ url, locals }', "  if (!url.username) redirect(302, '/login');"),
+      load('event', "  const other = getOther();\n  if (!other.locals.user) redirect(302, '/login');"),
+      load('event', '  if (!event) error(401);'),
+      load('event', '  if (!event.platform) error(401);'),
+      load('{ locals }', "  if (!locals.user && !locals.admin) redirect(302, '/login');"),
+      load('{ locals }', "  if (!locals.user) throw new Error('no');"),
+      load('{ locals }', '  if (!locals.user) return { guest: true };'),
+      load('{ locals }', "  if (!locals.user) {\n    console.log('anon');\n  }"),
+      load('{ locals }', "  const x = 1;\n  if (!x) redirect(302, '/login');")
+    ];
+    for (const src of none) expect(gated(src), src).toBeUndefined();
+    expect(
+      gated(
+        load('{ locals }', '  if (!locals.user) return fail(401);'),
+        "import { redirect, error, fail } from '@sveltejs/kit';\n"
+      )
+    ).toBeUndefined();
+  });
   it('leaves the other facts intact when load reads its event directly', () => {
     const f = facts(
       'export function load(event) {\n  const e = event;\n  if (!e) return;\n}\nlet n = 0;\nexport function GET() {\n  n = 1;\n}'
     );
     expect(f.loadGated).toBeUndefined();
     expect(f.moduleStateReassignments).toHaveLength(1);
+  });
+});
+
+describe('parseKitModuleFacts — collection edges', () => {
+  it("takes a store's updater from a function declaration, and nothing else bound by name", () => {
+    const src = [
+      "import { count } from '$lib/stores';",
+      'function bump(n) {',
+      '  return n + 1;',
+      '}',
+      'const table = { name: "posts" };',
+      'export default function () {}',
+      'export const actions = {',
+      '  default: async () => {',
+      '    count.update(bump);',
+      '    count.update(table);',
+      '  }',
+      '};'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([{ name: 'count', line: 9, via: 'set-call' }]);
+  });
+
+  it('records value specifiers only, and no side-effect import, as a runes-module import', () => {
+    const src = [
+      "import { type Quiz, quiz } from '$lib/quiz.svelte.js';",
+      "import '$lib/setup.svelte.js';",
+      'export function load() {}'
+    ].join('\n');
+    expect(facts(src).runesModuleImports).toEqual([
+      { source: '$lib/quiz.svelte.js', resolved: 'src/lib/quiz.svelte.js', names: ['quiz'], line: 1 }
+    ]);
+  });
+
+  it('treats var as module state and const as not', () => {
+    const src = [
+      'var hits = 0;',
+      'const limit = 10;',
+      'export function load() {',
+      '  hits++;',
+      '  limit = 20;',
+      '  return hits;',
+      '}'
+    ].join('\n');
+    expect(facts(src).moduleStateReassignments).toEqual([{ name: 'hits', line: 4, inHandler: true }]);
+  });
+
+  it('flags every module binding a destructuring assignment writes', () => {
+    const src = [
+      'let first;',
+      'let second;',
+      'let unrelated;',
+      'export function load({ pair }) {',
+      '  [first, { second }] = pair;',
+      '  ({ first } = pair);',
+      '}'
+    ].join('\n');
+    expect(facts(src).moduleStateReassignments).toEqual([
+      { name: 'first', line: 5, inHandler: true },
+      { name: 'second', line: 5, inHandler: true },
+      { name: 'first', line: 6, inHandler: true }
+    ]);
+  });
+
+  it('honours a browser guard at the top level, and its own module bindings', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'if (browser) console.log(window.innerWidth);',
+      'const document = { title: "x" };',
+      'console.log(document.title);',
+      'export function load() {}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+  });
+
+  it('counts a write that starts right where a browser-only branch ends', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'let a;',
+      'let b;',
+      'export function load() {',
+      '  if(browser){a=1}b=2;',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').moduleStateReassignments).toEqual([
+      { name: 'b', line: 5, inHandler: true }
+    ]);
+  });
+
+  it('sorts browser-global refs by line across the top-level and handler scans', () => {
+    const src = [
+      'export function load() {',
+      '  return { w: window.innerWidth };',
+      '}',
+      'const t = document.title;',
+      'export const ssrOnly = navigator.language;',
+      'export function GET() {',
+      '  return localStorage.length;',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+server.ts').browserGlobalRefs).toEqual([
+      { name: 'window', line: 2, inHandler: true },
+      { name: 'document', line: 4, inHandler: false },
+      { name: 'navigator', line: 5, inHandler: false },
+      { name: 'localStorage', line: 7, inHandler: true }
+    ]);
+  });
+
+  it('does not take reads of an imported binding for writes', () => {
+    const src = [
+      "import { state } from './shared.js';",
+      'export function load() {',
+      '  if (state.count > 0) return state.value;',
+      '  return { ready: state.ready };',
+      '}'
+    ].join('\n');
+    const f = facts(src);
+    expect(f.importedStateWrites).toEqual([]);
+    expect(f.importedStateWritesOutsideHandlers).toEqual([]);
+  });
+
+  it('does not take a binding the module exports under another name for an import', () => {
+    const src = [
+      'const cache = { hits: 0 };',
+      'export { cache as shared };',
+      'export function load() {',
+      '  cache.hits = 1;',
+      '}'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([]);
+  });
+
+  it("takes a namespace import's own set function for a call, not a store write", () => {
+    const src = [
+      "import * as gist from '$lib/db/gist.js';",
+      'export async function PUT({ params }) {',
+      '  await gist.set(params.id, {});',
+      '}'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([]);
+  });
+
+  it('names the export a deep namespace store write targets', () => {
+    const src = [
+      "import * as stores from '$lib/stores';",
+      'export function load() {',
+      '  stores.user.profile.set(null);',
+      '}'
+    ].join('\n');
+    expect(facts(src).storeWriteTargets).toEqual([
+      { name: 'stores', imported: 'user', resolved: 'src/lib/stores', line: 3 }
+    ]);
+  });
+
+  it('keeps store-write targets to handlers', () => {
+    const src = "import { count } from '$lib/stores';\nfunction reset() {\n  count.set(0);\n}";
+    const f = facts(src);
+    expect(f.importedStateWritesOutsideHandlers).toEqual([{ name: 'count', line: 3 }]);
+    expect(f).not.toHaveProperty('storeWriteTargets');
+  });
+
+  it('flags every target form of a destructuring assignment into an imported binding', () => {
+    const at = (line: string) =>
+      facts(`import { state } from './shared.js';\nexport function load({ obj, arr }) {\n  ${line}\n}`)
+        .importedStateWrites;
+    const hit = [{ name: 'state', line: 3, via: 'assignment' }];
+    expect(at('({ a: state.y } = obj);')).toEqual(hit);
+    expect(at('({ ...state.rest } = obj);')).toEqual(hit);
+    expect(at('[, state.second] = arr;')).toEqual(hit);
+    expect(at('[state.x = 0] = arr;')).toEqual(hit);
+    expect(at('[...state.rest] = arr;')).toEqual(hit);
+    expect(at('({ a: local } = obj);')).toEqual([]);
+  });
+});
+
+describe('parseKitModuleFacts — pendingFlagGuard (a load guarded by an imported flag)', () => {
+  const guard = (imports: string, body: string, params = '') =>
+    facts(
+      `import { redirect, error } from '@sveltejs/kit';\n${imports}\nexport async function load(${params}) {\n${body}\n}`,
+      'src/routes/+page.server.ts'
+    ).pendingFlagGuard;
+  const named = "import { ENABLED } from '$lib/flags';";
+  const hit = { resolved: 'src/lib/flags', name: 'ENABLED' };
+
+  it('reads a leading if (!FLAG) whose branch exits first, in every exit form', () => {
+    expect(guard(named, "  if (!ENABLED) redirect(307, '/');")).toEqual(hit);
+    expect(guard(named, "  if (!ENABLED) throw redirect(307, '/');")).toEqual(hit);
+    expect(guard(named, '  if (!ENABLED) return error(404);')).toEqual(hit);
+    expect(guard(named, "  const n = 1;\n  if (!ENABLED) { console.log('off'); error(404); }")).toEqual(hit);
+  });
+
+  it('names the export an aliased import reads, and the member a guard tests', () => {
+    expect(guard("import { ENABLED as on } from '$lib/flags';", '  if (!on) error(404);')).toEqual(hit);
+    expect(guard("import { flags } from '$lib/flags';", '  if (!flags.beta) error(404);')).toEqual({
+      resolved: 'src/lib/flags',
+      name: 'flags',
+      member: 'beta'
+    });
+  });
+
+  it('is absent for a namespace import, a branch that may not exit, or a guard after a return', () => {
+    expect(guard("import * as flags from '$lib/flags';", '  if (!flags.BETA) error(404);')).toBeUndefined();
+    expect(guard(named, "  if (!ENABLED) console.log('off');")).toBeUndefined();
+    expect(guard(named, "  if (!ENABLED) { console.log('off'); }")).toBeUndefined();
+    expect(guard(named, '  if (!ENABLED) { if (Math.random() > 0.5) return {}; error(404); }')).toBeUndefined();
+    expect(guard(named, '  while (!ENABLED) await tick();')).toBeUndefined();
+    expect(guard(named, '  if (Math.random() > 0.5) return {};\n  if (!ENABLED) error(404);')).toBeUndefined();
+  });
+
+  it("is absent when the flag or the exit is one of the load's own bindings", () => {
+    expect(guard(named, '  if (!ENABLED) error(404);', '{ ENABLED }')).toBeUndefined();
+    expect(guard(named, '  function ENABLED() {}\n  if (!ENABLED) error(404);')).toBeUndefined();
+    expect(guard("import { Flag } from '$lib/flags';", '  class Flag {}\n  if (!Flag) error(404);')).toBeUndefined();
+    expect(guard(named, '  function error() {}\n  if (!ENABLED) error(404);')).toBeUndefined();
+  });
+});
+
+describe('parseKitModuleFacts — pendingLoadFactory', () => {
+  it('reads the imported function the load export calls, not another export', () => {
+    const src = [
+      "import { makeLoad, makeOther } from '$lib/load';",
+      'export const prerender = makeOther();',
+      "export const load = makeLoad('/x');"
+    ].join('\n');
+    expect(facts(src).pendingLoadFactory).toEqual({ resolved: 'src/lib/load', name: 'makeLoad' });
+  });
+});
+
+describe('parseClientExports', () => {
+  it('names exports built from an installed package or a plain local class, and nothing else', () => {
+    const src = [
+      "import { PrismaClient } from '@prisma/client';",
+      "import { drizzle } from 'drizzle-orm/node-postgres';",
+      "import Redis from 'ioredis';",
+      "import { SvelteKitAuth } from '@auth/sveltekit';",
+      "import { writable } from 'svelte/store';",
+      "import { persisted } from 'svelte-persisted-store';",
+      "import { Local } from './local';",
+      "import { Aliased } from '$lib/aliased';",
+      "import { Scoped } from '@/scoped';",
+      "import { Tilde } from '~/tilde';",
+      "import { Hash } from '#hash';",
+      'class Plain {}',
+      'class Cached {',
+      '  cache = new Map();',
+      '}',
+      'class Built {',
+      '  constructor() {',
+      '    this.seen = new Set();',
+      '  }',
+      '}',
+      'class Busy {',
+      '  constructor() {',
+      '    this.n = 0;',
+      '    this.seen = new Set();',
+      '  }',
+      '}',
+      'class Conn {',
+      '  constructor() {',
+      "    this.url = 'x';",
+      '  }',
+      '}',
+      'class Lazy {',
+      '  reset() {',
+      '    this.cache = new Map();',
+      '  }',
+      '}',
+      'class Derived extends Plain {}',
+      'function Factory() {}',
+      'export { Cached as CachedStore };',
+      'export const prisma = new PrismaClient();',
+      'export const db = drizzle(process.env.DB);',
+      'export const redis = await new Redis();',
+      'export const auth = SvelteKitAuth({});',
+      'export const viaMember = Redis.createClient();',
+      'export const plain = new Plain();',
+      'export const cached = new Cached();',
+      'export const built = new Built();',
+      'export const busy = new Busy();',
+      'export const conn = new Conn();',
+      'export const lazy = new Lazy();',
+      'export const derived = new Derived();',
+      'export const made = new Factory();',
+      'export const store = writable(0);',
+      "export const saved = persisted('k', 0);",
+      'export const local = new Local();',
+      'export const aliased = new Aliased();',
+      'export const scoped = new Scoped();',
+      'export const tilde = new Tilde();',
+      'export const hash = new Hash();',
+      'export const { destructured } = new PrismaClient();'
+    ].join('\n');
+    expect([...parseClientExports(src, 'src/lib/server/db.ts')].sort()).toEqual([
+      'auth',
+      'conn',
+      'db',
+      'lazy',
+      'plain',
+      'prisma',
+      'redis',
+      'viaMember'
+    ]);
+  });
+});
+
+describe('parseKitModuleFacts — loadNeverRenders edges', () => {
+  const kit = "import { redirect } from '@sveltejs/kit';\nimport { building } from '$app/environment';\n";
+  const never = (body: string, before = '') =>
+    facts(`${kit}${before}export async function load() {\n${body}\n}`, 'src/routes/+page.server.ts');
+
+  it('reads an if/else whose braced branches both redirect', () => {
+    expect(
+      never("  if (Math.random() > 0.5) {\n    redirect(307, '/a');\n  } else {\n    redirect(307, '/b');\n  }")
+        .loadNeverRenders
+    ).toBe(true);
+  });
+
+  it('does not take a returned catch parameter or a thrown unawaited async helper for a redirect', () => {
+    expect(
+      never("  try {\n    redirect(307, '/a');\n  } catch (e) {\n    return e;\n  }").loadNeverRenders
+    ).toBeUndefined();
+    expect(
+      never('  throw go();', "async function go() {\n  redirect(307, '/a');\n}\n").loadNeverRenders
+    ).toBeUndefined();
+  });
+
+  it('takes a class the body declares under the import name for a different binding', () => {
+    expect(never("  class redirect {}\n  redirect(307, '/a');").loadNeverRenders).toBeUndefined();
+  });
+
+  it('reads a loop on building as no exit', () => {
+    expect(never("  while (building) return {};\n  redirect(307, '/a');").loadNeverRenders).toBeUndefined();
+  });
+});
+
+describe('parseInMemoryExports', () => {
+  it('names exports initialised to a container, and not to functions, facades or other values', () => {
+    const src = [
+      'function get() {}',
+      'function set() {}',
+      'export let pending;',
+      'export const count = 0;',
+      'export const list = [];',
+      'export const obj = { a: 1 };',
+      'export const empty = {};',
+      'export const refs = { count, list };',
+      'export const methods = { get() {}, set };',
+      'export const fnExprs = { a: function () {}, b: () => 1 };',
+      'export const mixed = { a: function () {}, b: 1 };',
+      'export const facade = { ...clients };',
+      "export const facadeWithName = { ...clients, name: 'db' };",
+      'export const facadeWithMap = { ...clients, cache: new Map() };',
+      'export const facadeWithNested = { ...clients, inner: { x: 1 } };',
+      'export const map = new Map();',
+      'export const custom = new Custom();',
+      'export const viaGlobal = new globalThis.Map();',
+      'class Klass {}',
+      'export const reg = { Klass };',
+      'export const { de } = { de: [] };'
+    ].join('\n');
+    expect([...parseInMemoryExports(src, 'src/lib/state.ts')].sort()).toEqual([
+      'empty',
+      'facadeWithMap',
+      'facadeWithNested',
+      'list',
+      'map',
+      'mixed',
+      'obj',
+      'refs',
+      'reg'
+    ]);
+  });
+});
+
+describe('parseFalseExports', () => {
+  it('names const exports that are false, and the false own properties after the last computed, quoted or spread key', () => {
+    const src = [
+      'const dyn = "x";',
+      'let C = false;',
+      'export const A = false;',
+      'export const B = true;',
+      'export let D = false;',
+      'export const { E } = { E: false };',
+      'export { C };',
+      'export const flags = { on: true, off: false, [dyn]: false, kept: false, other: true };',
+      "export const quoted = { early: false, 'str': false, late: false };",
+      'export const spread = { early: false, ...rest, late: false };'
+    ].join('\n');
+    expect([...parseFalseExports(src, 'src/lib/flags.ts')].sort()).toEqual([
+      'A',
+      'flags.kept',
+      'quoted.late',
+      'spread.late'
+    ]);
+  });
+});
+
+describe('parseKitModuleFacts — export forms', () => {
+  it('reads transformPageChunk tokens from exported consts only when const, and nothing outside the option', () => {
+    const src = [
+      "export const LANG = '%lang%';",
+      "let MUTABLE = '%mut%';",
+      "const outside = 'x'.replace('%outside%', '');",
+      'export const handle = ({ event, resolve }) =>',
+      '  resolve(event, {',
+      "    filterSerializedResponseHeaders: (n) => n.replace('%hdr%', '') !== '',",
+      "    transformPageChunk: ({ html }) => html.replace(LANG, 'en').replace(MUTABLE, '').includes('%inc%') ? html : html",
+      '  });'
+    ].join('\n');
+    expect(facts(src, 'src/hooks.server.ts').pageChunkTokens).toEqual(['%lang%']);
+  });
+
+  it('reads a page-option export in every value form, but not a type-only one or a differently named one', () => {
+    const prerendered = (src: string) => facts(src, 'src/routes/+page.ts').prerenderExported;
+    expect(prerendered('export const a = 1, prerender = true;')).toBe(true);
+    expect(prerendered('export function prerender() {}')).toBe(true);
+    expect(prerendered('const a = 1;\nconst prerender = true;\nexport { a, prerender };')).toBe(true);
+    expect(prerendered("const p = true;\nexport { p as 'prerender' };")).toBe(true);
+    expect(prerendered('export function load() {}')).toBeUndefined();
+    expect(prerendered('const a = 1;\nexport { a };')).toBeUndefined();
+    expect(prerendered('type prerender = boolean;\nexport type { prerender };')).toBeUndefined();
+    expect(prerendered('type prerender = boolean;\nexport { type prerender };')).toBeUndefined();
+  });
+});
+
+describe('resolveRepoLocalPath — path edges', () => {
+  it('resolves a bare . or .. against the importer, and refuses a path that climbs out of the project', () => {
+    expect(resolve('.')).toBe('src/routes/a');
+    expect(resolve('..')).toBe('src/routes');
+    expect(resolveRepoLocalPath('../..', 'src/x.ts')).toBeUndefined();
+  });
+  it('drops empty path segments, from a doubled slash or a trailing-slash replacement', () => {
+    expect(resolve('./nested//x')).toBe('src/routes/a/nested/x');
+    expect(resolve('$lib/x', [prefix('$lib', 'src/lib/')])).toBe('src/lib/x');
+  });
+  it('resolves the bare key of an alias that names a directory above the project root', () => {
+    expect(resolve('$out', [LIB, prefix('$out', '../../plugins')])).toBe('../../plugins');
+  });
+});
+
+describe('parseKitModuleFacts — updaters, helpers and ssrTrue', () => {
+  it('reads a function expression as an updater, and an argument-free update as no write', () => {
+    const src = [
+      "import { count } from '$lib/stores';",
+      'export function load() {',
+      '  count.update(function (n) {',
+      '    return n + 1;',
+      '  });',
+      '  count.update();',
+      '}'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([{ name: 'count', line: 3, via: 'set-call' }]);
+  });
+  it('takes a function inside an exported object other than actions for a helper', () => {
+    const src = 'let n = 0;\nexport const config = {\n  onInit: () => {\n    n = 1;\n  }\n};';
+    expect(facts(src).moduleStateReassignments).toEqual([{ name: 'n', line: 4, inHandler: false }]);
+  });
+  it('marks ssrTrue only when the ssr export itself is the literal true', () => {
+    expect(
+      facts('export const prerender = true;\nexport const ssr = flag;', 'src/routes/+page.ts').ssrTrue
+    ).toBeUndefined();
+    expect(facts("export const ssr = 'yes';", 'src/routes/+page.ts').ssrTrue).toBeUndefined();
   });
 });

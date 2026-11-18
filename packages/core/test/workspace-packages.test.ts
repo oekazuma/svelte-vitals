@@ -196,3 +196,80 @@ describe('installed packages', () => {
     expect(resolveRepoLocalPath('x', 'src/routes/+page.svelte', aliases)).toBe('node_modules/x');
   });
 });
+
+describe('workspace package edges', () => {
+  it('reads a local protocol only at the start of a range', () => {
+    const pkg = JSON.stringify({ dependencies: { tarball: 'https://example.com/file:x.tgz', linked: 'link:../x' } });
+    expect([...declaredLocalPackages(pkg).keys()]).toEqual(['linked']);
+    expect(declaredInstalledPackages(pkg)).toEqual(['tarball']);
+  });
+
+  it('reads pnpm-workspace.yaml items through comments, quoting and spacing, and stops at the next key', () => {
+    const yaml = [
+      '# top comment',
+      'onlyBuiltDependencies:',
+      '  - esbuild',
+      '',
+      'packages :   # the apps',
+      "  - 'apps/*'  # quoted",
+      '  - "libs/*"',
+      '# a column-0 comment inside the list',
+      '  - tools/*',
+      "  - ''",
+      '  - "it\'s/*"',
+      'nopackages: [z]'
+    ].join('\n');
+    expect(pnpmWorkspaceGlobs(yaml)).toEqual(['apps/*', 'libs/*', 'tools/*', "it's/*"]);
+    expect(pnpmWorkspaceGlobs('packages: [\'a\', "b"] # see [docs]')).toEqual(['a', 'b']);
+  });
+
+  it('keeps only string globs from package.json workspaces, and none from an unreadable file', () => {
+    expect(packageJsonWorkspaceGlobs(JSON.stringify({ workspaces: ['a', 1, null] }))).toEqual(['a']);
+    expect(packageJsonWorkspaceGlobs(undefined)).toBeUndefined();
+    expect(packageJsonWorkspaceGlobs('{')).toBeUndefined();
+  });
+
+  it('resolves a svelte field relative to the package and refuses an absolute one', () => {
+    expect(resolve('@repo/ui', { svelte: './dist/index.js' })).toBe('../../packages/ui/dist/index.js');
+    expect(resolve('@repo/ui', { svelte: '/abs/index.js' })).toBe('../../packages/ui');
+    expect(resolve('@repo/ui', { svelte: 'C:/abs/index.js' })).toBe('../../packages/ui');
+  });
+
+  it('gives an unreadable manifest no entries', () => {
+    const aliases = withWorkspacePackages(undefined, [{ name: '@repo/ui', dir: '../../packages/ui', manifest: '{' }]);
+    expect(resolveRepoLocalPath('@repo/ui', 'src/routes/+page.svelte', aliases)).toBeUndefined();
+  });
+
+  it('blocks a package whose exports mix subpaths and conditions, or name targets it cannot follow', () => {
+    expect(resolve('@repo/ui', { exports: { '.': './a.js', import: './b.js' } })).toBeUndefined();
+    expect(resolve('@repo/ui', { exports: { '.': 'index.js' } })).toBeUndefined();
+    expect(resolve('@repo/ui', { exports: { '.': './../outside.js' } })).toBeUndefined();
+    expect(resolve('@repo/ui/xa', { exports: { './x*': './src/*' } })).toBeUndefined();
+    expect(resolve('@repo/ui/a.js', { exports: { './*.js': './src/*.js' } })).toBeUndefined();
+    const exactNull = { exports: { './*': './src/*', './x': null } };
+    expect(resolve('@repo/ui/x', exactNull)).toBeUndefined();
+    expect(resolve('@repo/ui/y', exactNull)).toBe('../../packages/ui/src/y');
+  });
+
+  it('points a kit.alias at exactly node_modules/<package> to the package directory', () => {
+    const aliases = withWorkspacePackages(
+      [{ find: '$ui', replacement: 'node_modules/@repo/ui', match: 'prefix' }],
+      [ui({ name: '@repo/ui' })]
+    );
+    expect(resolveRepoLocalPath('$ui/Button.svelte', 'src/routes/+page.svelte', aliases)).toBe(
+      '../../packages/ui/Button.svelte'
+    );
+  });
+
+  it('does not take an exports map without a svelte condition for a Svelte package', () => {
+    const aliases = withInstalledPackages(undefined, [
+      {
+        name: 'plain',
+        dir: 'node_modules/plain',
+        manifest: JSON.stringify({ exports: { '.': { import: './x.js' } } })
+      },
+      { name: 'broken', dir: 'node_modules/broken', manifest: '{' }
+    ]);
+    expect(aliases).toBeUndefined();
+  });
+});

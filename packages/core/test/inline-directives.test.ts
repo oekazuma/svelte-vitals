@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { applyInlineDirectives, unknownDirectiveIds, type DirectiveIndex } from '../src/inline-directives.js';
+import {
+  addFactsDirectives,
+  applyInlineDirectives,
+  unknownDirectiveIds,
+  type DirectiveIndex
+} from '../src/inline-directives.js';
 import type { Rule } from '../src/rule.js';
 import { defaultConfig, type Result } from '../src/types.js';
 
@@ -125,6 +130,64 @@ describe('unknownDirectiveIds', () => {
     });
     expect(unknownDirectiveIds(idx, rules)).toEqual([
       'src/lib/Card.svelte:3 disables unknown rule "a11y/id-duplicaton" — run `svelte-vitals explain --list` for the ids.'
+    ]);
+  });
+});
+
+describe('inline directives — edges', () => {
+  it('indexes every component, kit module and vite config, each with its own directives or none', () => {
+    const idx = new Map();
+    const d = (line: number) => ({ line, ruleIds: ['seo/single-h1'] });
+    addFactsDirectives(idx, {
+      components: [{ file: 'a.svelte', suppressions: [d(1)] } as never, { file: 'b.svelte' } as never],
+      kitModules: [{ file: 'k.ts', suppressions: [d(2)] } as never, { file: 'm.ts' } as never],
+      viteMinifyDisabled: { file: 'vite.config.ts', suppressions: [d(3)] } as never
+    });
+    expect([...idx]).toEqual([
+      ['a.svelte', [d(1)]],
+      ['b.svelte', []],
+      ['k.ts', [d(2)]],
+      ['m.ts', []],
+      ['vite.config.ts', [d(3)]]
+    ]);
+    const bare = new Map();
+    addFactsDirectives(bare, { viteMinifyDisabled: { line: 4 } as never });
+    addFactsDirectives(bare, { viteMinifyDisabled: { file: 'vite.config.js' } as never });
+    expect([...bare]).toEqual([['vite.config.js', []]]);
+    const none = new Map();
+    addFactsDirectives(none, {});
+    expect(none.size).toBe(0);
+  });
+
+  it('leaves a passing result on a directive line as it is', () => {
+    const passing = bad({ detection: PASSING, message: 'kept as is' });
+    const before = structuredClone(passing);
+    expect(run([passing], index({ 'src/lib/Card.svelte': [{ line: 3 }] }))).toEqual([before]);
+  });
+
+  it("carries the silenced finding's category into its PASS", () => {
+    const out = run([bad({ category: 'performance' })], index({ 'src/lib/Card.svelte': [{ line: 3 }] }));
+    expect(out).toEqual([
+      {
+        id: 'a11y/id-duplication',
+        category: 'performance',
+        severity: 'warning',
+        detection: PASSING,
+        route: '/x',
+        location: 'src/lib/Card.svelte',
+        message: 'label for a11y/id-duplication'
+      }
+    ]);
+  });
+
+  it('lists unknown ids sorted', () => {
+    const idx = index({
+      'z.svelte': [{ line: 2, ruleIds: ['x/zeta'] }],
+      'a.svelte': [{ line: 3, ruleIds: ['x/alpha'] }]
+    });
+    expect(unknownDirectiveIds(idx, rules)).toEqual([
+      'a.svelte:2 disables unknown rule "x/alpha" — run `svelte-vitals explain --list` for the ids.',
+      'z.svelte:1 disables unknown rule "x/zeta" — run `svelte-vitals explain --list` for the ids.'
     ]);
   });
 });

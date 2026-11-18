@@ -411,3 +411,93 @@ describe('collectKitModuleFacts — a load guarded by an imported flag', () => {
     expect(facts.find((f) => f.file === 'src/routes/x/+page.server.ts')?.loadNeverRenders).toBeUndefined();
   });
 });
+
+describe('collectKitModuleFacts — module lookup and write arbitration edges', () => {
+  const writesOf = async (files: Record<string, string>, unreadable: string[] = []) =>
+    (await collectKitModuleFacts(createMemoryRuntime(files, new Set(unreadable)), '')).flatMap(
+      (f) => f.importedStateWrites
+    );
+  const route = (spec: string) =>
+    `import { db } from '${spec}';\nexport function load({ locals }) {\n  db.set('user', locals.user);\n}`;
+  const flagged = [{ name: 'db', line: 3, via: 'set-call' }];
+
+  it('finds the target module under an explicit .ts path, a .js file, or an index.js', async () => {
+    expect(
+      await writesOf({
+        'src/lib/server/a.ts': 'export const db = new Map();',
+        'src/routes/+page.server.ts': route('$lib/server/a.ts')
+      })
+    ).toEqual(flagged);
+    expect(
+      await writesOf({
+        'src/lib/server/b.js': 'export const db = new Map();',
+        'src/routes/+page.server.ts': route('$lib/server/b')
+      })
+    ).toEqual(flagged);
+    expect(
+      await writesOf({
+        'src/lib/server/c/index.js': 'export const db = new Map();',
+        'src/routes/+page.server.ts': route('$lib/server/c')
+      })
+    ).toEqual(flagged);
+  });
+
+  it('stops at the first candidate that exists, even when it cannot be read', async () => {
+    expect(
+      await writesOf(
+        {
+          'src/lib/server/d.ts': 'export const db = new Map();',
+          'src/lib/server/d.js': 'export const db = new Map();',
+          'src/routes/+page.server.ts': route('$lib/server/d')
+        },
+        ['src/lib/server/d.ts']
+      )
+    ).toEqual([]);
+  });
+
+  it('keeps the writes in line order once arbitrated ones join them', async () => {
+    const src = [
+      "import { db } from '$lib/server/store';",
+      "import { state } from './shared.js';",
+      'export function load() {',
+      "  db.set('k', 1);",
+      '  state.x = 1;',
+      '}'
+    ].join('\n');
+    expect(
+      await writesOf({ 'src/lib/server/store.ts': 'export const db = new Map();', 'src/routes/+page.server.ts': src })
+    ).toEqual([
+      { name: 'db', line: 4, via: 'set-call' },
+      { name: 'state', line: 5, via: 'assignment' }
+    ]);
+  });
+
+  it('drops one set-call per client on a line, and nothing else', async () => {
+    const files = {
+      'src/lib/clients.ts':
+        "import { createClient } from 'redis';\nexport const a = createClient();\nexport const b = createClient();",
+      'src/routes/api/+server.ts': [
+        "import * as clients from '$lib/clients';",
+        "import { cache } from '$lib/cache';",
+        'export async function POST() {',
+        '  clients.a.set(1); clients.b.set(2); cache.set(5);',
+        '  clients.a.count = 1; clients.a.set(3);',
+        '  cache.set(4);',
+        '}'
+      ].join('\n')
+    };
+    expect(await writesOf(files)).toEqual([
+      { name: 'cache', line: 4, via: 'set-call' },
+      { name: 'clients', line: 5, via: 'assignment' },
+      { name: 'cache', line: 6, via: 'set-call' }
+    ]);
+  });
+
+  it('marks a module that does not parse as parseFailed with empty facts', async () => {
+    const facts = await collectKitModuleFacts(
+      createMemoryRuntime({ 'src/routes/+page.server.ts': 'export const = ;' }),
+      ''
+    );
+    expect(facts).toEqual([{ ...emptyKitModuleFacts('src/routes/+page.server.ts', 'server'), parseFailed: true }]);
+  });
+});

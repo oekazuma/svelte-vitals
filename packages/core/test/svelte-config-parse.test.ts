@@ -6,8 +6,11 @@ import {
   findKitAliasesInSvelteConfig,
   resolveKitAliases,
   withPackageImports,
-  resolveKitHashRouter
+  resolveKitHashRouter,
+  findKitHashRouterInSvelteConfig,
+  normalizeAliasValue
 } from '../src/svelte-config-parse.js';
+import { resolveRepoLocalPath } from '../src/kit-module-parse.js';
 import { DEFAULT_KIT_ALIASES } from '../src/kit-module-parse.js';
 
 describe('findKitPathsBaseInSvelteConfig', () => {
@@ -516,5 +519,118 @@ describe('resolveKitHashRouter', () => {
     expect(resolveKitHashRouter(vite(''), svelte)).toBe(true);
     expect(resolveKitHashRouter(undefined, svelte)).toBe(true);
     expect(resolveKitHashRouter(undefined, undefined)).toBe(false);
+  });
+});
+
+describe('svelte-config path values', () => {
+  it('reads the root directory in every form and nothing that only looks like it', () => {
+    const src = [
+      `import path from 'node:path';`,
+      `import { fileURLToPath } from 'node:url';`,
+      `export default { kit: { alias: {`,
+      `  $h: path.resolve(process.cwd(), 'src/h'),`,
+      `  $p: path.resolve(os.cwd(), 'src/p'),`,
+      `  $q: path.resolve(process.exit(), 'src/q'),`,
+      `  $r: path.resolve(import.meta.url, 'src/r'),`,
+      `  $s: path.resolve(foo.dirname, 'src/s'),`,
+      `  $i: fileURLToPath(new URL('./src/i', other.url)),`,
+      `  $j: fileURLToPath(new URL('./src/j', import.meta.dirname)),`,
+      `  $k: path.normalize('./src/k'),`,
+      `  $l: path.resolve('src', __dirname),`,
+      `  $m: path.join('/opt', '/shared'),`,
+      `  $n: path.resolve('src', '/abs'),`,
+      `  $o: path.resolve('src/', 'o'),`,
+      `  $t: path.resolve(cwd(), 'src/t')`,
+      `} } };`
+    ].join('\n');
+    // Joining leaves a doubled slash ('/opt//shared'); this test pins which forms resolve, not the joint.
+    const entries = findKitAliasesInSvelteConfig(src).entries!.map((e) => ({
+      ...e,
+      value: e.value === null ? null : e.value.replace(/\/{2,}/g, '/')
+    }));
+    expect(entries).toEqual([
+      { key: '$h', value: 'src/h' },
+      { key: '$p', value: null },
+      { key: '$q', value: null },
+      { key: '$r', value: null },
+      { key: '$s', value: null },
+      { key: '$i', value: null },
+      { key: '$j', value: null },
+      { key: '$k', value: null },
+      { key: '$l', value: null },
+      { key: '$m', value: '/opt/shared' },
+      { key: '$n', value: '/abs' },
+      { key: '$o', value: 'src/o' },
+      { key: '$t', value: null }
+    ]);
+  });
+
+  it('gives a config without an exported object no entries', () => {
+    expect(findKitAliasesInSvelteConfig('const x = 1;')).toEqual({ entries: [] });
+    expect(findKitAliasesInSvelteConfig('export default { other: 1 };')).toEqual({ entries: [] });
+  });
+
+  it('normalizes only leading ./ runs and every trailing slash', () => {
+    expect(['././src/lib', 'src/lib//', 'a/./b', 'src\\lib/*'].map(normalizeAliasValue)).toEqual([
+      'src/lib',
+      'src/lib',
+      'a/./b',
+      'src/lib'
+    ]);
+  });
+});
+
+describe('withPackageImports — key and target shapes', () => {
+  it('skips a pattern whose target is not one, a target pattern under an exact key, and a key with a * mid-way', () => {
+    const imports = { '#a/*': './src/a', '#b': './src/b/*', '#x*y': './src/xy', '#a*b/*': './src/ab/*' };
+    expect(withPackageImports(undefined, JSON.stringify({ imports }))).toBeUndefined();
+  });
+
+  it('puts an exact key ahead of a pattern that also covers it', () => {
+    const aliases = withPackageImports(
+      undefined,
+      JSON.stringify({ imports: { '#lib/*': './src/lib/*', '#lib/x': './src/special/x.ts' } })
+    );
+    expect(resolveRepoLocalPath('#lib/x', 'src/routes/+page.ts', aliases)).toBe('src/special/x.ts');
+    expect(resolveRepoLocalPath('#lib/y', 'src/routes/+page.ts', aliases)).toBe('src/lib/y');
+  });
+});
+
+describe('config object resolution depth', () => {
+  const chain = (hops: number) => {
+    const names = Array.from({ length: hops }, (_, i) => `c${i}`);
+    return [
+      `const c0 = { kit: { router: { type: 'hash' } } };`,
+      ...names.slice(1).map((n, i) => `const ${n} = ${names[i]};`),
+      `export default ${names.at(-1)};`
+    ].join('\n');
+  };
+  it('follows an exported config through two aliases and no further', () => {
+    expect(findKitHashRouterInSvelteConfig(chain(3))).toBe(true);
+    expect(findKitHashRouterInSvelteConfig(chain(4))).toBe(false);
+    expect(findKitHashRouterInSvelteConfig('export default {')).toBe(false);
+  });
+  it('follows a base through three aliases and no further', () => {
+    const base = (hops: number) =>
+      [
+        `const b0 = '/docs';`,
+        ...Array.from({ length: hops - 1 }, (_, i) => `const b${i + 1} = b${i};`),
+        `export default { kit: { paths: { base: b${hops - 1} } } };`
+      ].join('\n');
+    expect(findKitPathsBaseInSvelteConfig(base(4))).toEqual({ value: '/docs' });
+    expect(findKitPathsBaseInSvelteConfig(base(5))).toEqual({});
+  });
+});
+
+describe('sveltekit plugin detection', () => {
+  it('assumes the bare name only without an import, and takes only the plugin call', () => {
+    const noImport = `export default { plugins: [other({ paths: { base: '/wrong' } }), sveltekit({ paths: { base: '/docs' } })] };`;
+    expect(findKitPathsBaseInViteConfig(noImport)).toEqual({ kind: 'resolved', base: { value: '/docs' } });
+    const aliased = [
+      `import { sveltekit as kit } from '@sveltejs/kit/vite';`,
+      `const sveltekit = (o) => o;`,
+      `export default { plugins: [sveltekit({ paths: { base: '/wrong' } }), kit({ paths: { base: '/docs' } })] };`
+    ].join('\n');
+    expect(findKitPathsBaseInViteConfig(aliased)).toEqual({ kind: 'resolved', base: { value: '/docs' } });
   });
 });

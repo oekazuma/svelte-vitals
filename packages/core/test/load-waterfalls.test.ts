@@ -499,3 +499,183 @@ describe('collectLoadWaterfalls — exclusions and scope', () => {
     expect(parseKitModuleFacts(src, 'src/routes/+page.ts').csrDisabled).toEqual({ line: 1 });
   });
 });
+
+describe('collectLoadWaterfalls — taint through containers, regions and anchors', () => {
+  it('reads a constructed object as made by the load', () => {
+    const src = [
+      'export async function load() {',
+      '  const client = new Client();',
+      '  await client.connect();',
+      '  await db.count(client);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
+  });
+
+  it('taints a container only through an in-place add that takes tainted data', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const ids = [];',
+      '  const seen = [];',
+      '  ids.push(0, user.id);',
+      '  seen.push(0);',
+      '  seen.includes(user.id);',
+      '  const posts = await getPosts(ids);',
+      '  const tags = await getTags(seen);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [8], independentLines: [9] });
+  });
+
+  it('taints a container a callback over tainted data fills, and nothing the callback only reads or defers', () => {
+    const src = [
+      'export async function load() {',
+      '  const rows = await getRows();',
+      '  const ids = new Set();',
+      '  const seen = new Set();',
+      '  const pending = new Set();',
+      '  rows.forEach((r) => {',
+      '    if (!r) return;',
+      '    ids.add(r.id);',
+      '    seen.has(r.id);',
+      '    later(() => pending.add(r.id));',
+      '  });',
+      '  [1, 2].forEach((n) => seen.add(n));',
+      '  const a = await getA(ids);',
+      '  const b = await getB(seen);',
+      '  const c = await getC(pending);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [13], independentLines: [14, 15] });
+  });
+
+  it('propagates taint through declarations, fills and for…in loops inside an unclassified region', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const viaDecl = [];',
+      '  const viaFill = [];',
+      '  const viaForIn = [];',
+      '  const viaMap = [];',
+      '  let key;',
+      '  let later;',
+      '  if (user.ok) {',
+      '    const tmp = user.id;',
+      '    viaDecl.push(tmp);',
+      '    user.items.forEach((i) => viaFill.push(i));',
+      '    for (key in user.groups) viaForIn.push(key);',
+      '    const mapped = user.tags.map((t) => viaMap.push(t));',
+      '    setTimeout(async () => {',
+      '      later = await getLater();',
+      '    });',
+      '  }',
+      '  const a = await getA(viaDecl);',
+      '  const b = await getB(viaFill);',
+      '  const c = await getC(viaForIn);',
+      '  const e = await getE(viaMap);',
+      '  const d = await getD(later);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [19, 20, 21, 22], independentLines: [23] });
+  });
+
+  it("taints what a try's catch and finally blocks assign", () => {
+    const src = [
+      'export async function load() {',
+      '  let fallback;',
+      '  let done;',
+      '  try {',
+      '    await ping();',
+      '  } catch (e) {',
+      '    fallback = await getFallback();',
+      '  } finally {',
+      '    done = await markDone();',
+      '  }',
+      '  const a = await getA(fallback);',
+      '  const b = await getB(done);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [11, 12], independentLines: [] });
+  });
+
+  it('anchors a statement with several awaits at its first eligible one', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const both = [',
+      '    await getB(user.id),',
+      '    await getC(user.id)',
+      '  ];',
+      '  const pair = [',
+      '    await getD(),',
+      '    await getE()',
+      '  ];',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [8] });
+    const started = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const p = getP();',
+      '  const pair = [',
+      '    await p,',
+      '    await getD()',
+      '  ];',
+      '}'
+    ].join('\n');
+    expect(wf(started)).toEqual({ dependentLines: [], independentLines: [6] });
+  });
+});
+
+describe('collectLoadWaterfalls — what counts as a reference', () => {
+  it('counts computed members and keys, and property values, but not plain member names or keys', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const a = await getA(other.user);',
+      '  const b = await getB(other[user]);',
+      '  const c = await getC({ user: 1 });',
+      '  const d = await getD({ [user]: 1 });',
+      '  const e = await getE({ id: user.id });',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4, 6, 7], independentLines: [3, 5] });
+  });
+});
+
+describe('collectLoadWaterfalls — exempt awaits, guards and work in flight', () => {
+  it('exempts parent() in either form and body reads, and only those', () => {
+    const src = [
+      'export async function load(event) {',
+      "  const res = await fetch('/a');",
+      '  const p = await event.parent();',
+      '  const [x] = await batch.all([res.json()]);',
+      '  const all = await Promise.all(reqs);',
+      '  const none = await Promise.all([]);',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [5, 6] });
+  });
+
+  it('does not take an await beside a tainted operand of a non-logical operator for guarded', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const b = user.id + (await getB());',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [], independentLines: [3] });
+  });
+
+  it('reads work started inside an array literal as a request in flight', () => {
+    const src = [
+      'export async function load() {',
+      '  const user = await getUser();',
+      '  const ps = [fetch(user.a), user.b];',
+      '  const first = await ps[0];',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
+  });
+});
