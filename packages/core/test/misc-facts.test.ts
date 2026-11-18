@@ -12,6 +12,11 @@ describe('attribute-level facts', () => {
     expect([f.javascriptUrls.map((s) => s.line), f.basePathLinks.map((l) => l.line)]).toEqual([[3], [6]]);
   });
 
+  it('reads a javascript: URL only at the start of the value, after optional whitespace', () => {
+    const src = '<a href=" javascript:x">a</a>\n<a href="x javascript:y">b</a>\n<a href="notjavascript:z">c</a>';
+    expect(facts(src).javascriptUrls.map((s) => s.line)).toEqual([1]);
+  });
+
   it('records a checkable bind:value at the directive line', () => {
     expect(facts('<input\n  type="checkbox"\n  bind:value={v} />').checkableBindValues).toEqual([
       { kind: 'checkbox', line: 3 }

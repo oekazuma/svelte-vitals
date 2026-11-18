@@ -21,6 +21,10 @@ describe('plain-text bullets', () => {
     expect(bullets('{#snippet s()}• a<br />• b{/snippet}')).toEqual([]);
     expect(bullets('<p><span></span>• a</p><p><span></span>• b</p>')).toEqual([]);
   });
+
+  it('reads text after an interpolation as a sentence tail, across a comment', () => {
+    expect(bullets('{n}<!-- c -->- a<br />- b')).toEqual([]);
+  });
 });
 
 describe('duplicate <dt> names', () => {
