@@ -64,6 +64,13 @@ describe('state writes', () => {
     expect(constable(script)).toEqual([]);
   });
 
+  it('reads past a bare return, and through a for…of item in a template handler', () => {
+    expect(constable('let list = $state([]);\nfunction f() {\n  if (x) return;\n  return list;\n}')).toEqual([]);
+    const src =
+      '<script>\n  let days = $state([{}]);\n</script>\n<button onclick={() => { for (const d of days) d.done = true; }}>x</button>';
+    expect(parseComponentFacts(src, 'src/lib/C.svelte').constableStates).toEqual([]);
+  });
+
   it('takes a $state as raw only when every write replaces it whole', () => {
     const script = [
       'let only = $state([]);',
