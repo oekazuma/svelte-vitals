@@ -97,6 +97,10 @@ describe('agent report', () => {
     );
   });
 
+  it('gives the same report for the results in reverse order', () => {
+    expect(formatAgentReport([...results].reverse(), config)).toBe(formatAgentReport(results, config));
+  });
+
   it('says there is nothing to fix', () => {
     expect(formatAgentReport([], config)).toBe(
       ['# svelte-vitals — fixes', '', 'Health: 100/100', '', 'No issues to fix.', ''].join('\n')
@@ -148,8 +152,11 @@ describe('markdown report', () => {
   it("adds an '…and N more' line only past fifty findings", () => {
     const many = (n: number): Result[] =>
       Array.from({ length: n }, (_, i) => ({ id: `seo/r${i}`, severity: 'info', detection: absent, message: 'x' }));
-    expect(formatMarkdownReport(many(50), config, { version: '1' })).not.toContain('more (run');
-    expect(formatMarkdownReport(many(51), config, { version: '1' })).toContain('|\n\n…and 1 more (run');
+    const rows = (out: string) => out.split('\n').filter((l) => /^\| .* \| \[seo\/r\d+\]/.test(l)).length;
+    const fifty = formatMarkdownReport(many(50), config, { version: '1' });
+    const fiftyOne = formatMarkdownReport(many(51), config, { version: '1' });
+    expect([rows(fifty), fifty.includes('more (run')]).toEqual([50, false]);
+    expect([rows(fiftyOne), fiftyOne.includes('|\n\n…and 1 more (run')]).toEqual([50, true]);
   });
 });
 

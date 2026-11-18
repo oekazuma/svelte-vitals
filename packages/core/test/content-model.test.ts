@@ -32,6 +32,8 @@ describe('content-model evaluation', () => {
       '<script>\n  let { html } = $props();\n</script>\n<span>\n  <a href="/x"><div>{@html html}</div></a>\n</span>';
     expect(await lines(unseen)).toEqual([5]);
     expect(await lines('<p>\n  <ins><div>x</div></ins>\n  <ins><span>y</span></ins>\n</p>')).toEqual([2]);
+    expect(await lines('<span>\n  <a href="/x">\n    <div>x</div>\n  </a>\n</span>')).toEqual([3]);
+    expect(await lines('<p>\n  <ins>\n    <div>x</div>\n  </ins>\n</p>')).toEqual([3]);
   });
 
   it('matches link attributes by name and literal value, and stays silent when they are unknowable', async () => {
@@ -78,8 +80,10 @@ describe('content-model evaluation', () => {
   });
 
   it('admits optional entries and anything inside an element whose model is open', async () => {
-    expect(await lines('<fieldset><legend>l</legend><input /></fieldset>\n<template><li>x</li></template>')).toEqual(
-      []
-    );
+    expect(
+      await lines(
+        '<fieldset><legend>l</legend><input /></fieldset>\n<template><li>x</li></template>\n<ul><div>x</div></ul>'
+      )
+    ).toEqual([3]);
   });
 });

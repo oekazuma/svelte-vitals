@@ -126,11 +126,21 @@ describe('console report layout', () => {
     expect(out.split('\n')[3]).toBe('SEO Score: 79/100   (route avg 85 · site −5 · capped at 79: critical present)');
   });
 
+  it('lists every route under verbose', () => {
+    const out = formatConsoleReport([...core, ...routes.map(pass)], config, { byRoute: true, verbose: true });
+    expect([out.split('\n').some((l) => l.startsWith('/r10 ')), out.includes('more route')]).toEqual([true, false]);
+  });
+
   it('counts hidden routes and rules only past the cap', () => {
     const ten = [...core, ...routes.slice(0, 10).map(pass)];
     expect(formatConsoleReport(ten, config, { byRoute: true })).not.toContain('more route');
     const twelve = [...core, ...routes.map(pass), pass('/r11')];
     expect(formatConsoleReport(twelve, config, { byRoute: true })).toContain('…and 2 more routes (avg score 100)');
+    const thirteen = [
+      ...routes.map((r) => fail('seo/i', r, { severity: 'info' })),
+      ...['/r11', '/r12', ...routes].map(pass)
+    ];
+    expect(formatConsoleReport(thirteen, config, { byRoute: true })).toContain('…and 3 more routes (avg score 98)');
     const fiveRules = ['a', 'b', 'c', 'd', 'e'].map((x) => fail(`seo/${x}`, '/r00'));
     expect(formatConsoleReport(fiveRules, config)).not.toContain('more rule');
   });
@@ -152,15 +162,39 @@ describe('console report layout', () => {
       message: 'og set',
       route: '/r00'
     };
-    const out = formatConsoleReport(
+    const input: Result[] = [
+      fail('seo/b-rule', '/r00', { line: 7 }),
+      fail('seo/b-rule', '/r01'),
+      dynamic,
+      { id: 'seo/sitemap', severity: 'warning', detection: { presence: 'own', value: 'static' }, message: 'ok' }
+    ];
+    const dynamicPass = defineConfig({ treatDynamicAs: 'pass' });
+    const out = formatConsoleReport(input, dynamicPass, { verbose: true, byRoute: true, mode: 'build mode' });
+    expect(formatConsoleReport(input, dynamicPass, { byRoute: true, mode: 'build mode' })).toBe(
       [
-        fail('seo/b-rule', '/r00', { line: 7 }),
-        fail('seo/b-rule', '/r01'),
-        dynamic,
-        { id: 'seo/sitemap', severity: 'warning', detection: { presence: 'own', value: 'static' }, message: 'ok' }
-      ],
-      defineConfig({ treatDynamicAs: 'pass' }),
-      { verbose: true, byRoute: true, mode: 'build mode' }
+        'Svelte Vitals  ·  build mode',
+        '',
+        'Health: 80/100',
+        'SEO Score: 80/100   (route avg 80)',
+        '',
+        'Warnings (2)',
+        RULE,
+        '✗ seo/b-rule  seo/b-rule failed',
+        '            /r00',
+        '            src/routes/r00/+page.svelte:7',
+        '            …and 1 more',
+        '',
+        'Passed (2)',
+        RULE,
+        '',
+        'By route',
+        RULE,
+        '/r00                         80',
+        '    ✗ seo/b-rule  seo/b-rule failed',
+        '/r01                         80',
+        '    ✗ seo/b-rule  seo/b-rule failed',
+        ''
+      ].join('\n')
     );
     expect(out).toBe(
       [
