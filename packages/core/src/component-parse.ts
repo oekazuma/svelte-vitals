@@ -601,12 +601,18 @@ function isObjectState(call: Node): boolean {
   return OBJECT_TYPES.has(type?.type);
 }
 
-/** Add the names an assignment or update rebinds (`d = …`, `d++`, `[d] = …`); a member target rebinds none. */
+/** Add the names an assignment, update or loop rebinds (`d = …`, `d++`, `[d] = …`, `for (d of …)`); a member target rebinds none. */
 function addReassigned(n: Node, acc: Set<string>): void {
-  addBoundNames(
-    n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined,
-    acc
-  );
+  const loop = (n?.type === 'ForOfStatement' || n?.type === 'ForInStatement') && n.left?.type !== 'VariableDeclaration';
+  const target =
+    n?.type === 'AssignmentExpression'
+      ? n.left
+      : n?.type === 'UpdateExpression'
+        ? n.argument
+        : loop
+          ? n.left
+          : undefined;
+  addBoundNames(target, acc);
 }
 
 function collectStateWrites(

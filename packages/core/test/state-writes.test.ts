@@ -36,9 +36,12 @@ describe('state writes', () => {
       'let cells = $state([]);',
       'let c = cells;',
       '[c] = [[]];',
-      'c.push(1);'
+      'c.push(1);',
+      'let grid = $state([]);',
+      'let g = grid;',
+      'for (g of [[]]) g.push(1);'
     ].join('\n');
-    expect(constable(script)).toEqual(['shown', 'fn', 'hidden', 'list', 'rows', 'hours', 'cells']);
+    expect(constable(script)).toEqual(['shown', 'fn', 'hidden', 'list', 'rows', 'hours', 'cells', 'grid']);
   });
 
   it('drops a $state written, handed out or mutated through a local holding part of it', () => {
