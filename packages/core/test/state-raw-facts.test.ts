@@ -2,9 +2,10 @@ import { describe, it, expect } from 'vitest';
 import { parseComponentFacts } from '../src/component-parse.js';
 
 const rawable = (script: string[], markup: string[]) =>
-  parseComponentFacts(`<script>\n${script.join('\n')}\n</script>\n${markup.join('\n')}`, 'src/lib/C.svelte').rawableStates.map(
-    (s) => s.name
-  );
+  parseComponentFacts(
+    `<script>\n${script.join('\n')}\n</script>\n${markup.join('\n')}`,
+    'src/lib/C.svelte'
+  ).rawableStates.map((s) => s.name);
 
 /** `let name = $state([]); name = [1];` — a candidate whose only write replaces it whole. */
 const replaced = (name: string) => [`let ${name} = $state([]);`, `${name} = [1];`];

@@ -55,7 +55,9 @@ describe('duplicate <dt> text through markup', () => {
   const dts = (markup: string) => facts(markup).duplicateDts.map((d) => d.text);
 
   it('gives up on a <dt> holding a component or an interpolation', () => {
-    expect(dts('<dl><dt><Foo>a</Foo></dt><dt><Foo>a</Foo></dt><dt><b>{x}</b></dt><dt><b>{x}</b></dt></dl>')).toEqual([]);
+    expect(dts('<dl><dt><Foo>a</Foo></dt><dt><Foo>a</Foo></dt><dt><b>{x}</b></dt><dt><b>{x}</b></dt></dl>')).toEqual(
+      []
+    );
   });
 });
 
@@ -82,8 +84,8 @@ describe('<label> without a control', () => {
   const labels = (markup: string) => facts(markup).unassociatedLabels.map((l) => l.line);
 
   it('reports a plain <label> only', () => {
-    expect(labels('<label class="x">Name</label>\n<span>Name</span>\n<Label>Name</Label>\n<label {...a}>Name</label>')).toEqual([
-      1
-    ]);
+    expect(
+      labels('<label class="x">Name</label>\n<span>Name</span>\n<Label>Name</Label>\n<label {...a}>Name</label>')
+    ).toEqual([1]);
   });
 });

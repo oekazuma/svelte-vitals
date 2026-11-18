@@ -1,6 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { parse } from 'svelte/compiler';
-import { collectComponentConstantLists, collectConstantListExports, parseComponentFacts } from '../src/component-parse.js';
+import {
+  collectComponentConstantLists,
+  collectConstantListExports,
+  parseComponentFacts
+} from '../src/component-parse.js';
 import { parseModuleProgram } from '../src/module-ast.js';
 
 const lists = (src: string, opts: { sets?: boolean } = {}) =>

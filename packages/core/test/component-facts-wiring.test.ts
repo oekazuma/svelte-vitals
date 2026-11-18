@@ -30,7 +30,8 @@ describe('parseComponentFacts wiring', () => {
   });
 
   it('takes module-script instances and their aliases as reactive in an effect', () => {
-    const effectOver = (name: string) => `<script>\n  $effect(() => {\n    console.log(${name}.value);\n  });\n</script>`;
+    const effectOver = (name: string) =>
+      `<script>\n  $effect(() => {\n    console.log(${name}.value);\n  });\n</script>`;
     const newed = `<script module>\n  const store = new Store();\n</script>\n${effectOver('store')}`;
     const aliased = `<script module>\n  const store = new Store();\n  const s = store;\n</script>\n${effectOver('s')}`;
     expect([facts(newed), facts(aliased)].map((f) => f.effects.map((e) => e.mountOnly))).toEqual([[false], [false]]);
@@ -53,7 +54,9 @@ describe('parseComponentFacts wiring', () => {
   });
 
   it('takes a $state placed in a template array as handed on, and names no destructured $state', () => {
-    expect(facts('<script>\n  let list = $state([]);\n</script>\n<Child items={[list]} />').constableStates).toEqual([]);
+    expect(facts('<script>\n  let list = $state([]);\n</script>\n<Child items={[list]} />').constableStates).toEqual(
+      []
+    );
     expect(facts('<script>\n  let { a } = $state({ a: 1 });\n</script>\n{a}').constableStates).toEqual([]);
   });
 });

@@ -6,13 +6,16 @@ const moduleFacts = (src: string) => parseComponentFacts(src, 'src/lib/x.svelte.
 
 describe('attribute-level facts', () => {
   it('reads javascript: URLs and root-relative links from elements only, at the attribute line', () => {
-    const src = '<Link href="javascript:alert(1)" />\n<a\n  href="javascript:void(0)">x</a>\n<Link href="/x" />\n<a\n  href="/y">y</a>';
+    const src =
+      '<Link href="javascript:alert(1)" />\n<a\n  href="javascript:void(0)">x</a>\n<Link href="/x" />\n<a\n  href="/y">y</a>';
     const f = facts(src);
     expect([f.javascriptUrls.map((s) => s.line), f.basePathLinks.map((l) => l.line)]).toEqual([[3], [6]]);
   });
 
   it('records a checkable bind:value at the directive line', () => {
-    expect(facts('<input\n  type="checkbox"\n  bind:value={v} />').checkableBindValues).toEqual([{ kind: 'checkbox', line: 3 }]);
+    expect(facts('<input\n  type="checkbox"\n  bind:value={v} />').checkableBindValues).toEqual([
+      { kind: 'checkbox', line: 3 }
+    ]);
   });
 
   it('classifies a quoted lone expression as an expression, not literal text', () => {
@@ -30,7 +33,8 @@ describe('attribute-level facts', () => {
 
 describe('accessible names', () => {
   it('takes a blank alt as no name and aria-labelledby as a name', () => {
-    const src = '<button><img alt="" /></button>\n<button><img alt=" " /></button>\n<button aria-labelledby="lbl"></button>';
+    const src =
+      '<button><img alt="" /></button>\n<button><img alt=" " /></button>\n<button aria-labelledby="lbl"></button>';
     expect(facts(src).unnamedInteractive.map((u) => u.line)).toEqual([1, 2]);
   });
 });

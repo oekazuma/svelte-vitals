@@ -65,9 +65,13 @@ describe('state writes', () => {
   });
 
   it('takes a $state as raw only when every write replaces it whole', () => {
-    const script = ['let only = $state([]);', 'only = [1];', 'let mixed = $state([]);', 'mixed.push(1);', 'mixed = [];'].join(
-      '\n'
-    );
+    const script = [
+      'let only = $state([]);',
+      'only = [1];',
+      'let mixed = $state([]);',
+      'mixed.push(1);',
+      'mixed = [];'
+    ].join('\n');
     expect(rawable(script)).toEqual(['only']);
   });
 });

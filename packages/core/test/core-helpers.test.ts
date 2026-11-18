@@ -115,9 +115,11 @@ describe('config objects', () => {
   it('resolves an exported name through four bindings, and no more', () => {
     const cfg = (src: string) => resolveConfigObject(parseModuleProgram(src, 'svelte.config.js').program!);
     const chain = (n: number) =>
-      ['const a0 = { kit: {} };', ...Array.from({ length: n }, (_, i) => `const a${i + 1} = a${i};`), `export default a${n};`].join(
-        '\n'
-      );
+      [
+        'const a0 = { kit: {} };',
+        ...Array.from({ length: n }, (_, i) => `const a${i + 1} = a${i};`),
+        `export default a${n};`
+      ].join('\n');
     expect([cfg(chain(3)), cfg(chain(4))].map(Boolean)).toEqual([true, false]);
   });
 });

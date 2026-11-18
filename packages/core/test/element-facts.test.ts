@@ -5,7 +5,8 @@ const facts = (markup: string) => parseComponentFacts(markup, 'src/lib/C.svelte'
 
 describe('ARIA elements', () => {
   it('reads input facts only from <input>, attribute lines from the attribute, and skips components', () => {
-    const src = '<div type="x" list="l" role="button"></div>\n<div\n  aria-label="x"></div>\n<Foo role="button" aria-label="x" />';
+    const src =
+      '<div type="x" list="l" role="button"></div>\n<div\n  aria-label="x"></div>\n<Foo role="button" aria-label="x" />';
     expect(
       facts(src).ariaElements.map((e) => ({
         tag: e.tag,

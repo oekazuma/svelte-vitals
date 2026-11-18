@@ -35,6 +35,8 @@ describe('reactive reads in effects', () => {
 
 describe('stale prop candidates', () => {
   it('skips an initializer that awaits', () => {
-    expect(facts('<script>\n  let { size } = $props();\n  let px = await size;\n</script>\n{px}').stalePropDerivations).toEqual([]);
+    expect(
+      facts('<script>\n  let { size } = $props();\n  let px = await size;\n</script>\n{px}').stalePropDerivations
+    ).toEqual([]);
   });
 });

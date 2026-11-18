@@ -62,7 +62,9 @@ describe('index keys', () => {
 
 describe('dnd zones', () => {
   const zoneChild = (zone: string) =>
-    facts(`<div ${zone}>\n  <div role="listitem" aria-label="a"></div>\n</div>`).ariaElements.map((e) => e.hasAction ?? false);
+    facts(`<div ${zone}>\n  <div role="listitem" aria-label="a"></div>\n</div>`).ariaElements.map(
+      (e) => e.hasAction ?? false
+    );
 
   it('takes a dndzone action as a zone unless its last word on autoAriaDisabled is a literal true', () => {
     expect(zoneChild('use:dndzone={opts}')).toEqual([true]);

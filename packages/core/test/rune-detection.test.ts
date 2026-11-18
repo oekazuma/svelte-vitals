@@ -27,10 +27,9 @@ describe('rune detection', () => {
   });
 
   it('takes $state, $state.raw and $state.frozen as state, and no other .raw call', () => {
-    expect(constable(['let cache = foo.raw([]);', 'let frozen = $state.frozen({});', 'let raw = $state.raw([]);'])).toEqual([
-      'frozen',
-      'raw'
-    ]);
+    expect(
+      constable(['let cache = foo.raw([]);', 'let frozen = $state.frozen({});', 'let raw = $state.raw([]);'])
+    ).toEqual(['frozen', 'raw']);
   });
 
   it('takes $derived.by as reactive in an effect, and no other call', () => {
@@ -58,13 +57,20 @@ describe('rune detection', () => {
     ).toEqual(['items', 'made', 'loaded']);
     expect(mutated(['let { a } = $props();', 'let { b } = $props();', 'a.push(1);'])).toEqual([]);
     expect(mutated(['let [first] = $props();', 'first.push(1);'])).toEqual([]);
-    expect(mutated(['export let items;', 'export const fixed = [];', 'fixed.push(1);', 'items.push(1);'])).toEqual(['items']);
+    expect(mutated(['export let items;', 'export const fixed = [];', 'fixed.push(1);', 'items.push(1);'])).toEqual([
+      'items'
+    ]);
   });
 
   it('holds a $state as an object only for an object value or object type', () => {
     expect(
       constable(
-        ['let typed = $state<string[]>();', 'const p = { typed };', 'let pick = $state(flag && []);', 'const q = [pick];'],
+        [
+          'let typed = $state<string[]>();',
+          'const p = { typed };',
+          'let pick = $state(flag && []);',
+          'const q = [pick];'
+        ],
         ' lang="ts"'
       )
     ).toEqual(['typed', 'pick']);
