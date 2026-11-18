@@ -17,7 +17,10 @@ import { isDeprecatedAttr } from '../src/html-spec/index.js';
 const config = defineConfig({});
 /** Long instruction prose is matched by its opening words only; counts, order and layout stay exact. */
 const proseless = (out: string) =>
-  out.replace(/^(\d+ issue\(s\) to fix), .*$/m, '$1, …').replace(/^_Expected findings .*$/m, '_Expected findings …');
+  out
+    .replace(/^(\d+ issue\(s\) to fix), .*$/m, '$1, …')
+    .replace(/^_Expected findings .*$/m, '_Expected findings …')
+    .replace(/ If the code is right .*(`svelte-vitals-disable-next-line [^`]+`).* line (\d+) .*$/m, ' … $1 … line $2');
 const absent = { presence: 'none', value: 'absent' } as const;
 const results: Result[] = [
   {
@@ -73,7 +76,7 @@ describe('agent report', () => {
         '<img alt="" />',
         '```',
         '- Docs: https://x.test/a',
-        '- Accept: re-run svelte-vitals; a11y/img-alt passes for /b. If the code is right as written, a reviewed `svelte-vitals-disable-next-line a11y/img-alt` comment directly above line 3 resolves it instead.',
+        '- Accept: re-run svelte-vitals; a11y/img-alt passes for /b. … `svelte-vitals-disable-next-line a11y/img-alt` … line 3',
         '',
         '## src/routes/a/+page.svelte',
         '',
@@ -142,7 +145,7 @@ describe('markdown report', () => {
     );
   });
 
-  it('trails only findings past fifty', () => {
+  it("adds an '…and N more' line only past fifty findings", () => {
     const many = (n: number): Result[] =>
       Array.from({ length: n }, (_, i) => ({ id: `seo/r${i}`, severity: 'info', detection: absent, message: 'x' }));
     expect(formatMarkdownReport(many(50), config, { version: '1' })).not.toContain('more (run');
@@ -236,10 +239,13 @@ describe('scoring', () => {
   });
 
   it('keeps the worst deduction per rule, on a route and in the project', () => {
-    expect(computeScore([one('critical', 'seo/x', '/a'), one('warning', 'seo/x', '/a')], config).rawScore).toBe(
-      computeScore([one('critical', 'seo/x', '/a')], config).rawScore
-    );
-    expect(computeScore([one('critical'), one('warning')], config).scoreModel.sitePenalty).toBe(15);
+    const alone = computeScore([one('critical', 'seo/x', '/a')], config).rawScore;
+    const routed = (first: Result['severity'], second: Result['severity']) =>
+      computeScore([one(first, 'seo/x', '/a'), one(second, 'seo/x', '/a')], config).rawScore;
+    expect([routed('critical', 'warning'), routed('warning', 'critical')]).toEqual([alone, alone]);
+    const site = (first: Result['severity'], second: Result['severity']) =>
+      computeScore([one(first), one(second)], config).scoreModel.sitePenalty;
+    expect([site('critical', 'warning'), site('warning', 'critical')]).toEqual([15, 15]);
   });
 
   it('caps a project-level critical above 79, and not one that lands exactly on it', () => {
@@ -259,7 +265,7 @@ describe('scoring', () => {
 });
 
 describe('deprecated attributes', () => {
-  it('reads the deprecated and obsolete flags of an element attribute', () => {
+  it("reads an element attribute's deprecated flag", () => {
     expect([isDeprecatedAttr('hr', 'size'), isDeprecatedAttr('a', 'href')]).toEqual([true, false]);
   });
 });
