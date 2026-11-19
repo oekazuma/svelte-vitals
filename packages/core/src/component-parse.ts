@@ -601,13 +601,28 @@ function isObjectState(call: Node): boolean {
   return OBJECT_TYPES.has(type?.type);
 }
 
+/** Add the names an assignment, update or loop rebinds (`d = …`, `d++`, `[d] = …`, `for (d of …)`); a member target rebinds none. */
+function addReassigned(n: Node, acc: Set<string>): void {
+  const loop = (n?.type === 'ForOfStatement' || n?.type === 'ForInStatement') && n.left?.type !== 'VariableDeclaration';
+  const target =
+    n?.type === 'AssignmentExpression'
+      ? n.left
+      : n?.type === 'UpdateExpression'
+        ? n.argument
+        : loop
+          ? n.left
+          : undefined;
+  addBoundNames(target, acc);
+}
+
 function collectStateWrites(
   root: Node,
   stateNames: Set<string>,
   acc: Set<string>,
   kinds?: Map<string, Set<WriteKind>>,
-  localStates = false
-): void {
+  localStates = false,
+  scriptAliases?: Map<string, string>
+): Map<string, string> {
   const record = (name: string, kind: WriteKind): void => {
     acc.add(name);
     if (kinds) {
@@ -629,10 +644,14 @@ function collectStateWrites(
     if (localStates && isObjectState(init)) heldObjects.add(n.id.name);
   });
   for (const name of objectStates) primitiveStates.delete(name);
-  // A local holding part of a state (`const day = days[i]`, `for (const day of days)`) shares its
-  // reference: a member write or method call through it mutates the state. By name, like the writes.
+  // A local holding a state or part of it (`const list = days`, `const day = days[i]`,
+  // `for (const day of days)`) shares its reference: a member write or method call through it
+  // mutates the state. By name, like the writes.
   const aliasOf = new Map<string, string>();
-  // A local the code reassigns may hold something else by the time it is written through.
+  // Declared at the top level of the script, so a template handler can reach it.
+  const topAliases = new Map<string, string>();
+  // A local the code reassigns may hold something else by the time it is written through. Not a
+  // destructuring or loop target: dropping the alias drops the writes made before it too.
   const reassigned = new Set<string>();
   if (localStates)
     walkEstree(root, (n: Node) => {
@@ -642,23 +661,27 @@ function collectStateWrites(
     });
   if (localStates)
     for (let pass = 0; pass < 2; pass++)
-      walkEstree(root, (n: Node) => {
+      walkScoped(root, (n: Node, scope: Set<string>) => {
+        const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
         const [id, from]: [Node, Node] =
-          n?.type === 'VariableDeclarator' && unwrapTs(n.init)?.type === 'MemberExpression'
-            ? [n.id, n.init]
+          init?.type === 'MemberExpression' || init?.type === 'Identifier'
+            ? [n.id, init]
             : n?.type === 'ForOfStatement' && n.left?.type === 'VariableDeclaration'
               ? [n.left.declarations?.[0]?.id, n.right]
               : [undefined, undefined];
         const r = rootObjectName(unwrapTs(from));
-        const owner = r && (stateNames.has(r) ? r : aliasOf.get(r));
-        if (id?.type === 'Identifier' && owner && !stateNames.has(id.name) && !reassigned.has(id.name))
-          aliasOf.set(id.name, owner);
+        const owner =
+          r && (stateNames.has(r) ? r : (aliasOf.get(r) ?? (scope.has(r) ? undefined : scriptAliases?.get(r))));
+        if (id?.type !== 'Identifier' || !owner || stateNames.has(id.name) || reassigned.has(id.name)) return;
+        aliasOf.set(id.name, owner);
+        if (n.type === 'VariableDeclarator' && !scope.has(id.name)) topAliases.set(id.name, owner);
       });
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
     const mutated = (r: string | undefined): void => {
       if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate');
       else if (r && stateNames.has(aliasOf.get(r)!)) record(aliasOf.get(r)!, 'mutate');
+      else if (r && !shadowed(r) && scriptAliases?.has(r)) record(scriptAliases.get(r)!, 'mutate');
     };
     if (n?.type === 'AssignmentExpression') {
       if (n.left?.type === 'Identifier' && stateNames.has(n.left.name) && !shadowed(n.left.name)) {
@@ -717,7 +740,7 @@ function collectStateWrites(
   // that block's statements are walked again with only its own state declarations in play. Writes
   // are recorded by name, so only unmutated-state opts in: for the other callers a same-named
   // local would stand in for the binding they track.
-  if (!localStates) return;
+  if (!localStates) return topAliases;
   walkEstree(root, (n: Node) => {
     if (n.type !== 'BlockStatement') return;
     const own = new Set<string>();
@@ -731,6 +754,7 @@ function collectStateWrites(
     }
     if (own.size > 0) walkScoped(n.body, visit(own));
   });
+  return topAliases;
 }
 
 /** Function-shaped nodes whose bodies defer evaluation — prop reads inside them stay reactive (compiled to call-time reads). */
@@ -3278,9 +3302,17 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       });
     });
     const writtenOrEscaped = new Set<string>();
-    collectStateWrites(program, stateNames, writtenOrEscaped, undefined, true);
+    const scriptAliases = collectStateWrites(program, stateNames, writtenOrEscaped, undefined, true);
     if (ast.fragment) {
-      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true);
+      // A handler may run after the script or a handler rebinds the local, so a local rebound in
+      // either, outside a binding of its own name, is not followed into handlers.
+      for (const root of [program, ast.fragment])
+        walkScoped(root, (n, scope) => {
+          const names = new Set<string>();
+          addReassigned(n, names);
+          for (const name of names) if (!scope.has(name)) scriptAliases.delete(name);
+        });
+      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true, scriptAliases);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectEachContextTaint(ast.fragment, stateNames, writtenOrEscaped, new Set(), false);
