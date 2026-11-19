@@ -659,8 +659,10 @@ function collectStateWrites(
         n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined;
       if (target?.type === 'Identifier') reassigned.add(target.name);
     });
+  // A chain can be declared after the code that reads it, so walk again until nothing is added.
   if (localStates)
-    for (let pass = 0; pass < 2; pass++)
+    for (let size = -1; size !== aliasOf.size;) {
+      size = aliasOf.size;
       walkScoped(root, (n: Node, scope: Set<string>) => {
         const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
         const [id, from]: [Node, Node] =
@@ -676,6 +678,7 @@ function collectStateWrites(
         aliasOf.set(id.name, owner);
         if (n.type === 'VariableDeclarator' && !scope.has(id.name)) topAliases.set(id.name, owner);
       });
+    }
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
     const mutated = (r: string | undefined): void => {

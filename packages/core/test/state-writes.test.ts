@@ -70,6 +70,23 @@ describe('state writes', () => {
     expect(constable('let s = $state({ n: 0 });\nlet d = s;\nd = { n: 1 };\nd.n = 2;')).toEqual(['s']);
   });
 
+  it('drops a $state mutated through a chain of locals each declared after the code that reads it', () => {
+    const script = [
+      'let s = $state({ m: { m: { m: { n: 0 } } } });',
+      'function outer() {',
+      '  function inner() {',
+      '    const x = y.m;',
+      '    x.n = 1;',
+      '  }',
+      '  const y = z.m;',
+      '  inner();',
+      '}',
+      'const z = s.m;',
+      'outer();'
+    ].join('\n');
+    expect(constable(script)).toEqual([]);
+  });
+
   it('keeps a mutation made through a local before a destructuring or a loop rebinds it', () => {
     expect(constable('let s = $state({ items: [] });\nlet d = s.items;\nd.push(1);\nfor (d of [[]]) {}')).toEqual([]);
     expect(constable('let s = $state([]);\nlet d = s;\nd.push(1);\n[d] = [[]];')).toEqual([]);
