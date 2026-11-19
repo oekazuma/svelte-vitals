@@ -356,7 +356,12 @@ function collectConstantLists(
         for (const arg of n.arguments ?? []) if (listOf(unwrapTs(arg))) safe.add(unwrapTs(arg));
       if (n.type === 'BindDirective' && listOf(rootObjectNode(n.expression)))
         unsafe.add(listOf(rootObjectNode(n.expression))!);
-      if (n.type === 'Property' && !n.computed && !n.shorthand) safe.add(n.key);
+      if (
+        (n.type === 'Property' || n.type === 'MethodDefinition' || n.type === 'PropertyDefinition') &&
+        !n.computed &&
+        !n.shorthand
+      )
+        safe.add(n.key);
     });
   }
   for (const root of roots) {
