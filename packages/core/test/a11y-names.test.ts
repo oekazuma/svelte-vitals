@@ -53,6 +53,18 @@ describe('interactive elements without a name', () => {
       )
     ).toEqual(['input:2', 'a:3', 'input:4', 'input:5', 'input:6']);
   });
+
+  it("matches a label's for to an id exactly, surrounding spaces included", () => {
+    expect(
+      unnamed(
+        [
+          '<label for="a">Go</label><input id=" a " type="image" src="a.png" />',
+          '<label for=" b ">Go</label><input id="b" type="image" src="b.png" />',
+          '<label for=" c ">Go</label><input id=" c " type="image" src="c.png" />'
+        ].join('\n')
+      )
+    ).toEqual(['input:1', 'input:2']);
+  });
 });
 
 describe('labels without a control', () => {

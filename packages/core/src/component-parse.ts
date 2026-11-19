@@ -1892,7 +1892,8 @@ function collectLabelTargets(node: Node, acc: { ids: Set<string>; nodes: Set<Nod
     const scan = scanAccessibleNameSubtree(node, wrapped);
     if (scan.named || scan.unknowable) {
       const forId = attrText(node.attributes, 'for');
-      if (forId !== undefined && forId.trim().length > 0) acc.ids.add(forId.trim());
+      // Browsers match `for` to an `id` exactly; an empty `id` gives an element no ID.
+      if (forId) acc.ids.add(forId);
       if (wrapped) acc.nodes.add(wrapped);
     }
   }
@@ -1923,7 +1924,7 @@ function collectUnnamedInteractive(
     const target = accessibleNameTarget(node);
     const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
     const id = attrText(node.attributes, 'id');
-    const namedByLabel = target !== 'a' && (labels.nodes.has(node) || (id !== undefined && labels.ids.has(id.trim())));
+    const namedByLabel = target !== 'a' && (labels.nodes.has(node) || (id !== undefined && labels.ids.has(id)));
     if (target && !hasSpread && !namedByLabel) {
       if (target === 'input') {
         if (!hasNamingAttr(node.attributes) && !hasNamingValue(node.attributes, 'alt')) {
