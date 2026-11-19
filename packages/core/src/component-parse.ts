@@ -621,7 +621,6 @@ function collectStateWrites(
   acc: Set<string>,
   kinds?: Map<string, Set<WriteKind>>,
   localStates = false,
-  reassigned: Set<string> = new Set(),
   scriptAliases?: Map<string, string>
 ): Map<string, string> {
   const record = (name: string, kind: WriteKind): void => {
@@ -651,8 +650,15 @@ function collectStateWrites(
   const aliasOf = new Map<string, string>();
   // Declared at the top level of the script, so a template handler can reach it.
   const topAliases = new Map<string, string>();
-  // A local the code reassigns may hold something else by the time it is written through.
-  if (localStates) walkEstree(root, (n: Node) => addReassigned(n, reassigned));
+  // A local the code reassigns may hold something else by the time it is written through. Not a
+  // destructuring or loop target: dropping the alias drops the writes made before it too.
+  const reassigned = new Set<string>();
+  if (localStates)
+    walkEstree(root, (n: Node) => {
+      const target =
+        n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined;
+      if (target?.type === 'Identifier') reassigned.add(target.name);
+    });
   if (localStates)
     for (let pass = 0; pass < 2; pass++)
       walkScoped(root, (n: Node, scope: Set<string>) => {
@@ -3296,25 +3302,17 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       });
     });
     const writtenOrEscaped = new Set<string>();
-    // A script local is rebound, and written through, from template handlers too, unless a
-    // template binding of that name shadows it there.
-    const reassignedInTemplate = new Set<string>();
-    if (ast.fragment)
-      walkScoped(ast.fragment, (n, scope) => {
-        const names = new Set<string>();
-        addReassigned(n, names);
-        for (const name of names) if (!scope.has(name)) reassignedInTemplate.add(name);
-      });
-    const scriptAliases = collectStateWrites(
-      program,
-      stateNames,
-      writtenOrEscaped,
-      undefined,
-      true,
-      reassignedInTemplate
-    );
+    const scriptAliases = collectStateWrites(program, stateNames, writtenOrEscaped, undefined, true);
     if (ast.fragment) {
-      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true, new Set(), scriptAliases);
+      // A handler may run after the script or a handler rebinds the local, so a local rebound in
+      // either, outside a binding of its own name, is not followed into handlers.
+      for (const root of [program, ast.fragment])
+        walkScoped(root, (n, scope) => {
+          const names = new Set<string>();
+          addReassigned(n, names);
+          for (const name of names) if (!scope.has(name)) scriptAliases.delete(name);
+        });
+      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true, scriptAliases);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectEachContextTaint(ast.fragment, stateNames, writtenOrEscaped, new Set(), false);

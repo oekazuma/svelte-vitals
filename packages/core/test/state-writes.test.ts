@@ -32,16 +32,9 @@ describe('state writes', () => {
       'let hours = $state([{ n: 0 }]);',
       'let h = hours[0];',
       'h = { n: 0 };',
-      'h.n = 1;',
-      'let cells = $state([]);',
-      'let c = cells;',
-      '[c] = [[]];',
-      'c.push(1);',
-      'let grid = $state([]);',
-      'let g = grid;',
-      'for (g of [[]]) g.push(1);'
+      'h.n = 1;'
     ].join('\n');
-    expect(constable(script)).toEqual(['shown', 'fn', 'hidden', 'list', 'rows', 'hours', 'cells', 'grid']);
+    expect(constable(script)).toEqual(['shown', 'fn', 'hidden', 'list', 'rows', 'hours']);
   });
 
   it('drops a $state written, handed out or mutated through a local holding part of it', () => {
@@ -77,6 +70,11 @@ describe('state writes', () => {
     expect(constable('let s = $state({ n: 0 });\nlet d = s;\nd = { n: 1 };\nd.n = 2;')).toEqual(['s']);
   });
 
+  it('keeps a mutation made through a local before a destructuring or a loop rebinds it', () => {
+    expect(constable('let s = $state({ items: [] });\nlet d = s.items;\nd.push(1);\nfor (d of [[]]) {}')).toEqual([]);
+    expect(constable('let s = $state([]);\nlet d = s;\nd.push(1);\n[d] = [[]];')).toEqual([]);
+  });
+
   const marked = (script: string, markup: string) =>
     parseComponentFacts(`<script>\n${script}\n</script>\n${markup}`, 'src/lib/C.svelte').constableStates.map(
       (s) => s.name
@@ -93,6 +91,21 @@ describe('state writes', () => {
     expect(
       marked('let s = $state([]);\nlet d = s;', '<button onclick={() => { d = []; d.push(1); }}>x</button>')
     ).toEqual(['s']);
+    expect(
+      marked('let s = $state([]);\nlet d = s;\n[d] = [[]];', '<button onclick={() => d.push(1)}>x</button>')
+    ).toEqual(['s']);
+  });
+
+  it('keeps a script mutation through a local that a template handler rebinds', () => {
+    expect(
+      marked(
+        'let s = $state({ items: [] });\nlet d = s.items;\nd.push(1);',
+        '<button onclick={() => (d = [])}>x</button>'
+      )
+    ).toEqual([]);
+    expect(
+      marked('let s = $state([]);\nlet d = s;\nd.push(1);', '<button onclick={() => (d = [])}>x</button>')
+    ).toEqual([]);
   });
 
   it('keeps a script local apart from a template binding of the same name', () => {
