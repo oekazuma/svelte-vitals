@@ -92,6 +92,24 @@ describe('collectComponentConstantLists', () => {
     expect(lists(src)).toEqual(['param']);
   });
 
+  it('keeps a const list whose name is also a class member name', () => {
+    const src = [
+      '<script>',
+      '  const method = [1];',
+      '  const field = [1];',
+      '  const getter = [1];',
+      '  const initial = [1];',
+      '  class C {',
+      '    method() {}',
+      '    static field = 0;',
+      '    get getter() { return 0; }',
+      '    copy = initial;',
+      '  }',
+      '</script>'
+    ].join('\n');
+    expect(lists(src)).toEqual(['field', 'getter', 'method']);
+  });
+
   it('takes new Set([…]) for a list only when asked to', () => {
     const src = [
       '<script>',
