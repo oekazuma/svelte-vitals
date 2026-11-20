@@ -648,10 +648,11 @@ export function collectFalseExports(program: Node): Set<string> {
 
 /**
  * Whether the exported `load` sends a request without a session away before rendering: a top-level
- * `if` whose test is only negated reads of the request's `locals` (`!locals.user`,
- * `!(await locals.auth())`, or a `const` taken from one earlier in the body) and whose branch
- * redirects or errors 401/403. A test that also reads anything else — the URL, params — gates only
- * some requests and does not count; neither does a gate after a `return`.
+ * `if` whose test is a negated read of the request's `locals` (`!locals.user`,
+ * `!(await locals.auth())`, or a `const` taken from one earlier in the body), alone or as any operand
+ * of an `||`, and whose branch redirects or errors 401/403. A test that needs something else to hold
+ * as well — an `&&` with the URL or params — gates only some requests and does not count; neither
+ * does a gate after a `return`.
  */
 function loadGatesOnLocals(program: Node): boolean {
   const redirects = collectNamedImportAliases(program, '@sveltejs/kit', REDIRECT_NAMES);
@@ -685,7 +686,7 @@ function loadGatesOnLocals(program: Node): boolean {
   };
   const negated = (test: Node): boolean => {
     const t = unwrapTs(test);
-    if (t?.type === 'LogicalExpression') return t.operator === '||' && negated(t.left) && negated(t.right);
+    if (t?.type === 'LogicalExpression') return t.operator === '||' && (negated(t.left) || negated(t.right));
     return t?.type === 'UnaryExpression' && t.operator === '!' && fromLocals(t.argument);
   };
   const exitCall = (expr: Node): boolean => {
