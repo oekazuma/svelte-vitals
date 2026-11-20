@@ -567,14 +567,16 @@ describe('svelte-config path values', () => {
       `  $a: path.join('src/', '/a/'),`,
       `  $b: path.resolve('src', '', 'b'),`,
       `  $c: path.join('', 'src/c'),`,
-      `  $d: path.resolve('/opt/', 'd')`,
+      `  $d: path.resolve('/opt/', 'd'),`,
+      `  $e: path.resolve('node_modules\\\\', '@cio/ui/src')`,
       `} } };`
     ].join('\n');
     expect(findKitAliasesInSvelteConfig(src).entries!.map((e) => e.value)).toEqual([
       'src/a/',
       'src/b',
       'src/c',
-      '/opt/d'
+      '/opt/d',
+      'node_modules/@cio/ui/src'
     ]);
   });
 

@@ -162,7 +162,7 @@ function pathValueOf(value: Expression): string | undefined {
   return parts
     .filter(Boolean)
     .join('/')
-    .replace(/\/{2,}/g, '/');
+    .replace(/[\\/]{2,}/g, '/');
 }
 
 /** A property's value as a config path (see `pathValueOf`), else undefined. */
