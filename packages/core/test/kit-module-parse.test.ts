@@ -1523,8 +1523,10 @@ describe('parseKitModuleFacts — loadNeverRenders edges', () => {
     expect(never("  class redirect {}\n  redirect(307, '/a');").loadNeverRenders).toBeUndefined();
   });
 
-  it('reads a loop on building as no exit', () => {
-    expect(never("  while (building) return {};\n  redirect(307, '/a');").loadNeverRenders).toBeUndefined();
+  it('reads a while loop on building as entered at build time and skipped on a request', () => {
+    const parsed = never("  while (building) return {};\n  redirect(307, '/a');");
+    expect(parsed.loadNeverRenders).toBeUndefined();
+    expect(parsed.loadNeverRendersOutsideBuild).toBe(true);
   });
 });
 
