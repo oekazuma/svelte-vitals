@@ -431,8 +431,8 @@ function loadNeverRenders(program: Node, locals: Set<string>, building = new Set
 
 /**
  * Whether `fn`, a function of `program`, redirects or errors on every call (see `loadNeverRenders`).
- * `building` holds the names `building` from `$app/environment` or `$app/env` is imported as: an `if` on one of them
- * is read with the test false, as it is on every request.
+ * `building` holds the names `building` from `$app/environment` or `$app/env` is imported as: an `if` or `while` on one
+ * of them is read with the test false, as it is on every request.
  */
 function alwaysExits(program: Node, fn: Node, locals: Set<string>, building = new Set<string>()): boolean {
   const topLevel = collectTopLevelBindings(program);
@@ -507,7 +507,8 @@ function alwaysExits(program: Node, fn: Node, locals: Set<string>, building = ne
   const always = (body: Node[] | undefined, outer: Set<string>, rethrow: string | undefined, frame: Frame): boolean => {
     const shadow = within(body, outer);
     for (let stmt of body ?? []) {
-      const test: Node = stmt?.type === 'IfStatement' ? unwrapTs(stmt.test) : undefined;
+      const test: Node =
+        stmt?.type === 'IfStatement' || stmt?.type === 'WhileStatement' ? unwrapTs(stmt.test) : undefined;
       if (test?.type === 'Identifier' && building.has(test.name) && !shadow.has(test.name)) {
         if (!stmt.alternate) continue;
         stmt = stmt.alternate;
