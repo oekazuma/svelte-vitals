@@ -376,6 +376,13 @@ describe('collectKitModuleFacts — a load guarded by an imported flag', () => {
         'FEATURES'
       )
     ).toBe(true);
+    expect(
+      await never(
+        "export const FEATURES = { DEBATE: false, 'new-ui': true };",
+        'if (!FEATURES.DEBATE) redirect(302, "/");',
+        'FEATURES'
+      )
+    ).toBe(true);
   });
 
   it('renders when the flag may be true, or the module cannot be read', async () => {

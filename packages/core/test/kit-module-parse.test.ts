@@ -1568,7 +1568,7 @@ describe('parseInMemoryExports', () => {
 });
 
 describe('parseFalseExports', () => {
-  it('names const exports that are false, and the false own properties after the last computed, quoted or spread key', () => {
+  it('names const exports that are false, and the false own properties after the last computed or spread key', () => {
     const src = [
       'const dyn = "x";',
       'let C = false;',
@@ -1578,13 +1578,20 @@ describe('parseFalseExports', () => {
       'export const { E } = { E: false };',
       'export { C };',
       'export const flags = { on: true, off: false, [dyn]: false, kept: false, other: true };',
-      "export const quoted = { early: false, 'str': false, late: false };",
-      'export const spread = { early: false, ...rest, late: false };'
+      "export const quoted = { early: false, 'str': false, 1: false, late: false, 'early': true };",
+      'export const spread = { early: false, ...rest, late: false };',
+      'export const proto = { early: false, __proto__: false, late: false };',
+      "export const quotedProto = { early: false, '__proto__': false };"
     ].join('\n');
     expect([...parseFalseExports(src, 'src/lib/flags.ts')].sort()).toEqual([
       'A',
       'flags.kept',
+      'proto.early',
+      'proto.late',
+      'quoted.1',
       'quoted.late',
+      'quoted.str',
+      'quotedProto.early',
       'spread.late'
     ]);
   });

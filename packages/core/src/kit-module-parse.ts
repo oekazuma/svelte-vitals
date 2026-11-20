@@ -636,8 +636,15 @@ export function collectFalseExports(program: Node): Set<string> {
         const members = new Map<string, boolean>();
         for (const p of (init.properties ?? []) as Node[]) {
           const v: Node = unwrapTs(p?.value);
-          if (p?.type !== 'Property' || p.computed || p.key?.type !== 'Identifier') members.clear();
-          else members.set(p.key.name, v?.type === 'Literal' && v.value === false);
+          const key =
+            p?.type === 'Property' && !p.computed
+              ? p.key?.type === 'Identifier'
+                ? p.key.name
+                : String(p.key?.value)
+              : undefined;
+          // `__proto__: false` sets the prototype, not an own property.
+          if (key === undefined) members.clear();
+          else if (key !== '__proto__') members.set(key, v?.type === 'Literal' && v.value === false);
         }
         for (const [key, isFalse] of members) if (isFalse) names.add(`${d.id.name}.${key}`);
       }
