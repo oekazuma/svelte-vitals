@@ -156,6 +156,20 @@ export default { kit: { alias: {
     // An npm package in node_modules is not a workspace package.
     expect(resolveRepoLocalPath('$other/x', 'src/routes/+page.svelte', aliases)).toBe('node_modules/other/src/x');
   });
+
+  it('points a kit.alias joined from node_modules/ and the package path at the package directory', () => {
+    const kit = resolveKitAliases(undefined, {
+      source: `import path from 'path';
+export default { kit: { alias: { '$ui': path.resolve('node_modules/', '@cio/ui/src') } } };`
+    });
+    const aliases = withWorkspacePackages(kit, [
+      { name: '@cio/ui', dir: '../../packages/ui', manifest: JSON.stringify({ name: '@cio/ui' }) }
+    ]);
+    expect(aliases!.find((a) => a.find === '$ui')).toMatchObject({
+      replacement: '../../packages/ui/src',
+      root: '../../packages/ui'
+    });
+  });
 });
 
 describe('installed packages', () => {
