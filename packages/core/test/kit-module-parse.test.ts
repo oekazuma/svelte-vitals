@@ -1579,14 +1579,19 @@ describe('parseFalseExports', () => {
       'export { C };',
       'export const flags = { on: true, off: false, [dyn]: false, kept: false, other: true };',
       "export const quoted = { early: false, 'str': false, 1: false, late: false, 'early': true };",
-      'export const spread = { early: false, ...rest, late: false };'
+      'export const spread = { early: false, ...rest, late: false };',
+      'export const proto = { early: false, __proto__: false, late: false };',
+      "export const quotedProto = { early: false, '__proto__': false };"
     ].join('\n');
     expect([...parseFalseExports(src, 'src/lib/flags.ts')].sort()).toEqual([
       'A',
       'flags.kept',
+      'proto.early',
+      'proto.late',
       'quoted.1',
       'quoted.late',
       'quoted.str',
+      'quotedProto.early',
       'spread.late'
     ]);
   });
