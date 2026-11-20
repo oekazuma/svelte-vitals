@@ -339,6 +339,8 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
   const rows = [];
   const added = new Map();
   const removed = new Map();
+  // Finding keys carry no severity, so a finding that only changed severity is neither added nor removed.
+  const resevered = new Map();
   const precisionOf = (keys, ledger) => {
     let tp = 0;
     let fp = 0;
@@ -354,6 +356,15 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
     const now = b.get(rule) ?? new Map();
     const plus = [...now.values()].filter((f) => !was.has(f.key));
     const minus = [...was.values()].filter((f) => !now.has(f.key));
+    const moved = [...now.values()].filter((f) => was.has(f.key) && was.get(f.key).severity !== f.severity);
+    if (moved.length)
+      resevered.set(
+        rule,
+        moved.map((f) => {
+          const move = `${was.get(f.key).severity} → ${f.severity}`;
+          return { ...f, move, title: `${move}: ${f.title}` };
+        })
+      );
     const [p0, p1] = [precisionOf(was, baseVerdicts), precisionOf(now, verdicts)];
     if (plus.length === 0 && minus.length === 0 && p0 === p1) continue;
     const net = plus.length - minus.length;
@@ -461,6 +472,10 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
     if (unlabeled)
       out.push(`- ⚠️ ${unlabeled} added finding(s) have no verdict yet: label them in \`scripts/corpus/verdicts/\``);
   }
+  const severityMoves = new Map();
+  for (const f of [...resevered.values()].flat()) severityMoves.set(f.move, (severityMoves.get(f.move) ?? 0) + 1);
+  if (severityMoves.size)
+    out.push(`- Severity changed: ${[...severityMoves].map(([move, count]) => `${count} ${move}`).join(', ')}`);
   for (const f of failures) out.push(`- ❌ ${f}`);
   out.push('');
 
@@ -476,6 +491,7 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
       ...listFindings('Removed', removed, either, false)
     );
   }
+  out.push(...listFindings('Severity-changed', resevered, verdicts, false));
 
   return { text: out.join('\n'), failures };
 }
