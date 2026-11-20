@@ -1101,6 +1101,18 @@ describe('parseKitModuleFacts — loadGated (loads that send a request without a
       gated("export function load({ locals: { user } }) {\n  if (!user || !user.admin) return redirect(302, '/');\n}")
     ).toBe(true);
   });
+  it('is set when a negated locals read is any operand of an ||, whatever the other operands read', () => {
+    expect(
+      gated(
+        "export function load({ locals, url }) {\n  if (!url.searchParams || !locals.user) redirect(302, '/login');\n}"
+      )
+    ).toBe(true);
+    expect(
+      gated(
+        "export function load({ locals, url }) {\n  if (!locals.user || url.pathname === '/admin') redirect(302, '/login');\n}"
+      )
+    ).toBe(true);
+  });
   it('is not set for a test that also reads the URL, a positive test, a non-auth error, or a gate after a return', () => {
     expect(
       gated(
@@ -1162,6 +1174,7 @@ describe('parseKitModuleFacts — loadGated (loads that send a request without a
       load('event', '  if (!event) error(401);'),
       load('event', '  if (!event.platform) error(401);'),
       load('{ locals }', "  if (!locals.user && !locals.admin) redirect(302, '/login');"),
+      load('{ locals, url }', "  if ((!locals.user && url.search) || url.hash) redirect(302, '/login');"),
       load('{ locals }', "  if (!locals.user) throw new Error('no');"),
       load('{ locals }', '  if (!locals.user) return { guest: true };'),
       load('{ locals }', "  if (!locals.user) {\n    console.log('anon');\n  }"),
