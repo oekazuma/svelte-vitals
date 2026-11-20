@@ -159,7 +159,10 @@ function pathValueOf(value: Expression): string | undefined {
     if (name === 'resolve' && part.startsWith('/')) parts.length = 0;
     parts.push(part);
   }
-  return parts.join('/');
+  return parts
+    .filter(Boolean)
+    .join('/')
+    .replace(/[\\/]{2,}/g, '/');
 }
 
 /** A property's value as a config path (see `pathValueOf`), else undefined. */

@@ -543,12 +543,7 @@ describe('svelte-config path values', () => {
       `  $t: path.resolve(cwd(), 'src/t')`,
       `} } };`
     ].join('\n');
-    // Joining leaves a doubled slash ('/opt//shared'); this test pins which forms resolve, not the joint.
-    const entries = findKitAliasesInSvelteConfig(src).entries!.map((e) => ({
-      ...e,
-      value: e.value === null ? null : e.value.replace(/\/{2,}/g, '/')
-    }));
-    expect(entries).toEqual([
+    expect(findKitAliasesInSvelteConfig(src).entries).toEqual([
       { key: '$h', value: 'src/h' },
       { key: '$p', value: null },
       { key: '$q', value: null },
@@ -562,6 +557,26 @@ describe('svelte-config path values', () => {
       { key: '$n', value: '/abs' },
       { key: '$o', value: 'src/o' },
       { key: '$t', value: null }
+    ]);
+  });
+
+  it('joins path parts with single slashes and skips empty ones, as Node does', () => {
+    const src = [
+      `import path from 'node:path';`,
+      `export default { kit: { alias: {`,
+      `  $a: path.join('src/', '/a/'),`,
+      `  $b: path.resolve('src', '', 'b'),`,
+      `  $c: path.join('', 'src/c'),`,
+      `  $d: path.resolve('/opt/', 'd'),`,
+      `  $e: path.resolve('node_modules\\\\', '@cio/ui/src')`,
+      `} } };`
+    ].join('\n');
+    expect(findKitAliasesInSvelteConfig(src).entries!.map((e) => e.value)).toEqual([
+      'src/a/',
+      'src/b',
+      'src/c',
+      '/opt/d',
+      'node_modules/@cio/ui/src'
     ]);
   });
 
