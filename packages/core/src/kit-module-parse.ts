@@ -636,8 +636,12 @@ export function collectFalseExports(program: Node): Set<string> {
         const members = new Map<string, boolean>();
         for (const p of (init.properties ?? []) as Node[]) {
           const v: Node = unwrapTs(p?.value);
-          if (p?.type !== 'Property' || p.computed || p.key?.type !== 'Identifier') members.clear();
-          else members.set(p.key.name, v?.type === 'Literal' && v.value === false);
+          if (p?.type !== 'Property' || p.computed) members.clear();
+          else
+            members.set(
+              p.key?.type === 'Identifier' ? p.key.name : String(p.key?.value),
+              v?.type === 'Literal' && v.value === false
+            );
         }
         for (const [key, isFalse] of members) if (isFalse) names.add(`${d.id.name}.${key}`);
       }
