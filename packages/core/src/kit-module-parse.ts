@@ -1049,8 +1049,9 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
  * Walk the whole program threading (1) shadowed names (like component-parse's
  * `walkScoped`), (2) whether the CURRENT node sits inside any function body, (3)
  * whether that function chain includes a server handler, and (4) whether it
- * includes the `init` startup hook. Class bodies count as function depth — their
- * methods run when called, not at module evaluation.
+ * includes the `init` startup hook. A method or an instance field's initializer counts as
+ * function depth, since it runs on a call or a construction; a static block, a static field, and
+ * the class heritage run where the class is defined.
  */
 function walkKit(
   node: Node,
@@ -1070,15 +1071,16 @@ function walkKit(
 
   const introduced = scopeIntroducedNames(node);
   const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
-  const isBoundary = isFunctionNode(node) || node.type === 'ClassDeclaration' || node.type === 'ClassExpression';
-  const nextInFunction = inFunction || isBoundary;
+  const instanceField = node.type === 'PropertyDefinition' && !node.static;
+  const nextInFunction = inFunction || isFunctionNode(node);
   const nextInHandler = inHandler || handlerFns.has(node);
   const nextInStartup = inStartup || startupFns.has(node);
 
   visit(node, scope, inFunction, inHandler, inStartup);
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key)) continue;
-    walkKit(node[key], handlerFns, startupFns, visit, scope, nextInFunction, nextInHandler, nextInStartup);
+    const deferred = nextInFunction || (instanceField && key === 'value');
+    walkKit(node[key], handlerFns, startupFns, visit, scope, deferred, nextInHandler, nextInStartup);
   }
 }
 

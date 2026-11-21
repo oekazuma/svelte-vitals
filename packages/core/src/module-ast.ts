@@ -142,7 +142,7 @@ export function scopeIntroducedNames(node: Node): Set<string> {
     for (const p of node.params ?? []) addBoundNames(p, introduced);
   } else if (node.type === 'CatchClause') {
     addBoundNames(node.param, introduced);
-  } else if (node.type === 'BlockStatement') {
+  } else if (node.type === 'BlockStatement' || node.type === 'StaticBlock') {
     for (const stmt of node.body ?? []) {
       if (stmt?.type === 'VariableDeclaration') {
         for (const d of stmt.declarations ?? []) addBoundNames(d.id, introduced);

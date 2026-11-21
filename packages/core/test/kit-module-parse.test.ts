@@ -108,6 +108,50 @@ describe('parseKitModuleFacts — module-scope reassignments (security/server-mo
       { name: 'key', line: 6, inHandler: true }
     ]);
   });
+  it('reads a static block and a static field of a top-level class as module evaluation, and an instance field, a method and a class a function builds as a function body', () => {
+    const src = [
+      'let instances = 0;',
+      'let seeded = 0;',
+      'let built = 0;',
+      'let calls = 0;',
+      'class Counter {',
+      '  static first = seeded++;',
+      '  static {',
+      '    instances++;',
+      '  }',
+      '  id = built++;',
+      '  bump() {',
+      '    calls++;',
+      '  }',
+      '}',
+      'function make() {',
+      '  return class {',
+      '    static {',
+      '      instances++;',
+      '    }',
+      '  };',
+      '}'
+    ].join('\n');
+    expect(facts(src).moduleStateReassignments).toEqual([
+      { name: 'built', line: 10, inHandler: false },
+      { name: 'calls', line: 12, inHandler: false },
+      { name: 'instances', line: 18, inHandler: false }
+    ]);
+  });
+  it('does not flag a let a static block declares under the name of a module let', () => {
+    const src = [
+      'let n = 0;',
+      'function make() {',
+      '  return class {',
+      '    static {',
+      '      let n = 1;',
+      '      n = 2;',
+      '    }',
+      '  };',
+      '}'
+    ].join('\n');
+    expect(facts(src).moduleStateReassignments).toEqual([]);
+  });
   it('resolves separate-statement alias exports to handlers', () => {
     const src = 'let user;\nconst load = async () => {\n  user = 1;\n};\nexport { load };';
     expect(facts(src).moduleStateReassignments).toEqual([{ name: 'user', line: 3, inHandler: true }]);
@@ -439,6 +483,37 @@ describe('parseKitModuleFacts — lifecycle calls (correctness/orphan-lifecycle)
       { name: 'onMount', line: 2, inHandler: false },
       { name: 'setContext', line: 4, inHandler: false }
     ]);
+  });
+  it('flags a call in a static block of a top-level class, but not in a method', () => {
+    const src = [
+      "import { onMount, getContext } from 'svelte';",
+      'class Widget {',
+      '  static {',
+      '    onMount(() => {});',
+      '  }',
+      '  user() {',
+      "    return getContext('user');",
+      '  }',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').lifecycleCalls).toEqual([{ name: 'onMount', line: 4, inHandler: false }]);
+  });
+  it('reads a function a static block declares under a lifecycle name as that local, not the import', () => {
+    const src = [
+      "import { onMount } from 'svelte';",
+      'class Local {',
+      '  static {',
+      '    const onMount = () => {};',
+      '    onMount();',
+      '  }',
+      '}',
+      'class Imported {',
+      '  static {',
+      '    onMount(() => {});',
+      '  }',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').lifecycleCalls).toEqual([{ name: 'onMount', line: 10, inHandler: false }]);
   });
   it('does not flag calls inside non-handler helper functions', () => {
     const src = "import { getContext } from 'svelte';\nexport function useUser() {\n  return getContext('user');\n}";
