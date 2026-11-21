@@ -1529,6 +1529,22 @@ describe('parseClientExports', () => {
       'viaMember'
     ]);
   });
+
+  it('names an export built by a member constructor of an installed package, but not of a local module or class', () => {
+    const src = [
+      "import pg from 'pg';",
+      "import * as Redis from 'ioredis';",
+      "import * as stores from 'svelte/store';",
+      "import { Local } from './local';",
+      'class Plain {}',
+      'export const pool = new pg.Pool();',
+      'export const cluster = new Redis.default.Cluster([]);',
+      'export const store = new stores.Store();',
+      'export const local = new Local.Inner();',
+      'export const plain = new Plain.Inner();'
+    ].join('\n');
+    expect([...parseClientExports(src, 'src/lib/server/db.ts')].sort()).toEqual(['cluster', 'pool']);
+  });
 });
 
 describe('parseKitModuleFacts — loadNeverRenders edges', () => {

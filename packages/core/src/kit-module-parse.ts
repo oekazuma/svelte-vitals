@@ -1296,10 +1296,10 @@ function isInMemoryInit(init: Node | undefined, fns: ReadonlySet<string> = new S
 }
 
 /**
- * The exported bindings of a module that are a persistence or API client: `new C()` of a class imported
- * from an installed package, or of a class this module declares that neither extends another class nor
- * keeps a `Map`/`Set`/`WeakMap`/`WeakSet` field; or a call into an installed package (`drizzle(…)`,
- * `createClient(…)`). A write through one of them reaches a database or service, not module state.
+ * The exported bindings of a module that are a persistence or API client: `new C()` or `new pkg.C()` of a
+ * class from an installed package, or `new C()` of a class this module declares that neither extends
+ * another class nor keeps a `Map`/`Set`/`WeakMap`/`WeakSet` field; or a call into an installed package
+ * (`drizzle(…)`, `createClient(…)`). A write through one of them reaches a database or service, not module state.
  */
 export function parseClientExports(
   source: string,
@@ -1336,8 +1336,12 @@ export function parseClientExports(
       if (init?.type === 'AwaitExpression') init = unwrapTs(init.argument);
       if (d?.id?.type !== 'Identifier') continue;
       const ctor = init?.type === 'NewExpression' && init.callee?.type === 'Identifier' ? init.callee.name : undefined;
-      if (ctor !== undefined && (fromPackage.has(ctor) || plainClasses.has(ctor))) names.add(d.id.name);
-      if (init?.type === 'CallExpression' && fromPackage.has(rootObjectName(init.callee) ?? '')) names.add(d.id.name);
+      if (ctor !== undefined && plainClasses.has(ctor)) names.add(d.id.name);
+      if (
+        (init?.type === 'CallExpression' || init?.type === 'NewExpression') &&
+        fromPackage.has(rootObjectName(init.callee) ?? '')
+      )
+        names.add(d.id.name);
     }
   }
   return names;
