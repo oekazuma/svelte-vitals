@@ -287,6 +287,14 @@ function keysByRule(measured) {
   return byRule;
 }
 
+/** A rule can report one key at a different severity on each route, so a key has a set of them. */
+function severitiesByKey(measured) {
+  const byKey = new Map();
+  for (const { findings = [] } of measured.apps)
+    for (const f of findings) byKey.set(f.key, (byKey.get(f.key) ?? new Set()).add(f.severity));
+  return new Map([...byKey].map(([key, set]) => [key, [...set].sort().join('/')]));
+}
+
 function aggregate(measured, verdicts, ruleIds) {
   const byRule = keysByRule(measured);
   const rules = {};
@@ -334,11 +342,15 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
   // An app that failed on either side has no findings there; comparing it would list them all as moved.
   const failed = new Set([...before.apps, ...after.apps].filter((app) => app.error).map((app) => app.app));
   const comparable = (measured) => ({ apps: measured.apps.filter((app) => !failed.has(app.app)) });
-  const a = keysByRule(comparable(before));
-  const b = keysByRule(comparable(after));
+  const [base, head] = [comparable(before), comparable(after)];
+  const a = keysByRule(base);
+  const b = keysByRule(head);
+  const [baseSeverities, headSeverities] = [severitiesByKey(base), severitiesByKey(head)];
   const rows = [];
   const added = new Map();
   const removed = new Map();
+  // Finding keys carry no severity, so a finding that only changed severity is neither added nor removed.
+  const resevered = new Map();
   const precisionOf = (keys, ledger) => {
     let tp = 0;
     let fp = 0;
@@ -354,6 +366,17 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
     const now = b.get(rule) ?? new Map();
     const plus = [...now.values()].filter((f) => !was.has(f.key));
     const minus = [...was.values()].filter((f) => !now.has(f.key));
+    const moved = [...now.values()].filter(
+      (f) => was.has(f.key) && baseSeverities.get(f.key) !== headSeverities.get(f.key)
+    );
+    if (moved.length)
+      resevered.set(
+        rule,
+        moved.map((f) => {
+          const move = `${baseSeverities.get(f.key)} → ${headSeverities.get(f.key)}`;
+          return { ...f, move, title: `${move}: ${f.title}` };
+        })
+      );
     const [p0, p1] = [precisionOf(was, baseVerdicts), precisionOf(now, verdicts)];
     if (plus.length === 0 && minus.length === 0 && p0 === p1) continue;
     const net = plus.length - minus.length;
@@ -461,6 +484,10 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
     if (unlabeled)
       out.push(`- ⚠️ ${unlabeled} added finding(s) have no verdict yet: label them in \`scripts/corpus/verdicts/\``);
   }
+  const severityMoves = new Map();
+  for (const f of [...resevered.values()].flat()) severityMoves.set(f.move, (severityMoves.get(f.move) ?? 0) + 1);
+  if (severityMoves.size)
+    out.push(`- Severity changed: ${[...severityMoves].map(([move, count]) => `${count} ${move}`).join(', ')}`);
   for (const f of failures) out.push(`- ❌ ${f}`);
   out.push('');
 
@@ -476,6 +503,7 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
       ...listFindings('Removed', removed, either, false)
     );
   }
+  out.push(...listFindings('Severity-changed', resevered, verdicts, false));
 
   return { text: out.join('\n'), failures };
 }
