@@ -91,6 +91,23 @@ describe('parseKitModuleFacts — module-scope reassignments (security/server-mo
       'let db;\nexport async function init() {\n  db = await connect();\n}\nexport const handle = async ({ event, resolve }) => resolve(event);';
     expect(facts(src, 'src/hooks.server.ts').moduleStateReassignments).toEqual([]);
   });
+  it('flags a module let a for…of or for…in reassigns, but not a loop variable declared in the loop', () => {
+    const src = [
+      'let last;',
+      'let key;',
+      'export function load({ rows }) {',
+      '  for (last of rows) {}',
+      '  for ({ key } of rows) {}',
+      '  for (key in rows) {}',
+      '  for (let last of rows) {}',
+      '}'
+    ].join('\n');
+    expect(facts(src).moduleStateReassignments).toEqual([
+      { name: 'last', line: 4, inHandler: true },
+      { name: 'key', line: 5, inHandler: true },
+      { name: 'key', line: 6, inHandler: true }
+    ]);
+  });
   it('resolves separate-statement alias exports to handlers', () => {
     const src = 'let user;\nconst load = async () => {\n  user = 1;\n};\nexport { load };';
     expect(facts(src).moduleStateReassignments).toEqual([{ name: 'user', line: 3, inHandler: true }]);
@@ -230,6 +247,22 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
   it('flags a destructuring-assignment target with an imported root', () => {
     const src = "import { state } from './shared.js';\nexport function load() {\n  [state.x] = [1];\n}";
     expect(facts(src).importedStateWrites).toEqual([{ name: 'state', line: 3, via: 'assignment' }]);
+  });
+  it('flags a for…of or for…in target with an imported root, plain or destructured, but not a declared one', () => {
+    const src = [
+      "import { state } from './shared.js';",
+      'export function load({ rows }) {',
+      '  for (state.x of rows) {}',
+      '  for ([state.a] of rows) {}',
+      '  for (state.k in rows) {}',
+      '  for (const r of state.rows) {}',
+      '}'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([
+      { name: 'state', line: 3, via: 'assignment' },
+      { name: 'state', line: 4, via: 'assignment' },
+      { name: 'state', line: 5, via: 'assignment' }
+    ]);
   });
   it('does not flag read positions inside a destructuring pattern (computed key, default value)', () => {
     const src = [

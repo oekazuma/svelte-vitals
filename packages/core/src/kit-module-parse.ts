@@ -1506,6 +1506,12 @@ export function parseKitModuleFacts(
   const browserOnly = browserOnlyRanges(program, envGuards);
   const reachedOnlyByBrowser = (at: number) => browserOnly.some(([from, to]) => at >= from && at < to);
   walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
+    // A `for…of`/`for…in` head that declares nothing assigns to its target on every iteration.
+    const assigned: Node =
+      n.type === 'AssignmentExpression' ||
+      ((n.type === 'ForOfStatement' || n.type === 'ForInStatement') && n.left?.type !== 'VariableDeclaration')
+        ? n.left
+        : undefined;
     if (inFunction && !inStartup) {
       // security/server-module-state — module-scope let/var reassigned from inside a function body.
       // Top-level reassignment is initialisation, not shared-state mutation;
@@ -1516,11 +1522,11 @@ export function parseKitModuleFacts(
           moduleStateReassignments.push({ name, line: line(n.start), inHandler });
         }
       };
-      if (n.type === 'AssignmentExpression') {
-        if (n.left?.type === 'Identifier') flagLet(n.left.name);
-        else if (n.left?.type === 'ObjectPattern' || n.left?.type === 'ArrayPattern') {
+      if (assigned) {
+        if (assigned.type === 'Identifier') flagLet(assigned.name);
+        else if (assigned.type === 'ObjectPattern' || assigned.type === 'ArrayPattern') {
           const bound = new Set<string>();
-          addBoundNames(n.left, bound);
+          addBoundNames(assigned, bound);
           for (const b of bound) flagLet(b);
         }
       } else if (n.type === 'UpdateExpression' && n.argument?.type === 'Identifier') {
@@ -1534,8 +1540,8 @@ export function parseKitModuleFacts(
       const r = rootObjectName(expr);
       return r && !shadowed.has(r) && importedSpecifiers.has(r) ? r : undefined;
     };
-    if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
-      const r = importedRoot(n.left);
+    if (assigned?.type === 'MemberExpression') {
+      const r = importedRoot(assigned);
       if (r) write = { name: r, via: 'assignment' };
     } else if (n.type === 'UpdateExpression' && n.argument?.type === 'MemberExpression') {
       const r = importedRoot(n.argument);
@@ -1576,10 +1582,7 @@ export function parseKitModuleFacts(
           }
         }
       }
-    } else if (
-      n.type === 'AssignmentExpression' &&
-      (n.left?.type === 'ObjectPattern' || n.left?.type === 'ArrayPattern')
-    ) {
+    } else if (assigned?.type === 'ObjectPattern' || assigned?.type === 'ArrayPattern') {
       // Destructuring-assignment targets: `[state.x] = arr`, `({ a: state.y } = obj)`.
       // Only TARGET positions count — a computed key (`[state.key]:`) and a default
       // value (`= state.fallback`) are reads, not writes.
@@ -1601,7 +1604,7 @@ export function parseKitModuleFacts(
           scanPatternTargets(pat.argument);
         }
       };
-      scanPatternTargets(n.left);
+      scanPatternTargets(assigned);
     }
     // A write only the browser reaches changes that visitor's own copy of the module, never shared state.
     if (write && reachedOnlyByBrowser(n.start)) write = undefined;
