@@ -309,30 +309,21 @@ export function judgeContent(
     });
     if (cm.contents === false) return violation([]);
     let entries: string[] = [];
-    const filters: string[] = [];
+    let filters: string[] = [];
     flatten(cm.contents, entries, filters);
-    // A transparent filter binds regardless of the ancestor model (interactive arms stripped).
-    for (const f of filters) {
-      const r = ev.matchSelector(f, childIdx);
-      if (r === false) return violation(entries);
-      if (r === 'unknown') return undefined;
-    }
+    // An undecidable conditional's filters only widen the transparency check below; they bind nothing.
+    let binding = [...filters];
     if (cm.conditional) {
       const grandparent = i >= 1 ? els[ancestors[i - 1]!] : undefined;
       for (const cond of cm.conditional) {
         const applies = conditionApplies(ev, cond.condition, ancestors[i]!, holder, grandparent?.tag);
         if (applies === true) {
-          // A decidable conditional replaces the base model; first match wins.
+          // A decidable conditional replaces the base model, its filters included; first match wins.
           if (cond.contents === true) return undefined;
-          const repl: string[] = [];
-          const rf: string[] = [];
-          flatten(cond.contents === false ? [] : cond.contents, repl, rf);
-          for (const f of rf) {
-            const r = ev.matchSelector(f, childIdx);
-            if (r === false) return violation(repl);
-            if (r === 'unknown') return undefined;
-          }
-          entries = repl;
+          entries = [];
+          filters = [];
+          flatten(cond.contents === false ? [] : cond.contents, entries, filters);
+          binding = filters;
           break;
         }
         if (applies === 'unknown') {
@@ -341,6 +332,12 @@ export function judgeContent(
           if (cond.contents !== false) flatten(cond.contents, entries, filters);
         }
       }
+    }
+    // A transparent filter binds regardless of the ancestor model (interactive arms stripped).
+    for (const f of binding) {
+      const r = ev.matchSelector(f, childIdx);
+      if (r === false) return violation(entries);
+      if (r === 'unknown') return undefined;
     }
     let unknown = false;
     for (const e of entries) {

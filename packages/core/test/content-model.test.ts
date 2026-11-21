@@ -60,6 +60,21 @@ describe('content-model evaluation', () => {
     expect(await graded(src)).toEqual(['1 warning', '2 warning', '4 info']);
   });
 
+  it('describes a media element by its src model when it has src, and by the union of both models when a spread hides it', async () => {
+    const src = [
+      '<p><video><video></video></video></p>',
+      '<p><video src="x"><video></video></video></p>',
+      '<p><audio src="x"><audio></audio></audio></p>',
+      '<p><video {...a}><video></video></video></p>'
+    ].join('\n');
+    expect(await admits(src)).toEqual([
+      '1 warning `<video>` admits only `<source>`, `<track>`',
+      '2 warning `<video>` admits only `<track>`',
+      '3 warning `<audio>` admits only `<track>`',
+      '4 warning `<video>` admits only `<source>`, `<track>`'
+    ]);
+  });
+
   it('describes closed, empty and category models', async () => {
     const src = [
       '<iframe><p>x</p></iframe>',
