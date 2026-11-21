@@ -138,6 +138,20 @@ describe('parseKitModuleFacts — module-scope reassignments (security/server-mo
       { name: 'instances', line: 18, inHandler: false }
     ]);
   });
+  it('does not flag a let a static block declares under the name of a module let', () => {
+    const src = [
+      'let n = 0;',
+      'function make() {',
+      '  return class {',
+      '    static {',
+      '      let n = 1;',
+      '      n = 2;',
+      '    }',
+      '  };',
+      '}'
+    ].join('\n');
+    expect(facts(src).moduleStateReassignments).toEqual([]);
+  });
   it('resolves separate-statement alias exports to handlers', () => {
     const src = 'let user;\nconst load = async () => {\n  user = 1;\n};\nexport { load };';
     expect(facts(src).moduleStateReassignments).toEqual([{ name: 'user', line: 3, inHandler: true }]);
@@ -483,6 +497,23 @@ describe('parseKitModuleFacts — lifecycle calls (correctness/orphan-lifecycle)
       '}'
     ].join('\n');
     expect(facts(src, 'src/routes/+page.ts').lifecycleCalls).toEqual([{ name: 'onMount', line: 4, inHandler: false }]);
+  });
+  it('reads a function a static block declares under a lifecycle name as that local, not the import', () => {
+    const src = [
+      "import { onMount } from 'svelte';",
+      'class Local {',
+      '  static {',
+      '    const onMount = () => {};',
+      '    onMount();',
+      '  }',
+      '}',
+      'class Imported {',
+      '  static {',
+      '    onMount(() => {});',
+      '  }',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').lifecycleCalls).toEqual([{ name: 'onMount', line: 10, inHandler: false }]);
   });
   it('does not flag calls inside non-handler helper functions', () => {
     const src = "import { getContext } from 'svelte';\nexport function useUser() {\n  return getContext('user');\n}";
