@@ -275,7 +275,7 @@
     "basis": "script-verified (svelte/compiler AST, e/pc.mjs): literal <div> at PricingComparisonTable.svelte:119 has literal parent <button> (line 113, crossed blocks: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s content model"
   },
   {
-    "key": "logdash-io/logdash.io:apps/frontend::a11y/permitted-contents::src/lib/landing/pricing/PricingComparisonTable.svelte:68::`<div>` is not permitted content here — `<th>`'s content model is flow content",
+    "key": "logdash-io/logdash.io:apps/frontend::a11y/permitted-contents::src/lib/landing/pricing/PricingComparisonTable.svelte:68::`<div>` is not permitted content here — it contains `<h#>`, which `<th>`'s content model excludes",
     "verdict": "tp",
     "basis": "script-verified (svelte/compiler AST, e/pc.mjs): literal <div> at PricingComparisonTable.svelte:68 has literal parent <th> (line 52, crossed blocks: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <th>'s content model; the <div> carries an <h2> descendant (:93) and <th> forbids heading descendants, so the <th> content is non-conforming; the heading-free sibling <div>s at :59/:65 in the same <th> are not flagged, confirming the finding is the descendant restriction (message wording is misleading)"
   },

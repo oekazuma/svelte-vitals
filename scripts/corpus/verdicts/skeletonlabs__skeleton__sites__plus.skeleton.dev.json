@@ -5,7 +5,7 @@
     "basis": "read: <label for aria-label> with no role/spread; docs state the dataset prohibits a name on <label> unconditionally while the spec only does so when exposed as generic; here it names the icon-only label, not a demonstrable defect"
   },
   {
-    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::a11y/permitted-contents::src/routes/(app)/+page.svelte:82::`<div>` is not permitted content here — `<header>`'s content model is flow content",
+    "key": "skeletonlabs/skeleton:sites/plus.skeleton.dev::a11y/permitted-contents::src/routes/(app)/+page.svelte:82::`<div>` is not permitted content here — it contains `<header>`, which `<header>`'s content model excludes",
     "verdict": "tp",
     "basis": "script-verified (svelte parse): literal parent, no component/snippet/svelte:element boundary; read: this <div> carries a nested <header> (line 83); header model is flow:not(header, footer, :has(header, footer)), so the div is excluded"
   },

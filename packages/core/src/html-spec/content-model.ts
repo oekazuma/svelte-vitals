@@ -19,8 +19,8 @@ export interface ContentJudgment {
    * breaks structure assistive tech relies on. Drives the warning/info severity split.
    */
   closedModel: boolean;
-  /** Human description of what the effective model admits, for the finding message. */
-  admits: string;
+  /** Why the effective model rejects the child, for the finding message. */
+  reason: string;
   /** The element whose model rejected the child — the parent, or a transparent chain's opaque ancestor. */
   modelTag: string;
 }
@@ -115,6 +115,17 @@ class Evaluator {
       stack.push(...(this.children.get(c) ?? []));
     }
     return unknown;
+  }
+
+  /** The tag of the first descendant, in document order, that matches one of `sels`. */
+  firstMatchInSubtree(sels: readonly string[], idx: number): string | undefined {
+    const stack = [...(this.children.get(idx) ?? [])].reverse();
+    while (stack.length > 0) {
+      const c = stack.pop()!;
+      if (sels.some((s) => this.matchSelector(s, c) === true)) return this.els[c]!.tag;
+      stack.push(...[...(this.children.get(c) ?? [])].reverse());
+    }
+    return undefined;
   }
 
   /** Certain only when an unconditional sibling precedes, or nothing unseen or conditional can. */
@@ -250,6 +261,35 @@ function describeEntries(entries: readonly string[], modelTag: string): string {
     : `it is outside \`<${modelTag}>\`'s content model`;
 }
 
+/**
+ * For a child some entry's category admits but whose `:not` rejects, name what the exclusion
+ * caught. An entry that admits the child itself and rejects only a descendant wins over one that
+ * rejects the child: `ruby` admits a `<ruby>` child as long as it holds no `<ruby>`.
+ */
+function describeExclusion(
+  ev: Evaluator,
+  entries: readonly string[],
+  childIdx: number,
+  childTag: string,
+  modelTag: string
+): string | undefined {
+  let self: string | undefined;
+  for (const e of entries) {
+    const m = /^(.+?):not\((.*)\)$/.exec(e);
+    if (!m || ev.matchSelector(m[1]!, childIdx) !== true) continue;
+    const parts = stripInteractiveArms(splitTop(m[2]!));
+    const has = parts.map((p) => /^:has\((.*)\)$/.exec(p)?.[1]);
+    if (parts.some((p, i) => has[i] === undefined && ev.matchSelector(p, childIdx) === true)) {
+      self ??= `\`<${modelTag}>\`'s content model excludes \`<${childTag}>\``;
+      continue;
+    }
+    const inner = has.flatMap((h) => (h === undefined ? [] : stripInteractiveArms(splitTop(h))));
+    const found = ev.firstMatchInSubtree(inner, childIdx);
+    if (found !== undefined) return `it contains \`<${found}>\`, which \`<${modelTag}>\`'s content model excludes`;
+  }
+  return self;
+}
+
 const HEADINGS = new Set(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
 
 /** Tags that only mean anything inside their specific container — a violation with one as the child breaks structure wherever it lands. */
@@ -297,14 +337,14 @@ export function judgeContent(
     if (!spec?.contentModel) return undefined;
     const cm = spec.contentModel as { contents?: unknown; conditional?: { condition: string; contents: unknown }[] };
     if (cm.contents === true) return undefined;
-    const violation = (entries: readonly string[]): ContentJudgment => ({
+    const violation = (entries: readonly string[], reason = describeEntries(entries, holder.tag)): ContentJudgment => ({
       verdict: 'violation',
       closedModel:
         isClosedEntrySet(entries) ||
         HEADINGS.has(child.tag) ||
         HEADINGS.has(holder.tag) ||
         STRUCTURE_BOUND.has(child.tag),
-      admits: describeEntries(entries, holder.tag),
+      reason,
       modelTag: holder.tag
     });
     if (cm.contents === false) return violation([]);
@@ -352,7 +392,7 @@ export function judgeContent(
       if (i > 0) continue;
       return undefined;
     }
-    return violation(entries);
+    return violation(entries, describeExclusion(ev, entries, childIdx, child.tag, holder.tag));
   }
   return undefined;
 }

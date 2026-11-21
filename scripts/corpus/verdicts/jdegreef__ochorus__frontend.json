@@ -60,7 +60,7 @@
     "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/routes/about/+page.svelte:215 has literal <div> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); the parent <div> is itself a <dl> child, whose model admits only dt/dd; outside <div>'s permitted content"
   },
   {
-    "key": "jdegreef/ochorus:frontend::a11y/permitted-contents::src/routes/scripture/[book]/[chapter]/[verse]/+page.svelte:66::`<blockquote>` is not permitted content here — `<header>`'s content model is flow content",
+    "key": "jdegreef/ochorus:frontend::a11y/permitted-contents::src/routes/scripture/[book]/[chapter]/[verse]/+page.svelte:66::`<blockquote>` is not permitted content here — it contains `<footer>`, which `<header>`'s content model excludes",
     "verdict": "tp",
     "basis": "read +page.svelte:63-74: <header class=mb-8> directly contains {#if page.text}<blockquote> whose child is <footer class=attrib> (:68); header's model is flow content with no header/footer descendants, so the blockquote (carrying a footer) is not permitted there"
   },

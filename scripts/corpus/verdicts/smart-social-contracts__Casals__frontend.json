@@ -80,7 +80,7 @@
     "basis": "read: files/+page.svelte renders <UploadWasmModal> in {#if showUpload} (:507) and in {#if authorizeExisting} (:511), separate blocks; each is a full-screen overlay modal (UploadWasmModal.svelte:164-165, fixed inset-0 backdrop), so the two never open together; separate-blocks convention (#upload-memory-keep at :281)"
   },
   {
-    "key": "smart-social-contracts/Casals:frontend::a11y/permitted-contents::src/lib/components/BatonAdminPanel.svelte:456::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "key": "smart-social-contracts/Casals:frontend::a11y/permitted-contents::src/lib/components/BatonAdminPanel.svelte:456::`<label>` is not permitted content here — `<label>`'s content model excludes `<label>`",
     "verdict": "tp",
     "basis": "script-verified (svelte parse): BatonAdminPanel.svelte:456 <label class=\"flex items-center gap-1 text-xs text-primary-600 ml-2\"> is a literal child of <label class=\"flex flex-wrap items-center gap-2 text-sm\"> at :452 (only {#if}/{#each} between, no component/snippet boundary); <label>'s content model excludes <label>, as reported"
   },
