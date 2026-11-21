@@ -31,7 +31,7 @@ export const client = drizzle(url); // コンテナリテラルではないの�
 
 コンテナだと断定できないものはすべて除外のままなので、実クライアントのラッパー、他のライブラリのストア（データベースを包んでいることがあります）、re-export、読めないモジュールが誤検知になることはありません。その代わり見落としがあります。ローカルのファクトリやクラスで作ったストア、関数だけのオブジェクトがクロージャで抱える状態、間接的に export したストア（`export { x }` や re-export）は、サーバー専用の場所では検出しません。読み込むのは handler が実際に書き込んでいるモジュールだけです。
 
-サーバー専用の場所の外では、既定の扱いが逆になります。handler からリポジトリ内の import への `.set()`/`.update()` は、対象モジュールがその binding をクライアントだと示さない限り検出します。クライアントとみなすのは次の 2 つです。1 つはクラスの `new` で初期化した export で、クラスはインストール済みパッケージから import したものか、そのモジュールで宣言され何も継承せず `Map`/`Set`/`WeakMap`/`WeakSet` のフィールドも持たないものに限ります（`export const kv = new KvService()`）。もう 1 つはインストール済みパッケージの関数の呼び出しで初期化した export です（`drizzle(url)` や `createClient(…)`）。パッケージかどうかは、アプリの SvelteKit の alias を先に解決してから判断します。名前が `svelte` で始まるパッケージ（`svelte/store` など）や名前に `store` を含むパッケージのストア生成関数はクライアントではないので、`export const user = writable(null)` は引き続き検出します。
+サーバー専用の場所の外では、既定の扱いが逆になります。handler からリポジトリ内の import への `.set()`/`.update()` は、対象モジュールがその binding をクライアントだと示さない限り検出します。クライアントとみなすのは次の 2 つです。1 つはクラスの `new` で初期化した export で、クラスはインストール済みパッケージのもの（名前で import したものと、`new Redis.Cluster(…)` のようにパッケージの import からたどったもの）か、そのモジュールで宣言され何も継承せず `Map`/`Set`/`WeakMap`/`WeakSet` のフィールドも持たないものに限ります（`export const kv = new KvService()`）。もう 1 つはインストール済みパッケージの関数の呼び出しで初期化した export です（`drizzle(url)` や `createClient(…)`）。パッケージかどうかは、アプリの SvelteKit の alias を先に解決してから判断します。名前が `svelte` で始まるパッケージ（`svelte/store` など）や名前に `store` を含むパッケージのストア生成関数はクライアントではないので、`export const user = writable(null)` は引き続き検出します。
 
 ## なぜ重要か
 
