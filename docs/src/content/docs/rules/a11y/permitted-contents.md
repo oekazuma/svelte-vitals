@@ -27,8 +27,9 @@ Two severities, split by consequence:
 
 Not reported, on purpose:
 
-- `<option>`/`<optgroup>` children. The Svelte compiler deliberately allows rich `<option>`
-  content, and where the compiler and the spec data disagree, the compiler wins.
+- Content of `<option>`/`<optgroup>`: their children, and what a transparent element such as `<a>`
+  inside them holds. The Svelte compiler deliberately allows rich `<option>` content, and where
+  the compiler and the spec data disagree, the compiler wins.
 - Interactive nesting (`<a href><button>`, a `<button>` anywhere inside a link).
   [`a11y/interactive-nesting`](/rules/a11y/interactive-nesting) owns that verdict; this rule
   reports the content-model half only, so one defect is never two findings.

@@ -82,6 +82,21 @@ describe('a11y/permitted-contents', () => {
     expect(await failing('<select><option><b>rich</b></option></select>')).toEqual([]);
   });
 
+  it('sides with the compiler on <option> content reached through a transparent element', async () => {
+    const src = [
+      '<select><option><a href="/x"><span>y</span></a></option></select>',
+      '<select><optgroup><a href="/x"><span>y</span></a></optgroup></select>',
+      '<select><option><b><div>y</div></b></option></select>'
+    ].join('\n');
+    expect(await failing(src)).toEqual([
+      {
+        line: 3,
+        severity: 'info',
+        message: "`<div>` is not permitted content here — `<b>`'s content model is phrasing content"
+      }
+    ]);
+  });
+
   it('never judges across a component, snippet, slot, svelte:element, or {@render} boundary', async () => {
     const src = [
       '<ul><Card><div>not judged</div></Card></ul>',

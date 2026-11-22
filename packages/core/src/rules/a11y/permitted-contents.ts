@@ -11,7 +11,10 @@ const FIX = {
     'Move the child to an element its parent permits (e.g. wrap list content in <li>), or change the container to one that admits it (a <div> instead of a misused <ul>, a <span> instead of a block child inside a <button>).'
 };
 
-/** The compiler deliberately allows rich content in <option>/<optgroup>; the dataset does not. Compiler wins. */
+/**
+ * The compiler deliberately allows rich content in <option>/<optgroup>; the dataset does not. Compiler wins,
+ * also for content a transparent element (`<a>`) hands up to their model.
+ */
 const COMPILER_CARVEOUT = new Set(['option', 'optgroup']);
 
 function judgeable(el: ElementFact): boolean {
@@ -53,9 +56,9 @@ export const a11yPermittedContents: Rule = componentRule({
       const ancestors: number[] = [];
       for (let a: number | undefined = child.parent; a !== undefined; a = els[a]!.parent) ancestors.unshift(a);
       const parent = els[child.parent]!;
-      if (!judgeable(parent) || COMPILER_CARVEOUT.has(parent.tag)) continue;
+      if (!judgeable(parent)) continue;
       const judgment = judgeContent(els, children, ancestors, i);
-      if (!judgment) continue;
+      if (!judgment || COMPILER_CARVEOUT.has(judgment.modelTag)) continue;
       out.push({
         line: child.line,
         message: `\`<${child.tag}>\` is not permitted content here — ${judgment.reason}`,
