@@ -230,4 +230,24 @@ describe('route render options', () => {
     };
     expect(universalNeverSsr(scope.kitModules[1]!, scope)).toBe(false);
   });
+
+  it('takes an ssr = false layout as server-rendered when a page under it turns ssr back on', () => {
+    const scope = {
+      kitModules: [
+        mod('src/routes/app/+layout.ts', { ssrDisabled: { line: 1 } }),
+        mod('src/routes/app/a/+page.ts', { ssrEnabled: true }),
+        mod('src/routes/off/+layout.ts', { ssrDisabled: { line: 1 } }),
+        mod('src/routes/lone/+layout.ts', { ssrDisabled: { line: 1 } })
+      ],
+      sourceFiles: [
+        'src/routes/app/+layout.svelte',
+        'src/routes/app/a/+page.svelte',
+        'src/routes/app/b/+page.svelte',
+        'src/routes/off/c/+page.svelte'
+      ]
+    };
+    expect(universalNeverSsr(scope.kitModules[0]!, scope)).toBe(false);
+    expect(universalNeverSsr(scope.kitModules[2]!, scope)).toBe(true);
+    expect(universalNeverSsr(scope.kitModules[3]!, scope)).toBe(true);
+  });
 });

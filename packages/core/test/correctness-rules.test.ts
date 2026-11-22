@@ -16,6 +16,7 @@ import type { ComponentFacts } from '../src/component.js';
 import type { KitModuleFacts } from '../src/kit-module.js';
 import type { RuleContext } from '../src/rule.js';
 import { parseComponentFacts } from '../src/component-parse.js';
+import { parseKitModuleFacts } from '../src/kit-module-parse.js';
 
 const config = defineConfig({});
 const base = { heads: [], project: defaultProject, config };
@@ -427,6 +428,40 @@ describe('correctness/server-browser-global browser global in server module code
     });
     expect(fails(rs).map((r) => r.line)).toEqual([2]);
     expect(fails(rs)[0]!.message).not.toContain('load/handler');
+  });
+  it("reads a file's own ssr = false by whether the pages it serves render on the server", async () => {
+    const universal = (src: string, file: string): KitModuleFacts => ({
+      file,
+      kind: 'universal',
+      ...parseKitModuleFacts(src, file)
+    });
+    const load = 'export function load() {\n  return { w: window.innerWidth };\n}';
+    const optedOut = `export const ssr = false;\n${load}`;
+    const rs = await correctnessServerBrowserGlobal.check({
+      ...ctx([]),
+      kitModules: [
+        universal(optedOut, 'src/routes/app/+layout.ts'),
+        universal('export const ssr = true;', 'src/routes/app/a/+page.ts'),
+        universal(optedOut, 'src/routes/off/+layout.ts'),
+        universal(optedOut, 'src/routes/lone/+layout.ts'),
+        universal(`export const ssr = false;\nconst w = window.innerWidth;\n${load}`, 'src/routes/p/+page.ts'),
+        universal(
+          `import { dev } from '$app/environment';\nexport const ssr = dev;\nconst w = window.innerWidth;\n${load}`,
+          'src/routes/d/+page.ts'
+        )
+      ],
+      sourceFiles: [
+        'src/routes/app/a/+page.svelte',
+        'src/routes/app/b/+page.svelte',
+        'src/routes/off/c/+page.svelte',
+        'src/routes/p/+page.svelte',
+        'src/routes/d/+page.svelte'
+      ]
+    });
+    expect(fails(rs).map((r) => `${r.route}:${r.line}`)).toEqual([
+      'src/routes/app/+layout.ts:3',
+      'src/routes/d/+page.ts:3'
+    ]);
   });
 });
 

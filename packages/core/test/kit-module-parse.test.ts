@@ -615,14 +615,19 @@ describe('parseKitModuleFacts — browser-global refs (correctness/server-browse
       { name: 'document', line: 2, inHandler: false }
     ]);
   });
-  it('empties the facts when the file itself exports ssr = false, but not for csr = false', () => {
+  it('collects the refs of a file that exports a literal ssr = false, and marks it ssrFalse', () => {
     const ssrOff =
       'export const ssr = false;\nconst w = window.innerWidth;\nexport function load() {\n  return { t: document.title };\n}';
-    expect(facts(ssrOff, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+    expect(facts(ssrOff, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'window', line: 2, inHandler: false },
+      { name: 'document', line: 4, inHandler: true }
+    ]);
+    expect(facts(ssrOff, 'src/routes/+page.ts').ssrFalse).toBe(true);
     const csrOff = 'export const csr = false;\nconst w = window.innerWidth;';
     expect(facts(csrOff, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
       { name: 'window', line: 2, inHandler: false }
     ]);
+    expect(facts(csrOff, 'src/routes/+page.ts').ssrFalse).toBeUndefined();
   });
   it('scans a function aliased to both a handler and init exactly once (handler wins)', () => {
     const src = 'function foo() {\n  document.title;\n}\nexport { foo as load, foo as init };';
@@ -630,9 +635,9 @@ describe('parseKitModuleFacts — browser-global refs (correctness/server-browse
       { name: 'document', line: 2, inHandler: true }
     ]);
   });
-  it('honours the alias-exported ssr = false form', () => {
+  it('marks the alias-exported ssr = false form ssrFalse', () => {
     const src = 'const ssr = false;\nexport { ssr };\nconst w = window.innerWidth;';
-    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+    expect(facts(src, 'src/routes/+page.ts').ssrFalse).toBe(true);
   });
   it('stops scanning a handler after an early-return browser guard', () => {
     const src = [
@@ -705,9 +710,8 @@ describe('parseKitModuleFacts — `dev` from $app/environment (false in every pr
   it('still scans the module scope of an `ssr = dev` file, which the server imports to read it', () => {
     const src = `${dev}export const ssr = isDev;\nconst width = window.innerWidth;`;
     expect(facts(src, 'src/routes/+layout.ts').browserGlobalRefs.map((r) => r.name)).toEqual(['window']);
-    expect(
-      facts('export const ssr = false;\nconst width = window.innerWidth;', 'src/routes/+layout.ts').browserGlobalRefs
-    ).toEqual([]);
+    expect(facts(src, 'src/routes/+layout.ts').ssrFalse).toBeUndefined();
+    expect(facts('export const ssr = false;', 'src/routes/+layout.ts').ssrFalse).toBe(true);
   });
   it('sets csrEnabled for any other csr export', () => {
     expect(facts('export const csr = true;', 'src/routes/watch/+page.ts').csrEnabled).toBe(true);
