@@ -13,8 +13,8 @@ const ctx = (src: string): RuleContext => ({
 });
 const isFinding = (r: Result) => r.detection.presence === 'none' || r.detection.value === 'absent';
 const findings = async (src: string) => (await a11yPermittedContents.check(ctx(src))).filter(isFinding);
-/** Line, severity, and the part of the message that names what the model admits. */
-const admits = async (src: string) =>
+/** Line, severity, and the part of the message that says why the model rejects the child. */
+const reasons = async (src: string) =>
   (await findings(src)).map((r) => `${r.line} ${r.severity} ${r.message.split(' — ')[1]}`);
 const lines = async (src: string) => (await findings(src)).map((r) => r.line);
 const graded = async (src: string) => (await findings(src)).map((r) => `${r.line} ${r.severity}`);
@@ -67,11 +67,35 @@ describe('content-model evaluation', () => {
       '<p><audio src="x"><audio></audio></audio></p>',
       '<p><video {...a}><video></video></video></p>'
     ].join('\n');
-    expect(await admits(src)).toEqual([
+    expect(await reasons(src)).toEqual([
       '1 warning `<video>` admits only `<source>`, `<track>`',
       '2 warning `<video>` admits only `<track>`',
       '3 warning `<audio>` admits only `<track>`',
       '4 warning `<video>` admits only `<source>`, `<track>`'
+    ]);
+  });
+
+  it('names what an exclusion caught when the category admits the child', async () => {
+    const src = [
+      '<footer><div><header>x</header></div></footer>',
+      '<footer><header>x</header></footer>',
+      '<address><h1>x</h1></address>',
+      '<dl><dt><div><section>x</section></div></dt></dl>',
+      '<address><div><p>x</p><h2>y</h2><footer>z</footer></div></address>',
+      '<ruby><ruby><ruby>x<rt>a</rt></ruby><rt>b</rt></ruby><rt>c</rt></ruby>',
+      '<form><form><form></form></form></form>',
+      '<footer><li>x</li></footer>'
+    ].join('\n');
+    expect(await reasons(src)).toEqual([
+      "1 info it contains `<header>`, which `<footer>`'s content model excludes",
+      "2 info `<footer>`'s content model excludes `<header>`",
+      "3 warning `<address>`'s content model excludes `<h1>`",
+      "4 info it contains `<section>`, which `<dt>`'s content model excludes",
+      "5 info it contains `<h2>`, which `<address>`'s content model excludes",
+      "6 info it contains `<ruby>`, which `<ruby>`'s content model excludes",
+      "7 info `<form>`'s content model excludes `<form>`",
+      "7 info `<form>`'s content model excludes `<form>`",
+      "8 warning `<footer>`'s content model is flow content"
     ]);
   });
 
@@ -84,7 +108,7 @@ describe('content-model evaluation', () => {
       '<select><div>x</div></select>',
       '<details><summary>s</summary><td>x</td></details>'
     ].join('\n');
-    expect(await admits(src)).toEqual([
+    expect(await reasons(src)).toEqual([
       '1 warning `<iframe>` admits no element children',
       '2 warning `<colgroup>` admits only `<col>`, `<template>`',
       '3 warning `<colgroup>` admits no element children',

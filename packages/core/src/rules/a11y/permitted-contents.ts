@@ -58,7 +58,7 @@ export const a11yPermittedContents: Rule = componentRule({
       if (!judgment) continue;
       out.push({
         line: child.line,
-        message: `\`<${child.tag}>\` is not permitted content here — ${judgment.admits}`,
+        message: `\`<${child.tag}>\` is not permitted content here — ${judgment.reason}`,
         severity: judgment.closedModel ? 'warning' : 'info'
       });
     }
