@@ -499,23 +499,6 @@ function isEffectCall(node: Node): boolean {
   return false;
 }
 
-/** Whether a CallExpression is `$effect.root(...)` — a legal standalone reactive scope (correctness/orphan-effect). */
-function isEffectRootCall(node: Node): boolean {
-  const c = node?.callee;
-  return (
-    c?.type === 'MemberExpression' &&
-    c.object?.type === 'Identifier' &&
-    c.object.name === '$effect' &&
-    c.property?.type === 'Identifier' &&
-    c.property.name === 'root'
-  );
-}
-
-/**
- * Whether a CallExpression is a `$state` *declaration* form: `$state(...)`,
- * `$state.raw(...)`, or `$state.frozen(...)` — but NOT readers like
- * `$state.snapshot(...)`, which would otherwise pollute the state-name set (correctness/effect-as-derived).
- */
 /** An absent argument or a literal no reader can write through: `0`, `'x'`, `null`, `-1`, `` `x` ``. */
 function isPrimitiveLiteral(node: Node): boolean {
   if (node === undefined) return true;
@@ -525,6 +508,11 @@ function isPrimitiveLiteral(node: Node): boolean {
   return node.type === 'Identifier' && node.name === 'undefined';
 }
 
+/**
+ * Whether a CallExpression is a `$state` *declaration* form: `$state(...)`,
+ * `$state.raw(...)`, or `$state.frozen(...)` — but NOT readers like
+ * `$state.snapshot(...)`, which would otherwise pollute the state-name set (correctness/effect-as-derived).
+ */
 function isStateDeclaration(node: Node): boolean {
   const c = node?.callee;
   if (c?.type === 'Identifier') return c.name === '$state';
@@ -2902,8 +2890,8 @@ function collectCommentLinks(
 
 /**
  * Calls matching `matcher` that run when `root` itself is evaluated (correctness/orphan-effect, correctness/orphan-lifecycle).
- * `skipSubtree` exempts a call's children — correctness/orphan-effect uses it for `$effect.root(...)`
- * callbacks, which are a legal standalone reactive scope. `initialShadowed` seeds the
+ * An `$effect.root(() => …)` callback needs no exemption: `walkEvalScope` never enters a function
+ * body. `initialShadowed` seeds the
  * shadow set threaded through `walkEvalScope` (correctness/orphan-lifecycle uses it to seed a
  * constructor's own parameters before scanning its body).
  */
@@ -2911,7 +2899,6 @@ function collectEvalScopeCalls(
   root: Node,
   source: string,
   matcher: (n: Node, shadowed: Set<string>) => string | undefined,
-  skipSubtree?: (n: Node) => boolean,
   initialShadowed?: Set<string>
 ): { name: string; line: number }[] {
   const out: { name: string; line: number }[] = [];
@@ -2919,7 +2906,6 @@ function collectEvalScopeCalls(
     root,
     (n, shadowed) => {
       if (n.type !== 'CallExpression') return undefined;
-      if (skipSubtree?.(n)) return true;
       const name = matcher(n, shadowed);
       if (name) out.push({ name, line: lineOf(source, n.start) });
       return undefined;
@@ -2939,11 +2925,10 @@ function collectEvalScopeCalls(
 function collectOrphanCalls(
   program: Node,
   source: string,
-  matcher: (n: Node, shadowed: Set<string>) => string | undefined,
-  skipSubtree?: (n: Node) => boolean
+  matcher: (n: Node, shadowed: Set<string>) => string | undefined
 ): { name: string; line: number; kind: 'top-level' | 'constructor-instantiated'; className?: string }[] {
   const out: { name: string; line: number; kind: 'top-level' | 'constructor-instantiated'; className?: string }[] =
-    collectEvalScopeCalls(program, source, matcher, skipSubtree).map((c) => ({ ...c, kind: 'top-level' as const }));
+    collectEvalScopeCalls(program, source, matcher).map((c) => ({ ...c, kind: 'top-level' as const }));
 
   const body: Node[] = program.body ?? [];
 
@@ -2962,7 +2947,7 @@ function collectOrphanCalls(
     // legal local call, not the tracked import (correctness/orphan-lifecycle false positive).
     const ctorShadow = new Set<string>();
     for (const p of ctor.value.params ?? []) addBoundNames(p, ctorShadow);
-    const calls = collectEvalScopeCalls(ctor.value.body, source, matcher, skipSubtree, ctorShadow);
+    const calls = collectEvalScopeCalls(ctor.value.body, source, matcher, ctorShadow);
     // calls are in walk (source) order — a constructor mixing callees reports the first one.
     if (calls.length > 0) matchingClasses.set(decl.id.name, calls[0]!.name);
   }
@@ -3016,7 +3001,7 @@ function collectOrphanCalls(
  * the same walk with a lifecycle-import matcher.
  */
 function collectOrphanEffects(program: Node, source: string): OrphanEffectFact[] {
-  return collectOrphanCalls(program, source, (n) => (isEffectCall(n) ? '$effect' : undefined), isEffectRootCall).map(
+  return collectOrphanCalls(program, source, (n) => (isEffectCall(n) ? '$effect' : undefined)).map(
     ({ line, kind, className }) => ({ line, kind, ...(className !== undefined ? { className } : {}) })
   );
 }

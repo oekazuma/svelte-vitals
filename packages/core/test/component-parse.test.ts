@@ -1037,6 +1037,9 @@ describe('parseComponentFacts — orphan $effect in runes modules (.svelte.ts/.s
     expect(orphans('export function useThing() {\n  $effect(() => {});\n}')).toEqual([]);
     expect(orphans('export class S {\n  constructor() {\n    $effect(() => {});\n  }\n}')).toEqual([]);
   });
+  it('flags an $effect evaluated as the argument of $effect.root', () => {
+    expect(orphans('$effect.root($effect(() => {}));')).toEqual([{ line: 1, kind: 'top-level' }]);
+  });
   it('does not flag a constructor effect wrapped in $effect.root, even when instantiated', () => {
     const src = [
       'class S {',
