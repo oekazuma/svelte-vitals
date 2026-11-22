@@ -86,6 +86,24 @@ describe('security/handler-state-write handler writes imported state', () => {
     );
     expect(fails(server)).toHaveLength(1);
   });
+  it('checks an ssr = false layout when a page under it turns ssr back on', async () => {
+    const writes: KitModuleFacts['importedStateWrites'] = [{ name: 'user', line: 3, via: 'set-call' }];
+    const rs = await securityHandlerStateWrite.check(
+      ctx(
+        [
+          kit({
+            file: 'src/routes/app/+layout.ts',
+            kind: 'universal',
+            importedStateWrites: writes,
+            ssrDisabled: { line: 1 }
+          }),
+          kit({ file: 'src/routes/app/a/+page.ts', kind: 'universal', ssrEnabled: true })
+        ],
+        { sourceFiles: ['src/routes/app/b/+page.svelte'] }
+      )
+    );
+    expect(fails(rs).map((r) => r.route)).toEqual(['src/routes/app/+layout.ts']);
+  });
   it('treats a root-layout ssr = false as app-wide, for universal files only', async () => {
     const writes: KitModuleFacts['importedStateWrites'] = [{ name: 'user', line: 3, via: 'set-call' }];
     const rootOff = kit({ file: 'src/routes/+layout.ts', kind: 'universal', ssrDisabled: { line: 1 } });

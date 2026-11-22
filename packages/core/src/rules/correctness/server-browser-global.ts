@@ -82,10 +82,12 @@ export const correctnessServerBrowserGlobal: Rule = {
       );
     }
     for (const m of ctx.kitModules ?? []) {
-      // Module scope still runs on the server when SvelteKit imports the file to read page options it
-      // cannot analyze statically; only load/handler bodies are client-only.
+      // SvelteKit imports a file whose page options it cannot read statically (`ssr = dev`) on the
+      // server, so its module scope runs there even when its route never server-renders. A literal
+      // `ssr = false` keeps the file off the server only while no page it serves turns SSR back on.
       const neverSsr = universalNeverSsr(m, ctx);
-      const refs = (m.browserGlobalRefs ?? []).filter((r) => !(neverSsr && r.inHandler));
+      const offServer = m.ssrFalse === true && (neverSsr || m.kind === 'server');
+      const refs = offServer ? [] : (m.browserGlobalRefs ?? []).filter((r) => !(neverSsr && r.inHandler));
       if (refs.length === 0) continue;
       emitFile(
         out,

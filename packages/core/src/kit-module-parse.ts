@@ -1474,38 +1474,34 @@ export function parseKitModuleFacts(
   const ssrOptOut = findFalseOptOut(program, wrapped, 'ssr');
   const csrOptOut = findFalseOptOut(program, wrapped, 'csr');
   const waterfalls = collectLoadWaterfalls(program, wrapped);
-  // SvelteKit imports a module whose page options are not all literals on the server to read them,
-  // so `ssr = dev` still has its module scope run there.
-  if (!ssrOptOut?.literal) {
-    // The scanner returns line numbers computed against `wrapped` — subtract the
-    // 1-line wrap prefix (the local `line()` helper takes a byte OFFSET, not a line,
-    // so it must not be used here).
-    const shiftLine = (l: number) => Math.max(0, l - 1);
-    // Union of the raw `$app/environment` browser imports and module-level derived
-    // guard bindings, so per-handler scans (whose own pre-pass only sees the handler
-    // body) still recognise `const canUse = browser;` declared at module level.
-    const browserImports = collectBrowserGuardImports(program);
-    const guards = new Set([...browserImports, ...collectDerivedGuardBindings(program, browserImports)]);
-    const bound = collectProgramBindings(program);
-    for (const r of collectBrowserGlobalRefs(program, wrapped, { guards, bound })) {
-      browserGlobalRefs.push({ name: r.name, line: shiftLine(r.line), inHandler: false });
+  // The scanner returns line numbers computed against `wrapped` — subtract the
+  // 1-line wrap prefix (the local `line()` helper takes a byte OFFSET, not a line,
+  // so it must not be used here).
+  const shiftLine = (l: number) => Math.max(0, l - 1);
+  // Union of the raw `$app/environment` browser imports and module-level derived
+  // guard bindings, so per-handler scans (whose own pre-pass only sees the handler
+  // body) still recognise `const canUse = browser;` declared at module level.
+  const browserImports = collectBrowserGuardImports(program);
+  const guards = new Set([...browserImports, ...collectDerivedGuardBindings(program, browserImports)]);
+  const bound = collectProgramBindings(program);
+  for (const r of collectBrowserGlobalRefs(program, wrapped, { guards, bound })) {
+    browserGlobalRefs.push({ name: r.name, line: shiftLine(r.line), inHandler: false });
+  }
+  const scanFn = (fn: Node, inHandler: boolean) => {
+    if (!fn?.body) return;
+    const params = new Set<string>();
+    for (const p of fn.params ?? []) addBoundNames(p, params);
+    for (const r of collectBrowserGlobalRefs(fn.body, wrapped, { guards, bound: new Set([...bound, ...params]) })) {
+      browserGlobalRefs.push({ name: r.name, line: shiftLine(r.line), inHandler });
     }
-    const scanFn = (fn: Node, inHandler: boolean) => {
-      if (!fn?.body) return;
-      const params = new Set<string>();
-      for (const p of fn.params ?? []) addBoundNames(p, params);
-      for (const r of collectBrowserGlobalRefs(fn.body, wrapped, { guards, bound: new Set([...bound, ...params]) })) {
-        browserGlobalRefs.push({ name: r.name, line: shiftLine(r.line), inHandler });
-      }
-    };
-    for (const fn of handlerFns) scanFn(fn, true);
-    for (const fn of startupFns) {
-      // A function aliased to BOTH a handler and `init` was already scanned above —
-      // scanning it again would duplicate the facts with a conflicting inHandler
-      // flag. Handler classification wins.
-      if (handlerFns.has(fn)) continue;
-      scanFn(fn, false);
-    }
+  };
+  for (const fn of handlerFns) scanFn(fn, true);
+  for (const fn of startupFns) {
+    // A function aliased to BOTH a handler and `init` was already scanned above —
+    // scanning it again would duplicate the facts with a conflicting inHandler
+    // flag. Handler classification wins.
+    if (handlerFns.has(fn)) continue;
+    scanFn(fn, false);
   }
 
   const envGuards = collectBrowserGuardImports(program);
@@ -1670,6 +1666,7 @@ export function parseKitModuleFacts(
     browserGlobalRefs: byLine(browserGlobalRefs),
     basePathLinks: byLine(basePathLinks),
     ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
+    ...(ssrOptOut?.literal ? { ssrFalse: true as const } : {}),
     ...(!ssrOptOut && exportsName(program, 'ssr') ? { ssrEnabled: true as const } : {}),
     ...(!ssrOptOut && exportsTrue(program, 'ssr') ? { ssrTrue: true as const } : {}),
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),

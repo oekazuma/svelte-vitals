@@ -36,7 +36,7 @@ export interface KitModuleFacts {
     line: number;
     inHandler: boolean;
   }[];
-  /** Browser-global reads in server-executed positions — top level, handler bodies, the `init` hook (correctness/server-browser-global). Empty when the file itself exports a literal `ssr = false`. */
+  /** Browser-global reads in server-executed positions — top level, handler bodies, the `init` hook (correctness/server-browser-global). */
   browserGlobalRefs: {
     name: string;
     line: number;
@@ -46,6 +46,8 @@ export interface KitModuleFacts {
   basePathLinks: BasePathLinkFact[];
   /** Set when this file disables SSR via `export const ssr = false` or `= dev` (inline or same-file alias export) — the declaration's line (seo/ssr-disabled). */
   ssrDisabled?: { line: number };
+  /** Set when this file exports `ssr` as the literal `false`, which SvelteKit reads without importing the file on the server; implies `ssrDisabled`. */
+  ssrFalse?: true;
   /** Set when this file exports `ssr` as anything but a literal `false` (`true`, a computed value, a re-export) — it may turn SSR back on under a layout's `ssr = false` (see `appSsrDisabled`, `routeNeverSsr`). */
   ssrEnabled?: true;
   /** Set when this file exports `ssr` as the literal `true` (inline or same-file alias export); implies `ssrEnabled`. */
@@ -266,9 +268,13 @@ export function universalNeverCsr(m: KitModuleFacts, scope: SsrScope): boolean {
   return !!match && routeOptionOff(scope, 'csr').get(`${match[2]}:${match[1]}`) === true;
 }
 
-/** Whether a universal `+page`/`+layout` module never runs on the server — its own `ssr = false`, an app-wide one, or one its route inherits. */
+/**
+ * Whether a universal `+page`/`+layout` module never runs on the server: `ssr` is off app-wide, or for
+ * every page it serves, its own or inherited. A layout no page uses goes by its own export.
+ */
 export function universalNeverSsr(m: KitModuleFacts, scope: SsrScope): boolean {
-  return (
-    m.kind === 'universal' && (m.ssrDisabled !== undefined || appSsrDisabled(scope) || routeNeverSsr(m.file, scope))
-  );
+  if (m.kind !== 'universal') return false;
+  const match = ROUTE_FILE_RE.exec(m.file);
+  const off = match ? routeOptionOff(scope, 'ssr').get(`${match[2]}:${match[1]}`) : undefined;
+  return appSsrDisabled(scope) || (off ?? m.ssrDisabled !== undefined);
 }
