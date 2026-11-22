@@ -608,6 +608,11 @@ function addReassigned(n: Node, acc: Set<string>): void {
   addBoundNames(target, acc);
 }
 
+/** The root of the value a plain `x = y` or `x = y.z[i]` rebinds a local to; undefined for any other rebinding. */
+function rebindRoot(n: Node): string | undefined {
+  return n?.type === 'AssignmentExpression' && n.operator === '=' ? rootObjectName(n.right) : undefined;
+}
+
 function collectStateWrites(
   root: Node,
   stateNames: Set<string>,
@@ -643,14 +648,15 @@ function collectStateWrites(
   const aliasOf = new Map<string, string>();
   // Declared at the top level of the script, so a template handler can reach it.
   const topAliases = new Map<string, string>();
-  // A local the code reassigns may hold something else by the time it is written through. Not a
+  // A local the code reassigns may hold something else by the time it is written through, unless
+  // every rebinding keeps it within the same state (`h = hours[1]`, `node = node.next`). Not a
   // destructuring or loop target: dropping the alias drops the writes made before it too.
-  const reassigned = new Set<string>();
+  const rebinds = new Map<string, (string | undefined)[]>();
   if (localStates)
     walkEstree(root, (n: Node) => {
       const target =
         n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined;
-      if (target?.type === 'Identifier') reassigned.add(target.name);
+      if (target?.type === 'Identifier') rebinds.set(target.name, [...(rebinds.get(target.name) ?? []), rebindRoot(n)]);
     });
   // A chain can be declared after the code that reads it, so walk again until nothing is added.
   if (localStates)
@@ -667,7 +673,10 @@ function collectStateWrites(
         const r = rootObjectName(unwrapTs(from));
         const owner =
           r && (stateNames.has(r) ? r : (aliasOf.get(r) ?? (scope.has(r) ? undefined : scriptAliases?.get(r))));
-        if (id?.type !== 'Identifier' || !owner || stateNames.has(id.name) || reassigned.has(id.name)) return;
+        if (id?.type !== 'Identifier' || !owner || stateNames.has(id.name)) return;
+        const within = (to: string | undefined): boolean =>
+          to === id.name || (to !== undefined && (stateNames.has(to) ? to : aliasOf.get(to)) === owner);
+        if (!(rebinds.get(id.name) ?? []).every(within)) return;
         aliasOf.set(id.name, owner);
         if (n.type === 'VariableDeclarator' && !scope.has(id.name)) topAliases.set(id.name, owner);
       });
@@ -3299,13 +3308,24 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     const scriptAliases = collectStateWrites(program, stateNames, writtenOrEscaped, undefined, true);
     if (ast.fragment) {
       // A handler may run after the script or a handler rebinds the local, so a local rebound in
-      // either, outside a binding of its own name, is not followed into handlers.
-      for (const root of [program, ast.fragment])
-        walkScoped(root, (n, scope) => {
-          const names = new Set<string>();
-          addReassigned(n, names);
-          for (const name of names) if (!scope.has(name)) scriptAliases.delete(name);
-        });
+      // either, outside a binding of its own name, is not followed into handlers unless it is rebound
+      // within the same state. A rebinding through another such local depends on that one, so walk
+      // again until nothing more is dropped.
+      for (let size = -1; size !== scriptAliases.size;) {
+        size = scriptAliases.size;
+        for (const root of [program, ast.fragment])
+          walkScoped(root, (n, scope) => {
+            const names = new Set<string>();
+            addReassigned(n, names);
+            const to = rebindRoot(n);
+            const owner =
+              to === undefined || scope.has(to) ? undefined : stateNames.has(to) ? to : scriptAliases.get(to);
+            for (const name of names) {
+              const within = to === name || (owner !== undefined && owner === scriptAliases.get(name));
+              if (!scope.has(name) && !within) scriptAliases.delete(name);
+            }
+          });
+      }
       collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true, scriptAliases);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
