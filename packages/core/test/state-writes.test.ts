@@ -146,6 +146,15 @@ describe('state writes', () => {
     ).toEqual([]);
   });
 
+  it('follows a handler local rebound through a script local holding the $state', () => {
+    expect(
+      marked(
+        'let s = $state([{ n: 0 }, { n: 1 }]);\nconst e = s;',
+        '<button onclick={() => { let d = e[0]; d = e[1]; d.n = 1; }}>x</button>'
+      )
+    ).toEqual([]);
+  });
+
   it('does not follow a local rebound through another local that some handler rebinds, in any handler order', () => {
     const script = 'let s = $state([{ n: 0 }]);\nlet e = s;\nlet d = s[0];';
     const through = '<button onclick={() => { d = e[0]; d.n = 1; }}>x</button>';

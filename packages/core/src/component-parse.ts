@@ -670,12 +670,11 @@ function collectStateWrites(
             : n?.type === 'ForOfStatement' && n.left?.type === 'VariableDeclaration'
               ? [n.left.declarations?.[0]?.id, n.right]
               : [undefined, undefined];
-        const r = rootObjectName(unwrapTs(from));
-        const owner =
+        const ownerOf = (r: string | undefined): string | undefined =>
           r && (stateNames.has(r) ? r : (aliasOf.get(r) ?? (scope.has(r) ? undefined : scriptAliases?.get(r))));
+        const owner = ownerOf(rootObjectName(unwrapTs(from)));
         if (id?.type !== 'Identifier' || !owner || stateNames.has(id.name)) return;
-        const within = (to: string | undefined): boolean =>
-          to === id.name || (to !== undefined && (stateNames.has(to) ? to : aliasOf.get(to)) === owner);
+        const within = (to: string | undefined): boolean => to === id.name || ownerOf(to) === owner;
         if (!(rebinds.get(id.name) ?? []).every(within)) return;
         aliasOf.set(id.name, owner);
         if (n.type === 'VariableDeclarator' && !scope.has(id.name)) topAliases.set(id.name, owner);
