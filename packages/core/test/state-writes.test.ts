@@ -123,6 +123,29 @@ describe('state writes', () => {
       '}'
     ].join('\n');
     expect(constable(script)).toEqual(['s']);
+    const local = [
+      'function f() {',
+      '  let s = $state([{ n: 0 }]);',
+      '  let h = s[0];',
+      '  function detach(s) {',
+      '    h = s[0];',
+      '    h.n = 1;',
+      '  }',
+      '}'
+    ].join('\n');
+    expect(constable(local)).toEqual(['s']);
+  });
+
+  it('drops a $state declared in a function and mutated through a local rebound within it', () => {
+    const script = [
+      'function f() {',
+      '  let s = $state([{ n: 0 }, { n: 1 }]);',
+      '  let h = s[0];',
+      '  h = s[1];',
+      '  h.n = 1;',
+      '}'
+    ].join('\n');
+    expect(constable(script)).toEqual([]);
   });
 
   it('drops a $state mutated through a chain of locals each declared after the code that reads it', () => {

@@ -651,7 +651,18 @@ function collectStateWrites(
   // A local the code reassigns may hold something else by the time it is written through, unless
   // every rebinding keeps it within the same state (`h = hours[1]`, `node = node.next`). Not a
   // destructuring or loop target: dropping the alias drops the writes made before it too. A state's
-  // name that a local hides where the rebinding happens names that local, not the state.
+  // name that a local hides where the rebinding happens names that local, not the state; a state
+  // declared in a block is in that block's scope too, so its own block is walked again to tell them apart.
+  const seesOwnState = new Set<Node>();
+  if (localStates)
+    walkEstree(root, (b: Node) => {
+      const own = ownStates(b, stateNames);
+      if (own.size > 0)
+        walkScoped(b.body, (n: Node, scope: Set<string>) => {
+          const to = rebindRoot(n);
+          if (to !== undefined && own.has(to) && !scope.has(to)) seesOwnState.add(n);
+        });
+    });
   const rebinds = new Map<string, { to: string | undefined; shadowed: boolean }[]>();
   if (localStates)
     walkScoped(root, (n: Node, scope: Set<string>) => {
@@ -660,7 +671,8 @@ function collectStateWrites(
       if (target?.type !== 'Identifier') return;
       const to = rebindRoot(n);
       const shadowed = to !== undefined && scope.has(to);
-      const rebind = { to: shadowed && stateNames.has(to) ? undefined : to, shadowed };
+      const hidden = shadowed && stateNames.has(to) && !seesOwnState.has(n);
+      const rebind = { to: hidden ? undefined : to, shadowed };
       rebinds.set(target.name, [...(rebinds.get(target.name) ?? []), rebind]);
     });
   const ownerOf = (r: string | undefined, shadowed: boolean): string | undefined =>
@@ -762,19 +774,25 @@ function collectStateWrites(
   // local would stand in for the binding they track.
   if (!localStates) return topAliases;
   walkEstree(root, (n: Node) => {
-    if (n.type !== 'BlockStatement') return;
-    const own = new Set<string>();
-    for (const stmt of n.body ?? []) {
-      if (stmt?.type !== 'VariableDeclaration') continue;
-      for (const d of stmt.declarations ?? []) {
-        if (d?.id?.type === 'Identifier' && stateNames.has(d.id.name) && isStateDeclaration(unwrapTs(d.init))) {
-          own.add(d.id.name);
-        }
-      }
-    }
+    const own = ownStates(n, stateNames);
     if (own.size > 0) walkScoped(n.body, visit(own));
   });
   return topAliases;
+}
+
+/** The `$state`s a block declares among its own statements. */
+function ownStates(block: Node, stateNames: Set<string>): Set<string> {
+  const own = new Set<string>();
+  if (block?.type !== 'BlockStatement') return own;
+  for (const stmt of block.body ?? []) {
+    if (stmt?.type !== 'VariableDeclaration') continue;
+    for (const d of stmt.declarations ?? []) {
+      if (d?.id?.type === 'Identifier' && stateNames.has(d.id.name) && isStateDeclaration(unwrapTs(d.init))) {
+        own.add(d.id.name);
+      }
+    }
+  }
+  return own;
 }
 
 /** Function-shaped nodes whose bodies defer evaluation — prop reads inside them stay reactive (compiled to call-time reads). */
