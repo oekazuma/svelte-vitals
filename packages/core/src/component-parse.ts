@@ -608,6 +608,11 @@ function addReassigned(n: Node, acc: Set<string>): void {
   addBoundNames(target, acc);
 }
 
+/** The root of the value a plain `x = y` or `x = y.z[i]` rebinds a local to; undefined for any other rebinding. */
+function rebindRoot(n: Node): string | undefined {
+  return n?.type === 'AssignmentExpression' && n.operator === '=' ? rootObjectName(n.right) : undefined;
+}
+
 function collectStateWrites(
   root: Node,
   stateNames: Set<string>,
@@ -643,34 +648,65 @@ function collectStateWrites(
   const aliasOf = new Map<string, string>();
   // Declared at the top level of the script, so a template handler can reach it.
   const topAliases = new Map<string, string>();
-  // A local the code reassigns may hold something else by the time it is written through. Not a
-  // destructuring or loop target: dropping the alias drops the writes made before it too.
-  const reassigned = new Set<string>();
+  // A local the code reassigns may hold something else by the time it is written through, unless
+  // every rebinding keeps it within the same state (`h = hours[1]`, `node = node.next`). Not a
+  // destructuring or loop target: dropping the alias drops the writes made before it too. A state's
+  // name that a local hides where the rebinding happens names that local, not the state; a state
+  // declared in a block is in that block's scope too, so its own block is walked again to tell them apart.
+  const seesOwnState = new Set<Node>();
   if (localStates)
-    walkEstree(root, (n: Node) => {
+    walkEstree(root, (b: Node) => {
+      const own = ownStates(b, stateNames);
+      if (own.size > 0)
+        walkScoped(b.body, (n: Node, scope: Set<string>) => {
+          const to = rebindRoot(n);
+          if (to !== undefined && own.has(to) && !scope.has(to)) seesOwnState.add(n);
+        });
+    });
+  const rebinds = new Map<string, { to: string | undefined; shadowed: boolean }[]>();
+  if (localStates)
+    walkScoped(root, (n: Node, scope: Set<string>) => {
       const target =
         n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined;
-      if (target?.type === 'Identifier') reassigned.add(target.name);
+      if (target?.type !== 'Identifier') return;
+      const to = rebindRoot(n);
+      const shadowed = to !== undefined && scope.has(to);
+      const hidden = shadowed && stateNames.has(to) && !seesOwnState.has(n);
+      const rebind = { to: hidden ? undefined : to, shadowed };
+      rebinds.set(target.name, [...(rebinds.get(target.name) ?? []), rebind]);
     });
-  // A chain can be declared after the code that reads it, so walk again until nothing is added.
+  const ownerOf = (r: string | undefined, shadowed: boolean): string | undefined =>
+    r && (stateNames.has(r) ? r : (aliasOf.get(r) ?? (shadowed ? undefined : scriptAliases?.get(r))));
+  // Owners come from the initializers alone, walked again until nothing is added since a chain can be
+  // declared after the code that reads it. The rebindings are checked only then, so locals that rebind
+  // each other (`const next = cur.next; cur = next`) resolve. A local rebound outside its state is
+  // dropped with every local whose initializer goes through it, until nothing more is dropped.
+  const dropped = new Set<string>();
   if (localStates)
-    for (let size = -1; size !== aliasOf.size;) {
-      size = aliasOf.size;
-      walkScoped(root, (n: Node, scope: Set<string>) => {
-        const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
-        const [id, from]: [Node, Node] =
-          init?.type === 'MemberExpression' || init?.type === 'Identifier'
-            ? [n.id, init]
-            : n?.type === 'ForOfStatement' && n.left?.type === 'VariableDeclaration'
-              ? [n.left.declarations?.[0]?.id, n.right]
-              : [undefined, undefined];
-        const r = rootObjectName(unwrapTs(from));
-        const owner =
-          r && (stateNames.has(r) ? r : (aliasOf.get(r) ?? (scope.has(r) ? undefined : scriptAliases?.get(r))));
-        if (id?.type !== 'Identifier' || !owner || stateNames.has(id.name) || reassigned.has(id.name)) return;
-        aliasOf.set(id.name, owner);
-        if (n.type === 'VariableDeclarator' && !scope.has(id.name)) topAliases.set(id.name, owner);
-      });
+    for (let count = -1; count !== dropped.size;) {
+      count = dropped.size;
+      aliasOf.clear();
+      topAliases.clear();
+      for (let size = -1; size !== aliasOf.size;) {
+        size = aliasOf.size;
+        walkScoped(root, (n: Node, scope: Set<string>) => {
+          const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
+          const [id, from]: [Node, Node] =
+            init?.type === 'MemberExpression' || init?.type === 'Identifier'
+              ? [n.id, init]
+              : n?.type === 'ForOfStatement' && n.left?.type === 'VariableDeclaration'
+                ? [n.left.declarations?.[0]?.id, n.right]
+                : [undefined, undefined];
+          const r = rootObjectName(unwrapTs(from));
+          const owner = ownerOf(r, r !== undefined && scope.has(r));
+          if (id?.type !== 'Identifier' || !owner || stateNames.has(id.name) || dropped.has(id.name)) return;
+          aliasOf.set(id.name, owner);
+          if (n.type === 'VariableDeclarator' && !scope.has(id.name)) topAliases.set(id.name, owner);
+        });
+      }
+      for (const [name, owner] of aliasOf)
+        if (!(rebinds.get(name) ?? []).every(({ to, shadowed }) => to === name || ownerOf(to, shadowed) === owner))
+          dropped.add(name);
     }
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
@@ -738,19 +774,25 @@ function collectStateWrites(
   // local would stand in for the binding they track.
   if (!localStates) return topAliases;
   walkEstree(root, (n: Node) => {
-    if (n.type !== 'BlockStatement') return;
-    const own = new Set<string>();
-    for (const stmt of n.body ?? []) {
-      if (stmt?.type !== 'VariableDeclaration') continue;
-      for (const d of stmt.declarations ?? []) {
-        if (d?.id?.type === 'Identifier' && stateNames.has(d.id.name) && isStateDeclaration(unwrapTs(d.init))) {
-          own.add(d.id.name);
-        }
-      }
-    }
+    const own = ownStates(n, stateNames);
     if (own.size > 0) walkScoped(n.body, visit(own));
   });
   return topAliases;
+}
+
+/** The `$state`s a block declares among its own statements. */
+function ownStates(block: Node, stateNames: Set<string>): Set<string> {
+  const own = new Set<string>();
+  if (block?.type !== 'BlockStatement') return own;
+  for (const stmt of block.body ?? []) {
+    if (stmt?.type !== 'VariableDeclaration') continue;
+    for (const d of stmt.declarations ?? []) {
+      if (d?.id?.type === 'Identifier' && stateNames.has(d.id.name) && isStateDeclaration(unwrapTs(d.init))) {
+        own.add(d.id.name);
+      }
+    }
+  }
+  return own;
 }
 
 /** Function-shaped nodes whose bodies defer evaluation — prop reads inside them stay reactive (compiled to call-time reads). */
@@ -3299,13 +3341,24 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     const scriptAliases = collectStateWrites(program, stateNames, writtenOrEscaped, undefined, true);
     if (ast.fragment) {
       // A handler may run after the script or a handler rebinds the local, so a local rebound in
-      // either, outside a binding of its own name, is not followed into handlers.
-      for (const root of [program, ast.fragment])
-        walkScoped(root, (n, scope) => {
-          const names = new Set<string>();
-          addReassigned(n, names);
-          for (const name of names) if (!scope.has(name)) scriptAliases.delete(name);
-        });
+      // either, outside a binding of its own name, is not followed into handlers unless it is rebound
+      // within the same state. A rebinding through another such local depends on that one, so walk
+      // again until nothing more is dropped.
+      for (let size = -1; size !== scriptAliases.size;) {
+        size = scriptAliases.size;
+        for (const root of [program, ast.fragment])
+          walkScoped(root, (n, scope) => {
+            const names = new Set<string>();
+            addReassigned(n, names);
+            const to = rebindRoot(n);
+            const owner =
+              to === undefined || scope.has(to) ? undefined : stateNames.has(to) ? to : scriptAliases.get(to);
+            for (const name of names) {
+              const within = to === name || (owner !== undefined && owner === scriptAliases.get(name));
+              if (!scope.has(name) && !within) scriptAliases.delete(name);
+            }
+          });
+      }
       collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true, scriptAliases);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);

@@ -70,6 +70,84 @@ describe('state writes', () => {
     expect(constable('let s = $state({ n: 0 });\nlet d = s;\nd = { n: 1 };\nd.n = 2;')).toEqual(['s']);
   });
 
+  it('drops a $state mutated through a local rebound to another part of the same $state', () => {
+    expect(constable('let hours = $state([{ n: 0 }, { n: 1 }]);\nlet h = hours[0];\nh = hours[1];\nh.n = 1;')).toEqual(
+      []
+    );
+    const walk = [
+      'let list = $state({ head: { seen: false, next: null } });',
+      'let node = list.head;',
+      'while (node) {',
+      '  node.seen = true;',
+      '  node = node.next;',
+      '}'
+    ].join('\n');
+    expect(constable(walk)).toEqual([]);
+    const walkInFunction = [
+      'let list = $state({ head: { seen: false, next: null } });',
+      'function walk() {',
+      '  let node = list.head;',
+      '  while (node) {',
+      '    node.seen = true;',
+      '    node = node.next;',
+      '  }',
+      '}'
+    ].join('\n');
+    expect(constable(walkInFunction)).toEqual([]);
+    expect(
+      constable('let a = $state([{ n: 0 }]);\nlet b = $state([{ n: 0 }]);\nlet h = a[0];\nh = b[0];\nh.n = 1;')
+    ).toEqual(['a', 'b']);
+  });
+
+  it('drops a $state mutated through locals that rebind each other within it', () => {
+    expect(constable('let s = $state([{ n: 0 }]);\nlet a = s[0];\nconst b = a;\na = b;\nb.n = 1;')).toEqual([]);
+    const walk = [
+      'let list = $state({ head: { seen: false, next: null } });',
+      'let cur = list.head;',
+      'while (cur) {',
+      '  const next = cur.next;',
+      '  cur.seen = true;',
+      '  cur = next;',
+      '}'
+    ].join('\n');
+    expect(constable(walk)).toEqual([]);
+  });
+
+  it('does not follow a local rebound through a parameter that shadows the $state', () => {
+    const script = [
+      'let s = $state([{ n: 0 }]);',
+      'let h = s[0];',
+      'function detach(s) {',
+      '  h = s[0];',
+      '  h.n = 1;',
+      '}'
+    ].join('\n');
+    expect(constable(script)).toEqual(['s']);
+    const local = [
+      'function f() {',
+      '  let s = $state([{ n: 0 }]);',
+      '  let h = s[0];',
+      '  function detach(s) {',
+      '    h = s[0];',
+      '    h.n = 1;',
+      '  }',
+      '}'
+    ].join('\n');
+    expect(constable(local)).toEqual(['s']);
+  });
+
+  it('drops a $state declared in a function and mutated through a local rebound within it', () => {
+    const script = [
+      'function f() {',
+      '  let s = $state([{ n: 0 }, { n: 1 }]);',
+      '  let h = s[0];',
+      '  h = s[1];',
+      '  h.n = 1;',
+      '}'
+    ].join('\n');
+    expect(constable(script)).toEqual([]);
+  });
+
   it('drops a $state mutated through a chain of locals each declared after the code that reads it', () => {
     const script = [
       'let s = $state({ m: { m: { m: { n: 0 } } } });',
@@ -111,6 +189,38 @@ describe('state writes', () => {
     expect(
       marked('let s = $state([]);\nlet d = s;\n[d] = [[]];', '<button onclick={() => d.push(1)}>x</button>')
     ).toEqual(['s']);
+  });
+
+  it('follows a script local rebound to another part of the same $state into a template handler', () => {
+    expect(
+      marked(
+        'let s = $state([{ n: 0 }, { n: 1 }]);\nlet d = s[0];',
+        '<button onclick={() => { d = s[1]; d.n = 1; }}>x</button>'
+      )
+    ).toEqual([]);
+    expect(
+      marked(
+        'let s = $state([{ n: 0 }, { n: 1 }]);\nlet d = s[0];\nd = s[1];',
+        '<button onclick={() => (d.n = 1)}>x</button>'
+      )
+    ).toEqual([]);
+  });
+
+  it('follows a handler local rebound through a script local holding the $state', () => {
+    expect(
+      marked(
+        'let s = $state([{ n: 0 }, { n: 1 }]);\nconst e = s;',
+        '<button onclick={() => { let d = e[0]; d = e[1]; d.n = 1; }}>x</button>'
+      )
+    ).toEqual([]);
+  });
+
+  it('does not follow a local rebound through another local that some handler rebinds, in any handler order', () => {
+    const script = 'let s = $state([{ n: 0 }]);\nlet e = s;\nlet d = s[0];';
+    const through = '<button onclick={() => { d = e[0]; d.n = 1; }}>x</button>';
+    const elsewhere = '<button onclick={() => (e = [])}>y</button>';
+    expect(marked(script, through + elsewhere)).toEqual(['s']);
+    expect(marked(script, elsewhere + through)).toEqual(['s']);
   });
 
   it('keeps a script mutation through a local that a template handler rebinds', () => {
