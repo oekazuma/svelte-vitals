@@ -610,7 +610,7 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
     ).toEqual([]);
     expect(
       names(
-        '<script>let days = $state([]); function f() { for (const day of days) send(day.id); }</script><p>{days.length}</p>'
+        '<script>let days = $state([]); function f() { let n = 0; for (const day of days) n += day.id; }</script><p>{days.length}</p>'
       )
     ).toEqual(['days']);
     expect(names('<script>let days = $state([]); function f() { let day = days[0]; day = null; }</script>')).toEqual([

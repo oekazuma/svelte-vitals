@@ -648,6 +648,8 @@ function collectStateWrites(
   const aliasOf = new Map<string, string>();
   // Declared at the top level of the script, so a template handler can reach it.
   const topAliases = new Map<string, string>();
+  // Bound to the whole state (`const rows = list`), so returning or placing it hands out the state itself.
+  const wholeAliases = new Set<string>();
   // A local the code reassigns may hold something else by the time it is written through, unless
   // every rebinding keeps it within the same state (`h = hours[1]`, `node = node.next`). Not a
   // destructuring or loop target: dropping the alias drops the writes made before it too. A state's
@@ -687,8 +689,9 @@ function collectStateWrites(
       count = dropped.size;
       aliasOf.clear();
       topAliases.clear();
-      for (let size = -1; size !== aliasOf.size;) {
-        size = aliasOf.size;
+      wholeAliases.clear();
+      for (let size = -1; size !== aliasOf.size + wholeAliases.size;) {
+        size = aliasOf.size + wholeAliases.size;
         walkScoped(root, (n: Node, scope: Set<string>) => {
           const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
           const [id, from]: [Node, Node] =
@@ -701,6 +704,12 @@ function collectStateWrites(
           const owner = ownerOf(r, r !== undefined && scope.has(r));
           if (id?.type !== 'Identifier' || !owner || stateNames.has(id.name) || dropped.has(id.name)) return;
           aliasOf.set(id.name, owner);
+          if (
+            n.type === 'VariableDeclarator' &&
+            from.type === 'Identifier' &&
+            (stateNames.has(r!) || wholeAliases.has(r!))
+          )
+            wholeAliases.add(id.name);
           if (n.type === 'VariableDeclarator' && !scope.has(id.name)) topAliases.set(id.name, owner);
         });
       }
@@ -710,10 +719,19 @@ function collectStateWrites(
     }
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
+    // The state a name refers to here, itself or through a local holding it or part of it.
+    const held = (r: string | undefined): string | undefined => {
+      if (r === undefined) return undefined;
+      if (stateNames.has(r)) return shadowed(r) ? undefined : r;
+      const owner = aliasOf.get(r);
+      if (owner !== undefined && stateNames.has(owner)) return owner;
+      return shadowed(r) ? undefined : scriptAliases?.get(r);
+    };
+    const whole = (r: string | undefined): string | undefined =>
+      r !== undefined && (stateNames.has(r) || wholeAliases.has(r)) ? held(r) : undefined;
     const mutated = (r: string | undefined): void => {
-      if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate');
-      else if (r && stateNames.has(aliasOf.get(r)!)) record(aliasOf.get(r)!, 'mutate');
-      else if (r && !shadowed(r) && scriptAliases?.has(r)) record(scriptAliases.get(r)!, 'mutate');
+      const state = held(r);
+      if (state) record(state, 'mutate');
     };
     if (n?.type === 'AssignmentExpression') {
       if (n.left?.type === 'Identifier' && stateNames.has(n.left.name) && !shadowed(n.left.name)) {
@@ -740,30 +758,30 @@ function collectStateWrites(
       for (const a of n.arguments ?? []) {
         // Unwrap a spread argument (`f(...x)`, `f(...x.items)`) to its expression.
         const arg = a?.type === 'SpreadElement' ? a.argument : a;
-        const r = rootObjectName(arg);
-        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'escape'); // f(x), f(x.a), f(...x)
+        const state = held(rootObjectName(arg));
+        if (state) record(state, 'escape'); // f(x), f(x.a), f(...x)
       }
     } else if (n?.type === 'ReturnStatement') {
       // A function returning the state hands its reference to the caller, which may write it. An
       // arrow's expression body is left out: it is almost always a read (`untrack(() => s)`).
       const out: Node = unwrapTs(n.argument);
-      const r = out?.type === 'Identifier' ? out.name : undefined;
-      if (r && stateNames.has(r) && !shadowed(r) && !primitiveStates.has(r)) record(r, 'escape');
+      const state = whole(out?.type === 'Identifier' ? out.name : undefined);
+      if (state && !primitiveStates.has(state)) record(state, 'escape');
     } else if (heldObjects.size > 0 && (n?.type === 'ObjectExpression' || n?.type === 'ArrayExpression')) {
       // Placed in an object or array (`setContext('k', { lang })`, `onSave({ ids })`), the reference
       // goes wherever that value goes. A spread copies it (`list = [...list, x]`), so it is left out.
       const values = n.type === 'ObjectExpression' ? (n.properties ?? []).map((p: Node) => p?.value) : n.elements;
       for (const v of values ?? []) {
         const placed = unwrapTs(v);
-        const r = placed?.type === 'Identifier' ? placed.name : undefined;
-        if (r && heldObjects.has(r) && stateNames.has(r) && !shadowed(r)) record(r, 'escape');
+        const state = whole(placed?.type === 'Identifier' ? placed.name : undefined);
+        if (state && heldObjects.has(state)) record(state, 'escape');
       }
     } else if ((n?.type === 'Property' || n?.type === 'MethodDefinition') && n.kind === 'get') {
       // A getter hands out the state's reference like a call argument: `{ get list() { return list } }`.
       // Over a state that holds a primitive until it is written, it hands out a copy.
       walkEstree(n.value?.body, (m: Node) => {
-        const r = m?.type === 'ReturnStatement' ? rootObjectName(m.argument) : undefined;
-        if (r && stateNames.has(r) && !shadowed(r) && !primitiveStates.has(r)) record(r, 'escape');
+        const state = held(m?.type === 'ReturnStatement' ? rootObjectName(m.argument) : undefined);
+        if (state && !primitiveStates.has(state)) record(state, 'escape');
       });
     }
   };
@@ -3360,9 +3378,13 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
           });
       }
       collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true, scriptAliases);
-      collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
-      collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
-      collectEachContextTaint(ast.fragment, stateNames, writtenOrEscaped, new Set(), false);
+      // A script local holding a state or part of it hands the state out wherever the template hands it out.
+      const handedOut = new Set([...stateNames, ...scriptAliases.keys()]);
+      const escaped = new Set<string>();
+      collectTemplateEscapes(ast.fragment, handedOut, escaped);
+      collectDirectiveEscapes(ast.fragment, handedOut, escaped);
+      collectEachContextTaint(ast.fragment, handedOut, escaped, new Set(), false);
+      for (const name of escaped) writtenOrEscaped.add(scriptAliases.get(name) ?? name);
     }
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
