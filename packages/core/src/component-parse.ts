@@ -650,35 +650,51 @@ function collectStateWrites(
   const topAliases = new Map<string, string>();
   // A local the code reassigns may hold something else by the time it is written through, unless
   // every rebinding keeps it within the same state (`h = hours[1]`, `node = node.next`). Not a
-  // destructuring or loop target: dropping the alias drops the writes made before it too.
-  const rebinds = new Map<string, (string | undefined)[]>();
+  // destructuring or loop target: dropping the alias drops the writes made before it too. A state's
+  // name that a local hides where the rebinding happens names that local, not the state.
+  const rebinds = new Map<string, { to: string | undefined; shadowed: boolean }[]>();
   if (localStates)
-    walkEstree(root, (n: Node) => {
+    walkScoped(root, (n: Node, scope: Set<string>) => {
       const target =
         n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined;
-      if (target?.type === 'Identifier') rebinds.set(target.name, [...(rebinds.get(target.name) ?? []), rebindRoot(n)]);
+      if (target?.type !== 'Identifier') return;
+      const to = rebindRoot(n);
+      const shadowed = to !== undefined && scope.has(to);
+      const rebind = { to: shadowed && stateNames.has(to) ? undefined : to, shadowed };
+      rebinds.set(target.name, [...(rebinds.get(target.name) ?? []), rebind]);
     });
-  // A chain can be declared after the code that reads it, so walk again until nothing is added.
+  const ownerOf = (r: string | undefined, shadowed: boolean): string | undefined =>
+    r && (stateNames.has(r) ? r : (aliasOf.get(r) ?? (shadowed ? undefined : scriptAliases?.get(r))));
+  // Owners come from the initializers alone, walked again until nothing is added since a chain can be
+  // declared after the code that reads it. The rebindings are checked only then, so locals that rebind
+  // each other (`const next = cur.next; cur = next`) resolve. A local rebound outside its state is
+  // dropped with every local whose initializer goes through it, until nothing more is dropped.
+  const dropped = new Set<string>();
   if (localStates)
-    for (let size = -1; size !== aliasOf.size;) {
-      size = aliasOf.size;
-      walkScoped(root, (n: Node, scope: Set<string>) => {
-        const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
-        const [id, from]: [Node, Node] =
-          init?.type === 'MemberExpression' || init?.type === 'Identifier'
-            ? [n.id, init]
-            : n?.type === 'ForOfStatement' && n.left?.type === 'VariableDeclaration'
-              ? [n.left.declarations?.[0]?.id, n.right]
-              : [undefined, undefined];
-        const ownerOf = (r: string | undefined): string | undefined =>
-          r && (stateNames.has(r) ? r : (aliasOf.get(r) ?? (scope.has(r) ? undefined : scriptAliases?.get(r))));
-        const owner = ownerOf(rootObjectName(unwrapTs(from)));
-        if (id?.type !== 'Identifier' || !owner || stateNames.has(id.name)) return;
-        const within = (to: string | undefined): boolean => to === id.name || ownerOf(to) === owner;
-        if (!(rebinds.get(id.name) ?? []).every(within)) return;
-        aliasOf.set(id.name, owner);
-        if (n.type === 'VariableDeclarator' && !scope.has(id.name)) topAliases.set(id.name, owner);
-      });
+    for (let count = -1; count !== dropped.size;) {
+      count = dropped.size;
+      aliasOf.clear();
+      topAliases.clear();
+      for (let size = -1; size !== aliasOf.size;) {
+        size = aliasOf.size;
+        walkScoped(root, (n: Node, scope: Set<string>) => {
+          const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
+          const [id, from]: [Node, Node] =
+            init?.type === 'MemberExpression' || init?.type === 'Identifier'
+              ? [n.id, init]
+              : n?.type === 'ForOfStatement' && n.left?.type === 'VariableDeclaration'
+                ? [n.left.declarations?.[0]?.id, n.right]
+                : [undefined, undefined];
+          const r = rootObjectName(unwrapTs(from));
+          const owner = ownerOf(r, r !== undefined && scope.has(r));
+          if (id?.type !== 'Identifier' || !owner || stateNames.has(id.name) || dropped.has(id.name)) return;
+          aliasOf.set(id.name, owner);
+          if (n.type === 'VariableDeclarator' && !scope.has(id.name)) topAliases.set(id.name, owner);
+        });
+      }
+      for (const [name, owner] of aliasOf)
+        if (!(rebinds.get(name) ?? []).every(({ to, shadowed }) => to === name || ownerOf(to, shadowed) === owner))
+          dropped.add(name);
     }
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);

@@ -83,9 +83,46 @@ describe('state writes', () => {
       '}'
     ].join('\n');
     expect(constable(walk)).toEqual([]);
+    const walkInFunction = [
+      'let list = $state({ head: { seen: false, next: null } });',
+      'function walk() {',
+      '  let node = list.head;',
+      '  while (node) {',
+      '    node.seen = true;',
+      '    node = node.next;',
+      '  }',
+      '}'
+    ].join('\n');
+    expect(constable(walkInFunction)).toEqual([]);
     expect(
       constable('let a = $state([{ n: 0 }]);\nlet b = $state([{ n: 0 }]);\nlet h = a[0];\nh = b[0];\nh.n = 1;')
     ).toEqual(['a', 'b']);
+  });
+
+  it('drops a $state mutated through locals that rebind each other within it', () => {
+    expect(constable('let s = $state([{ n: 0 }]);\nlet a = s[0];\nconst b = a;\na = b;\nb.n = 1;')).toEqual([]);
+    const walk = [
+      'let list = $state({ head: { seen: false, next: null } });',
+      'let cur = list.head;',
+      'while (cur) {',
+      '  const next = cur.next;',
+      '  cur.seen = true;',
+      '  cur = next;',
+      '}'
+    ].join('\n');
+    expect(constable(walk)).toEqual([]);
+  });
+
+  it('does not follow a local rebound through a parameter that shadows the $state', () => {
+    const script = [
+      'let s = $state([{ n: 0 }]);',
+      'let h = s[0];',
+      'function detach(s) {',
+      '  h = s[0];',
+      '  h.n = 1;',
+      '}'
+    ].join('\n');
+    expect(constable(script)).toEqual(['s']);
   });
 
   it('drops a $state mutated through a chain of locals each declared after the code that reads it', () => {
