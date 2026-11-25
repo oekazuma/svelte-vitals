@@ -64,6 +64,46 @@ describe('state writes', () => {
     expect(constable(script)).toEqual([]);
   });
 
+  it('drops a $state handed out through a local holding it or part of it', () => {
+    expect(constable('let items = $state([]);\nconst list = items;\nsave(list);')).toEqual([]);
+    expect(constable('let items = $state([]);\nconst list = items;\nfunction get() {\n  return list;\n}')).toEqual([]);
+    expect(constable("let items = $state([{ n: 0 }]);\nconst d = items;\nsetContext('k', { d });")).toEqual([]);
+    expect(
+      constable(
+        'let items = $state({ list: [] });\nconst d = items.list;\nconst api = {\n  get list() {\n    return d;\n  }\n};'
+      )
+    ).toEqual([]);
+    expect(constable('let items = $state([]);\nfor (const d of items) save(d);')).toEqual([]);
+    expect(constable('let days = $state([]);\nfor (const day of days) send(day.id);')).toEqual([]);
+    expect(
+      constable(
+        'let items = $state([]);\nconst all = items;\nlet list = items;\nlist = all;\nfunction get() {\n  return list;\n}'
+      )
+    ).toEqual([]);
+  });
+
+  it('keeps a $state whose local holds a part of it or a primitive copy when returned or placed, or is rebound before it is handed out', () => {
+    expect(constable('let n = $state(0);\nconst m = n;\nfunction get() {\n  return m;\n}')).toEqual(['n']);
+    expect(constable('let items = $state([{ n: 0 }]);\nconst d = items[0];\nfunction get() {\n  return d;\n}')).toEqual(
+      ['items']
+    );
+    expect(constable("let items = $state([{ n: 0 }]);\nconst d = items[0];\nsetContext('k', { d });")).toEqual([
+      'items'
+    ]);
+    expect(constable('let items = $state([]);\nlet list = items;\nlist = [];\nsave(list);')).toEqual(['items']);
+    expect(
+      constable('let items = $state([]);\nlet list = items;\nlist = items[0];\nfunction get() {\n  return list;\n}')
+    ).toEqual(['items']);
+    expect(
+      constable('let items = $state([[]]);\nlet list = items;\nlist = list[0];\nfunction get() {\n  return list;\n}')
+    ).toEqual(['items']);
+    expect(
+      constable(
+        "let items = $state([{ n: 0 }]);\nconst d = items[0];\nlet list = items;\nlist = d;\nsetContext('k', { list });"
+      )
+    ).toEqual(['items']);
+  });
+
   it('drops a $state mutated through a local bound to the whole of it, directly or through another such local', () => {
     expect(constable('let s = $state([]);\nconst d = s;\nd.push(1);')).toEqual([]);
     expect(constable('let s = $state({ n: 0 });\nlet d = s;\nconst e = d;\ne.n = 1;')).toEqual([]);
@@ -189,6 +229,54 @@ describe('state writes', () => {
     expect(
       marked('let s = $state([]);\nlet d = s;\n[d] = [[]];', '<button onclick={() => d.push(1)}>x</button>')
     ).toEqual(['s']);
+  });
+
+  it('drops a $state handed out in the template through a script local holding it', () => {
+    const script = 'let items = $state([{ done: false }]);\nconst list = items;';
+    expect(marked(script, '<Child items={list} />')).toEqual([]);
+    expect(marked(script, '<button onclick={() => save(list)}>x</button>')).toEqual([]);
+    expect(marked(script, '<div use:act={list}></div>')).toEqual([]);
+    expect(marked(script, '{#each list as item}<button onclick={() => (item.done = true)}>x</button>{/each}')).toEqual(
+      []
+    );
+    expect(marked('let items = $state([]);\nlet list = items;\nlist = [];', '<Child items={list} />')).toEqual([
+      'items'
+    ]);
+  });
+
+  it('drops a $state that a template handler returns, places or hands out from a getter, directly or through a script local holding it', () => {
+    const script = 'let items = $state([]);\nconst list = items;';
+    expect(marked(script, '<button onclick={() => { return list; }}>x</button>')).toEqual([]);
+    expect(marked(script, '<button onclick={() => { const own = list; return own; }}>x</button>')).toEqual([]);
+    expect(marked(script, "<button onclick={() => setContext('k', { items })}>x</button>")).toEqual([]);
+    expect(marked(script, "<button onclick={() => setContext('k', { list })}>x</button>")).toEqual([]);
+    expect(marked(script, '<button onclick={() => ({ get value() { return list; } })}>x</button>')).toEqual([]);
+  });
+
+  it('keeps a $state that a template handler returns or places as a copy or a part, or after rebinding its local to a part', () => {
+    expect(marked('let n = $state(0);', '<button onclick={() => { return n; }}>x</button>')).toEqual(['n']);
+    expect(marked('let n = $state(0);', '<button onclick={() => ({ get value() { return n; } })}>x</button>')).toEqual([
+      'n'
+    ]);
+    expect(
+      marked('let n = $state(0);\nconst m = n;', '<button onclick={() => ({ get value() { return m; } })}>x</button>')
+    ).toEqual(['n']);
+    expect(marked('let n = $state(0);', "<button onclick={() => setContext('k', { n })}>x</button>")).toEqual(['n']);
+    expect(
+      marked('let items = $state([{ n: 0 }]);\nconst d = items[0];', '<button onclick={() => { return d; }}>x</button>')
+    ).toEqual(['items']);
+    expect(
+      marked(
+        'let items = $state([{ n: 0 }]);\nlet list = items;',
+        '<button onclick={() => { list = items[0]; }}>a</button><button onclick={() => { return list; }}>b</button>'
+      )
+    ).toEqual(['items']);
+    expect(
+      marked(
+        'let items = $state([[]]);\nlet list = items;',
+        '<button onclick={() => { list = list[0]; }}>a</button><button onclick={() => { return list; }}>b</button>'
+      )
+    ).toEqual(['items']);
   });
 
   it('follows a script local rebound to another part of the same $state into a template handler', () => {
