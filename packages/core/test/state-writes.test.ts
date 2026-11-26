@@ -176,6 +176,65 @@ describe('state writes', () => {
     expect(constable(local)).toEqual(['s']);
   });
 
+  it('keeps a $state whose same-named parameter is what a local holds and writes through', () => {
+    expect(constable('let s = $state([[]]);\nfunction use(s) {\n  const d = s[0];\n  d.push(1);\n}')).toEqual(['s']);
+    expect(constable('let s = $state([[]]);\nfunction use(s) {\n  const d = s;\n  d.push(1);\n}')).toEqual(['s']);
+    expect(
+      constable('function f() {\n  let s = $state([]);\n  function g(s) {\n    const d = s;\n    d.push(1);\n  }\n}')
+    ).toEqual(['s']);
+    expect(
+      constable('let s = $state([{ n: 0 }]);\nconst d = s[0];\nfunction f(d) {\n  const e = d;\n  e.n = 1;\n}')
+    ).toEqual(['s']);
+  });
+
+  it('keeps a $state whose name or local is shadowed where it is written, passed, returned, placed or handed out by a getter', () => {
+    const items = 'let items = $state([]);\nconst list = items;\n';
+    expect(constable(`${items}function f(list) {\n  list.push(1);\n}`)).toEqual(['items']);
+    expect(constable(`${items}function f(list) {\n  save(list);\n}`)).toEqual(['items']);
+    expect(constable(`${items}function f(list) {\n  return list;\n}`)).toEqual(['items']);
+    expect(constable(`${items}function f(list) {\n  setContext('k', { list });\n}`)).toEqual(['items']);
+    expect(constable(`${items}const api = {\n  get rows() {\n    const list = [];\n    return list;\n  }\n};`)).toEqual(
+      ['items']
+    );
+    expect(
+      constable(
+        'let items = $state([]);\nconst api = {\n  get rows() {\n    const items = [];\n    return items;\n  }\n};'
+      )
+    ).toEqual(['items']);
+    expect(
+      constable('let s = $state([{ n: 0 }]);\nconst d = s[0];\nfunction f() {\n  const d = { n: 0 };\n  d.n = 1;\n}')
+    ).toEqual(['s']);
+  });
+
+  it('keeps following a local holding a $state when a same-named local elsewhere is rebound', () => {
+    expect(
+      constable('let s = $state([{ n: 0 }]);\nconst d = s[0];\nd.n = 1;\nfunction f() {\n  let d = [];\n  d = [1];\n}')
+    ).toEqual([]);
+    const placed = [
+      'let items = $state([]);',
+      'let x = [[]];',
+      'const list = items;',
+      'function f() {',
+      '  let list = [];',
+      '  list = x[0];',
+      '}',
+      "setContext('k', { list });"
+    ].join('\n');
+    expect(constable(placed)).toEqual([]);
+  });
+
+  it('keeps same-named bindings of different $states apart', () => {
+    const local = 'function f() {\n  let b = $state([]);\n  const d = b;\n  d.push(1);\n}';
+    const top = 'let a = $state([]);\nconst d = a;';
+    expect(constable(`${local}\n${top}`)).toEqual(['a']);
+    expect(constable(`${top}\n${local}`)).toEqual(['a']);
+    expect(
+      constable(
+        'let s = $state([]);\nlet other = $state([{ x: 0 }]);\nfunction f() {\n  const s = other[0];\n  s.x = 1;\n}'
+      )
+    ).toEqual(['s']);
+  });
+
   it('drops a $state declared in a function and mutated through a local rebound within it', () => {
     const script = [
       'function f() {',
@@ -351,6 +410,29 @@ describe('state writes', () => {
     expect(
       marked('let s = $state([]);\nfunction f() {\n  const d = s;\n}', '<button onclick={() => d.push(1)}>x</button>')
     ).toEqual(['s']);
+  });
+
+  it('reads a block header and an element attribute outside the bindings they introduce, and a let: pattern inside them', () => {
+    const script = 'let s = $state({ items: [] });\nconst d = s;';
+    expect(marked(script, '{#each d.items.reverse() as d}{d}{/each}')).toEqual([]);
+    expect(marked('let items = $state([]);', '<div slot="row" let:row={{ items }}>{items}</div>')).toEqual(['items']);
+    expect(marked(script, '<div slot="row" let:d onclick={() => d.items.push(1)}>{d}</div>')).toEqual([]);
+  });
+
+  it('keeps a template handler local apart from a template binding of the same name', () => {
+    const each = '{#each [{ n: 0 }] as d}<button onclick={() => d.n++}>b</button>{/each}';
+    expect(
+      marked('let s = $state([{ n: 0 }]);', `<button onclick={() => { const d = s[0]; }}>a</button>\n${each}`)
+    ).toEqual(['s']);
+    expect(
+      marked('let s = $state([{ n: 0 }]);', `<button onclick={() => { const d = s; }}>a</button>\n${each}`)
+    ).toEqual(['s']);
+  });
+
+  it('keeps a $state declared in a function apart from a top-level variable of its name', () => {
+    const script = 'let count = 0;\nfunction make() {\n  let count = $state(0);\n  return () => count;\n}';
+    expect(constable(`${script}\ncount++;`)).toEqual(['count']);
+    expect(marked(script, '<button onclick={() => count++}>x</button>')).toEqual(['count']);
   });
 
   it('takes a reassigned parameter for itself, not for the top-level $state of that name', () => {
