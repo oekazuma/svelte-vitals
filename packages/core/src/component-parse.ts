@@ -787,10 +787,20 @@ function collectStateWrites(
       } else {
         mutated(rootObjectName(n.argument)); // x.count++, x[i]++
       }
+    } else if (n?.type === 'ForOfStatement' || n?.type === 'ForInStatement') {
+      // `for (s of rows)`, `for ([s] of rows)`: each pass rebinds the state.
+      const bound = new Set<string>();
+      addReassigned(n, bound);
+      for (const name of bound) {
+        const state = stateAt(name);
+        if (state) record(state, 'reassign');
+      }
     } else if (n?.type === 'UnaryExpression' && n.operator === 'delete') {
       mutated(rootObjectName(n.argument));
     } else if (n?.type === 'CallExpression') {
-      if (n.callee?.type === 'MemberExpression') mutated(rootObjectName(n.callee)); // x.push(), x.foo()
+      // x.push(), x.foo(). A primitive's methods cannot change it (`n.toFixed(2)`).
+      const state = n.callee?.type === 'MemberExpression' ? held(rootObjectName(n.callee)) : undefined;
+      if (state && !primitiveStates.has(state)) record(state, 'mutate');
       for (const a of n.arguments ?? []) {
         // Unwrap a spread argument (`f(...x)`, `f(...x.items)`) to its expression.
         const arg = a?.type === 'SpreadElement' ? a.argument : a;

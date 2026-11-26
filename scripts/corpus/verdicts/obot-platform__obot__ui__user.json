@@ -2460,6 +2460,11 @@
     "basis": "read: src/lib/components/mcp/tester/LogsInspector.svelte:175 session?.log.clear(); session is an MCPTesterSession whose log is an MCPTesterLog class instance with $state fields (tester-log.svelte.ts:63-64) and clear() reassigns them (160-164), reactive by design: the docs' class-instance limitation"
   },
   {
+    "key": "obot-platform/obot:ui/user::correctness/unmutated-state::src/lib/components/ConfirmDeleteAccount.svelte:15::$state \"dialog\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ConfirmDeleteAccount.svelte:15 dialog = $state() (:15) is never assigned, bound or passed; it is only called through, dialog?.showModal()/focus()/close() (:21-25)"
+  },
+  {
     "key": "obot-platform/obot:ui/user::correctness/unmutated-state::src/lib/components/admin/SearchMcpServers.svelte:77::$state \"loading\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "script-verified (grep of the name in the file, excluding same-named property keys/type fields) + read: src/lib/components/admin/SearchMcpServers.svelte:77 `let loading = $state(false);`; its other mentions (195) are reads (template, conditions, $derived, values passed by copy); no reassignment, member write, mutating call, bind: or directive, so it is never written as claimed"

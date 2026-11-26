@@ -785,6 +785,16 @@
     "basis": "read: teaching/units/+page.svelte:49 queryDraft = data.catalog.query; the effect only copies reactive sources (props/load data) into $state; every later write is a top-level reassignment or bind:, the writable-$derived override pattern available in the app's svelte (svelte 5.56.6)"
   },
   {
+    "key": "Rensing1/gustav:frontend::correctness/unmutated-state::src/routes/teaching/units/[unitId]/nodes/[nodeId]/+page.svelte:144::$state \"createMaterialCard\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/teaching/units/[unitId]/nodes/[nodeId]/+page.svelte:144 createMaterialCard = $state<HTMLElement | null>(null) (:144) is never assigned, bound or passed; it is only called through, createMaterialCard?.scrollIntoView() (:789, :799)"
+  },
+  {
+    "key": "Rensing1/gustav:frontend::correctness/unmutated-state::src/routes/teaching/units/[unitId]/nodes/[nodeId]/+page.svelte:145::$state \"createTaskCard\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/teaching/units/[unitId]/nodes/[nodeId]/+page.svelte:145 createTaskCard = $state<HTMLElement | null>(null) (:145) is never assigned, bound or passed; it is only called through, createTaskCard?.scrollIntoView() (:806, :815)"
+  },
+  {
     "key": "Rensing1/gustav:frontend::performance/iframe-loading::src/lib/components/learning-unit/LearningTaskCard.svelte:1182::<iframe> without a loading attribute loads eagerly even when offscreen",
     "verdict": "tp",
     "basis": "script-verified: <iframe> has no loading attribute and no spread; read: PDF submission frame inside <details bind:open={submissionDisclosureOpen}> (:1171-1186), closed by default (:176) - the PDF document loads eagerly though hidden, and task cards lower in the unit are offscreen"

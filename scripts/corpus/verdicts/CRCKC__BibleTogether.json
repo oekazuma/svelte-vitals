@@ -200,9 +200,24 @@
     "basis": "read: src/routes/(app)/bible/[scroll]/[chapter]/bibleCheckbox.svelte:25; new IntersectionObserver at the top level of bibleCheckbox.svelte:25 would crash SSR, but the root layout renders children only after loadingResult turns false in onMount (+layout.svelte:26,51,89-94), so the component never renders on the server; the docs' parent-gate case"
   },
   {
+    "key": "CRCKC/BibleTogether::correctness/unmutated-state::src/routes/(user)/login/+page.svelte:14::$state \"username\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(user)/login/+page.svelte:14 username = $state('') (:14) is never reassigned or passed; its bind:value (:60) is inside an HTML comment, and the rest only trims it (:26)"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/unmutated-state::src/routes/(user)/login/+page.svelte:15::$state \"password\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(user)/login/+page.svelte:15 password = $state('') (:15) is never reassigned or passed; its bind:value (:68) is inside an HTML comment, and the rest only trims it (:26)"
+  },
+  {
     "key": "CRCKC/BibleTogether::correctness/unmutated-state::src/routes/(user)/login/+page.svelte:16::$state \"usernameField\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "read: src/routes/(user)/login/+page.svelte:16; usernameField $state(null); its only bind:ref sits inside an HTML comment (login/+page.svelte:57-84, signup/+page.svelte:71-102) and the focus() call is commented out, so nothing writes it, as claimed"
+  },
+  {
+    "key": "CRCKC/BibleTogether::correctness/unmutated-state::src/routes/(user)/login/+page.svelte:17::$state \"passwordField\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(user)/login/+page.svelte:17 passwordField = $state(null) (:17) is never assigned or passed; its bind:ref (:69) is inside an HTML comment, and the rest only calls passwordField?.focus() (:39)"
   },
   {
     "key": "CRCKC/BibleTogether::correctness/unmutated-state::src/routes/(user)/signup/+page.svelte:18::$state \"usernameField\" is never mutated — use const (or $state.raw if you only reassign it)",

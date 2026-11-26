@@ -3775,6 +3775,11 @@
     "basis": "script-verified (grep of the name in the file): src/lib/components/notes/primitives/ReferenceBlock.svelte:45 let resolvedFilePath = $state<string | null>(null);; other mentions at 125 are reads (conditions, template, object-literal values) or non-binding text; no reassignment, mutation, bind:, call argument or directive, so it is never written"
   },
   {
+    "key": "intent-hq/cloudlands-fe::correctness/unmutated-state::src/lib/components/workspace/sidebar/AddContextSection.svelte:38::$state \"integrationsAnchor\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/workspace/sidebar/AddContextSection.svelte:38 integrationsAnchor = $state<HTMLButtonElement | null>(null) (:38) is never assigned or passed; its bind:this (:185) is inside an HTML comment, and the rest only reads it (:219) and calls getBoundingClientRect() (:220)"
+  },
+  {
     "key": "intent-hq/cloudlands-fe::correctness/unmutated-state::src/routes/(app)/workspace/[id]/WorkspaceSurface.svelte:115::$state \"stateDisposing\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "script-verified (grep of the name in the file): src/routes/(app)/workspace/[id]/WorkspaceSurface.svelte:115 let stateDisposing = $state(false);; other mentions at 306, 386, 405 are reads (conditions, template, object-literal values) or non-binding text; no reassignment, mutation, bind:, call argument or directive, so it is never written"

@@ -1580,6 +1580,11 @@
     "basis": "read: Select.svelte:147 the effect only adds/removes a document click listener bound to the local handleClickOutside (:92) and reads nothing reactive, so it runs once like onMount"
   },
   {
+    "key": "MVRU/Conectando-Corazones:app::correctness/unmutated-state::src/lib/components/ui/forms/DireccionForm.svelte:49::$state \"referencia\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/forms/DireccionForm.svelte:49 referencia = $state('') (:49) is never reassigned, bound or passed; its only other mention is referencia?.trim() into the payload (:172)"
+  },
+  {
     "key": "MVRU/Conectando-Corazones:app::performance/image-dimensions::src/routes/(protected)/colaborador/solicitudes-colaboracion/+page.svelte:173::Missing <img> width/height",
     "verdict": "design",
     "basis": "read: <img> lacks width/height, no spread; it fills a box reserved by CSS (h-full w-full inside an aspect-video / h-12 w-12 / h-9 w-9 / h-40 w-40 / aspect-4/3 min-h-[320px] wrapper, or its own h-12 w-12 / h-6 w-6 class)"

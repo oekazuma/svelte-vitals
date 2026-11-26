@@ -225,6 +225,16 @@
     "basis": "read: offers/new/+page.svelte:627 '{#each zeroRows as r, i (i)}' keyed by its index binding; zeroRows = positions found with a zero price on submit (:278): runtime validation results recomputed from user input"
   },
   {
+    "key": "nickhildebrandt/twincars-manager::correctness/unmutated-state::src/routes/invoices/new/+page.svelte:49::$state \"header\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/invoices/new/+page.svelte:49 header = $state('') (:49) is never reassigned, bound or passed; its only other mention is header.trim() into the payload (:320)"
+  },
+  {
+    "key": "nickhildebrandt/twincars-manager::correctness/unmutated-state::src/routes/offers/new/+page.svelte:47::$state \"header\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/offers/new/+page.svelte:47 header = $state('') (:47) is never reassigned, bound or passed; its only other mention is header.trim() into the payload (:244)"
+  },
+  {
     "key": "nickhildebrandt/twincars-manager::performance/iframe-loading::src/lib/components/ui/PdfViewer.svelte:107::<iframe> without a loading attribute loads eagerly even when offscreen",
     "verdict": "design",
     "basis": "script-verified: <iframe> has no loading attribute, no spread; read: src is a blob: URL of a PDF the component already fetched itself (URL.createObjectURL, PdfViewer.svelte:75-79) — no network document for loading=\"lazy\" to defer"

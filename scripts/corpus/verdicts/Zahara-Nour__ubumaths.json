@@ -5225,6 +5225,21 @@
     "basis": "read: TemplateEditor.svelte:90 contentSnapshot (a non-primitive $state object) is never written, but it is passed to a function inside an object-literal argument, onSave({ ..., contentSnapshot }) (:227-235), and the docs exempt a $state 'passed to a function or component'; the analyzer misses the object-literal argument escape (same class as the ledger's MessageItemUI / tableFilters fps); note the value really is never written"
   },
   {
+    "key": "Zahara-Nour/ubumaths::correctness/unmutated-state::src/lib/components/worksheets/student/StudentReportsPanel.svelte:25::$state \"limit\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/worksheets/student/StudentReportsPanel.svelte:25 limit = $state(10) (:25) is never reassigned, bound or passed; its only other mention is limit.toString() (:61), a method of a primitive"
+  },
+  {
+    "key": "Zahara-Nour/ubumaths::correctness/unmutated-state::src/lib/components/worksheets/teacher/ErrorReportsPanel.svelte:41::$state \"limit\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/worksheets/teacher/ErrorReportsPanel.svelte:41 limit = $state(50) (:41) is never reassigned, bound or passed; its only other mention is limit.toString() (:74), a method of a primitive"
+  },
+  {
+    "key": "Zahara-Nour/ubumaths::correctness/unmutated-state::src/routes/(protected)/dashboard/teacher/message-templates/+page.svelte:82::$state \"searchQuery\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(protected)/dashboard/teacher/message-templates/+page.svelte:82 searchQuery = $state('') (:82) is never reassigned, bound or passed; it is only trimmed and lowercased (:151-152) and read in the template (:711)"
+  },
+  {
     "key": "Zahara-Nour/ubumaths::correctness/unmutated-state::src/routes/(protected)/dashboard/teacher/srs/decks/[id]/edit/+page.svelte:61::$state \"deckType\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "read: srs/decks/[id]/edit/+page.svelte:61 deckType = $state(initialData.deck.deckType) is only read (:75, :252); never written, bound or passed"

@@ -2620,6 +2620,11 @@
     "basis": "script-verified (grep of the name in the file): src/lib/components/ui/Button.svelte:99 let _showSecondPlane = $state(false);; it is never mentioned again; no reassignment, mutation, bind:, call argument or directive, so it is never written"
   },
   {
+    "key": "communisaas/commons::correctness/unmutated-state::src/lib/components/wallet/debate/CoSignButton.svelte:19::$state \"txHash\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/wallet/debate/CoSignButton.svelte:19 txHash = $state('') (:19) is never reassigned, bound or passed; it is only read (void txHash, :53) and sliced in the template (txHash.slice, :80), a method of a primitive"
+  },
+  {
     "key": "communisaas/commons::correctness/unmutated-state::src/lib/components/wallet/debate/SubmitArgumentForm.svelte:19::$state \"txHash\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "script-verified (grep of the name in the file): src/lib/components/wallet/debate/SubmitArgumentForm.svelte:19 let txHash = $state('');; other mentions are a callback parameter type (9), void txHash (61) and a template read (93); no reassignment, mutation, bind:, call argument or directive, so it is never written"

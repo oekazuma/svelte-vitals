@@ -454,6 +454,25 @@ describe('state writes', () => {
     expect(parseComponentFacts(src, 'src/lib/C.svelte').constableStates).toEqual([]);
   });
 
+  it('keeps a $state holding a primitive whose methods are called, directly, through a local or in the template', () => {
+    expect(constable('let n = $state(0);\nn.toFixed(2);')).toEqual(['n']);
+    expect(constable("let s = $state('a');\nconst t = s;\nt.toUpperCase();\ns.length.toString();")).toEqual(['s']);
+    expect(marked('let n = $state(0);', '<p>{n.toFixed(2)}</p>')).toEqual(['n']);
+    expect(marked('let n = $state(0);', '<button onclick={() => n.toFixed(2)}>x</button>')).toEqual(['n']);
+  });
+
+  it('drops a $state holding a primitive once it is reassigned, or when a same-named $state holds an object', () => {
+    expect(constable('let s = $state(null);\ns = [];\ns.push(1);')).toEqual([]);
+    expect(constable('let s = $state(0);\nfunction f() {\n  let s = $state([]);\n}\ns.push(1);')).toEqual([]);
+  });
+
+  it('reads a loop that rebinds a $state without declaring it as a reassignment', () => {
+    expect(constable('let s = $state(null);\nfor (s of rows) s.run();')).toEqual([]);
+    expect(constable('let s = $state(null);\nfor (s in rows) {}')).toEqual([]);
+    expect(constable('let s = $state(null);\nfor ([s] of rows) {}')).toEqual([]);
+    expect(constable('let s = $state(null);\nfunction f() {\n  for (let s of rows) s.run();\n}')).toEqual(['s']);
+  });
+
   it('takes a $state as raw only when every write replaces it whole', () => {
     const script = [
       'let only = $state([]);',

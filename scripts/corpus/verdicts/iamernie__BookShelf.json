@@ -2850,9 +2850,19 @@
     "basis": "script-verified (grep of the name in the file): AudioPlayer.svelte:72 showVolumeSlider = $state(false) is declared and never mentioned again; never written"
   },
   {
+    "key": "iamernie/BookShelf::correctness/unmutated-state::src/lib/components/book/BookModal.svelte:80::$state \"lookupIsbn\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/book/BookModal.svelte:80 lookupIsbn = $state('') (:80) is never reassigned, bound or passed; it is only trimmed (:372, :375), a method of a primitive"
+  },
+  {
     "key": "iamernie/BookShelf::correctness/unmutated-state::src/routes/audiobooks/+page.svelte:17::$state \"showFilters\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "script-verified (grep of the name in the file): audiobooks/+page.svelte:17 showFilters = $state(false) is declared and never mentioned again; never written"
+  },
+  {
+    "key": "iamernie/BookShelf::correctness/unmutated-state::src/routes/books/[id]/edit/+page.svelte:84::$state \"lookupIsbn\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/books/[id]/edit/+page.svelte:84 lookupIsbn = $state('') (:84) is never reassigned, bound or passed; it is only trimmed (:299, :302), a method of a primitive"
   },
   {
     "key": "iamernie/BookShelf::correctness/unmutated-state::src/routes/import/+page.svelte:102::$state \"sortField\" is never mutated — use const (or $state.raw if you only reassign it)",

@@ -125,6 +125,16 @@
     "basis": "read: front-end/src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte:415 '{#each therapists() as therapist}<option' has no key; therapists (:64-72) collects the unique therapists of the fetched appointments, which change as appointments reload; runtime records"
   },
   {
+    "key": "GDGAAU/online-therapy:front-end::correctness/unmutated-state::src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte:54::$state \"pageSize\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth_required)/admin-dashboard/appointment-operations/+page.svelte:54 pageSize = $state(25) (:54) is never reassigned, bound or passed; it is only read (pageSize.toString(), :91; :127)"
+  },
+  {
+    "key": "GDGAAU/online-therapy:front-end::correctness/unmutated-state::src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte:44::$state \"pageSize\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth_required)/admin-dashboard/user-management/+page.svelte:44 pageSize = $state(25) (:44) is never reassigned, bound or passed; it is only read (pageSize.toString(), :66; :90)"
+  },
+  {
     "key": "GDGAAU/online-therapy:front-end::correctness/unmutated-state::src/routes/(auth_required)/dashboard/components/Sidebar.svelte:5::$state \"image\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "read: front-end/src/routes/(auth_required)/dashboard/components/Sidebar.svelte:5 let image = $state(false) is only read by {#if image} (:21); never written, bound or passed"

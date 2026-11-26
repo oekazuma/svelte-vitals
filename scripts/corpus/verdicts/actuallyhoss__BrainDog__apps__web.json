@@ -3115,6 +3115,11 @@
     "basis": "read: src/lib/ui/MentionPicker.svelte:110 `field.value = `${before}${said}${after.replace(/^ `: the field prop is an HTMLInputElement | HTMLTextAreaElement (:23-26), and writing field.value is an intended DOM side effect, not state (ledger DOM-element convention)"
   },
   {
+    "key": "actuallyhoss/BrainDog:apps/web::correctness/unmutated-state::src/routes/signup/Signup.svelte:442::$state \"field\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/signup/Signup.svelte:442 field = $state<HTMLTextAreaElement | undefined>(undefined) (:442) is never assigned, bound or passed (the file has no bind:this={field}); it is only read (field.scrollTop, :632) and called through (field?.focus(), setSelectionRange, :863-864, :1017)"
+  },
+  {
     "key": "actuallyhoss/BrainDog:apps/web::performance/iframe-loading::src/lib/attach/AttachmentViewer.svelte:216::<iframe> without a loading attribute loads eagerly even when offscreen",
     "verdict": "design",
     "basis": "read: <iframe> has no loading attribute and no spread; sandboxed page preview inside the AttachmentViewer <dialog> (AttachmentViewer.svelte:172-232), created when the user opens an attachment - the visible content when rendered"
