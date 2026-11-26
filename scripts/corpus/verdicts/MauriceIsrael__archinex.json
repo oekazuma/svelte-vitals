@@ -1690,6 +1690,11 @@
     "basis": "script-verified (word grep of newRuleLevel in the file) + read: src/lib/components/deliberation/ProjectRulesPanel.svelte:66 `let newRuleLevel = $state<'L0_named' | 'L1_framed'>('L1_framed');` is never reassigned, mutated, bound or passed; only read as a primitive into request objects (:205, :261)"
   },
   {
+    "key": "MauriceIsrael/archinex::correctness/unmutated-state::src/lib/components/deliberation/RfpExtractionVerification.svelte:52::$state \"validationNotes\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/deliberation/RfpExtractionVerification.svelte:52 validationNotes = $state<string>('') (:52) is never reassigned, bound or passed; its only other mention is validationNotes.trim() into the payload (:90)"
+  },
+  {
     "key": "MauriceIsrael/archinex::correctness/unmutated-state::src/lib/components/deliberation/RfpFactorizationReview.svelte:84::$state \"activeClausePreview\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "script-verified (word grep of activeClausePreview in the file) + read: src/lib/components/deliberation/RfpFactorizationReview.svelte:84 `let activeClausePreview = $state<ExtractedClause | null>(null);` is never reassigned, mutated, bound or passed; no other mention in the file"

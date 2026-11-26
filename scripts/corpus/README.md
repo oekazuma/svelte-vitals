@@ -712,7 +712,7 @@ Measured on 671 apps, each pinned to a commit:
 - [verapas/cooking-app](https://github.com/verapas/cooking-app/tree/6d7670243594a8cd0a1acb2f55a9e087f0cc6333) (`6d76702`)
 - [Marcus-Adair/svelte_portfolio](https://github.com/Marcus-Adair/svelte_portfolio/tree/2775f5a85b8b048c72d4a8513c1c33780784bb3d) (`2775f5a`)
 
-252525 of 252550 corpus findings have a verdict.
+252556 of 252581 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share      |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | ----------------- |
@@ -769,7 +769,7 @@ Measured on 671 apps, each pinned to a commit:
 | [`correctness/prop-mutation`](../../docs/src/content/docs/rules/correctness/prop-mutation.md)                         | 1279            | 177  | 556 / 6 / 717 / 0                     | 99% (556/562)      | 56% (717/1279)    |
 | [`correctness/server-browser-global`](../../docs/src/content/docs/rules/correctness/server-browser-global.md)         | 15              | 7    | 0 / 0 / 15 / 0                        | —                  | 100% (15/15)      |
 | [`correctness/stale-prop-derivation`](../../docs/src/content/docs/rules/correctness/stale-prop-derivation.md)         | 327             | 115  | 73 / 0 / 254 / 0                      | 100% (73/73)       | 78% (254/327)     |
-| [`correctness/unmutated-state`](../../docs/src/content/docs/rules/correctness/unmutated-state.md)                     | 707             | 207  | 705 / 2 / 0 / 0                       | 100% (705/707)     | 0% (0/707)        |
+| [`correctness/unmutated-state`](../../docs/src/content/docs/rules/correctness/unmutated-state.md)                     | 738             | 214  | 736 / 2 / 0 / 0                       | 100% (736/738)     | 0% (0/738)        |
 | [`performance/font-preload-crossorigin`](../../docs/src/content/docs/rules/performance/font-preload-crossorigin.md)   | 0               | 0    | —                                     | —                  | —                 |
 | [`performance/heavy-import`](../../docs/src/content/docs/rules/performance/heavy-import.md)                           | 112             | 9    | 112 / 0 / 0 / 0                       | 100% (112/112)     | 0% (0/112)        |
 | [`performance/iframe-loading`](../../docs/src/content/docs/rules/performance/iframe-loading.md)                       | 410             | 187  | 91 / 0 / 314 / 5                      | 100% (91/91)       | 77% (314/410)     |

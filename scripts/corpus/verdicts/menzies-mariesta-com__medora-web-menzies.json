@@ -1435,9 +1435,24 @@
     "basis": "read: src/lib/component/own/local/private/medora/inventory/purchase-requisition/PrLineItemDialogContent.svelte:264 writes into the non-bindable prop draftLine, passed from purchase-requisition/new/+page.svelte:84 and [pr_id]/edit/+page.svelte:118 `let draftLine = $state(newLine())` through the dialog service's props; the parent owns that $state proxy, so this is a non-owner proxy mutation, as documented"
   },
   {
+    "key": "menzies-mariesta-com/medora-web-menzies::correctness/unmutated-state::src/lib/component/own/local/private/medora/ipd/LIpdTransferDialogContent.svelte:40::$state \"remark\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/component/own/local/private/medora/ipd/LIpdTransferDialogContent.svelte:40 remark = $state('') (:40) is never reassigned, bound or passed; its only other mention is remark.trim() into the payload (:102), a method of a primitive"
+  },
+  {
     "key": "menzies-mariesta-com/medora-web-menzies::correctness/unmutated-state::src/lib/component/own/local/private/medora/medication-order/MedicationOrderInternalSalesPanel.svelte:151::$state \"storeNameById\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "script-verified (grep of the name in the file) + read: src/lib/component/own/local/private/medora/medication-order/MedicationOrderInternalSalesPanel.svelte:151 storeNameById; its only other mention (1020) is a read; no reassignment, member write, mutating call, bind:, call argument or directive, so it is never written as claimed"
+  },
+  {
+    "key": "menzies-mariesta-com/medora-web-menzies::correctness/unmutated-state::src/routes/(private)/medora/hospital/[hospital_id]/home/administration/external-refer-master/+page.svelte:32::$state \"searchInput\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(private)/medora/hospital/[hospital_id]/home/administration/external-refer-master/+page.svelte:32 searchInput = $state('') (:32) is never reassigned, bound or passed; it is only trimmed (:83-84) and copied into a local (:105)"
+  },
+  {
+    "key": "menzies-mariesta-com/medora-web-menzies::correctness/unmutated-state::src/routes/(private)/medora/hospital/[hospital_id]/home/administration/staff/list/+page.svelte:46::$state \"searchInput\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(private)/medora/hospital/[hospital_id]/home/administration/staff/list/+page.svelte:46 searchInput = $state('') (:46) is never reassigned, bound or passed; it is only trimmed (:77) and copied into a local (:111)"
   },
   {
     "key": "menzies-mariesta-com/medora-web-menzies::correctness/unmutated-state::src/routes/(private)/medora/hospital/[hospital_id]/home/consultation/cpoe/refer/history/+page.svelte:47::$state \"tableFilters\" is never mutated — use const (or $state.raw if you only reassign it)",

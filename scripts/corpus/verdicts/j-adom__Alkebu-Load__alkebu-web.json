@@ -435,6 +435,11 @@
     "basis": "read: src/routes/shop/health-and-beauty/[...slug]/+page.svelte:38 the effect only does selectedVariation = resolveDefaultVariation(variations) (:39); the other write is a top-level reassignment from VariantPicker's onchange (:127); the writable-$derived override pattern (svelte ^5.33.0)"
   },
   {
+    "key": "j-adom/Alkebu-Load:alkebu-web::correctness/unmutated-state::src/routes/checkout/+page.svelte:41::$state \"country\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/checkout/+page.svelte:41 country = $state(\"US\") (:41) is never reassigned, bound or passed; it is only trimmed and uppercased (:54) and read into an effect's dependency array (:109), a primitive copy"
+  },
+  {
     "key": "j-adom/Alkebu-Load:alkebu-web::performance/image-dimensions::src/routes/+layout.svelte:44::Missing <img> width/height",
     "verdict": "design",
     "basis": "read: <img> lacks width/height, no spread; key covers 34 routes: the <img> sits in {#if !$page.data} (+layout.svelte:42-46), but $page.data is always an object (the root +layout.server.ts load returns settings/user on every path), so the preloader never renders - reported per the rule's source semantics, nothing ships (ledger: never-rendering image is design)"

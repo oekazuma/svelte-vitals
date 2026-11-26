@@ -5565,6 +5565,11 @@
     "basis": "script-verified (grep -w prettyPubPayload): src/routes/iotdataplane/+page.svelte:75; every mention of prettyPubPayload in the file is the declaration or a read (template/object literal/$derived); no reassignment, mutation, bind: or call argument, so it is never written"
   },
   {
+    "key": "BlackbirdWorks/gopherstack:ui::correctness/unmutated-state::src/routes/medialive/+page.svelte:690::$state \"editMultiplexModal\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/medialive/+page.svelte:690 editMultiplexModal = $state<Modal | null>(null) (:690) is never assigned, bound or passed; it is only called through, editMultiplexModal?.open() (:704) and ?.close() (:723)"
+  },
+  {
     "key": "BlackbirdWorks/gopherstack:ui::correctness/unmutated-state::src/routes/mq/+page.svelte:57::$state \"newBrokerVersion\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "script-verified (grep -w newBrokerVersion): src/routes/mq/+page.svelte:57; every mention of newBrokerVersion in the file is the declaration or a read (template/object literal/$derived); no reassignment, mutation, bind: or call argument, so it is never written"

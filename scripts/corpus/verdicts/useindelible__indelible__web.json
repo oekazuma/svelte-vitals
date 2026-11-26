@@ -1500,6 +1500,11 @@
     "basis": "read: PdfScrollView.svelte:40 totalPages = source.metadata.totalChapters at init, rendered at 303; it renders under routes/(app)/reader/[documentId] (BookReader, ReaderMainPane) with no {#key}, so client-side navigation between documents keeps the first page count (ledger [id]-route convention)"
   },
   {
+    "key": "useindelible/indelible:web::correctness/unmutated-state::src/lib/components/reader/book/BookReader.svelte:103::$state \"chapterBodyEl\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/reader/book/BookReader.svelte:103 chapterBodyEl = $state<HTMLDivElement | undefined>(undefined) (:103) is never assigned, bound or passed; it is only read through chapterBodyEl?.textContent (:136, :392)"
+  },
+  {
     "key": "useindelible/indelible:web::correctness/unmutated-state::src/lib/components/reader/book/BookReader.svelte:80::$state \"sidebarOpen\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "script-verified (grep -w sidebarOpen): BookReader.svelte:80 declaration, then reads only at 156 and 624; never written"

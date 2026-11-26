@@ -1690,6 +1690,11 @@
     "basis": "read: game.spawnManager.set(...)/game.gameManager.set(...) call methods of the simulator engine's manager classes (StageSimulator/objects/SpawnManager.ts, GameManager.ts) on the untyped game prop (any, :7); the docs' class-instance limitation (mutation through methods of an untyped prop)"
   },
   {
+    "key": "tanch-p/tomimi-dev::correctness/unmutated-state::src/routes/[lang=lang]/stages/(is)/[name=black_maps]/CombinedSettings.svelte:35::$state \"loadTrigger\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/[lang=lang]/stages/(is)/[name=black_maps]/CombinedSettings.svelte:35 loadTrigger = $state() (:35) is never assigned or passed; its bind:this (:240) is inside an HTML comment, and the rest only calls loadTrigger?.focus() (:348)"
+  },
+  {
     "key": "tanch-p/tomimi-dev::performance/image-dimensions::src/routes/[lang=lang]/(app)/black/+page.svelte:32::Missing <img> width/height",
     "verdict": "tp",
     "basis": "read: <img> lacks width/height, no spread; page banner (imported .webp) with class select-none mx-auto py-2 only ((app)/black/+page.svelte:32) - the natural size decides the box and the Resources/BugList content below shifts"

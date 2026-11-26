@@ -890,6 +890,11 @@
     "basis": "AST-verified (stale-check.mjs): top-level, init reads prop eagerly, never reassigned, rendered; reusable component so prop is its public API and sibling reads of the same prop in this file ARE reactive, leaving the derived one frozen (this={onClick?...} reactive, hoverClasses not)"
   },
   {
+    "key": "immich-app/immich:web::correctness/unmutated-state::src/lib/components/shared-components/search-bar/SearchHistorySection.svelte:28::$state \"element\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shared-components/search-bar/SearchHistorySection.svelte:28 element = $state<HTMLDivElement>() (:28) is never assigned, bound or passed; its only other mention calls element?.querySelector (:55) on it"
+  },
+  {
     "key": "immich-app/immich:web::correctness/unmutated-state::src/lib/modals/TagCreateModal.svelte:17::$state \"tagValue\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "AST-verified (unmut-check.mjs over svelte parse: no assign/update/delete/method call/bind/call-arg/directive/component-prop on the name; checker negative-controlled on mutated states); never written (dead flag/constant)"

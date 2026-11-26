@@ -930,6 +930,11 @@
     "basis": "script-verified: src/routes/onboarding/+page.svelte:12; every mention of step in the file listed (cwork grep); no reassignment, mutation, live bind:, call argument, directive or component prop; only declared/read"
   },
   {
+    "key": "QAStudio-Dev/studio::correctness/unmutated-state::src/routes/projects/[projectId]/runs/+page.svelte:27::$state \"limit\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/projects/[projectId]/runs/+page.svelte:27 limit = $state(20) (:27) is never reassigned, bound or passed; its only other mention is limit.toString() (:50), a method of a primitive"
+  },
+  {
     "key": "QAStudio-Dev/studio::correctness/unmutated-state::src/routes/projects/[projectId]/runs/+page.svelte:41::$state \"environments\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "script-verified: src/routes/projects/[projectId]/runs/+page.svelte:41; every mention of environments in the file listed (cwork grep); no reassignment, mutation, live bind:, call argument, directive or component prop; only declared/read"
@@ -938,6 +943,11 @@
     "key": "QAStudio-Dev/studio::correctness/unmutated-state::src/routes/projects/[projectId]/runs/+page.svelte:42::$state \"milestones\" is never mutated — use const (or $state.raw if you only reassign it)",
     "verdict": "tp",
     "basis": "script-verified: src/routes/projects/[projectId]/runs/+page.svelte:42; every mention of milestones in the file listed (cwork grep); no reassignment, mutation, live bind:, call argument, directive or component prop; only declared/read"
+  },
+  {
+    "key": "QAStudio-Dev/studio::correctness/unmutated-state::src/routes/projects/[projectId]/runs/[runId]/+page.svelte:44::$state \"limit\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/routes/projects/[projectId]/runs/[runId]/+page.svelte:44 limit = $state(1000) (:44) is never reassigned, bound or passed; its only other mention is limit.toString() (:149), a method of a primitive"
   },
   {
     "key": "QAStudio-Dev/studio::performance/iframe-loading::src/lib/components/AttachmentViewer.svelte:292::<iframe> without a loading attribute loads eagerly even when offscreen",

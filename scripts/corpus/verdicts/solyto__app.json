@@ -725,6 +725,11 @@
     "basis": "read: StatisticWidget.svelte:29 colors = colorClasses[color] at init (structurally true); every render site (admin/+page.svelte:65-86) passes a literal color, so the prop never changes for a mounted widget"
   },
   {
+    "key": "solyto/app::correctness/unmutated-state::src/lib/components/todos/props/Description.svelte:25::$state \"subtaskInput\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/todos/props/Description.svelte:25 subtaskInput = $state<HTMLInputElement | null>(null) (:25) is never assigned, bound or passed; its only other mention is subtaskInput?.focus() (:106)"
+  },
+  {
     "key": "solyto/app::performance/iframe-loading::src/lib/components/libraries/music/DeezerSneakPreview.svelte:8::<iframe> without a loading attribute loads eagerly even when offscreen",
     "verdict": "design",
     "basis": "script-verified: <iframe> has no loading attribute and no spread; read: Deezer album widget rendered only {#if sneakPreview} after the user clicks the sneak-preview button on a release (MusicRelease.svelte:20,98-100) - created in view when the user asks for it, where eager is right"
