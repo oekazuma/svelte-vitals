@@ -313,6 +313,34 @@ describe('state writes', () => {
     ).toEqual(['items']);
   });
 
+  it('stops following a local after a rebinding in a switch case, a sequence, a static block or a for…in target', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}switch (k) {\n  case 1:\n    d = [];\n    d.push(1);\n}`)).toEqual(['s']);
+    expect(constable(`${s}d = [], d.push(1);`)).toEqual(['s']);
+    expect(constable(`${s}class C {\n  static {\n    d = [];\n    d.push(1);\n  }\n}`)).toEqual(['s']);
+    expect(constable(`${s}for (d in rows) d.x = 1;`)).toEqual(['s']);
+  });
+
+  it('stops following a local at the last rebinding before the write, and not for a rebinding back in another scope', () => {
+    expect(constable('let s = $state([{ n: 0 }, { n: 1 }]);\nlet h = s[0];\nh = s[1];\nh = {};\nh.n = 1;')).toEqual([
+      's'
+    ]);
+    expect(
+      constable(
+        'let s = $state({ items: [] });\nlet d = s.items;\nd = [];\nfunction pick() {\n  d = s.items;\n}\nd.push(1);'
+      )
+    ).toEqual(['s']);
+  });
+
+  it('takes a destructuring or a loop over a new array as leaving the $state, even when the elements come from it', () => {
+    expect(
+      constable('let s = $state([{ n: 0 }, { n: 1 }]);\nlet a = s[0];\nlet b = s[1];\n[a, b] = [b, a];\na.n = 1;')
+    ).toEqual(['s']);
+    expect(
+      constable('let s = $state({ items: [{ n: 0 }] });\nlet d = s.items[0];\nfor (d of [...s.items]) d.n = 1;')
+    ).toEqual(['s']);
+  });
+
   const marked = (script: string, markup: string) =>
     parseComponentFacts(`<script>\n${script}\n</script>\n${markup}`, 'src/lib/C.svelte').constableStates.map(
       (s) => s.name
@@ -437,6 +465,15 @@ describe('state writes', () => {
       marked(
         'let s = $state({ items: [] });\nlet d = s.items;\nd.push(1);\nd = [];',
         '<button onclick={() => d.push(2)}>x</button>'
+      )
+    ).toEqual([]);
+  });
+
+  it('follows into a template handler a script local taken before the script rebinds the local it came from', () => {
+    expect(
+      marked(
+        'let s = $state({ items: [] });\nlet d = s.items;\nconst e = d;\nd = [];',
+        '<button onclick={() => e.push(1)}>x</button>'
       )
     ).toEqual([]);
   });

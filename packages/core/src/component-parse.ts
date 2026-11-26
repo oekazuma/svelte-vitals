@@ -714,8 +714,10 @@ function collectStateWrites(
             : undefined;
       for (const stmt of list ?? []) {
         const e = stmt?.type === 'ExpressionStatement' ? unwrapTs(stmt.expression) : undefined;
-        for (const x of e?.type === 'SequenceExpression' ? e.expressions : e ? [e] : [])
-          runsBefore.set(unwrapTs(x), [stmt.end, n.end]);
+        for (const x of e?.type === 'SequenceExpression' ? e.expressions : e ? [e] : []) {
+          const rebind: Node = unwrapTs(x);
+          runsBefore.set(rebind, [rebind.end, n.end]);
+        }
       }
       const names = new Set<string>();
       addReassigned(n, names);
