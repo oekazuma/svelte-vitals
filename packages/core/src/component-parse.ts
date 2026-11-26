@@ -787,6 +787,14 @@ function collectStateWrites(
       } else {
         mutated(rootObjectName(n.argument)); // x.count++, x[i]++
       }
+    } else if (n?.type === 'ForOfStatement' || n?.type === 'ForInStatement') {
+      // `for (s of rows)`, `for ([s] of rows)`: each pass rebinds the state.
+      const bound = new Set<string>();
+      addReassigned(n, bound);
+      for (const name of bound) {
+        const state = stateAt(name);
+        if (state) record(state, 'reassign');
+      }
     } else if (n?.type === 'UnaryExpression' && n.operator === 'delete') {
       mutated(rootObjectName(n.argument));
     } else if (n?.type === 'CallExpression') {

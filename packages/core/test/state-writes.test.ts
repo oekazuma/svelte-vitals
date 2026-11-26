@@ -466,6 +466,13 @@ describe('state writes', () => {
     expect(constable('let s = $state(0);\nfunction f() {\n  let s = $state([]);\n}\ns.push(1);')).toEqual([]);
   });
 
+  it('reads a loop that rebinds a $state without declaring it as a reassignment', () => {
+    expect(constable('let s = $state(null);\nfor (s of rows) s.run();')).toEqual([]);
+    expect(constable('let s = $state(null);\nfor (s in rows) {}')).toEqual([]);
+    expect(constable('let s = $state(null);\nfor ([s] of rows) {}')).toEqual([]);
+    expect(constable('let s = $state(null);\nfunction f() {\n  for (let s of rows) s.run();\n}')).toEqual(['s']);
+  });
+
   it('takes a $state as raw only when every write replaces it whole', () => {
     const script = [
       'let only = $state([]);',
