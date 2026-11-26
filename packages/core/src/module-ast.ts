@@ -53,6 +53,7 @@ export const WALK_IGNORED_KEYS = new Set(['type', 'start', 'end', 'loc', 'range'
 
 /** Boundary set for the walkers that enter every node (walkEstree, walkScoped). */
 const NO_BOUNDARIES: Set<string> = new Set();
+const NO_BINDERS: ReadonlyMap<string, Node> = new Map();
 
 /** Generic ESTree walk over a `<script>` program: visit every node with a `.type`. */
 export function walkEstree(node: Node, visit: (n: Node) => void): void {
@@ -70,6 +71,18 @@ export function walkScoped(
   shadowed: Set<string> = new Set()
 ): void {
   walkEvalScope(node, (n, scope) => void visit(n, scope), shadowed, NO_BOUNDARIES);
+}
+
+/**
+ * Like `walkScoped`, but `visit` gets the node that introduces each shadowed name, so two
+ * bindings of one name can be told apart. A name it does not map is bound at the top level.
+ */
+export function walkBound(
+  node: Node,
+  visit: (n: Node, binders: ReadonlyMap<string, Node>) => void,
+  binders: ReadonlyMap<string, Node> = new Map()
+): void {
+  walkEvalScope(node, (n, _, bound) => void visit(n, bound), new Set(), NO_BOUNDARIES, binders);
 }
 
 /**
@@ -236,28 +249,36 @@ const EVAL_SCOPE_BOUNDARIES = new Set([
  */
 export function walkEvalScope(
   node: Node,
-  visit: (n: Node, shadowed: Set<string>) => boolean | undefined,
+  visit: (n: Node, shadowed: Set<string>, binders: ReadonlyMap<string, Node>) => boolean | undefined,
   shadowed: Set<string> = new Set(),
-  boundaries: Set<string> = EVAL_SCOPE_BOUNDARIES
+  boundaries: Set<string> = EVAL_SCOPE_BOUNDARIES,
+  binders?: ReadonlyMap<string, Node>
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) walkEvalScope(child, visit, shadowed, boundaries);
+    for (const child of node) walkEvalScope(child, visit, shadowed, boundaries, binders);
     return;
   }
   if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
   const introduced = scopeIntroducedNames(node);
   const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
-  if (visit(node, scope)) return;
+  // Only `walkBound` asks for the binders, so the other walks do not build them.
+  const bound =
+    binders && introduced.size > 0
+      ? new Map([...binders, ...[...introduced].map((name) => [name, node] as const)])
+      : binders;
+  if (visit(node, scope, bound ?? NO_BINDERS)) return;
   if (boundaries.has(node.type)) return;
   const outer = introduced.size > 0 ? outerScopeKeys(node) : undefined;
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key)) continue;
-    if (!outer?.has(key)) walkEvalScope(node[key], visit, scope, boundaries);
-    else if (!Array.isArray(node[key])) walkEvalScope(node[key], visit, shadowed, boundaries);
+    if (!outer?.has(key)) walkEvalScope(node[key], visit, scope, boundaries, bound);
+    else if (!Array.isArray(node[key])) walkEvalScope(node[key], visit, shadowed, boundaries, binders);
     // A `let:` directive's own pattern is the binding, not a read of the outer name.
     else
-      for (const child of node[key])
-        walkEvalScope(child, visit, child?.type === 'LetDirective' ? scope : shadowed, boundaries);
+      for (const child of node[key]) {
+        const own = child?.type === 'LetDirective';
+        walkEvalScope(child, visit, own ? scope : shadowed, boundaries, own ? bound : binders);
+      }
   }
 }
 
