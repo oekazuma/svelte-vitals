@@ -347,6 +347,7 @@ describe('state writes', () => {
     expect(constable(`${s}for (let i = 0; i < 2; i++) {\n  d = [];\n  d.push(i);\n  d = s.items;\n}`)).toEqual(['s']);
     expect(constable(`${s}for (d of [[]]) {\n  d.push(1);\n  d = s.items;\n}`)).toEqual(['s']);
     expect(constable(`${s}d = [];\nfor (const r of rows) d.push(r);\nd = s.items;`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nd.push(1);\nwhile (ok()) d = s.items;`)).toEqual(['s']);
   });
 
   it('hands out the whole $state through a local up to where a rebinding takes it to a part', () => {
@@ -357,6 +358,7 @@ describe('state writes', () => {
     expect(constable(`${s}if (ok()) [list] = items;\nsave({ list });`)).toEqual([]);
     expect(constable(`${s}[list] = items;\nlist = items;\nsave({ list });`)).toEqual([]);
     expect(constable(`${s}[list] = items;\nsave({ list });`)).toEqual(['items']);
+    expect(constable(`${s}[list] = items;\nif (ok()) list = items[0];\nsave({ list });`)).toEqual(['items']);
     expect(constable(`${s}[list] = items;\nconst all = list;\nsave({ all });`)).toEqual(['items']);
   });
 
