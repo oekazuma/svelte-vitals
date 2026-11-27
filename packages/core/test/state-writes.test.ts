@@ -332,6 +332,34 @@ describe('state writes', () => {
     ).toEqual(['s']);
   });
 
+  it('follows a local that a loop rebinds back into its $state after the write, for the passes that follow', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}[d] = [[]];\nfor (let i = 0; i < 2; i++) {\n  d.push(i);\n  d = s.items;\n}`)).toEqual([]);
+    expect(constable(`${s}d = [];\nwhile (ok()) {\n  d.push(1);\n  d = s.items;\n}`)).toEqual([]);
+    expect(constable(`${s}d = [];\ndo {\n  d.push(1);\n  d = s.items;\n} while (ok());`)).toEqual([]);
+    expect(constable(`${s}d = [];\nfor (const r of rows) {\n  d.push(r);\n  d = s.items;\n}`)).toEqual([]);
+    expect(constable(`${s}d = [];\nfor (const k in rows) {\n  d.push(k);\n  d = s.items;\n}`)).toEqual([]);
+    expect(constable(`${s}d = [];\nfor (;; d = s.items) d.push(1);`)).toEqual([]);
+  });
+
+  it('stops following a local that each pass of a loop rebinds outside its $state before the write', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}for (let i = 0; i < 2; i++) {\n  d = [];\n  d.push(i);\n  d = s.items;\n}`)).toEqual(['s']);
+    expect(constable(`${s}for (d of [[]]) {\n  d.push(1);\n  d = s.items;\n}`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfor (const r of rows) d.push(r);\nd = s.items;`)).toEqual(['s']);
+  });
+
+  it('hands out the whole $state through a local up to where a rebinding takes it to a part', () => {
+    const s = 'let items = $state([[]]);\nlet list = items;\n';
+    expect(constable(`${s}save({ list });\n[list] = items;`)).toEqual([]);
+    expect(constable(`${s}save({ list });\nlist = items[0];`)).toEqual([]);
+    expect(constable(`${s}const all = list;\n[list] = items;\nsave({ all });`)).toEqual([]);
+    expect(constable(`${s}if (ok()) [list] = items;\nsave({ list });`)).toEqual([]);
+    expect(constable(`${s}[list] = items;\nlist = items;\nsave({ list });`)).toEqual([]);
+    expect(constable(`${s}[list] = items;\nsave({ list });`)).toEqual(['items']);
+    expect(constable(`${s}[list] = items;\nconst all = list;\nsave({ all });`)).toEqual(['items']);
+  });
+
   it('takes a destructuring or a loop over a new array as leaving the $state, even when the elements come from it', () => {
     expect(
       constable('let s = $state([{ n: 0 }, { n: 1 }]);\nlet a = s[0];\nlet b = s[1];\n[a, b] = [b, a];\na.n = 1;')
