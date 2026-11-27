@@ -269,6 +269,119 @@ describe('state writes', () => {
     expect(constable('let s = $state([]);\nlet d = s;\nd.push(1);\n[d] = [[]];')).toEqual([]);
   });
 
+  it('follows a local through the writes made before a statement rebinds it outside its $state', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}d.push(1);\nd = [];`)).toEqual([]);
+    expect(constable(`${s}const e = d;\nd = [];\ne.push(1);`)).toEqual([]);
+    expect(constable(`${s}for (const x of xs) {\n  d.push(x);\n  d = [];\n}`)).toEqual([]);
+    expect(
+      constable('let s = $state({ items: [] });\nfunction f() {\n  let d = s.items;\n  d.push(1);\n  d = [];\n}')
+    ).toEqual([]);
+  });
+
+  it('follows a local past a rebinding that may not run before the write', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}if (c) d = [];\nd.push(1);`)).toEqual([]);
+    expect(constable(`${s}while (c) {\n  d = [];\n}\nd.push(1);`)).toEqual([]);
+    expect(constable(`${s}function reset() {\n  d = [];\n}\nd.push(1);`)).toEqual([]);
+    expect(constable(`${s}d = [];\nd = s.items;\nd.push(1);`)).toEqual([]);
+  });
+
+  it('stops following a local where a rebinding outside its $state always runs first, or in a function another scope rebinds it for', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}d = [];\nd.push(1);`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nconst e = d;\ne.push(1);`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfunction add() {\n  d.push(1);\n}`)).toEqual(['s']);
+    expect(constable(`${s}function add() {\n  d.push(1);\n}\nd = [];`)).toEqual(['s']);
+    expect(constable(`${s}function add() {\n  d.push(1);\n}\nfunction reset() {\n  d = [];\n}`)).toEqual(['s']);
+  });
+
+  it('stops following a local in the body of a loop that rebinds it outside its $state, and after such a destructuring', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}for (d of [[]]) d.push(1);`)).toEqual(['s']);
+    expect(constable(`${s}[d] = [[]];\nd.push(1);`)).toEqual(['s']);
+    expect(constable(`${s}for (d of [[]]) {}\nd.push(1);`)).toEqual([]);
+  });
+
+  it('follows a local that a loop or a destructuring rebinds within its $state, as a part of it', () => {
+    expect(
+      constable('let s = $state({ items: [{ n: 0 }] });\nlet d = s.items[0];\nfor (d of s.items) d.n = 1;')
+    ).toEqual([]);
+    expect(constable('let s = $state([[]]);\nlet d = s[0];\n[d] = s;\nd.push(1);')).toEqual([]);
+    expect(
+      constable('let items = $state([[]]);\nlet list = items;\n[list] = items;\nfunction get() {\n  return list;\n}')
+    ).toEqual(['items']);
+  });
+
+  it('stops following a local after a rebinding in a switch case, a sequence, a static block or a for…in target', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}switch (k) {\n  case 1:\n    d = [];\n    d.push(1);\n}`)).toEqual(['s']);
+    expect(constable(`${s}d = [], d.push(1);`)).toEqual(['s']);
+    expect(constable(`${s}class C {\n  static {\n    d = [];\n    d.push(1);\n  }\n}`)).toEqual(['s']);
+    expect(constable(`${s}for (d in rows) d.x = 1;`)).toEqual(['s']);
+  });
+
+  it('stops following a local at the last rebinding before the write, and not for a rebinding back in another scope', () => {
+    expect(constable('let s = $state([{ n: 0 }, { n: 1 }]);\nlet h = s[0];\nh = s[1];\nh = {};\nh.n = 1;')).toEqual([
+      's'
+    ]);
+    expect(
+      constable(
+        'let s = $state({ items: [] });\nlet d = s.items;\nd = [];\nfunction pick() {\n  d = s.items;\n}\nd.push(1);'
+      )
+    ).toEqual(['s']);
+  });
+
+  it('follows a local that a loop rebinds back into its $state after the write, for the passes that follow', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}[d] = [[]];\nfor (let i = 0; i < 2; i++) {\n  d.push(i);\n  d = s.items;\n}`)).toEqual([]);
+    expect(constable(`${s}d = [];\nwhile (ok()) {\n  d.push(1);\n  d = s.items;\n}`)).toEqual([]);
+    expect(constable(`${s}d = [];\ndo {\n  d.push(1);\n  d = s.items;\n} while (ok());`)).toEqual([]);
+    expect(constable(`${s}d = [];\nfor (const r of rows) {\n  d.push(r);\n  d = s.items;\n}`)).toEqual([]);
+    expect(constable(`${s}d = [];\nfor (const k in rows) {\n  d.push(k);\n  d = s.items;\n}`)).toEqual([]);
+    expect(constable(`${s}d = [];\nfor (;; d = s.items) d.push(1);`)).toEqual([]);
+    expect(constable(`${s}d = [];\nfor (; d.push(1); ) {\n  d = s.items;\n}`)).toEqual([]);
+    expect(constable(`${s}d = [];\nwhile (d.push(1)) d = s.items;`)).toEqual([]);
+  });
+
+  it('stops following a local written in a part of a loop that runs once, before any pass rebinds it back', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}d = [];\nfor (d.push(1); ok(); ) {\n  d = s.items;\n}`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfor (let i = d.push(1); ok(); ) {\n  d = s.items;\n}`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfor (d.push(1), d = s.items; ok(); ) {}`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfor (const r of (d.push(1), rows)) {\n  d = s.items;\n}`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfor (const k in (d.push(1), rows)) {\n  d = s.items;\n}`)).toEqual(['s']);
+  });
+
+  it('stops following a local that each pass of a loop rebinds outside its $state before the write', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}for (let i = 0; i < 2; i++) {\n  d = [];\n  d.push(i);\n  d = s.items;\n}`)).toEqual(['s']);
+    expect(constable(`${s}for (d of [[]]) {\n  d.push(1);\n  d = s.items;\n}`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfor (const r of rows) d.push(r);\nd = s.items;`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nd.push(1);\nwhile (ok()) d = s.items;`)).toEqual(['s']);
+  });
+
+  it('hands out the whole $state through a local up to where a rebinding takes it to a part', () => {
+    const s = 'let items = $state([[]]);\nlet list = items;\n';
+    expect(constable(`${s}save({ list });\n[list] = items;`)).toEqual([]);
+    expect(constable(`${s}save({ list });\nlist = items[0];`)).toEqual([]);
+    expect(constable(`${s}const all = list;\n[list] = items;\nsave({ all });`)).toEqual([]);
+    expect(constable(`${s}if (ok()) [list] = items;\nsave({ list });`)).toEqual([]);
+    expect(constable(`${s}[list] = items;\nlist = items;\nsave({ list });`)).toEqual([]);
+    expect(constable(`${s}[list] = items;\nsave({ list });`)).toEqual(['items']);
+    expect(constable(`${s}[list] = items;\nif (ok()) list = items[0];\nsave({ list });`)).toEqual(['items']);
+    expect(constable(`${s}[list] = items;\nconst all = list;\nsave({ all });`)).toEqual(['items']);
+  });
+
+  it('takes a destructuring or a loop over a new array as leaving the $state, even when the elements come from it', () => {
+    expect(
+      constable('let s = $state([{ n: 0 }, { n: 1 }]);\nlet a = s[0];\nlet b = s[1];\n[a, b] = [b, a];\na.n = 1;')
+    ).toEqual(['s']);
+    expect(
+      constable('let s = $state({ items: [{ n: 0 }] });\nlet d = s.items[0];\nfor (d of [...s.items]) d.n = 1;')
+    ).toEqual(['s']);
+  });
+
   const marked = (script: string, markup: string) =>
     parseComponentFacts(`<script>\n${script}\n</script>\n${markup}`, 'src/lib/C.svelte').constableStates.map(
       (s) => s.name
@@ -379,6 +492,39 @@ describe('state writes', () => {
     ).toEqual([]);
     expect(
       marked('let s = $state([]);\nlet d = s;\nd.push(1);', '<button onclick={() => (d = [])}>x</button>')
+    ).toEqual([]);
+  });
+
+  it('does not follow into a template handler a script local that the script rebinds outside its $state', () => {
+    expect(
+      marked(
+        'let s = $state({ items: [] });\nlet d = s.items;\nd = [];',
+        '<button onclick={() => d.push(1)}>x</button>'
+      )
+    ).toEqual(['s']);
+    expect(
+      marked(
+        'let s = $state({ items: [] });\nlet d = s.items;\nd.push(1);\nd = [];',
+        '<button onclick={() => d.push(2)}>x</button>'
+      )
+    ).toEqual([]);
+  });
+
+  it('follows into a template handler a script local taken before the script rebinds the local it came from', () => {
+    expect(
+      marked(
+        'let s = $state({ items: [] });\nlet d = s.items;\nconst e = d;\nd = [];',
+        '<button onclick={() => e.push(1)}>x</button>'
+      )
+    ).toEqual([]);
+  });
+
+  it('follows into a template handler a script local that a loop rebinds within its $state', () => {
+    expect(
+      marked(
+        'let s = $state({ items: [{ n: 0 }] });\nlet d = s.items[0];',
+        '<button onclick={() => { for (d of s.items) d.n = 1; }}>x</button>'
+      )
     ).toEqual([]);
   });
 

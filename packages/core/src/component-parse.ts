@@ -581,6 +581,7 @@ const OBJECT_TYPES = new Set(['TSArrayType', 'TSTupleType', 'TSTypeLiteral']);
 // A named type is read only when it is a built-in object type: an app's own name may alias a primitive.
 const OBJECT_TYPE_NAMES = new Set(['Array', 'ReadonlyArray', 'Record', 'Map', 'Set', 'WeakMap', 'WeakSet', 'Date']);
 const OBJECT_VALUES = new Set(['ObjectExpression', 'ArrayExpression', 'NewExpression']);
+const LOOPS = new Set(['ForStatement', 'ForInStatement', 'ForOfStatement', 'WhileStatement', 'DoWhileStatement']);
 
 /** A `$state` call whose initial value or type argument is an object, array or class instance. */
 function isObjectState(call: Node): boolean {
@@ -609,14 +610,20 @@ function addReassigned(n: Node, acc: Set<string>): void {
   addBoundNames(target, acc);
 }
 
-/** The root of the value a plain `x = y` or `x = y.z[i]` rebinds a local to; undefined for any other rebinding. */
+/** The root of the value a plain `x = y`, `x = y.z[i]`, `[x] = y` or `for (x of y)` rebinds a local to; undefined for any other rebinding. */
 function rebindRoot(n: Node): string | undefined {
+  if (n?.type === 'ForOfStatement') return rootObjectName(n.right);
   return n?.type === 'AssignmentExpression' && n.operator === '=' ? rootObjectName(n.right) : undefined;
 }
 
 /** A plain `x = y`, which rebinds a local to the whole of what `y` holds rather than to a part of it. */
 function rebindsWhole(n: Node): boolean {
-  return n?.type === 'AssignmentExpression' && n.operator === '=' && unwrapTs(n.right)?.type === 'Identifier';
+  return (
+    n?.type === 'AssignmentExpression' &&
+    n.operator === '=' &&
+    n.left?.type === 'Identifier' &&
+    unwrapTs(n.right)?.type === 'Identifier'
+  );
 }
 
 /** What the script pass read about its states, so the template pass reads them the same way. */
@@ -686,46 +693,119 @@ function collectStateWrites(
   const aliasOf = new Map<string, string>();
   // Declared at the top level of the script, so a template handler can reach it.
   const topAliases = new Map<string, string>();
-  // Bound to the whole state (`const rows = list`) and rebound only to the whole of it, so returning or
-  // placing it hands out the state itself.
+  // Bound to the whole state (`const rows = list`), so returning or placing it hands out the state itself,
+  // up to a rebinding to something else; `wholeAliases` are rebound only to the whole of it, if at all.
+  const boundWhole = new Set<string>();
   const wholeAliases = new Set<string>();
   const topWhole = new Set<string>();
   // A local the code reassigns may hold something else by the time it is written through, unless
-  // every rebinding keeps it within the same state (`h = hours[1]`, `node = node.next`). Not a
-  // destructuring or loop target: dropping the alias drops the writes made before it too.
-  const rebinds = new Map<string, { to: string | undefined; whole: boolean }[]>();
+  // the rebinding keeps it within the same state (`h = hours[1]`, `node = node.next`).
+  type Rebind = { at: Node; to: string | undefined; whole: boolean };
+  const rebinds = new Map<string, Rebind[]>();
+  // The code a rebinding certainly runs before: the rest of the statement list it stands in, or a loop's body.
+  const runsBefore = new Map<Node, [number, number]>();
+  const functions: [number, number][] = [];
+  const loops: [number, number, Node | null | undefined][] = [];
   if (localStates)
     walkBound(root, (n: Node, binders) => {
-      const target =
-        n?.type === 'AssignmentExpression' ? n.left : n?.type === 'UpdateExpression' ? n.argument : undefined;
-      if (target?.type !== 'Identifier') return;
-      const key = keyOf(target.name, binders)!;
-      const rebind = { to: keyOf(rebindRoot(n), binders), whole: rebindsWhole(n) };
-      rebinds.set(key, [...(rebinds.get(key) ?? []), rebind]);
+      if (isDeferredBody(n)) functions.push([n.start, n.end]);
+      if (LOOPS.has(n?.type)) loops.push([n.start, n.end, n.init ?? n.right]);
+      const list =
+        n?.type === 'SwitchCase'
+          ? n.consequent
+          : n?.type === 'Program' || n?.type === 'BlockStatement' || n?.type === 'StaticBlock'
+            ? n.body
+            : undefined;
+      for (const stmt of list ?? []) {
+        const e = stmt?.type === 'ExpressionStatement' ? unwrapTs(stmt.expression) : undefined;
+        for (const x of e?.type === 'SequenceExpression' ? e.expressions : e ? [e] : []) {
+          const rebind: Node = unwrapTs(x);
+          runsBefore.set(rebind, [rebind.end, n.end]);
+        }
+      }
+      const names = new Set<string>();
+      addReassigned(n, names);
+      if (names.size > 0 && (n.type === 'ForOfStatement' || n.type === 'ForInStatement'))
+        runsBefore.set(n, [n.body.start, n.body.end]);
+      for (const name of names) {
+        const key = keyOf(name, binders)!;
+        const rebind = { at: n, to: keyOf(rebindRoot(n), binders), whole: rebindsWhole(n) };
+        rebinds.set(key, [...(rebinds.get(key) ?? []), rebind]);
+      }
     });
-  const ownerOf = (k: string | undefined): string | undefined =>
-    k === undefined ? undefined : states.has(k) ? k : (aliasOf.get(k) ?? script?.aliases.get(k));
-  const wholeName = (k: string | undefined): boolean =>
-    k !== undefined && (states.has(k) || wholeAliases.has(k) || !!script?.whole.has(k));
-  /** The name of the state a binding refers to, itself or through a local holding it or part of it. */
-  const stateOf = (k: string | undefined): string | undefined => {
-    const owner = ownerOf(k);
+  /** The start of the innermost function body around `pos`, or -1 at the top level. */
+  const scopeAt = (pos: number): number => {
+    let at = -1;
+    for (const [start, end] of functions) if (start <= pos && pos < end && start > at) at = start;
+    return at;
+  };
+  /** Whether a rebinding of `k` that `away` picks has run by `pos`, certainly in its own scope, or possibly from another one if `pos` is in a function body (a handler may run after it). */
+  const ranBy = (k: string, pos: number, away: (b: Rebind) => boolean): boolean => {
+    const sites = rebinds.get(k) ?? [];
+    if (!sites.some(away)) return false;
+    const scope = scopeAt(pos);
+    return sites.some((b) => {
+      if (!away(b)) return false;
+      const own = scopeAt(b.at.start);
+      if (own !== scope) return scope !== -1;
+      const [from, to] = runsBefore.get(b.at) ?? [0, 0];
+      // A rebinding back in between may run, so the local still holds what it held: one before `pos`,
+      // or one after it in a loop around both that the rebinding away does not rerun on each pass.
+      // A `for` initializer and the iterable of a `for…of` or `for…in` run once, so they are not rerun.
+      const inLoop = (r: Rebind): boolean =>
+        loops.some(([s, e, once]) => {
+          const within = (x: number): boolean => s <= x && x < e && !(once && once.start <= x && x < once.end);
+          return within(pos) && within(r.at.start) && !within(b.at.start);
+        });
+      const back = sites.some(
+        (r) =>
+          r.to !== k &&
+          !away(r) &&
+          r.at.start > b.at.start &&
+          (r.at.start < pos || inLoop(r)) &&
+          scopeAt(r.at.start) === own
+      );
+      return from <= pos && pos < to && !back;
+    });
+  };
+  // Rebindings that take a local outside the state it holds.
+  const leaves = new Set<Rebind>();
+  const leftAt = (k: string, pos: number): boolean => ranBy(k, pos, (b) => leaves.has(b));
+  const ownerOf = (k: string | undefined, pos = -1): string | undefined =>
+    k === undefined
+      ? undefined
+      : states.has(k)
+        ? k
+        : pos >= 0 && leftAt(k, pos)
+          ? undefined
+          : (aliasOf.get(k) ?? script?.aliases.get(k));
+  const keepsWhole = (k: string, b: Rebind): boolean => b.whole && (b.to === k || wholeName(b.to));
+  /** Whether a binding holds a whole state, everywhere or, given `pos`, there. */
+  const wholeName = (k: string | undefined, pos = -1): boolean =>
+    k !== undefined &&
+    (states.has(k) ||
+      wholeAliases.has(k) ||
+      !!script?.whole.has(k) ||
+      (pos >= 0 && boundWhole.has(k) && !ranBy(k, pos, (b) => !keepsWhole(k, b))));
+  /** The name of the state a binding refers to at `pos`, itself or through a local holding it or part of it. */
+  const stateOf = (k: string | undefined, pos: number): string | undefined => {
+    const owner = ownerOf(k, pos);
     return owner === undefined ? undefined : states.get(owner);
   };
   // Owners come from the initializers alone, walked again until nothing is added since a chain can be
   // declared after the code that reads it. The rebindings are checked only then, so locals that rebind
-  // each other (`const next = cur.next; cur = next`) resolve. A local rebound outside its state is
-  // dropped with every local whose initializer goes through it, until nothing more is dropped.
-  const dropped = new Set<string>();
+  // each other (`const next = cur.next; cur = next`) resolve. An initializer that reads a local after
+  // it left its state takes nothing from it, so walk again until no more rebindings leave.
   if (localStates)
-    for (let count = -1; count !== dropped.size;) {
-      count = dropped.size;
+    for (let count = -1; count !== leaves.size;) {
+      count = leaves.size;
       aliasOf.clear();
       topAliases.clear();
+      boundWhole.clear();
       wholeAliases.clear();
       topWhole.clear();
-      for (let size = -1; size !== aliasOf.size + wholeAliases.size;) {
-        size = aliasOf.size + wholeAliases.size;
+      for (let size = -1; size !== aliasOf.size + boundWhole.size + wholeAliases.size;) {
+        size = aliasOf.size + boundWhole.size + wholeAliases.size;
         walkBound(root, (n: Node, binders) => {
           const init = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
           const [id, from]: [Node, Node] =
@@ -737,14 +817,12 @@ function collectStateWrites(
           if (id?.type !== 'Identifier') return;
           const key = keyOf(id.name, binders)!;
           const r = keyOf(rootObjectName(unwrapTs(from)), binders);
-          const owner = ownerOf(r);
-          if (!owner || states.has(key) || dropped.has(key)) return;
+          const owner = ownerOf(r, n.start);
+          if (!owner || states.has(key)) return;
           aliasOf.set(key, owner);
-          const isWhole =
-            n.type === 'VariableDeclarator' &&
-            from.type === 'Identifier' &&
-            wholeName(r) &&
-            (rebinds.get(key) ?? []).every((b) => b.whole && (b.to === key || wholeName(b.to)));
+          const bound = n.type === 'VariableDeclarator' && from.type === 'Identifier' && wholeName(r, n.start);
+          if (bound) boundWhole.add(key);
+          const isWhole = bound && (rebinds.get(key) ?? []).every((b) => keepsWhole(key, b));
           if (isWhole) wholeAliases.add(key);
           if (n.type === 'VariableDeclarator' && key === id.name) {
             topAliases.set(key, owner);
@@ -753,12 +831,12 @@ function collectStateWrites(
         });
       }
       for (const [key, owner] of aliasOf)
-        if (!(rebinds.get(key) ?? []).every(({ to }) => to === key || ownerOf(to) === owner)) dropped.add(key);
+        for (const b of rebinds.get(key) ?? []) if (b.to !== key && ownerOf(b.to, b.at.start) !== owner) leaves.add(b);
     }
   walkBound(root, (n: Node, binders) => {
-    const held = (name: string | undefined): string | undefined => stateOf(keyOf(name, binders));
+    const held = (name: string | undefined): string | undefined => stateOf(keyOf(name, binders), n.start);
     const whole = (name: string | undefined): string | undefined =>
-      wholeName(keyOf(name, binders)) ? held(name) : undefined;
+      wholeName(keyOf(name, binders), n.start) ? held(name) : undefined;
     const stateAt = (name: string): string | undefined => states.get(keyOf(name, binders)!);
     const mutated = (r: string | undefined): void => {
       const state = held(r);
@@ -829,7 +907,7 @@ function collectStateWrites(
         n.value,
         (m: Node, inner) => {
           if (m?.type !== 'ReturnStatement') return;
-          const state = stateOf(keyOf(rootObjectName(m.argument), inner));
+          const state = stateOf(keyOf(rootObjectName(m.argument), inner), m.start);
           if (state && !primitiveStates.has(state)) record(state, 'escape');
         },
         binders
