@@ -16,7 +16,8 @@ import {
   collectDerivedGuardBindings,
   collectProgramBindings,
   collectNamedImportAliases,
-  walkEstree
+  walkEstree,
+  walkScoped
 } from './module-ast.js';
 import { lineOf } from './svelte-ast.js';
 import { isRootRelativePath } from './base-path.js';
@@ -651,7 +652,44 @@ export function collectFalseExports(program: Node): Set<string> {
       }
     }
   }
+  if (![...names].some((name) => name.includes('.'))) return names;
+  // A write anywhere in the module may leave a member something other than `false`; one through a
+  // computed key may be to any of them.
+  walkScoped(program, (n, shadowed) => {
+    for (const m of writtenMembers(n)) {
+      const obj = unwrapTs(m.object);
+      if (obj?.type !== 'Identifier' || shadowed.has(obj.name)) continue;
+      const key = !m.computed
+        ? m.property?.name
+        : m.property?.type === 'Literal'
+          ? String(m.property.value)
+          : undefined;
+      for (const name of names)
+        if (key === undefined ? name.startsWith(`${obj.name}.`) : name === `${obj.name}.${key}`) names.delete(name);
+    }
+  });
   return names;
+}
+
+/** The member expressions `n` writes: an assignment or `for…of`/`for…in` target, or what `++` or `delete` acts on. */
+function writtenMembers(n: Node): Node[] {
+  const out: Node[] = [];
+  const scan = (target: Node): void => {
+    const t: Node = unwrapTs(target);
+    if (t?.type === 'MemberExpression') out.push(t);
+    else if (t?.type === 'ObjectPattern')
+      for (const p of t.properties ?? []) scan(p?.type === 'Property' ? p.value : p?.argument);
+    else if (t?.type === 'ArrayPattern') for (const el of t.elements ?? []) scan(el);
+    else if (t?.type === 'AssignmentPattern') scan(t.left);
+    else if (t?.type === 'RestElement') scan(t.argument);
+  };
+  if (
+    n.type === 'AssignmentExpression' ||
+    ((n.type === 'ForOfStatement' || n.type === 'ForInStatement') && n.left?.type !== 'VariableDeclaration')
+  )
+    scan(n.left);
+  else if (n.type === 'UpdateExpression' || (n.type === 'UnaryExpression' && n.operator === 'delete')) scan(n.argument);
+  return out;
 }
 
 /**

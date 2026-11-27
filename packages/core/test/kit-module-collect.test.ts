@@ -404,6 +404,13 @@ describe('collectKitModuleFacts — a load guarded by an imported flag', () => {
         'FEATURES'
       )
     ).toBeUndefined();
+    expect(
+      await never(
+        'export const FEATURES = { DEBATE: false };\nif (import.meta.env.DEV) FEATURES.DEBATE = true;',
+        'if (!FEATURES.DEBATE) redirect(302, "/");',
+        'FEATURES'
+      )
+    ).toBeUndefined();
   });
 
   it('reads a flag the load shadows as its own binding, not the import', async () => {
