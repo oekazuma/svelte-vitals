@@ -705,11 +705,11 @@ function collectStateWrites(
   // The code a rebinding certainly runs before: the rest of the statement list it stands in, or a loop's body.
   const runsBefore = new Map<Node, [number, number]>();
   const functions: [number, number][] = [];
-  const loops: [number, number][] = [];
+  const loops: [number, number, Node | null | undefined][] = [];
   if (localStates)
     walkBound(root, (n: Node, binders) => {
       if (isDeferredBody(n)) functions.push([n.start, n.end]);
-      if (LOOPS.has(n?.type)) loops.push([n.start, n.end]);
+      if (LOOPS.has(n?.type)) loops.push([n.start, n.end, n.init ?? n.right]);
       const list =
         n?.type === 'SwitchCase'
           ? n.consequent
@@ -751,9 +751,10 @@ function collectStateWrites(
       const [from, to] = runsBefore.get(b.at) ?? [0, 0];
       // A rebinding back in between may run, so the local still holds what it held: one before `pos`,
       // or one after it in a loop around both that the rebinding away does not rerun on each pass.
+      // A `for` initializer and the iterable of a `for…of` or `for…in` run once, so they are not rerun.
       const inLoop = (r: Rebind): boolean =>
-        loops.some(([s, e]) => {
-          const within = (x: number): boolean => s <= x && x < e;
+        loops.some(([s, e, once]) => {
+          const within = (x: number): boolean => s <= x && x < e && !(once && once.start <= x && x < once.end);
           return within(pos) && within(r.at.start) && !within(b.at.start);
         });
       const back = sites.some(

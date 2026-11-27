@@ -340,6 +340,17 @@ describe('state writes', () => {
     expect(constable(`${s}d = [];\nfor (const r of rows) {\n  d.push(r);\n  d = s.items;\n}`)).toEqual([]);
     expect(constable(`${s}d = [];\nfor (const k in rows) {\n  d.push(k);\n  d = s.items;\n}`)).toEqual([]);
     expect(constable(`${s}d = [];\nfor (;; d = s.items) d.push(1);`)).toEqual([]);
+    expect(constable(`${s}d = [];\nfor (; d.push(1); ) {\n  d = s.items;\n}`)).toEqual([]);
+    expect(constable(`${s}d = [];\nwhile (d.push(1)) d = s.items;`)).toEqual([]);
+  });
+
+  it('stops following a local written in a part of a loop that runs once, before any pass rebinds it back', () => {
+    const s = 'let s = $state({ items: [] });\nlet d = s.items;\n';
+    expect(constable(`${s}d = [];\nfor (d.push(1); ok(); ) {\n  d = s.items;\n}`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfor (let i = d.push(1); ok(); ) {\n  d = s.items;\n}`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfor (d.push(1), d = s.items; ok(); ) {}`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfor (const r of (d.push(1), rows)) {\n  d = s.items;\n}`)).toEqual(['s']);
+    expect(constable(`${s}d = [];\nfor (const k in (d.push(1), rows)) {\n  d = s.items;\n}`)).toEqual(['s']);
   });
 
   it('stops following a local that each pass of a loop rebinds outside its $state before the write', () => {
