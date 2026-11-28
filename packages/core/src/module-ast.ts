@@ -125,8 +125,8 @@ export function rootObjectName(node: Node): string | undefined {
 
 /**
  * Names newly bound AT `node` (not by its children) that shadow an outer binding of the
- * same name for everything nested inside it: function/arrow-function parameters, a
- * `catch` clause's parameter, a block's own variable declarations (`let`/`const`/`var` —
+ * same name for everything nested inside it: function/arrow-function parameters, a named
+ * function or class expression's own name, a `catch` clause's parameter, a block's own variable declarations (`let`/`const`/`var` —
  * a `var` is really function-scoped, so treating it block-scoped leaves a nested block's
  * `var` invisible to sibling blocks; accepted imprecision) plus its own `function`/`class`
  * declaration names, a
@@ -153,6 +153,9 @@ export function scopeIntroducedNames(node: Node): Set<string> {
     node.type === 'ArrowFunctionExpression'
   ) {
     for (const p of node.params ?? []) addBoundNames(p, introduced);
+    if (node.type === 'FunctionExpression' && typeof node.id?.name === 'string') introduced.add(node.id.name);
+  } else if (node.type === 'ClassExpression' && typeof node.id?.name === 'string') {
+    introduced.add(node.id.name);
   } else if (node.type === 'CatchClause') {
     addBoundNames(node.param, introduced);
   } else if (node.type === 'BlockStatement' || node.type === 'StaticBlock') {

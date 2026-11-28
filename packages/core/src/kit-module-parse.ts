@@ -659,11 +659,8 @@ export function collectFalseExports(program: Node): Set<string> {
     for (const m of writtenMembers(n)) {
       const obj = unwrapTs(m.object);
       if (obj?.type !== 'Identifier' || shadowed.has(obj.name)) continue;
-      const key = !m.computed
-        ? m.property?.name
-        : m.property?.type === 'Literal'
-          ? String(m.property.value)
-          : undefined;
+      const prop: Node = unwrapTs(m.property);
+      const key = !m.computed ? prop?.name : prop?.type === 'Literal' ? String(prop.value) : undefined;
       for (const name of names)
         if (key === undefined ? name.startsWith(`${obj.name}.`) : name === `${obj.name}.${key}`) names.delete(name);
     }
