@@ -1587,20 +1587,20 @@ export function parseKitModuleFacts(
     }
 
     // security/handler-state-write / security/shared-state-import — a write whose root binding is an import.
-    let write: { name: string; via: 'assignment' | 'set-call' } | undefined;
+    const writes: { name: string; via: 'assignment' | 'set-call' }[] = [];
     const importedRoot = (expr: Node): string | undefined => {
       const r = rootObjectName(expr);
       return r && !shadowed.has(r) && importedSpecifiers.has(r) ? r : undefined;
     };
     if (assigned?.type === 'MemberExpression') {
       const r = importedRoot(assigned);
-      if (r) write = { name: r, via: 'assignment' };
+      if (r) writes.push({ name: r, via: 'assignment' });
     } else if (n.type === 'UpdateExpression' && n.argument?.type === 'MemberExpression') {
       const r = importedRoot(n.argument);
-      if (r) write = { name: r, via: 'assignment' };
+      if (r) writes.push({ name: r, via: 'assignment' });
     } else if (n.type === 'UnaryExpression' && n.operator === 'delete') {
       const r = importedRoot(n.argument);
-      if (r) write = { name: r, via: 'assignment' };
+      if (r) writes.push({ name: r, via: 'assignment' });
     } else if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression') {
       const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
       // `ns.update(...)` on `import * as ns` calls the module's exported function; a store on it
@@ -1624,7 +1624,7 @@ export function parseKitModuleFacts(
           const imported = viaNamespace ?? importedNames.get(r) ?? r;
           const target = { name: r, imported, resolved: resolved!, line: line(n.start) };
           if (isLocalStateSpecifier(spec, filename, aliases)) {
-            write = { name: r, via: 'set-call' };
+            writes.push({ name: r, via: 'set-call' });
             // The collector drops it when the target module shows a persistence client instead.
             if (inHandler) storeWriteTargets.push(target);
           } else if (resolved !== undefined && inHandler) {
@@ -1639,10 +1639,10 @@ export function parseKitModuleFacts(
       // Only TARGET positions count — a computed key (`[state.key]:`) and a default
       // value (`= state.fallback`) are reads, not writes.
       const scanPatternTargets = (pat: Node): void => {
-        if (!pat || write) return;
+        if (!pat) return;
         if (pat.type === 'MemberExpression') {
           const r = importedRoot(pat);
-          if (r) write = { name: r, via: 'assignment' };
+          if (r && !writes.some((w) => w.name === r)) writes.push({ name: r, via: 'assignment' });
         } else if (pat.type === 'ObjectPattern') {
           for (const p of pat.properties ?? []) {
             if (p?.type === 'Property') scanPatternTargets(p.value);
@@ -1659,10 +1659,11 @@ export function parseKitModuleFacts(
       scanPatternTargets(assigned);
     }
     // A write only the browser reaches changes that visitor's own copy of the module, never shared state.
-    if (write && reachedOnlyByBrowser(n.start)) write = undefined;
-    if (write) {
-      if (inHandler) importedStateWrites.push({ ...write, line: line(n.start) });
-      else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n.start) });
+    if (writes.length > 0 && !reachedOnlyByBrowser(n.start)) {
+      for (const w of writes) {
+        if (inHandler) importedStateWrites.push({ ...w, line: line(n.start) });
+        else importedStateWritesOutsideHandlers.push({ name: w.name, line: line(n.start) });
+      }
     }
 
     // correctness/orphan-lifecycle — svelte lifecycle/context calls outside component initialisation:
