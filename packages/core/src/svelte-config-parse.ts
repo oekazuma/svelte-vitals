@@ -151,18 +151,21 @@ function pathValueOf(value: Expression): string | undefined {
     return fromConfig ? stringLiteralOf(href) : undefined;
   }
   if (name !== 'resolve' && name !== 'join') return undefined;
+  const fromRoot = args[0] !== undefined && isRootDir(args[0]);
   const parts: string[] = [];
   for (const [i, arg] of args.entries()) {
-    if (i === 0 && isRootDir(arg)) continue;
+    if (i === 0 && fromRoot) continue;
     const part = stringLiteralOf(arg);
     if (part === undefined) return undefined;
     if (name === 'resolve' && part.startsWith('/')) parts.length = 0;
     parts.push(part);
   }
-  return parts
+  const joined = parts
     .filter(Boolean)
     .join('/')
     .replace(/[\\/]{2,}/g, '/');
+  // `join` appends to the root directory even a part that starts with a separator.
+  return name === 'join' && fromRoot ? joined.replace(/^[\\/]/, '') : joined;
 }
 
 /** A property's value as a config path (see `pathValueOf`), else undefined. */
@@ -231,16 +234,23 @@ export function findKitAliasesInSvelteConfig(source: string): RawKitAliases {
 
 /**
  * The normalisation Kit applies to an alias value — `posixify`, then a trailing `/*` stripped —
- * plus the trailing-slash trim that Kit gets for free from `path.resolve` and this parser does
- * not (it works in project-relative strings and never resolves). Applied to the `$lib` entry
- * too, which Kit builds with neither step: `kit.files.lib` is a user-written string with the
+ * plus what Kit gets for free from `path.resolve` and this parser does not (it works in
+ * project-relative strings and never resolves): `.` and empty segments dropped, each `..` folded
+ * into its parent, no trailing slash. Without it a textual prefix check (`libServerRoot`, the
+ * workspace `node_modules` link) misses an equal path. Applied to the `$lib` entry too, which Kit
+ * builds with neither of the first two steps: `kit.files.lib` is a user-written string with the
  * same irregularities available to it.
  */
 export function normalizeAliasValue(value: string): string {
-  // A leading `./` would defeat textual prefix checks (`libServerRoot`) against normalized paths.
-  const posix = value.replace(/\\/g, '/').replace(/^(\.\/)+/, '');
-  const noStar = posix.endsWith('/*') ? posix.slice(0, -2) : posix;
-  return noStar.replace(/\/+$/, '');
+  const posix = value.replace(/\\/g, '/');
+  const out: string[] = [];
+  for (const seg of (posix.endsWith('/*') ? posix.slice(0, -2) : posix).split('/')) {
+    const last = out[out.length - 1];
+    if (seg === '.' || (seg === '' && last !== undefined) || (seg === '..' && last === '')) continue;
+    if (seg === '..' && last !== undefined && last !== '..') out.pop();
+    else out.push(seg);
+  }
+  return out.join('/');
 }
 
 /**

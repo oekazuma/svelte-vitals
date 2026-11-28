@@ -580,18 +580,69 @@ describe('svelte-config path values', () => {
     ]);
   });
 
+  it('reads a part after the root directory in path.join as relative to it, as Node does', () => {
+    const src = [
+      `import path from 'node:path';`,
+      `export default { kit: { alias: {`,
+      `  $a: path.join(__dirname, '/src/a'),`,
+      `  $b: path.join(import.meta.dirname, '//src', 'b'),`,
+      `  $c: path.resolve(__dirname, '/opt/c'),`,
+      `  $d: path.join('/opt', 'd')`,
+      `} } };`
+    ].join('\n');
+    expect(findKitAliasesInSvelteConfig(src).entries!.map((e) => e.value)).toEqual([
+      'src/a',
+      'src/b',
+      '/opt/c',
+      '/opt/d'
+    ]);
+    expect(
+      resolveRepoLocalPath('$a/Button.svelte', 'src/routes/+page.svelte', resolveKitAliases(undefined, { source: src }))
+    ).toBe('src/a/Button.svelte');
+  });
+
+  it('resolves . and .. segments in kit.alias and kit.files.lib values, as Kit does', () => {
+    const src = [
+      `import path from 'node:path';`,
+      `export default { kit: { alias: {`,
+      `  $a: path.resolve('src', '..', 'lib/a'),`,
+      `  $b: 'src/./b',`,
+      `  $c: path.join(__dirname, 'src/x/../c/*'),`,
+      `  $d: path.resolve(__dirname, '../shared/./src'),`,
+      `  $e: path.resolve('/opt/x/../e')`,
+      `}, files: { lib: path.join('src', 'app', '..', 'lib') } } };`
+    ].join('\n');
+    expect(resolveKitAliases(undefined, { source: src })!.map((a) => a.replacement)).toEqual([
+      'src/lib',
+      'lib/a',
+      'src/b',
+      'src/c',
+      '../shared/src',
+      '/opt/e'
+    ]);
+  });
+
   it('gives a config without an exported object no entries', () => {
     expect(findKitAliasesInSvelteConfig('const x = 1;')).toEqual({ entries: [] });
     expect(findKitAliasesInSvelteConfig('export default { other: 1 };')).toEqual({ entries: [] });
   });
 
-  it('normalizes only leading ./ runs and every trailing slash', () => {
-    expect(['././src/lib', 'src/lib//', 'a/./b', 'src\\lib/*'].map(normalizeAliasValue)).toEqual([
-      'src/lib',
-      'src/lib',
-      'a/./b',
-      'src/lib'
-    ]);
+  it('drops . and empty segments, folds each .. into its parent, and drops every trailing slash', () => {
+    expect(
+      [
+        '././src/lib',
+        'src/lib//',
+        'a/./b',
+        'src\\lib/*',
+        'a//b',
+        'a/../b',
+        '../x/./y',
+        'a/../../z',
+        '../../z',
+        '/opt/../x',
+        '/../x'
+      ].map(normalizeAliasValue)
+    ).toEqual(['src/lib', 'src/lib', 'a/b', 'src/lib', 'a/b', 'b', '../x/y', '../z', '../../z', '/x', '/x']);
   });
 });
 

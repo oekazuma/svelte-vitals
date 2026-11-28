@@ -170,6 +170,19 @@ export default { kit: { alias: { '$ui': path.resolve('node_modules/', '@cio/ui/s
       root: '../../packages/ui'
     });
   });
+  it('points a kit.alias with . and .. segments into node_modules at the package directory', () => {
+    const kit = resolveKitAliases(undefined, {
+      source: `import path from 'path';
+export default { kit: { alias: { '$ui': path.resolve('src/../node_modules/@cio/ui/./src') } } };`
+    });
+    const aliases = withWorkspacePackages(kit, [
+      { name: '@cio/ui', dir: '../../packages/ui', manifest: JSON.stringify({ name: '@cio/ui' }) }
+    ]);
+    expect(aliases!.find((a) => a.find === '$ui')).toMatchObject({
+      replacement: '../../packages/ui/src',
+      root: '../../packages/ui'
+    });
+  });
 });
 
 describe('installed packages', () => {
