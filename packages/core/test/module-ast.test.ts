@@ -345,6 +345,17 @@ describe('scopeIntroducedNames', () => {
     expect(introduced(p, 'BlockStatement').filter((names) => names.length > 0)).toEqual([['P', 'l', 'n', 'o', 'q']]);
   });
 
+  it("binds a named function or class expression's own name inside it, and a declaration's name outside it", () => {
+    const p = program(
+      ['const f = function self(a) {};', 'const C = class Own {};', 'const D = class {};', 'function decl() {}'].join(
+        '\n'
+      )
+    );
+    expect(introduced(p, 'FunctionExpression')).toEqual([['a', 'self']]);
+    expect(introduced(p, 'ClassExpression')).toEqual([['Own'], []]);
+    expect(introduced(p, 'FunctionDeclaration')).toEqual([[]]);
+  });
+
   it('binds the template constructs that introduce names', () => {
     const ast = parse(
       [

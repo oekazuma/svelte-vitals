@@ -1725,6 +1725,66 @@ describe('parseFalseExports', () => {
       'spread.late'
     ]);
   });
+
+  it('drops a false member the module writes to, and every member of one written through a computed key', () => {
+    const src = [
+      'export const assigned = { on: false, off: false };',
+      'assigned.on = true;',
+      'export const quoted = { on: false, off: false };',
+      "quoted['on'] ||= true;",
+      'export const updated = { on: false, off: false };',
+      'updated.on++;',
+      'export const deleted = { on: false, off: false };',
+      'delete deleted.on;',
+      'export const arrayPat = { on: false, off: false };',
+      '[arrayPat.on] = [true];',
+      'export const objectPat = { on: false, off: false };',
+      '({ v: objectPat.on = objectPat.off } = { v: true });',
+      'export const looped = { on: false, off: false };',
+      'for (looped.on of [true]);',
+      'export const cast = { on: false, off: false };',
+      '(cast as any).on = true;',
+      'export const castTarget = { on: false, off: false };',
+      '(castTarget.on as boolean) = true;',
+      'export const restPat = { on: false, off: false };',
+      '[...restPat.on] = [true];',
+      'export const inFunction = { on: false, off: false };',
+      'export function enable() { inFunction.on = true; }',
+      'export const computed = { on: false, off: false };',
+      'computed[key()] = true;',
+      'export const shadowed = { on: false };',
+      'function local(shadowed) { shadowed.on = true; }',
+      'export const selfNamed = { on: false };',
+      'const localFn = function selfNamed() { selfNamed.on = true; };',
+      'export const selfClass = { on: false };',
+      'const LocalClass = class selfClass { static m() { selfClass.on = true; } };',
+      'export const castKey = { on: false, off: false };',
+      "castKey['on' as const] = true;",
+      'export const deeper = { on: false };',
+      'deeper.on.x = 1;',
+      'export const other = { on: false };',
+      'other.extra = true;'
+    ].join('\n');
+    expect([...parseFalseExports(src, 'src/lib/flags.ts')].sort()).toEqual([
+      'arrayPat.off',
+      'assigned.off',
+      'cast.off',
+      'castKey.off',
+      'castTarget.off',
+      'deeper.on',
+      'deleted.off',
+      'inFunction.off',
+      'looped.off',
+      'objectPat.off',
+      'other.on',
+      'quoted.off',
+      'restPat.off',
+      'selfClass.on',
+      'selfNamed.on',
+      'shadowed.on',
+      'updated.off'
+    ]);
+  });
 });
 
 describe('parseKitModuleFacts — export forms', () => {
