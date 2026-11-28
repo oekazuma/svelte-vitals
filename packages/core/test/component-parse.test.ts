@@ -1056,6 +1056,55 @@ describe('parseComponentFacts — orphan $effect in runes modules (.svelte.ts/.s
   it('flags an $effect evaluated as the argument of $effect.root', () => {
     expect(orphans('$effect.root($effect(() => {}));')).toEqual([{ line: 1, kind: 'top-level' }]);
   });
+  it('flags an $effect in a static block of a module-scope class, named or not', () => {
+    expect(orphans('class S {\n  static {\n    $effect(() => {});\n  }\n}')).toEqual([{ line: 3, kind: 'top-level' }]);
+    expect(orphans('export const S = class {\n  static {\n    $effect(() => {});\n  }\n};')).toEqual([
+      { line: 3, kind: 'top-level' }
+    ]);
+  });
+  it('does not flag a static-block $effect inside $effect.root or in a class declared in a function', () => {
+    expect(
+      orphans('class S {\n  static {\n    $effect.root(() => {\n      $effect(() => {});\n    });\n  }\n}')
+    ).toEqual([]);
+    expect(
+      orphans('export function f() {\n  class S {\n    static {\n      $effect(() => {});\n    }\n  }\n}')
+    ).toEqual([]);
+  });
+  it('flags a module-scope class instantiated by a static field initializer, not by an instance field', () => {
+    const src = [
+      'class Store {',
+      '  constructor() {',
+      '    $effect(() => {});',
+      '  }',
+      '}',
+      'export const A = class {',
+      '  static s = new Store();',
+      '};',
+      'export const B = class {',
+      '  s = new Store();',
+      '};'
+    ].join('\n');
+    expect(orphans(src)).toEqual([{ line: 7, kind: 'constructor-instantiated', className: 'Store' }]);
+  });
+  it('does not take a static-field new of a name the class body rebinds for the same-file class', () => {
+    const src = [
+      'class Store {',
+      '  constructor() {',
+      '    $effect(() => {});',
+      '  }',
+      '}',
+      'export const A = class Store {',
+      '  static s = new Store();',
+      '};',
+      'export const B = class {',
+      '  static {',
+      '    const Store = Object;',
+      '    new Store();',
+      '  }',
+      '};'
+    ].join('\n');
+    expect(orphans(src)).toEqual([]);
+  });
   it('does not flag a constructor effect wrapped in $effect.root, even when instantiated', () => {
     const src = [
       'class S {',
@@ -1323,6 +1372,33 @@ describe('parseComponentFacts — orphan lifecycle calls (correctness/orphan-lif
     expect(calls("import * as s from 'svelte';\ns['setContext']('k', 1);")).toEqual([]);
     expect(calls("import { type onMount, tick } from 'svelte';\ntick();")).toEqual([]);
   });
+  it('flags a call in a static block, static field initializer or computed key of a module-scope class', () => {
+    const imp = "import { getContext } from 'svelte';\n";
+    expect(calls(`${imp}class S {\n  static {\n    getContext('k');\n  }\n}`)).toEqual([
+      { name: 'getContext', line: 4, kind: 'top-level' }
+    ]);
+    expect(calls(`${imp}class S {\n  static user = getContext('user');\n}`)).toEqual([
+      { name: 'getContext', line: 3, kind: 'top-level' }
+    ]);
+    expect(calls(`${imp}export const S = class {\n  [getContext('k')] = 1;\n};`)).toEqual([
+      { name: 'getContext', line: 3, kind: 'top-level' }
+    ]);
+  });
+  it('does not flag a class member that runs later, a shadowing static-block local, or a class in a function', () => {
+    const imp = "import { getContext, onMount } from 'svelte';\n";
+    expect(calls(`${imp}export class S {\n  user = getContext('user');\n}`)).toEqual([]);
+    expect(
+      calls(
+        `${imp}export class S {\n  static f = () => onMount(() => {});\n  static g() {\n    onMount(() => {});\n  }\n}`
+      )
+    ).toEqual([]);
+    expect(
+      calls(`${imp}class S {\n  static {\n    const getContext = (k) => k;\n    getContext('k');\n  }\n}`)
+    ).toEqual([]);
+    expect(
+      calls(`${imp}export function f() {\n  class S {\n    static {\n      getContext('k');\n    }\n  }\n}`)
+    ).toEqual([]);
+  });
 });
 
 describe('parseComponentFacts — browser-global refs (correctness/server-browser-global/009)', () => {
@@ -1344,6 +1420,17 @@ describe('parseComponentFacts — browser-global refs (correctness/server-browse
   it('does not flag names imported or declared at top level', () => {
     const src =
       "import { window } from 'happy-dom';\nconst document = makeDoc();\nwindow.open();\ndocument.write('x');";
+    expect(refs(src)).toEqual([]);
+  });
+  it('does not flag class member names or an instance field initializer at module scope', () => {
+    const src = [
+      'export class Store {',
+      '  history = [];',
+      "  saved = localStorage.getItem('k');",
+      '  static confirm = 1;',
+      '  alert() {}',
+      '}'
+    ].join('\n');
     expect(refs(src)).toEqual([]);
   });
   it('skips browser-guarded clauses entirely (if / ternary / logical, alias included)', () => {

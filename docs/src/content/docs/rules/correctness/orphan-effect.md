@@ -9,10 +9,10 @@ description: An $effect created outside component initialisation throws effect_o
 
 Flags `$effect` / `$effect.pre` calls that are guaranteed to run outside component initialisation, so they throw Svelte's `effect_orphan` error at runtime:
 
-- A **top-level effect** in a `.svelte.ts` / `.svelte.js` runes module or in a `.svelte` `<script module>` block. It runs when the module is imported, outside any component's initialisation.
+- A **top-level effect** in a `.svelte.ts` / `.svelte.js` runes module or in a `.svelte` `<script module>` block, including one in a static block of a class declared there. It runs when the module is imported, outside any component's initialisation.
 - A **module-scope `new`** of a class declared in the same file whose constructor creates a bare `$effect` (one not wrapped in `$effect.root`), the shared-state-manager pattern. The finding points at the `new` site.
 
-Not flagged: effects inside functions (factory functions and IIFEs included), inside an `$effect.root(...)` callback, in class field initializers or static blocks, or in anonymous class expressions (`const Store = class { … }`); and classes only instantiated inside components, or imported from another file.
+Not flagged: effects inside functions (factory functions and IIFEs included), inside an `$effect.root(...)` callback, or in instance field initializers; constructor effects of anonymous class expressions (`const Store = class { … }`); and classes only instantiated inside components, or imported from another file.
 
 Detection never crosses a function boundary, so it never mistakes a nested function for module evaluation, at the cost of missing cross-file and factory variants. It can still report a guarded effect whose guard is never true at runtime, since a guard cannot be evaluated statically.
 

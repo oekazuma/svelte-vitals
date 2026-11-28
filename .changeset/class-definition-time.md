@@ -1,0 +1,5 @@
+---
+'svelte-vitals': patch
+---
+
+A class's static blocks, static field initializers and computed keys now count as code that runs where the class is defined, in `.svelte` scripts, `<script module>` blocks and `.svelte.ts`/`.svelte.js` modules, as they already did in SvelteKit server and universal modules. Only methods, the constructor and instance field initializers wait for a call or `new`. At module scope, `correctness/orphan-effect` now reports an `$effect` in such a static block, and `correctness/orphan-lifecycle` a lifecycle or context call there; both rules can also report a class instantiated by a static field initializer (`static s = new Store()`) when its constructor makes the call. `correctness/nonreactive-builtin-state` no longer counts a mutation in a static block, static field initializer or computed key of a top-level class as one made after the first render. The `orphan-effect` and `orphan-lifecycle` findings can be new in your project. Suppression entries are keyed by rule, route and file, so a file that already has recorded entries for one of these rules has the new findings suppressed too.
