@@ -416,6 +416,20 @@ function containsReturn(node: Node): boolean {
   return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && containsReturn(node[key]));
 }
 
+/** The names a `var` anywhere in a function body binds for all of it, outside nested functions and static blocks. */
+function hoistedVarNames(node: Node, acc = new Set<string>()): Set<string> {
+  if (Array.isArray(node)) {
+    for (const n of node) hoistedVarNames(n, acc);
+    return acc;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return acc;
+  if (isFunctionNode(node) || node.type === 'StaticBlock') return acc;
+  if (node.type === 'VariableDeclaration' && node.kind === 'var')
+    for (const d of node.declarations ?? []) addBoundNames(d?.id, acc);
+  for (const key of Object.keys(node)) if (!WALK_IGNORED_KEYS.has(key)) hoistedVarNames(node[key], acc);
+  return acc;
+}
+
 type Frame = { seen: Set<Node>; observed: boolean };
 
 /**
@@ -437,12 +451,12 @@ function loadNeverRenders(program: Node, locals: Set<string>, building = new Set
  */
 function alwaysExits(program: Node, fn: Node, locals: Set<string>, building = new Set<string>()): boolean {
   const topLevel = collectTopLevelBindings(program);
-  // A parameter or a declaration in the body named like the import is a different function. A helper
-  // sees only its own scope, never its caller's; `seen` stops mutually recursive helpers. `observed`
-  // says whether the caller awaits or returns what this function returns: an async helper's redirect
-  // is a rejected promise, and one nobody awaits leaves `load` running on to render.
+  // A parameter, a declaration in the body or a `var` anywhere in it named like the import is a
+  // different function. A helper sees only its own scope, never its caller's; `seen` stops mutually
+  // recursive helpers. `observed` says whether the caller awaits or returns what this function returns:
+  // an async helper's redirect is a rejected promise, and one nobody awaits leaves `load` running on to render.
   const fnRedirects = (fn: Node, seen: Set<Node>, observed: boolean): boolean => {
-    const shadow = new Set<string>();
+    const shadow = hoistedVarNames(fn.body);
     for (const p of fn.params ?? []) addBoundNames(p, shadow);
     const frame: Frame = { seen: new Set([...seen, fn]), observed };
     return fn.body?.type === 'BlockStatement'
@@ -534,8 +548,9 @@ function leadingFlagGuard(
 ): KitModuleFacts['pendingFlagGuard'] {
   const load = exits.size > 0 ? findLoadFunction(program) : undefined;
   if (load?.body?.type !== 'BlockStatement') return undefined;
-  // A parameter or a declaration of the load's own body is a different binding than the import.
-  const local = new Set<string>();
+  // A parameter, a declaration of the load's own body or a `var` anywhere in it is a different
+  // binding than the import.
+  const local = hoistedVarNames(load.body);
   for (const param of load.params ?? []) addBoundNames(param, local);
   for (const stmt of load.body.body) {
     if (stmt?.type === 'VariableDeclaration') for (const d of stmt.declarations ?? []) addBoundNames(d?.id, local);

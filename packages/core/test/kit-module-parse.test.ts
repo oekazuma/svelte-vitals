@@ -1519,6 +1519,8 @@ describe('parseKitModuleFacts — pendingFlagGuard (a load guarded by an importe
     expect(guard(named, '  function ENABLED() {}\n  if (!ENABLED) error(404);')).toBeUndefined();
     expect(guard("import { Flag } from '$lib/flags';", '  class Flag {}\n  if (!Flag) error(404);')).toBeUndefined();
     expect(guard(named, '  function error() {}\n  if (!ENABLED) error(404);')).toBeUndefined();
+    expect(guard(named, '  if (!ENABLED) error(404);\n  {\n    var ENABLED = true;\n  }')).toBeUndefined();
+    expect(guard(named, '  if (!ENABLED) error(404);\n  for (var error of []);')).toBeUndefined();
   });
 });
 
@@ -1655,6 +1657,27 @@ describe('parseKitModuleFacts — loadNeverRenders edges', () => {
     const parsed = never("  while (building) return {};\n  redirect(307, '/a');");
     expect(parsed.loadNeverRenders).toBeUndefined();
     expect(parsed.loadNeverRendersOutsideBuild).toBe(true);
+  });
+
+  it('takes a var in a nested block for a binding of the whole load, but not a let or a var in a nested function', () => {
+    for (const test of ['while', 'if']) {
+      const parsed = never(
+        `  {\n    var building = true;\n  }\n  ${test} (building) return {};\n  redirect(307, '/a');`
+      );
+      expect(parsed.loadNeverRenders).toBeUndefined();
+      expect(parsed.loadNeverRendersOutsideBuild).toBeUndefined();
+    }
+    expect(
+      never("  if (Math.random() > 0.5) {\n    var redirect = log;\n  }\n  redirect(307, '/a');").loadNeverRenders
+    ).toBeUndefined();
+    expect(never("  for (var redirect of []);\n  redirect(307, '/a');").loadNeverRenders).toBeUndefined();
+    expect(never("  {\n    let redirect = log;\n  }\n  redirect(307, '/a');").loadNeverRenders).toBe(true);
+    expect(never("  const f = () => {\n    var redirect = log;\n  };\n  redirect(307, '/a');").loadNeverRenders).toBe(
+      true
+    );
+    expect(
+      never("  class A {\n    static {\n      var redirect = log;\n    }\n  }\n  redirect(307, '/a');").loadNeverRenders
+    ).toBe(true);
   });
 });
 
