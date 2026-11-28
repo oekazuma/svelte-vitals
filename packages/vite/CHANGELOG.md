@@ -1,5 +1,38 @@
 # @svelte-vitals/vite
 
+## 0.57.2
+
+### Patch Changes
+
+- Updated dependencies [ea0beac]
+- Updated dependencies [435df2d]
+- Updated dependencies [12d2afd]
+- Updated dependencies [5e6e4ca]
+- Updated dependencies [0d122ab]
+- Updated dependencies [1eee7ec]
+- Updated dependencies [6391afa]
+- Updated dependencies [3d8dfe4]
+- Updated dependencies [b705657]
+- Updated dependencies [6779b80]
+- Updated dependencies [98a7c42]
+- Updated dependencies [122e21a]
+- Updated dependencies [2fe189a]
+- Updated dependencies [d9e44ea]
+- Updated dependencies [924538b]
+- Updated dependencies [e8c347b]
+- Updated dependencies [39c07bb]
+- Updated dependencies [5326355]
+- Updated dependencies [5ee49bc]
+- Updated dependencies [e3fe94a]
+- Updated dependencies [c620f15]
+- Updated dependencies [e51851f]
+- Updated dependencies [db9be13]
+- Updated dependencies [d21172e]
+- Updated dependencies [62e3cbe]
+- Updated dependencies [097d1fa]
+  - svelte-vitals@0.57.2
+  - @svelte-vitals/core@0.57.2
+
 ## 0.57.1
 
 ### Patch Changes
