@@ -1086,6 +1086,25 @@ describe('parseComponentFacts — orphan $effect in runes modules (.svelte.ts/.s
     ].join('\n');
     expect(orphans(src)).toEqual([{ line: 7, kind: 'constructor-instantiated', className: 'Store' }]);
   });
+  it('does not take a static-field new of a name the class body rebinds for the same-file class', () => {
+    const src = [
+      'class Store {',
+      '  constructor() {',
+      '    $effect(() => {});',
+      '  }',
+      '}',
+      'export const A = class Store {',
+      '  static s = new Store();',
+      '};',
+      'export const B = class {',
+      '  static {',
+      '    const Store = Object;',
+      '    new Store();',
+      '  }',
+      '};'
+    ].join('\n');
+    expect(orphans(src)).toEqual([]);
+  });
   it('does not flag a constructor effect wrapped in $effect.root, even when instantiated', () => {
     const src = [
       'class S {',

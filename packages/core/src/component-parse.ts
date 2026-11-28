@@ -3132,8 +3132,13 @@ function collectOrphanCalls(
           decl?.type !== 'FunctionDeclaration' &&
           decl?.type !== 'ClassDeclaration');
       if (!isCandidate) continue;
-      walkEvalScope(decl, (n) => {
-        if (n.type === 'NewExpression' && n.callee?.type === 'Identifier' && matchingClasses.has(n.callee.name)) {
+      walkEvalScope(decl, (n, shadowed) => {
+        if (
+          n.type === 'NewExpression' &&
+          n.callee?.type === 'Identifier' &&
+          matchingClasses.has(n.callee.name) &&
+          !shadowed.has(n.callee.name)
+        ) {
           out.push({
             name: matchingClasses.get(n.callee.name)!,
             line: lineOf(source, n.start),
