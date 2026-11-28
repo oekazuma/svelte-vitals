@@ -254,6 +254,9 @@ export function collectSuppressions(source: string): SuppressionDirective[] {
  */
 const EVAL_SCOPE_BOUNDARIES = new Set(['FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression']);
 
+/** `collectBrowserGlobalRefs` would read class member names and instance field initializers, so it stops at a class. */
+const BROWSER_SCAN_BOUNDARIES = new Set([...EVAL_SCOPE_BOUNDARIES, 'ClassDeclaration', 'ClassExpression']);
+
 /**
  * Walk only the code that executes when `node` itself is evaluated: every node is
  * visited, but function bodies and instance field initializers are not entered. `visit` returning true skips a node's children — used to exempt
@@ -693,7 +696,7 @@ export function collectBrowserGlobalRefs(
       return;
     }
     if (typeof n !== 'object' || typeof n.type !== 'string') return;
-    if (EVAL_SCOPE_BOUNDARIES.has(n.type)) return;
+    if (BROWSER_SCAN_BOUNDARIES.has(n.type)) return;
 
     if ((n.type === 'IfStatement' || n.type === 'ConditionalExpression') && isBrowserGuardTest(n.test, guards)) return;
     // `browser && x` evaluates `x` only in the browser; `!browser || x` likewise. `browser || x` evaluates `x` on the server.

@@ -1403,6 +1403,17 @@ describe('parseComponentFacts — browser-global refs (correctness/server-browse
       "import { window } from 'happy-dom';\nconst document = makeDoc();\nwindow.open();\ndocument.write('x');";
     expect(refs(src)).toEqual([]);
   });
+  it('does not flag class member names or an instance field initializer at module scope', () => {
+    const src = [
+      'export class Store {',
+      '  history = [];',
+      "  saved = localStorage.getItem('k');",
+      '  static confirm = 1;',
+      '  alert() {}',
+      '}'
+    ].join('\n');
+    expect(refs(src)).toEqual([]);
+  });
   it('skips browser-guarded clauses entirely (if / ternary / logical, alias included)', () => {
     const src = [
       "import { browser as isBrowser } from '$app/environment';",
