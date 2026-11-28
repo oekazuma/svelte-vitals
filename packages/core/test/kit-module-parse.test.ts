@@ -1478,6 +1478,31 @@ describe('parseKitModuleFacts — collection edges', () => {
     expect(at('[...state.rest] = arr;')).toEqual(hit);
     expect(at('({ a: local } = obj);')).toEqual([]);
   });
+
+  it('flags each imported root a destructuring assignment writes, once per root', () => {
+    const src = [
+      "import { first, second } from './shared.js';",
+      'export function load({ obj, rows }) {',
+      '  [first.x, second.y] = rows;',
+      '  ({ a: first.a, b: [first.b, second.b] } = obj);',
+      '  for ([second.x, first.x] of rows) {}',
+      '}',
+      '({ a: first.top, b: second.top } = {});'
+    ].join('\n');
+    const f = facts(src);
+    expect(f.importedStateWrites).toEqual([
+      { name: 'first', line: 3, via: 'assignment' },
+      { name: 'second', line: 3, via: 'assignment' },
+      { name: 'first', line: 4, via: 'assignment' },
+      { name: 'second', line: 4, via: 'assignment' },
+      { name: 'second', line: 5, via: 'assignment' },
+      { name: 'first', line: 5, via: 'assignment' }
+    ]);
+    expect(f.importedStateWritesOutsideHandlers).toEqual([
+      { name: 'first', line: 7 },
+      { name: 'second', line: 7 }
+    ]);
+  });
 });
 
 describe('parseKitModuleFacts — pendingFlagGuard (a load guarded by an imported flag)', () => {
