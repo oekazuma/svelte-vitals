@@ -128,4 +128,24 @@ describe('nonreactiveBuiltinStates — exclusions', () => {
     const classShadow = script(`let m = $state(new Map());\nfunction outer() {\n  class m {}\n  m.set("k", 1);\n}`);
     expect(nrb(classShadow)).toEqual([]);
   });
+
+  it('does not record a mutation in a static block, static field initializer or computed key of a top-level class', () => {
+    const m = 'let m = $state(new Map());\n';
+    expect(nrb(script(`${m}class C {\n  static {\n    m.set("k", 1);\n  }\n}`))).toEqual([]);
+    expect(nrb(script(`${m}class C {\n  static x = m.set("k", 1);\n}`))).toEqual([]);
+    expect(nrb(script(`${m}const C = class {\n  static {\n    m.set("k", 1);\n  }\n};`))).toEqual([]);
+    expect(nrb(script(`${m}class C {\n  [m.set("k", 1)] = 0;\n}`))).toEqual([]);
+  });
+
+  it('records a mutation in a method, an instance field initializer, a static arrow field or a class in a function', () => {
+    const m = 'let m = $state(new Map());\n';
+    const rec = [{ name: 'm', type: 'Map', line: 2 }];
+    expect(nrb(script(`${m}class C {\n  f() {\n    m.set("k", 1);\n  }\n}`))).toEqual(rec);
+    expect(nrb(script(`${m}class C {\n  static f() {\n    m.set("k", 1);\n  }\n}`))).toEqual(rec);
+    expect(nrb(script(`${m}class C {\n  x = m.set("k", 1);\n}`))).toEqual(rec);
+    expect(nrb(script(`${m}class C {\n  static f = () => m.set("k", 1);\n}`))).toEqual(rec);
+    expect(nrb(script(`${m}function g() {\n  class C {\n    static {\n      m.set("k", 1);\n    }\n  }\n}`))).toEqual(
+      rec
+    );
+  });
 });

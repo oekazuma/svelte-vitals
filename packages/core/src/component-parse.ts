@@ -974,8 +974,9 @@ const BUILTIN_MUTATIONS: BuiltinMutationTable = {
  * `u.searchParams.set(...)` — final method in the URLSearchParams set); the
  * other types count only direct calls from their own method table, so an
  * expando-property write on a Map never flags (SvelteMap would not track it
- * either). Deep reads (`get`, `has`, …) never count. Shadow-aware; class
- * bodies count as function depth.
+ * either). Deep reads (`get`, `has`, …) never count. Shadow-aware; an
+ * instance field initializer counts as function depth, while a static block,
+ * static field initializer or computed key runs where its class is defined.
  */
 function collectBuiltinStateSignals(
   node: Node,
@@ -992,8 +993,8 @@ function collectBuiltinStateSignals(
   if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
   const introduced = scopeIntroducedNames(node);
   const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
-  const boundary = isDeferredBody(node) || node.type === 'ClassDeclaration' || node.type === 'ClassExpression';
-  const nextInFunction = inFunction || boundary;
+  const nextInFunction = inFunction || isDeferredBody(node);
+  const instanceField = node.type === 'PropertyDefinition' && !node.static;
   const hit = (name: unknown): string | undefined =>
     typeof name === 'string' && candidates.has(name) && !scope.has(name) ? name : undefined;
 
@@ -1039,7 +1040,8 @@ function collectBuiltinStateSignals(
 
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key)) continue;
-    collectBuiltinStateSignals(node[key], candidates, mutated, reassigned, scope, nextInFunction);
+    const deferred = nextInFunction || (instanceField && key === 'value');
+    collectBuiltinStateSignals(node[key], candidates, mutated, reassigned, scope, deferred);
   }
 }
 

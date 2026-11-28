@@ -246,19 +246,17 @@ export function collectSuppressions(source: string): SuppressionDirective[] {
   return out;
 }
 
-/** Nodes whose bodies do NOT run when the surrounding code is evaluated: functions run when called; class member/constructor code runs on construction (correctness/orphan-effect). */
-const EVAL_SCOPE_BOUNDARIES = new Set([
-  'FunctionDeclaration',
-  'FunctionExpression',
-  'ArrowFunctionExpression',
-  'ClassDeclaration',
-  'ClassExpression'
-]);
+/**
+ * Nodes whose bodies do NOT run when the surrounding code is evaluated: functions run when called
+ * (correctness/orphan-effect). A class body is not one: its static blocks, static field initializers
+ * and computed keys run where the class is defined, and only an instance field's initializer waits
+ * for construction.
+ */
+const EVAL_SCOPE_BOUNDARIES = new Set(['FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression']);
 
 /**
  * Walk only the code that executes when `node` itself is evaluated: every node is
- * visited, but children of eval-scope boundaries (function/class bodies) are not
- * entered. `visit` returning true skips a node's children — used to exempt
+ * visited, but function bodies and instance field initializers are not entered. `visit` returning true skips a node's children — used to exempt
  * `$effect.root(...)` callbacks (correctness/orphan-effect). Like `walkScoped`, threads a "shadowed
  * names" set down through scope-introducing constructs (`scopeIntroducedNames`) so
  * `visit` can check whether a candidate identifier is locally shadowed before
@@ -287,9 +285,10 @@ export function walkEvalScope(
       : binders;
   if (visit(node, scope, bound ?? NO_BINDERS)) return;
   if (boundaries.has(node.type)) return;
+  const instanceFieldValue = boundaries.size > 0 && node.type === 'PropertyDefinition' && !node.static;
   const outer = introduced.size > 0 ? outerScopeKeys(node) : undefined;
   for (const key of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key)) continue;
+    if (WALK_IGNORED_KEYS.has(key) || (instanceFieldValue && key === 'value')) continue;
     if (!outer?.has(key)) walkEvalScope(node[key], visit, scope, boundaries, bound);
     else if (!Array.isArray(node[key])) walkEvalScope(node[key], visit, shadowed, boundaries, binders);
     // A `let:` directive's own pattern is the binding, not a read of the outer name.

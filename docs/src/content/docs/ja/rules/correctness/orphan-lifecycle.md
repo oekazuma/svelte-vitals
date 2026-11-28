@@ -9,7 +9,7 @@ description: onMount や getContext などをコンポーネント初期化の�
 
 Svelte の lifecycle / context 関数（`onMount`、`onDestroy`、`beforeUpdate`、`afterUpdate`、`createEventDispatcher`、`getContext`、`setContext`、`hasContext`、`getAllContexts`。`svelte` からの value import が対象で、エイリアスと namespace import も追跡します）のうち、コンポーネント初期化の外での実行が確定している呼び出しを検出します。
 
-- `.svelte.ts`/`.svelte.js` runes モジュールや `.svelte` の `<script module>` ブロックの**モジュールスコープ**
+- `.svelte.ts`/`.svelte.js` runes モジュールや `.svelte` の `<script module>` ブロックの**モジュールスコープ**（そこで宣言したクラスの static ブロック、static フィールドの初期化子、計算キーを含む）
 - **モジュールスコープでインスタンス化されるクラスの constructor** 内（同一ファイル）
 - SvelteKit の **`load` 関数、form action、エンドポイント/フック handler、`init` フック内、またはそれらのファイルのトップレベル**（典型は `load` 内での `getContext`）
 

@@ -9,7 +9,7 @@ description: onMount, getContext and friends called outside component initialisa
 
 Flags calls to Svelte's lifecycle and context functions (`onMount`, `onDestroy`, `beforeUpdate`, `afterUpdate`, `createEventDispatcher`, `getContext`, `setContext`, `hasContext`, `getAllContexts`, value-imported from `svelte`, aliases and namespace imports included) that are guaranteed to run outside component initialisation:
 
-- at **module scope** in a `.svelte.ts`/`.svelte.js` runes module or a `.svelte` `<script module>` block,
+- at **module scope** in a `.svelte.ts`/`.svelte.js` runes module or a `.svelte` `<script module>` block, including a class's static blocks, static field initializers and computed keys there,
 - in the **constructor of a class instantiated at module scope** (same file),
 - in a SvelteKit **`load` function, form action, endpoint or hooks handler, or the `init` hook, or at the top level of such a file**. The classic trap is `getContext` inside `load`.
 
