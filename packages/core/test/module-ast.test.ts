@@ -356,6 +356,40 @@ describe('scopeIntroducedNames', () => {
     expect(introduced(p, 'FunctionDeclaration')).toEqual([[]]);
   });
 
+  it('binds a var anywhere in a block for the whole block, but not one in a nested function or static block', () => {
+    const p = program(
+      [
+        'function f() {',
+        '  if (a) { var b; }',
+        '  if (c) var d;',
+        '  for (var e = 0; ; ) {}',
+        '  for (var g of []) {}',
+        '  switch (x) { case 1: var h; }',
+        '  try { var i; } catch { var j; }',
+        '  { let k; }',
+        '  const l = () => { var m; };',
+        '  if (a) { function n() { var p; } }',
+        '  const q = function () { var r; };',
+        '  class N { static { { var o; } } }',
+        '}'
+      ].join('\n')
+    );
+    const body = nodesOf(p, 'FunctionDeclaration')[0]!.body;
+    expect([...scopeIntroducedNames(body as AnyNode)].sort()).toEqual([
+      'N',
+      'b',
+      'd',
+      'e',
+      'g',
+      'h',
+      'i',
+      'j',
+      'l',
+      'q'
+    ]);
+    expect(introduced(p, 'StaticBlock')).toEqual([['o']]);
+  });
+
   it('binds the template constructs that introduce names', () => {
     const ast = parse(
       [

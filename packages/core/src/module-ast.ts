@@ -123,13 +123,28 @@ export function rootObjectName(node: Node): string | undefined {
   return cur?.type === 'Identifier' ? cur.name : undefined;
 }
 
+const VAR_SCOPES = new Set(['FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression', 'StaticBlock']);
+
+/** The names a `var` anywhere in `node` binds, outside nested functions and static blocks, which are scopes of their own. */
+export function hoistedVarNames(node: Node, acc = new Set<string>()): Set<string> {
+  if (Array.isArray(node)) {
+    for (const n of node) hoistedVarNames(n, acc);
+    return acc;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return acc;
+  if (VAR_SCOPES.has(node.type)) return acc;
+  if (node.type === 'VariableDeclaration' && node.kind === 'var')
+    for (const d of node.declarations ?? []) addBoundNames(d?.id, acc);
+  for (const key of Object.keys(node)) if (!WALK_IGNORED_KEYS.has(key)) hoistedVarNames(node[key], acc);
+  return acc;
+}
+
 /**
  * Names newly bound AT `node` (not by its children) that shadow an outer binding of the
  * same name for everything nested inside it: function/arrow-function parameters, a named
- * function or class expression's own name, a `catch` clause's parameter, a block's own variable declarations (`let`/`const`/`var` —
- * a `var` is really function-scoped, so treating it block-scoped leaves a nested block's
- * `var` invisible to sibling blocks; accepted imprecision) plus its own `function`/`class`
- * declaration names, a
+ * function or class expression's own name, a `catch` clause's parameter, a block's own `let`/`const`
+ * declarations and `function`/`class` declaration names, every `var` anywhere in a block outside a
+ * nested function or static block (hoisted, so a function body binds it for the whole function), a
  * `for`/`for-of`/`for-in` loop's declared variable, a Svelte `{#each ... as x, i}` block's
  * context AND index binding, a `{#snippet}` block's parameters, an `{#await}` block's
  * `then`/`catch` value/error bindings, and a fragment's own `{@const ...}` /
@@ -159,6 +174,7 @@ export function scopeIntroducedNames(node: Node): Set<string> {
   } else if (node.type === 'CatchClause') {
     addBoundNames(node.param, introduced);
   } else if (node.type === 'BlockStatement' || node.type === 'StaticBlock') {
+    hoistedVarNames(node.body, introduced);
     for (const stmt of node.body ?? []) {
       if (stmt?.type === 'VariableDeclaration') {
         for (const d of stmt.declarations ?? []) addBoundNames(d.id, introduced);

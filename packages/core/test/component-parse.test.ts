@@ -729,6 +729,9 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
       'items'
     ]);
     expect(names('<script>let i = $state(0); for (let i = 0; i < 3; i++) {}</script>')).toEqual(['i']);
+    expect(
+      names('<script>let count = $state(0); function f(c) { if (c) { var count = 1; } count++; }</script>')
+    ).toEqual(['count']);
   });
 });
 
@@ -794,6 +797,19 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
     expect(names('<script>let { items } = $props(); if (true) { let items = []; items.push(1); }</script>')).toEqual(
       []
     );
+  });
+  it('does not flag a mutation of a var in a nested block, which shadows the prop for the whole function', () => {
+    expect(
+      names('<script>let { items } = $props(); function f(c) { if (c) { var items = []; } items.push(1); }</script>')
+    ).toEqual([]);
+    expect(
+      names('<script>let { items } = $props(); function f(c) { if (c) { let items = []; } items.push(1); }</script>')
+    ).toEqual(['items']);
+    expect(
+      names(
+        '<script>let { items } = $props(); function f() { const g = () => { var items = []; }; items.push(1); }</script>'
+      )
+    ).toEqual(['items']);
   });
   it('does not flag a mutation of a for-loop variable that shadows the prop (issue #140)', () => {
     expect(

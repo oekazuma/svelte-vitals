@@ -334,6 +334,20 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
     expect(f.importedStateWrites).toEqual([]);
     expect(f.importedStateWritesOutsideHandlers).toEqual([]);
   });
+  it('does not flag a write to a var in a nested block of the handler, which shadows the import for the whole function', () => {
+    const src = [
+      "import { state } from './shared.js';",
+      'export function load({ fresh }) {',
+      '  if (fresh) { var state = {}; }',
+      '  state.x = 1;',
+      '}',
+      'export function GET({ fresh }) {',
+      '  if (fresh) { let state = {}; }',
+      '  state.y = 1;',
+      '}'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([{ name: 'state', line: 8, via: 'assignment' }]);
+  });
   it('does not flag .set/.update on package or $lib/server imports (DB/KV clients)', () => {
     const src = [
       "import { db } from '$lib/server/db';",
