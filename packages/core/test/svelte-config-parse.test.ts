@@ -627,7 +627,7 @@ describe('svelte-config path values', () => {
     expect(findKitAliasesInSvelteConfig('export default { other: 1 };')).toEqual({ entries: [] });
   });
 
-  it('drops . and empty segments, folds each .. into its parent, and drops every trailing slash', () => {
+  it('drops . and empty segments, folds each .. into its parent, drops every trailing slash and keeps an absolute root', () => {
     expect(
       [
         '././src/lib',
@@ -640,9 +640,33 @@ describe('svelte-config path values', () => {
         'a/../../z',
         '../../z',
         '/opt/../x',
-        '/../x'
+        '/../x',
+        '/',
+        '/opt/..',
+        'src/..//lib',
+        './/src',
+        'C:\\x\\..\\y',
+        'C:/..'
       ].map(normalizeAliasValue)
-    ).toEqual(['src/lib', 'src/lib', 'a/b', 'src/lib', 'a/b', 'b', '../x/y', '../z', '../../z', '/x', '/x']);
+    ).toEqual([
+      'src/lib',
+      'src/lib',
+      'a/b',
+      'src/lib',
+      'a/b',
+      'b',
+      '../x/y',
+      '../z',
+      '../../z',
+      '/x',
+      '/x',
+      '/',
+      '/',
+      'lib',
+      'src',
+      'C:/y',
+      'C:/'
+    ]);
   });
 });
 

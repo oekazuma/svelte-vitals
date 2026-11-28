@@ -236,21 +236,22 @@ export function findKitAliasesInSvelteConfig(source: string): RawKitAliases {
  * The normalisation Kit applies to an alias value — `posixify`, then a trailing `/*` stripped —
  * plus what Kit gets for free from `path.resolve` and this parser does not (it works in
  * project-relative strings and never resolves): `.` and empty segments dropped, each `..` folded
- * into its parent, no trailing slash. Without it a textual prefix check (`libServerRoot`, the
+ * into its parent, no trailing slash, and an absolute path's root (`/`, `C:/`) kept. Without it a textual prefix check (`libServerRoot`, the
  * workspace `node_modules` link) misses an equal path. Applied to the `$lib` entry too, which Kit
  * builds with neither of the first two steps: `kit.files.lib` is a user-written string with the
  * same irregularities available to it.
  */
 export function normalizeAliasValue(value: string): string {
   const posix = value.replace(/\\/g, '/');
+  const path = posix.endsWith('/*') ? posix.slice(0, -2) : posix;
+  const root = /^(?:[A-Za-z]:)?\//.exec(path)?.[0] ?? '';
   const out: string[] = [];
-  for (const seg of (posix.endsWith('/*') ? posix.slice(0, -2) : posix).split('/')) {
-    const last = out[out.length - 1];
-    if (seg === '.' || (seg === '' && last !== undefined) || (seg === '..' && last === '')) continue;
-    if (seg === '..' && last !== undefined && last !== '..') out.pop();
+  for (const seg of path.slice(root.length).split('/')) {
+    if (seg === '' || seg === '.' || (seg === '..' && root !== '' && out.length === 0)) continue;
+    if (seg === '..' && out.length > 0 && out[out.length - 1] !== '..') out.pop();
     else out.push(seg);
   }
-  return out.join('/');
+  return root + out.join('/');
 }
 
 /**
