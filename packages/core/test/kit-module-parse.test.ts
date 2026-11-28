@@ -1671,6 +1671,11 @@ describe('parseKitModuleFacts — loadNeverRenders edges', () => {
       never("  if (Math.random() > 0.5) {\n    var redirect = log;\n  }\n  redirect(307, '/a');").loadNeverRenders
     ).toBeUndefined();
     expect(never("  for (var redirect of []);\n  redirect(307, '/a');").loadNeverRenders).toBeUndefined();
+    expect(never("  {\n    var { redirect } = obj;\n  }\n  redirect(307, '/a');").loadNeverRenders).toBeUndefined();
+    expect(
+      never('  go();', "function go() {\n  {\n    var redirect = log;\n  }\n  redirect(307, '/a');\n}\n")
+        .loadNeverRenders
+    ).toBeUndefined();
     expect(never("  {\n    let redirect = log;\n  }\n  redirect(307, '/a');").loadNeverRenders).toBe(true);
     expect(never("  const f = () => {\n    var redirect = log;\n  };\n  redirect(307, '/a');").loadNeverRenders).toBe(
       true
