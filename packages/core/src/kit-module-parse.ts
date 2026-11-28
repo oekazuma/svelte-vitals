@@ -4,6 +4,7 @@ import {
   unwrapExport,
   unwrapTs,
   addBoundNames,
+  hoistedVarNames,
   scopeIntroducedNames,
   rootObjectName,
   WALK_IGNORED_KEYS,
@@ -414,20 +415,6 @@ function containsReturn(node: Node): boolean {
   if (!node || typeof node !== 'object' || typeof node.type !== 'string' || isFunctionNode(node)) return false;
   if (node.type === 'ReturnStatement') return true;
   return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && containsReturn(node[key]));
-}
-
-/** The names a `var` anywhere in a function body binds for all of it, outside nested functions and static blocks. */
-function hoistedVarNames(node: Node, acc = new Set<string>()): Set<string> {
-  if (Array.isArray(node)) {
-    for (const n of node) hoistedVarNames(n, acc);
-    return acc;
-  }
-  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return acc;
-  if (isFunctionNode(node) || node.type === 'StaticBlock') return acc;
-  if (node.type === 'VariableDeclaration' && node.kind === 'var')
-    for (const d of node.declarations ?? []) addBoundNames(d?.id, acc);
-  for (const key of Object.keys(node)) if (!WALK_IGNORED_KEYS.has(key)) hoistedVarNames(node[key], acc);
-  return acc;
 }
 
 type Frame = { seen: Set<Node>; observed: boolean };

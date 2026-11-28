@@ -11,7 +11,7 @@ Flags a mutation of a value destructured from `$props()` that is not declared `$
 
 Plain reassignment of the prop itself (`count = 5`) is **not** flagged: Svelte's docs explicitly sanction temporary reassignment for unsaved ephemeral state. Only mutation is prohibited.
 
-A local reusing the prop's name shadows it and is not the prop at all, so mutating it is not flagged: a function or arrow parameter, a block-scoped `let`/`const` redeclaration, a `for`/`for-of`/`for-in` loop variable, a `catch` parameter, or a `{#each ... as x}` variable.
+A local reusing the prop's name shadows it and is not the prop at all, so mutating it is not flagged: a function or arrow parameter, a block-scoped `let`/`const` redeclaration, a `var` anywhere in a function (it binds the whole function), a `for`/`for-of`/`for-in` loop variable, a `catch` parameter, or a `{#each ... as x}` variable.
 
 `{#snippet}`/`{:then}`/`{:catch}` bindings are not tracked and could still produce a false positive. This is a deliberately partial mitigation, not full scope resolution.
 
